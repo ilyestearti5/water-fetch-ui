@@ -1,0 +1,676 @@
+{
+  "data": {
+    "ar->add": {
+      "value": "إضافة"
+    },
+    "ar->add-client": {
+      "value": "إضافة عميل"
+    },
+    "ar->add-new-facture": {
+      "value": "إضافة فواتير جديدة"
+    },
+    "ar->add-new-product": {
+      "value": "إضافة منتج جديد"
+    },
+    "ar->add-new-supplier": {
+      "value": "إضافة مورد جديد"
+    },
+    "ar->calculate-zakat": {
+      "value": "احسب الزكاة"
+    },
+    "ar->change": {
+      "value": "التغيير"
+    },
+    "ar->Choise-Image": {
+      "value": "اختيار الصورة"
+    },
+    "ar->clear": {
+      "value": "واضح"
+    },
+    "ar->clear-all": {
+      "value": "امسح الكل"
+    },
+    "ar->client-id": {
+      "value": "معرف العميل"
+    },
+    "ar->client-ids": {
+      "value": "معرفات العميل"
+    },
+    "ar->client-n°": {
+      "value": "رقم العميل"
+    },
+    "ar->clients": {
+      "value": "عملاء"
+    },
+    "ar->close-session": {
+      "value": "إغلاق الجلسة"
+    },
+    "ar->codes": {
+      "value": "رموز"
+    },
+    "ar->colors": {
+      "value": "الوان"
+    },
+    "ar->commands": {
+      "value": "الأوامر"
+    },
+    "ar->count": {
+      "value": "عد"
+    },
+    "ar->create-at": {
+      "value": "أنشئ في"
+    },
+    "ar->create-new-product": {
+      "value": "إنشاء منتج جديد"
+    },
+    "ar->created-at": {
+      "value": "أنشئ في"
+    },
+    "ar->Data-Base": {
+      "value": "قاعدة بيانات"
+    },
+    "ar->desc": {
+      "value": "الوصف"
+    },
+    "ar->description": {
+      "value": "الوصف"
+    },
+    "ar->deshboard": {
+      "value": "لوحة القيادة"
+    },
+    "ar->done": {
+      "value": "تم"
+    },
+    "ar->done-at": {
+      "value": "تمت في"
+    },
+    "ar->email": {
+      "value": "البريد الإلكتروني"
+    },
+    "ar->facebook-not-defined": {
+      "value": "facebook غير معرفة"
+    },
+    "ar->facture-n°": {
+      "value": "رقم الفاتورة"
+    },
+    "ar->feedbacks-and-about": {
+      "value": "ردود الفعل وحول"
+    },
+    "ar->for-create-one": {
+      "value": "لطلب واحدة"
+    },
+    "ar->found": {
+      "value": "مُستَخرَج"
+    },
+    "ar->fuateurs": {
+      "value": "المتابعون"
+    },
+    "ar->full-name": {
+      "value": "الاسم الكامل"
+    },
+    "ar->get-start": {
+      "value": "ابدأ"
+    },
+    "ar->home": {
+      "value": "الصفحة الرئيسية"
+    },
+    "ar->i'm-give-the-author": {
+      "value": "أنا أعطي المؤلف"
+    },
+    "ar->icons": {
+      "value": "الأيقونات"
+    },
+    "ar->id": {
+      "value": "هوية"
+    },
+    "ar->insert-new-product": {
+      "value": "إدراج منتج جديد"
+    },
+    "ar->keyboard-shortcuts": {
+      "value": "اختصارات لوحة المفاتيح"
+    },
+    "ar->keyboardShortcuts": {
+      "value": "اختصارات لوحة المفاتيح"
+    },
+    "ar->latest-price": {
+      "value": "آخر سعر"
+    },
+    "ar->load-extra-files": {
+      "value": "تحميل ملفات إضافية"
+    },
+    "ar->loading": {
+      "value": "تحميل"
+    },
+    "ar->log-out": {
+      "value": "تسجيل الخروج"
+    },
+    "ar->maximum-price": {
+      "value": "الحد الأقصى للسعر"
+    },
+    "ar->name": {
+      "value": "الاسم"
+    },
+    "ar->no-base-url-choised": {
+      "value": "لا يوجد اختيارات لقاعدة URL"
+    },
+    "ar->no-client-focused": {
+      "value": "لا يمكن التركيز على العميل"
+    },
+    "ar->no-clients-created-click-in-add-button": {
+      "value": "لا يوجد عملاء أنشأوا، انقر فوق إضافة زر"
+    },
+    "ar->no-image": {
+      "value": "لا توجد صورة"
+    },
+    "ar->no-markdown-content": {
+      "value": "لا يوجد محتوى تخفيض"
+    },
+    "ar->no-name-defined": {
+      "value": "لم يُحدد أي اسم"
+    },
+    "ar->no-product-choised": {
+      "value": "لم يتم اختيار منتج"
+    },
+    "ar->no-product-selected": {
+      "value": "لم يتم اختيار منتج"
+    },
+    "ar->no-result": {
+      "value": "لا يوجد نتيجة"
+    },
+    "ar->no-suggestions": {
+      "value": "لا يوجد اقتراحات"
+    },
+    "ar->no-supplier-choised": {
+      "value": "لم يتم اختيار مورد"
+    },
+    "ar->notifications": {
+      "value": "الإشعارات"
+    },
+    "ar->open-exsiting-store": {
+      "value": "فتح متجر موجود"
+    },
+    "ar->open-new-store": {
+      "value": "فتح مخزن جديد"
+    },
+    "ar->open-notifications-view": {
+      "value": "عرض إشعارات مفتوحة"
+    },
+    "ar->or-press": {
+      "value": "أو اضغط"
+    },
+    "ar->pannel-save-view": {
+      "value": "حفظ عرض لوحة"
+    },
+    "ar->partage-store": {
+      "value": "مخزن المشاركة"
+    },
+    "ar->pay": {
+      "value": "ادفع"
+    },
+    "ar->payment": {
+      "value": "دفع"
+    },
+    "ar->payment-": {
+      "value": "الدفع"
+    },
+    "ar->payments": {
+      "value": "المدفوعات"
+    },
+    "ar->press-?-for-help": {
+      "value": "اضغط؟ للمساعدة"
+    },
+    "ar->price": {
+      "value": "السعر"
+    },
+    "ar->price-for-one": {
+      "value": "السعر لوحدة واحدة"
+    },
+    "ar->print": {
+      "value": "طباعة"
+    },
+    "ar->privacy": {
+      "value": "الخصوصية"
+    },
+    "ar->private": {
+      "value": "خاص"
+    },
+    "ar->products": {
+      "value": "المنتجات"
+    },
+    "ar->public": {
+      "value": "عام"
+    },
+    "ar->reload-window": {
+      "value": "إعادة تحميل النافذة"
+    },
+    "ar->reset": {
+      "value": "تعيين القيم الافتراضية"
+    },
+    "ar->reset-base-url": {
+      "value": "إعادة تعيين عنوان URL الأساسي"
+    },
+    "ar->save-changes": {
+      "value": "حفظ التغييرات"
+    },
+    "ar->save-pannel": {
+      "value": "حفظ اللوحة"
+    },
+    "ar->search-a-product-by-name-or-search-using-@": {
+      "value": "ابحث عن منتج بالاسم أو ابحث باستخدام @"
+    },
+    "ar->search-a-product-by-prod-id-or-search-using-@": {
+      "value": "ابحث عن منتج بواسطة معرف المنتج أو ابحث باستخدام @"
+    },
+    "ar->search-a-supplier": {
+      "value": "البحث عن مورد"
+    },
+    "ar->search-by-client-id-or-press-@-and-write-but-what-you-want": {
+      "value": "ابحث عن طريق معرف العميل أو اضغط على @ واكتب ما تريده"
+    },
+    "ar->search-user-in-list": {
+      "value": "البحث عن المستخدم في القائمة"
+    },
+    "ar->see-your-store": {
+      "value": "انظر إلى متجرك"
+    },
+    "ar->sigin": {
+      "value": "تسجيل الدخول"
+    },
+    "ar->static": {
+      "value": "ساكن"
+    },
+    "ar->status": {
+      "value": "الحالة"
+    },
+    "ar->submit": {
+      "value": "إرسال"
+    },
+    "ar->supplier": {
+      "value": "المورد"
+    },
+    "ar->system Configurations": {
+      "value": "تكوينات النظام"
+    },
+    "ar->System-Configurations": {
+      "value": "تكوينات النظام"
+    },
+    "ar->test": {
+      "value": "اختبار"
+    },
+    "ar->the-return": {
+      "value": "العودة"
+    },
+    "ar->toggle-camera": {
+      "value": "تنقل الكاميرا"
+    },
+    "ar->toggle-fullscreen": {
+      "value": "التبديل إلى ملء الشاشة"
+    },
+    "ar->toggle-to-dark": {
+      "value": "الانتقال إلى الوضع الداكن"
+    },
+    "ar->toggle-to-light": {
+      "value": "التبديل إلى الإضاءة"
+    },
+    "ar->total-price": {
+      "value": "السعر الإجمالي"
+    },
+    "ar->un-payments": {
+      "value": "مدفوعات الأمم المتحدة"
+    },
+    "ar->update": {
+      "value": "تحديث"
+    },
+    "ar->upload": {
+      "value": "تحميل"
+    },
+    "ar->user": {
+      "value": "مستخدم"
+    },
+    "ar->view-profile": {
+      "value": "عرض الملف الشخصي"
+    },
+    "ar->view-settings": {
+      "value": "إعدادات العرض"
+    },
+    "ar->visited": {
+      "value": "تمت الزيارة"
+    },
+    "ar->welcome": {
+      "value": "مرحباً"
+    },
+    "ar->win-detection": {
+      "value": "كشف الانتصار"
+    },
+    "ar->write-code-and-start-your-app": {
+      "value": "اكتب رمز وابدأ تطبيقك"
+    },
+    "ar->your-starts": {
+      "value": "تقييم"
+    },
+    "ar->مستخدم": {
+      "value": "مستعمل"
+    },
+    "fr->add": {
+      "value": "ajouter"
+    },
+    "fr->add-client": {
+      "value": "ajouter un client"
+    },
+    "fr->add-new-facture": {
+      "value": "ajouter nouvelle facture"
+    },
+    "fr->add-new-product": {
+      "value": "ajouter un nouveau produit"
+    },
+    "fr->add-new-supplier": {
+      "value": "Ajouter un nouveau fournisseur"
+    },
+    "fr->calculate-zakat": {
+      "value": "calculer la zakat"
+    },
+    "fr->clear": {
+      "value": "clair"
+    },
+    "fr->clear-all": {
+      "value": "tout effacer"
+    },
+    "fr->client-id": {
+      "value": "ID client"
+    },
+    "fr->client-ids": {
+      "value": "identifiants de client"
+    },
+    "fr->client-n°": {
+      "value": "Client n°"
+    },
+    "fr->clients": {
+      "value": "clients"
+    },
+    "fr->close-session": {
+      "value": "fermer la session"
+    },
+    "fr->codes": {
+      "value": "codes"
+    },
+    "fr->colors": {
+      "value": "couleurs"
+    },
+    "fr->count": {
+      "value": "compter"
+    },
+    "fr->create-at": {
+      "value": "créer à"
+    },
+    "fr->create-new-product": {
+      "value": "Créer un nouveau produit"
+    },
+    "fr->created-at": {
+      "value": "créé à"
+    },
+    "fr->ctrl": {
+      "value": "ctrl"
+    },
+    "fr->desc": {
+      "value": "desc"
+    },
+    "fr->deshboard": {
+      "value": "Tableau de bord"
+    },
+    "fr->done-at": {
+      "value": "fait à"
+    },
+    "fr->email": {
+      "value": "courriel"
+    },
+    "fr->facebook-not-defined": {
+      "value": "facebook non défini"
+    },
+    "fr->facture-n°": {
+      "value": " facture nº"
+    },
+    "fr->feedbacks-and-about": {
+      "value": "retours et à propos"
+    },
+    "fr->for-create-one": {
+      "value": "pour en créer une"
+    },
+    "fr->found": {
+      "value": "trouvé"
+    },
+    "fr->fuateurs": {
+      "value": "followers"
+    },
+    "fr->full-name": {
+      "value": "Nom complet"
+    },
+    "fr->get-start": {
+      "value": "Commencer"
+    },
+    "fr->home": {
+      "value": "Accueil"
+    },
+    "fr->i'm-give-the-author": {
+      "value": "Je donne à l'auteur"
+    },
+    "fr->icons": {
+      "value": "icônes"
+    },
+    "fr->id": {
+      "value": "idientifiant"
+    },
+    "fr->insert-new-product": {
+      "value": "insérer nouveau produit"
+    },
+    "fr->keyboard-shortcuts": {
+      "value": "raccourcis clavier"
+    },
+    "fr->keyboardShortcuts": {
+      "value": "raccourcis clavier"
+    },
+    "fr->latest-price": {
+      "value": "dernier prix"
+    },
+    "fr->load-extra-files": {
+      "value": "charger des fichiers supplémentaires"
+    },
+    "fr->loading": {
+      "value": "Chargement"
+    },
+    "fr->log-out": {
+      "value": "se déconnecter"
+    },
+    "fr->maximum-price": {
+      "value": "prix maximum"
+    },
+    "fr->name": {
+      "value": "Nom"
+    },
+    "fr->no-base-url-choised": {
+      "value": "aucune URL de base choisie"
+    },
+    "fr->no-client-focused": {
+      "value": "pas axée sur le client"
+    },
+    "fr->no-clients-created-click-in-add-button": {
+      "value": "Aucun client n'a été créé. Cliquez sur le bouton Ajouter."
+    },
+    "fr->no-image": {
+      "value": "pas d’image"
+    },
+    "fr->no-image-selected": {
+      "value": "Aucune image sélectionnée"
+    },
+    "fr->no-markdown-content": {
+      "value": "pas de contenu markdown"
+    },
+    "fr->no-name-defined": {
+      "value": "aucun nom défini"
+    },
+    "fr->no-product-choised": {
+      "value": "aucun produit choisi"
+    },
+    "fr->no-result": {
+      "value": "aucun résultat"
+    },
+    "fr->no-suggestions": {
+      "value": "pas de suggestions"
+    },
+    "fr->no-supplier-choised": {
+      "value": "aucun fournisseur choisi"
+    },
+    "fr->notifications": {
+      "value": "notifications"
+    },
+    "fr->open-exsiting-store": {
+      "value": "Ouvrir un magasin existant"
+    },
+    "fr->open-new-store": {
+      "value": "ouvrir un nouveau magasin"
+    },
+    "fr->open-notifications-view": {
+      "value": "ouvrir l'affichage des notifications"
+    },
+    "fr->or-press": {
+      "value": "ou appuyez"
+    },
+    "fr->pannel-save-view": {
+      "value": "vue Enreg. tableau"
+    },
+    "fr->partage-store": {
+      "value": "partage de magasin"
+    },
+    "fr->pay": {
+      "value": "paiement"
+    },
+    "fr->payment": {
+      "value": "paiement"
+    },
+    "fr->payment-": {
+      "value": "paiement"
+    },
+    "fr->payments": {
+      "value": "paiements"
+    },
+    "fr->permession-for-access-the Cash Stock Management (capabilitéToAccessAllStoreForAuthor)": {
+      "value": "demande d'accès au module Gestion de Stocks en caisse (capacité à accéder à tous les magasins pour l'auteur)"
+    },
+    "fr->permession-for-access-the-Cash-Stock-Management-(capabilité-to-access-all-store-for-author)": {
+      "value": "autorisation d'accès à la Gestion des stocks de trésorerie (capacité d'accès à tous les magasins pour l'auteur)"
+    },
+    "fr->press-?-for-help": {
+      "value": "appuyez sur ? pour obtenir de l'aide"
+    },
+    "fr->price": {
+      "value": "prix"
+    },
+    "fr->price-for-one": {
+      "value": "prix pour un seul"
+    },
+    "fr->privacy": {
+      "value": "confidentialité"
+    },
+    "fr->private": {
+      "value": "privé"
+    },
+    "fr->products": {
+      "value": "produits"
+    },
+    "fr->public": {
+      "value": "publique"
+    },
+    "fr->reload-window": {
+      "value": "recharger la fenêtre"
+    },
+    "fr->reset": {
+      "value": "réinitialiser"
+    },
+    "fr->reset-base-url": {
+      "value": "réinitialiser l'URL de base"
+    },
+    "fr->save-changes": {
+      "value": "enregistrer les modifications"
+    },
+    "fr->search-a-product-by-prod-id-or-search-using-@": {
+      "value": "Rechercher un produit par réf. produit ou effectuer une recherche en utilisant @"
+    },
+    "fr->search-a-supplier": {
+      "value": "rechercher un fournisseur"
+    },
+    "fr->search-by-client-id-or-press-@-and-write-but-what-you-want": {
+      "value": "Rechercher par ID client ou appuyez sur @ et écrivez le nom désiré"
+    },
+    "fr->search-keyboard-shortcuts-in-list": {
+      "value": "rechercher des raccourcis clavier dans la liste"
+    },
+    "fr->search-user-in-list": {
+      "value": "recherche utilisateur dans la liste"
+    },
+    "fr->see-your-store": {
+      "value": "voir votre boutique"
+    },
+    "fr->shift": {
+      "value": "Maj"
+    },
+    "fr->static": {
+      "value": "statique"
+    },
+    "fr->status": {
+      "value": "statut"
+    },
+    "fr->submit": {
+      "value": "envoyer"
+    },
+    "fr->supplier": {
+      "value": "fournisseur"
+    },
+    "fr->test": {
+      "value": "test"
+    },
+    "fr->the-return": {
+      "value": "le retour"
+    },
+    "fr->toggle-fullscreen": {
+      "value": "passer en plein écran"
+    },
+    "fr->toggle-to-dark": {
+      "value": "basculer vers noir"
+    },
+    "fr->toggle-to-light": {
+      "value": "passer en clair"
+    },
+    "fr->total-price": {
+      "value": "prix total"
+    },
+    "fr->un-payments": {
+      "value": "paiements en un"
+    },
+    "fr->update": {
+      "value": "mettre à jour"
+    },
+    "fr->user": {
+      "value": "utilisateur"
+    },
+    "fr->utilisateur": {
+      "value": "utilisateur"
+    },
+    "fr->view-settings": {
+      "value": "Afficher les paramètres"
+    },
+    "fr->visited": {
+      "value": "visité"
+    },
+    "fr->welcome": {
+      "value": "bienvenue"
+    },
+    "fr->win-detection": {
+      "value": "détection de la victoire"
+    },
+    "fr->write-code-and-start-your-app": {
+      "value": "écrivez le code pour lancer votre application"
+    },
+    "fr->your-starts": {
+      "value": "vos débuts"
+    }
+  }
+}

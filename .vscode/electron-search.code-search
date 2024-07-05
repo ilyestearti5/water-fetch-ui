@@ -1,0 +1,87 @@
+# Query: "electron"|"node:(path|fs|fs/promises)"|require\\(
+# Flags: RegExp
+# Including: ./src/**/*.{ts,tsx}
+
+40 results - 21 files
+
+src/files.ts:
+  1: import { rm, mkdir } from "node:fs/promises";
+
+src/Components/initing.tsx:
+    5: import PATH from "node:path";
+    6: import FS from "node:fs/promises";
+    7: import FSSync from "node:fs";
+   23: import { shell } from "electron";
+  288:           moduleRequired = require(ext.path);
+
+src/Components/App/Configurations/Extensions.tsx:
+  1: import FS from "node:fs/promises";
+
+src/Components/App/Header/CenterWindowDrag.tsx:
+  2: import PATH from "node:path";
+
+src/Components/App/Main/App.tsx:
+  5: import FS from "node:fs/promises";
+
+src/Components/App/Main/AppInited.tsx:
+   4: import PATH from "node:path";
+   5: import FS from "node:fs/promises";
+   6: import FSSync from "node:fs";
+  20: import { ipcRenderer, shell } from "electron";
+
+src/Components/App/Main/ExtensionView.tsx:
+   1: import FS from "node:fs/promises";
+  17: import { shell } from "electron";
+
+src/Components/App/Main/initGlobalActions.tsx:
+  3: import { ipcRenderer } from "electron";
+
+src/Components/App/Main/PDFView.tsx:
+  1: import FS from "node:fs/promises";
+
+src/Components/App/Main/StoreForm.tsx:
+  1: import FSAsync from "node:fs/promises";
+  2: import FSSync from "node:fs";
+
+src/Components/App/Sides/Logs.tsx:
+  1: import { writeFile } from "node:fs/promises";
+
+src/Components/App/Views/Products/Side/ProductsSide.tsx:
+  13: import { readFile } from "node:fs/promises";
+
+src/Components/Feilds/FileFeild.tsx:
+  1: import FS from "node:fs";
+
+src/data/pkg/electron.table.def.ts:
+  1: import FS from "node:fs/promises";
+  2: import FSSync from "node:fs";
+  3: import PATH from "node:path";
+
+src/data/system/actions.model.ts:
+  7: import { ipcRenderer } from "electron";
+
+src/functions/electron/electron-utils.ts:
+  1: import { app, ipcRenderer, shell } from "electron";
+  5: import fs from "node:fs/promises";
+  6: import fsSync from "node:fs";
+  8: import path from "node:path";
+
+src/pages/main/index.tsx:
+  19:   const vfs_fonts = require("pdfmake/build/vfs_fonts");
+  22:   defineGlobal("electron", electronApi);
+
+src/reducers/Command/Commands.tsx:
+   1: import FS from "node:fs/promises";
+   2: import PATH from "node:path";
+  24: import { shell } from "electron";
+
+src/reducers/Object/object.slice.ts:
+   6: import FSSync from "node:fs";
+   7: import FS from "node:fs/promises";
+  13: import { ipcRenderer } from "electron";
+
+src/reducers/Object/Temp.ts:
+  1: import FS from "node:fs/promises";
+
+src/reducers/Settings/SettingConfig.ts:
+  1: import { OpenDialogOptions } from "electron";

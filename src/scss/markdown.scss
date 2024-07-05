@@ -1,0 +1,18 @@
+.markdown {
+  code {
+    @apply px-2 rounded-md inline-block text-sm;
+  }
+  table {
+    @apply border border-solid border-transparent my-2;
+    th {
+      @apply text-left;
+    }
+    td,
+    th {
+      @apply border border-solid border-transparent p-3;
+    }
+    tr {
+      @apply even:bg-opacity-10;
+    }
+  }
+}

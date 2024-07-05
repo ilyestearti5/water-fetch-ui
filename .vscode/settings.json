@@ -1,0 +1,28 @@
+{
+  "workbench.colorCustomizations": {},
+  "emojisense.languages": {
+    "typescript": true,
+    "typescriptreact": true,
+    "javascript": true,
+    "javascriptreact": true,
+    "markdown": true,
+    "plaintext": {
+      "markupCompletionsEnabled": false,
+      "emojiDecoratorsEnabled": false
+    },
+    "scminput": true,
+    "git-commit": true
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "window.titleSeparator": " - ",
+  "window.zoomLevel": 0,
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "iconClassName",
+    "iconClass"
+  ]
+}
