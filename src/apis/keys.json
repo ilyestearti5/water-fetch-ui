@@ -1,6 +1,41 @@
 {
   "data": [
     {
+      "command": "dialog.goToNextButton",
+      "value": "arrowdown",
+      "when": "state.object.data.dialog.id"
+    },
+    {
+      "command": "dialog.goToNextButton",
+      "value": "arrowright",
+      "when": "state.object.data.dialog.id"
+    },
+    {
+      "command": "dialog.goToPreviousButton",
+      "value": "arrowleft",
+      "when": "state.object.data.dialog.id"
+    },
+    {
+      "command": "dialog.goToPreviousButton",
+      "value": "arrowup",
+      "when": "state.object.data.dialog.id"
+    },
+    {
+      "command": "dialog.escape",
+      "value": "escape",
+      "when": "state.object.data.dialog.id"
+    },
+    {
+      "command": "dialog.clickOnButton",
+      "value": "enter",
+      "when": "state.object.data.dialog.id"
+    },
+    {
+      "command": "dialog.clickOnButton",
+      "value": "space",
+      "when": "state.object.data.dialog.id"
+    },
+    {
       "command": "settings.colors.show",
       "value": "control+shift+c",
       "when": "state.views.entities.settings.focused == 'colors'"
@@ -132,6 +167,10 @@
     {
       "command": "view.leftSide.toggle",
       "value": "control+b"
+    },
+    {
+      "command": "view.rightSide.toggle",
+      "value": "control+alt+b"
     },
     {
       "command": "view.settings.show",

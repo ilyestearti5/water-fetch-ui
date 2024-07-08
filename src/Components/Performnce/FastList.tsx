@@ -72,7 +72,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
         return;
       }
       const h = ele.getBoundingClientRect().height;
-      h != height.get && height.set(h);
+      height.set(h);
     };
     callback();
     const time = setInterval(callback, 1000);
@@ -131,93 +131,96 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
   const isScrollAnimation = getSettingValue("window/scroll/animation.boolean");
   const Item = React.useMemo(() => component, []);
   return (
-    <Focus
-      focusId={focusId}
-      className={"h-full w-full overflow-hidden relative"}
-      ignoreOutline={typeof focused == "number"}
-      onWheel={(e) => {
-        if (heightPercantage < 100) {
-          let speed = false;
-          if (speedKey == "alt") {
-            speed = e.altKey;
-          } else if (speedKey == "control") {
-            speed = e.ctrlKey;
-          } else if (speedKey == "shift") {
-            speed = e.shiftKey;
-          }
-          scrollingUsingBar.set(true);
-          scroll.set((s) => {
-            s += e.deltaY * (speed ? 0.6 : 0.1);
-            if (s < 0) {
-              return 0;
+    <Focus focusId={focusId} className="w-full h-full" ignoreOutline={typeof focused == "number"} id={slotId}>
+      <ChangableComponent
+        onContentChange={(props) => {
+          height.set(props.height);
+        }}
+        className="relative overflow-hidden"
+        onWheel={(e) => {
+          if (heightPercantage < 100) {
+            let speed = false;
+            if (speedKey == "alt") {
+              speed = e.altKey;
+            } else if (speedKey == "control") {
+              speed = e.ctrlKey;
+            } else if (speedKey == "shift") {
+              speed = e.shiftKey;
             }
-            return Math.min(s, (data.length + countLastItems) * itemSize - height.get);
-          });
-        }
-      }}
-    >
-      <div
-        className={tw(`absolute inset-x-0`, isScrollAnimation && "transition-[top,left]")}
-        style={{
-          top: -scroll.get,
-          height: maxHeight,
+            scrollingUsingBar.set(true);
+            scroll.set((s) => {
+              s += e.deltaY * (speed ? 0.6 : 0.1);
+              if (s < 0) {
+                return 0;
+              }
+              return Math.min(s, (data.length + countLastItems) * itemSize - height.get);
+            });
+          }
         }}
       >
-        {data.map((item, index) => {
-          const position = itemSize * index;
-          const val = position - scroll.get;
-          if (isSorted(-(top + 1) * itemSize, val, val + itemSize, height.get + (bottom + 1) * itemSize)) {
-            const status = {
-              isFocused: index == slotConfig?.focused,
-              isSelected: Boolean(slotConfig?.selected?.[index]),
-              isSubmited: index == slotConfig?.submited,
-              isSkiped: Boolean(
-                handelSkip
-                  ? handelSkip({
-                      data: item,
-                      index,
-                    })
-                  : false,
-              ),
-            };
-            const style = {
-              height: itemSize,
-              position: "absolute" as const,
-              top: itemSize * index,
-              insetInline: "0px",
-            };
-            const handel = {
-              focus() {
-                slotHooks.setOneFeild(slotId, "focused", index);
-              },
-              select(only: boolean, v: boolean) {
-                if (only) {
-                  slotHooks.setOneFeild(slotId, "selected", {
-                    [index]: v,
-                  });
-                } else {
-                  if (!slotConfig?.selected) {
-                    return;
+        <div
+          className={tw(`absolute inset-x-0`, isScrollAnimation && "transition-[top,left]")}
+          style={{
+            top: -scroll.get,
+            height: maxHeight,
+          }}
+        >
+          {data.map((item, index) => {
+            const position = itemSize * index;
+            const val = position - scroll.get;
+            if (isSorted(-(top + 1) * itemSize, val, val + itemSize, height.get + (bottom + 1) * itemSize)) {
+              const status = {
+                isFocused: index == slotConfig?.focused,
+                isSelected: Boolean(slotConfig?.selected?.[index]),
+                isSubmited: index == slotConfig?.submited,
+                isSkiped: Boolean(
+                  handelSkip
+                    ? handelSkip({
+                        data: item,
+                        index,
+                      })
+                    : false,
+                ),
+              };
+              const style = {
+                height: itemSize,
+                position: "absolute" as const,
+                top: itemSize * index,
+                insetInline: "0px",
+              };
+              const handel = {
+                focus() {
+                  slotHooks.setOneFeild(slotId, "focused", index);
+                },
+                select(only: boolean, v: boolean) {
+                  if (only) {
+                    slotHooks.setOneFeild(slotId, "selected", {
+                      [index]: v,
+                    });
+                  } else {
+                    if (!slotConfig?.selected) {
+                      return;
+                    }
+                    slotHooks.setOneFeild(slotId, "selected", {
+                      ...slotConfig.selected,
+                      [index]: v,
+                    });
                   }
-                  slotHooks.setOneFeild(slotId, "selected", {
-                    ...slotConfig.selected,
-                    [index]: v,
-                  });
-                }
-              },
-              submit() {
-                slotHooks.setOneFeild(slotId, "submited", index);
-              },
-              skip(only: boolean, v: boolean) {
-                if (only) slotHooks.setOneFeild(slotId, "skiped", { [index]: v });
-              },
-            };
-            return <Item status={status} key={index} index={index} data={item} style={style} handel={handel} />;
-          }
-        })}
-      </div>
-      <ScrollShadow value={scroll.get} />
-      {heightPercantage <= 100 && <ScrollBar height={height.get} onChangeScrollBarValue={scroll.set} heightPercantage={heightPercantage} topScroll={topScroll} />}
+                },
+                submit() {
+                  slotHooks.setOneFeild(slotId, "submited", index);
+                },
+                skip(only: boolean, v: boolean) {
+                  if (only) slotHooks.setOneFeild(slotId, "skiped", { [index]: v });
+                },
+              };
+              return <Item status={status} key={index} index={index} data={item} style={style} handel={handel} />;
+            }
+          })}
+        </div>
+        {heightPercantage <= 100 && <ScrollBar height={height.get} onChangeScrollBarValue={scroll.set} heightPercantage={heightPercantage} topScroll={topScroll} />}
+        <ScrollShadow value={scroll.get} />
+      </ChangableComponent>
     </Focus>
   );
 }

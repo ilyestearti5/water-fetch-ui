@@ -5,7 +5,10 @@ import { useColorMerge } from "models/system/colors.model";
 import { isSorted } from "utils/index";
 import { tw } from "@/functions/react-utils";
 const leftSideVisibility = "visibility/leftSide.boolean";
-export const LeftSide = React.memo(() => {
+export interface LeftSideProps {
+  children?: React.ReactNode;
+}
+export const LeftSide = ({ children }: LeftSideProps) => {
   const visibility = getSettingValue(leftSideVisibility);
   const colorMerge = useColorMerge();
   return (
@@ -25,6 +28,7 @@ export const LeftSide = React.memo(() => {
           borderColor: "borders",
         }),
       }}
+      children={children}
     />
   );
-});
+};

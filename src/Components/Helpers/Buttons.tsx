@@ -83,8 +83,7 @@ export function Tip({
       className={tw(
         `
           rounded-md
-          w-[20px]
-          h-[20px]
+          p-1
           inline-flex
           items-center
           justify-center

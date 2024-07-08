@@ -1,5 +1,5 @@
 import React from "react";
-export type WindowsButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+export type WindowsButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 export const WindowsButton = ({ ...props }: WindowsButtonProps) => {
   return <span className="w-[40px] h-full inline-flex items-center justify-center transition-[background]" {...props} tabIndex={-1} />;
 };

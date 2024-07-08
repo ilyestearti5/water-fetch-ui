@@ -77,16 +77,13 @@
   },
   "license": "MIT",
   "main": "",
-  "name": "build-ecommerce",
-  "private": true,
+  "name": "@water-fetch/ui",
   "scripts": {
     "build": "tsc && vite build",
     "compile": "tsc && echo \"no problems has ben detected\"",
     "dev": "vite",
     "e2e": "playwright test",
     "lint": "eslint . --ext tsx,ts --fix",
-    "node:incVersion": "node ./commands/inc-version.js",
-    "node:printSize": "node ./commands/space.js",
     "pree2e": "vite build --mode=test",
     "prettier:format": "prettier --write ./",
     "preview": "vite preview"

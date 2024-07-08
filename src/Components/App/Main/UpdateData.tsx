@@ -1,40 +1,38 @@
-import { getTemp, setTemp } from "@/reducers/Object/object.slice";
 import { Delay } from "utils/index";
 import { setFocused } from "@/functions/react-utils";
 import { useCopyState } from "@/functions/react-utils";
-import { settingHooks, getSettingValue } from "@/reducers/Settings/settings.model";
-import { Tip } from "@/Components/Helpers/Buttons";
 import { execAction, useAction } from "models/system/actions.model";
 import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Feild as FeildProps, feildHooks } from "models/system/feild.model";
 import { useColorMerge } from "models/system/colors.model";
 import { Feild } from "Components/Feilds/Feild";
+import { CircleTip } from "@/Components/Helpers/Buttons";
 export interface UpdateDataProps {
   inputName: string;
-  visibilityId: `${string}.boolean`;
-  tempDirection: string;
-  focusAction: string;
-  escapeAction: string;
+  visibility: boolean;
+  setVisibility: (value: boolean) => void;
+  value: string;
+  setValue: (value: string) => void;
   defaultContent: string;
   controls?: FeildProps["controls"];
   placeholder?: string;
 }
-export function UpdateData({ inputName, defaultContent, escapeAction, focusAction, tempDirection, visibilityId, controls, placeholder }: UpdateDataProps) {
-  const updateInputContent = getSettingValue(visibilityId);
+export function UpdateData({ inputName, defaultContent, value, setValue, visibility, setVisibility, controls, placeholder }: UpdateDataProps) {
   //
-  const name = getTemp<string>(tempDirection);
   const error = useCopyState(false);
+  const focusAction = `focus-input-update-${inputName}`;
+  const escapeAction = `escape-input-update-${inputName}`;
   //
   useAction(
     focusAction,
     async () => {
-      settingHooks.setOneFeild(visibilityId, "value", true);
-      feildHooks.setOneFeild(inputName, "value", name || "");
+      setVisibility(true);
+      feildHooks.setOneFeild(inputName, "value", value || "");
       await new Delay().start(100);
       setFocused(inputName);
       (document.getElementById(inputName) as HTMLInputElement | null)?.select();
     },
-    [name],
+    [value, setVisibility],
   );
   const inputContent = feildHooks.getOneFeild(inputName, "value");
   useAction(
@@ -55,8 +53,8 @@ export function UpdateData({ inputName, defaultContent, escapeAction, focusActio
         setFocused(inputName);
         return;
       }
-      settingHooks.setOneFeild(visibilityId, "value", false);
-      setTemp(tempDirection, inputContent);
+      setVisibility(false);
+      setValue(inputContent);
     },
     [inputContent, controls],
   );
@@ -64,39 +62,44 @@ export function UpdateData({ inputName, defaultContent, escapeAction, focusActio
   return (
     <div className="p-2 group">
       <div className="flex items-center gap-1">
-        <span hidden={!!updateInputContent}>{name || defaultContent}</span>
-        <Feild
-          placeholder={placeholder}
-          controls={controls}
-          className="p-1"
-          inputName={inputName}
-          hidden={!updateInputContent}
-          onBlur={() => {
-            execAction(escapeAction, { save: true });
-          }}
-          style={{
-            ...colorMerge(error.get && { borderColor: "error" }),
-          }}
-          onKeyDown={(e) => {
-            e.key = e.key.toLowerCase();
-            if (["enter", "tab"].includes(e.key)) {
-              e.stopPropagation();
-              e.preventDefault();
-              e.currentTarget.blur();
-            }
-          }}
-        />
-        <Tip
-          className="group-hover:visible invisible"
-          icon={updateInputContent ? faXmark : faPen}
-          onPointerDown={() => {
-            if (!updateInputContent) {
-              execAction(focusAction);
-            } else {
+        <h1 className="truncate" hidden={!!visibility}>
+          {value || defaultContent}
+        </h1>
+        {visibility && (
+          <Feild
+            placeholder={placeholder}
+            controls={controls}
+            className="p-1"
+            inputName={inputName}
+            onBlur={() => {
               execAction(escapeAction);
-            }
-          }}
-        />
+            }}
+            style={{
+              ...colorMerge(error.get && { borderColor: "error" }),
+            }}
+            onKeyDown={(e) => {
+              e.key = e.key.toLowerCase();
+              if (["enter", "tab"].includes(e.key)) {
+                e.stopPropagation();
+                e.preventDefault();
+                e.currentTarget.blur();
+              }
+            }}
+          />
+        )}
+        <span>
+          <CircleTip
+            className="group-hover:visible invisible"
+            icon={visibility ? faXmark : faPen}
+            onPointerDown={() => {
+              if (!visibility) {
+                execAction(focusAction);
+              } else {
+                execAction(escapeAction);
+              }
+            }}
+          />
+        </span>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import Input from "../ReactComponentOnly/Input";
 import { getFocus } from "@/functions/react-utils";
 import { useColorMerge } from "models/system/colors.model";
-type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>
+type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
 // String Feild Rendering
 export function StringFeild({ state, config = {}, id }: StringFeildProps) {
   initNewFeild(`${id}:input`);

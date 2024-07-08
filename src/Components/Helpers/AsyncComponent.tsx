@@ -4,14 +4,15 @@ export interface AsyncComponentProps {
   render: () => Promise<JSX.Element>;
   error?: JSX.Element;
   loading?: JSX.Element;
+  deps?: any[];
 }
-export function AsyncComponent({ render, error = <EmptyComponent />, loading = <EmptyComponent /> }: AsyncComponentProps) {
+export function AsyncComponent({ render, error = <EmptyComponent />, deps = [], loading = <EmptyComponent /> }: AsyncComponentProps) {
   const result = useAsyncMemo(async () => {
     try {
       return await render();
     } catch {
       return error;
     }
-  }, [render, error, loading]);
+  }, [render, error, loading, ...deps]);
   return <EmptyComponent>{result ?? loading}</EmptyComponent>;
 }

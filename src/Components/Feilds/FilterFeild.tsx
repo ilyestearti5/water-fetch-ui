@@ -11,7 +11,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 //
 const filterPrefixSlotId = (id: string) => `filter_${id}`;
 //
-type FilterFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["filter"]>
+type FilterFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["filter"]>;
 //
 export function FilterFeild({ id, config = {}, state }: FilterFeildProps) {
   const slotId = filterPrefixSlotId(id);

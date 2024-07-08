@@ -22,7 +22,7 @@ export const dateToStringForInput = (date: Date, to: SettingConfig["date"]["form
   }
 };
 
-type DateFeildProps = FeildGeneralProps<SettingValueType["date"] | undefined, SettingConfig["date"]>
+type DateFeildProps = FeildGeneralProps<SettingValueType["date"] | undefined, SettingConfig["date"]>;
 //
 export function DateFeild({ state, config = {}, id }: DateFeildProps) {
   const colorMerge = useColorMerge(),

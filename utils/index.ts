@@ -40,7 +40,7 @@ export function camelCase(...string: string[]) {
     .join(" ")
     .replaceAll(
       / +[a-zA-Z]/g,
-      (s) => `${s.match(/[a-z]/gi)?.[0].toUpperCase()}`
+      (s) => `${s.match(/[a-z]/gi)?.[0].toUpperCase()}`,
     );
 }
 export function isLike(a: any, b: any): boolean {
@@ -133,7 +133,7 @@ export const randomizeArray = <T>(array: T[]) => {
 };
 export function doubleFilter<T>(
   array: T[],
-  callback: (value: T, index: number) => boolean
+  callback: (value: T, index: number) => boolean,
 ): [T[], T[]] {
   const result1: T[] = [];
   const result2: T[] = [];
@@ -159,7 +159,7 @@ export function defaultObject<T extends object>(o: T, def: Partial<T>): T {
 export function transformCase<T extends string>(
   string: T,
   from: cases = "camel",
-  to: cases = "normal"
+  to: cases = "normal",
 ) {
   if (typeof string != "string") {
     return string;
@@ -190,7 +190,7 @@ export function values<T extends object>(input: T) {
 }
 export async function mapAsync<T, R>(
   array: T[],
-  callback: (item: T, index: number) => Promise<R> | R
+  callback: (item: T, index: number) => Promise<R> | R,
 ): Promise<R[]> {
   const list: R[] = [];
   for (let i = 0; i < array.length; i++) {
@@ -204,7 +204,7 @@ export async function mapAsync<T, R>(
 }
 export const renameValues = <T extends Record<string | number, any>, R>(
   object: T,
-  replaceTo: (value: T[keyof T], key: keyof T) => R
+  replaceTo: (value: T[keyof T], key: keyof T) => R,
 ) => {
   const result = {} as Record<keyof T, R>;
   for (const key in object) {
@@ -219,7 +219,7 @@ export const con = {
       console.log(
         `%c[INFO] ${dateFns.format(new Date(), "HH:mm:ss")}`,
         "color: #38F",
-        ...data
+        ...data,
       );
   },
   err(...data: any[]) {
@@ -227,7 +227,7 @@ export const con = {
       console.log(
         `%c[ERR] ${dateFns.format(new Date(), "HH:mm:ss")}`,
         "color: #F33",
-        ...data
+        ...data,
       );
   },
   succ(...data: any[]) {
@@ -235,7 +235,7 @@ export const con = {
       console.log(
         `%c[SUCC] ${dateFns.format(new Date(), "HH:mm:ss")}`,
         "color: #4fec1e",
-        ...data
+        ...data,
       );
   },
   warn(...data: any[]) {
@@ -243,7 +243,7 @@ export const con = {
       console.log(
         `%c[WARNING] ${dateFns.format(new Date(), "HH:mm:ss")}`,
         "color: #f5540e",
-        ...data
+        ...data,
       );
   },
 };
@@ -277,7 +277,7 @@ export const saveDate = (date = new Date()) => {
 export const formatObject = <T extends object>(
   object: T,
   format = "K=V",
-  joinBy = ","
+  joinBy = ",",
 ) => {
   return Object.entries(object)
     .map(([key, value]) => {
@@ -310,7 +310,7 @@ export function isSortedDate(dates: (Date | string | number)[]) {
 export const someArray = (...array: (Nothing | number)[]) => {
   return array.reduce<number>(
     (prv, current) => prv + (typeof current == "number" ? current : 0),
-    0
+    0,
   );
 };
 export function ori(list: (string | number)[], as: (string | number)[]) {

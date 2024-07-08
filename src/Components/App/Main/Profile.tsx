@@ -11,6 +11,7 @@ import { EmptyComponent } from "@/Components/Helpers/EmptyComponent";
 import { useColorMerge } from "@/data/system/colors.model";
 import { signOut } from "firebase/auth";
 import { firebaseApp } from "@/functions/app/web/firebase";
+import { webApi } from "@/functions/app/web";
 export const Profile = () => {
   const visibility = visibilityTemp.getTemp<boolean>("profile");
   const user = getUser();
@@ -44,7 +45,17 @@ export const Profile = () => {
             <div className="flex justify-end gap-1 p-2">
               <Button
                 onClick={async () => {
-                  await signOut(firebaseApp.auth);
+                  const { response } = await webApi.openDialog({
+                    title: "Logout",
+                    message: "Are you sure you want to logout?",
+                    buttons: ["No", "Yes"],
+                    defaultId: 1,
+                    cancelId: 0,
+                    type: "warning",
+                  });
+                  if (response === 1) {
+                    await signOut(firebaseApp.auth);
+                  }
                 }}
                 style={{
                   ...colorMerge("error", {

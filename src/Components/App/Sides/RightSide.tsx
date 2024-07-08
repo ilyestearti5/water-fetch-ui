@@ -1,13 +1,13 @@
 import { ResizeView } from "Components/Helpers/ResizeView";
 import { settingHooks, getSettingValue } from "@/reducers/Settings/settings.model";
 import { useColorMerge } from "models/system/colors.model";
-import { delay, isSorted } from "utils/index";
+import { isSorted } from "utils/index";
 import { tw } from "@/functions/react-utils";
-import { RightSideView } from "./RightSideView";
-import { AsyncComponent } from "@/Components/Helpers/AsyncComponent";
-import { CircleLoading } from "@/Components/Helpers/Loading";
 const rightSideVisibility = "visibility/rightSide.boolean";
-export const RightSide = () => {
+export interface RightSideProps {
+  children?: React.ReactNode;
+}
+export const RightSide = ({ children }: RightSideProps) => {
   const visibility = getSettingValue(rightSideVisibility);
   const colorMerge = useColorMerge();
   return (
@@ -40,18 +40,7 @@ export const RightSide = () => {
       `,
         !visibility && "border-l-0",
       )}
-    >
-      <AsyncComponent
-        render={async () => {
-          await delay(3000);
-          return <RightSideView />;
-        }}
-        loading={
-          <div className="flex justify-center items-center w-full h-full">
-            <CircleLoading />
-          </div>
-        }
-      />
-    </ResizeView>
+      children={children}
+    ></ResizeView>
   );
 };

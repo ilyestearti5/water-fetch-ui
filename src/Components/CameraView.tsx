@@ -32,8 +32,7 @@ export function CameraView() {
   // render element for image
   return (
     <BlurOverlay hidden={!cameraId}>
-      <div
-      >
+      <div>
         <ResizeView temp="camera" max={() => innerHeight} min={() => 200} position="right">
           <ContentOfImageView />
         </ResizeView>
