@@ -1,9 +1,0 @@
-{
-  "clientId": "83163092016-lrmlrqggj9il39qm418h3vdamn2clljg.apps.googleusercontent.com",
-  "projectId": "peaceful-web-418400",
-  "authUri": "https://accounts.google.com/o/oauth2/auth",
-  "tokenUri": "https://oauth2.googleapis.com/token",
-  "authProviderX509CertUrl": "https://www.googleapis.com/oauth2/v1/certs",
-  "clientSecret": "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",
-  "redirectUri": "https://localhost:4821/oauth2callback"
-}

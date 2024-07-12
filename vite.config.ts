@@ -15,15 +15,15 @@ export default defineConfig(() => {
   return {
     resolve: {
       alias: {
-        "@": path.resolve("./src"),
-        Components: path.resolve("./src/Components"),
-        database: path.resolve("./src/data/db"),
-        models: path.resolve("./src/data"),
-        hooks: path.resolve("./src/hooks"),
-        api: path.resolve("./src/apis"),
+        "@": path.resolve("./src/lib"),
+        Components: path.resolve("./src/lib/Components"),
+        database: path.resolve("./src/lib/data/db"),
+        models: path.resolve("./src/lib/data"),
+        hooks: path.resolve("./src/lib/hooks"),
+        api: path.resolve("./src/lib/apis"),
         utils: path.resolve("./utils"),
         main: path.resolve("./"),
-        assets: path.resolve("./src/assets"),
+        assets: path.resolve("./src/lib/assets"),
         "pdfmake/build/vfs_fonts": "pdfmake/build/vfs_fonts",
       },
     },

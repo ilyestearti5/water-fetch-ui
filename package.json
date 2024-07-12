@@ -6,8 +6,8 @@
   },
   "debug": {
     "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/",
-      "VITE_BUILD_AS": "desktop"
+      "VITE_BUILD_AS": "desktop",
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
     }
   },
   "dependencies": {
@@ -87,5 +87,5 @@
     "prettier:format": "prettier --write ./",
     "preview": "vite preview"
   },
-  "version": "0.2.4"
+  "version": "0.0.0"
 }
