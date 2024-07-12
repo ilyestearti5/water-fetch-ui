@@ -1,6 +1,6 @@
 import React from "react";
 import { Delay, range } from "main/utils";
-import { Card } from "./Card";
+import { Card } from "../../Helpers/Card";
 import { useCopyState } from "@/functions/react-utils";
 import { Line } from "@/Components/Helpers/Line";
 import { State } from "@/types/global";

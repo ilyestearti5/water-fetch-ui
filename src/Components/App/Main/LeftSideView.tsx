@@ -1,6 +1,6 @@
 import { useColorMerge } from "@/data/system/colors.model";
 import { Line } from "@/Components/Helpers/Line";
-import { Card } from "./Card";
+import { Card } from "../../Helpers/Card";
 import { Feild } from "@/Components/Feilds/Feild";
 export const LeftSideView = () => {
   const colorMerge = useColorMerge();

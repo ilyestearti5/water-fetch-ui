@@ -81,7 +81,7 @@ export function Header({ children }: HeaderProps) {
       </div>
       <div
         className={tw(
-          "relative border-b border-solid border-transparent box-content flex h-[0px] items-stretch justify-between overflow-hidden",
+          "relative border-b border-solid border-transparent box-content flex h-[0px] items-center justify-between overflow-hidden",
           visibility && "h-[50px]",
           animation && "transition-[height]",
         )}

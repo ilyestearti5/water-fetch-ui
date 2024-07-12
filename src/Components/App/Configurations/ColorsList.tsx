@@ -8,6 +8,9 @@ import Input from "Components/ReactComponentOnly/Input";
 import { getSettingValue } from "@/reducers/Settings/settings.model";
 import { TitleView } from "Components/Helpers/Title";
 import { setTemp } from "@/reducers/Object/object.slice";
+import { Tip } from "@/Components/Helpers/Buttons";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 export function ColorsList() {
   const findConfigurationsValue = feildHooks.getOneFeild("findConfigurations", "value");
   const allColors = colorHooks.getAll();
@@ -27,6 +30,7 @@ export function ColorsList() {
       itemSize={50}
       component={({ data, style, status, index, handel }) => {
         const hover = useCopyState(false);
+        const copyed = useCopyState(false);
         const colorMerge = useColorMerge();
         const isDark = getSettingValue("window/dark.boolean");
         const backgroundColor = React.useMemo(() => {
@@ -67,7 +71,7 @@ export function ColorsList() {
             <div className="flex items-center gap-x-2">
               <span className="capitalize">{transformCase(data.colorId.replace(/[^a-zA-Z0-9]+/gi, " "), "camel", "normal")}</span>
             </div>
-            <span className="inline-flex items-center flex-wrap gap-x-2">
+            <span className="inline-flex flex-wrap items-center gap-x-2">
               {data.propositions?.map((backgroundColor, index) => {
                 return (
                   <span
@@ -109,19 +113,36 @@ export function ColorsList() {
                   htmlFor={`color:${data.colorId}`}
                 />
               </TitleView>
-              <Input
-                id={`color:${data.colorId}`}
-                tabIndex={-1}
-                value={backgroundColor}
-                type="color"
-                onValueChange={(value) => {
-                  timer != null && clearTimeout(timer);
-                  timer = setTimeout(() => {
-                    colorHooks.setOneFeild(data.colorId, isDark ? "dark" : "light", value);
-                  }, 1000);
-                }}
-                className="invisible pointer-events-none h-0 w-0"
-              />
+              <div className="flex items-center tips">
+                {hover.get && (
+                  <Tip
+                    icon={copyed.get ? faCheck : faCopy}
+                    onClick={async () => {
+                      if (!backgroundColor) {
+                        return;
+                      }
+                      copyed.set(true);
+                      await navigator.clipboard.writeText(backgroundColor);
+                    }}
+                    onMouseLeave={() => {
+                      copyed.set(false);
+                    }}
+                  />
+                )}
+                <Input
+                  id={`color:${data.colorId}`}
+                  tabIndex={-1}
+                  value={backgroundColor}
+                  type="color"
+                  onValueChange={(value) => {
+                    timer != null && clearTimeout(timer);
+                    timer = setTimeout(() => {
+                      colorHooks.setOneFeild(data.colorId, isDark ? "dark" : "light", value);
+                    }, 1000);
+                  }}
+                  className="w-0 h-0 invisible pointer-events-none"
+                />
+              </div>
             </span>
           </div>
         );

@@ -9,16 +9,24 @@ import { DialogBox } from "@/Components/DialogBox";
 import { Notifications } from "@/reducers/Notification/Notifications";
 import { MenuList } from "./MenuList";
 import { Commands } from "@/reducers/Command/Commands";
-import { Card } from "./Card";
+import { Card } from "../../Helpers/Card";
+import { Header } from "../Header/Header";
+import { LeftSide } from "../Sides/LeftSide";
+import { RightSide } from "../Sides/RightSide";
 export function App() {
   return (
     <EmptyComponent>
+      <Header>
+        <h1 className="w-full text-center">This is the header</h1>
+      </Header>
       <Window>
+        <LeftSide>Somthing in the primary Side</LeftSide>
         <div className="flex flex-col justify-center items-center w-full h-full">
-          <Card>
+          <Card className="justify-center items-center">
             <p className="p-3">Water Fetch UI Design 💦</p>
           </Card>
         </div>
+        <RightSide>Somthing in the secondry Side</RightSide>
       </Window>
       <SettingsView />
       <SettingUpdateView />

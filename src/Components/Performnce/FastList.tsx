@@ -136,7 +136,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
         onContentChange={(props) => {
           height.set(props.height);
         }}
-        className="relative overflow-hidden"
+        className="relative h-full overflow-hidden"
         onWheel={(e) => {
           if (heightPercantage < 100) {
             let speed = false;

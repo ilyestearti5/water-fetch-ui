@@ -36,10 +36,6 @@
     "typeRoots": ["./src/vite-env.d.ts"],
     "useDefineForClassFields": true
   },
-  "include": ["src", "electron", "utils"],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "include": ["src", "utils"],
+  "references": []
 }
