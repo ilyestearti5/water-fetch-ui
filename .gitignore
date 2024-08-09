@@ -8,9 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 # Dirctorys
 node_modules
-dist
 dist-ssr
-dist-electron
 release
 tsconfig.tsbuildinfo
 *.local

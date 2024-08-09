@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "declaration": true, // Generate declaration files
+    "declarationMap": true, // Generate map files for declarations
     /* Bundler mode */
     "allowImportingTsExtensions": true,
     /* Linting */
@@ -19,14 +21,14 @@
     "moduleResolution": "Node",
     "noEmit": true,
     "paths": {
-      "@/*": ["src/lib/*"],
-      "api/*": ["src/lib/apis/*"],
-      "assets/*": ["src/lib/assets/*"],
-      "Components/*": ["src/lib/Components/*"],
-      "database/*": ["src/lib/data/db/*"],
-      "hooks/*": ["src/lib/hooks/*"],
+      "@/*": ["src/*"],
+      "api/*": ["src/apis/*"],
+      "assets/*": ["src/assets/*"],
+      "Components/*": ["src/Components/*"],
+      "database/*": ["src/data/db/*"],
+      "hooks/*": ["src/hooks/*"],
       "main/*": ["./*"],
-      "models/*": ["src/lib/data/*"],
+      "models/*": ["src/data/*"],
       "utils/*": ["utils/*"]
     },
     "resolveJsonModule": true,

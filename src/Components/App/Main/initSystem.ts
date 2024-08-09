@@ -1,0 +1,30 @@
+import { initCommands } from "@/data/system/command.model";
+import { initSlot } from "@/data/system/slot.slice";
+import { initSettings } from "@/reducers/Settings/settings.model";
+import { initFeilds } from "@/data/system/feild.model";
+import { initPositions } from "@/data/system/positions.model";
+import { initViews } from "@/data/system/views.model";
+import { initColors } from "@/data/system/colors.model";
+import { initNotifays } from "@/data/system/notifications.model";
+import { initLogs } from "@/data/system/logs.model";
+import { initTrees } from "@/data/system/tree.model";
+import { initKeys } from "@/data/system/keys.model";
+import { initLangs } from "@/data/system/lang.model";
+import { initCashing } from "@/data/system/cash.model";
+import { initToasts } from "@/data/system/toasts.model";
+export function initSystem() {
+  initCommands();
+  initFeilds();
+  initSlot();
+  initColors();
+  initViews();
+  initPositions();
+  initNotifays();
+  initSettings();
+  initLogs();
+  initTrees();
+  initKeys();
+  initLangs();
+  initCashing();
+  initToasts();
+}
