@@ -2,13 +2,13 @@ import React from "react";
 import { escape, initNewList, slotHooks } from "@/data/system/slot.slice";
 import { Focus } from "main/src/Components/Helpers/Focus";
 import { isSorted, renameValues } from "utils/index";
-import { tw } from "main/src/functions/react-utils";
+import { mergeObject, tw } from "main/src/functions/react-utils";
 import { useCopyState } from "main/src/functions/react-utils";
 import { ReactElement } from "@/types/global";
 import { getSettingValue } from "@/reducers/Settings/settings.model";
 import { ScrollShadow } from "./ScrollShadow";
-import { ScrollBar } from "./ScrollBar";
 import { ChangableComponent } from "../App/Header/PositionView";
+import { useColorMerge } from "@/data/system/colors.model";
 export interface FastListItemProps<T> extends ReactElement {
   status: {
     [key in `is${"Selected" | "Focused" | "Skiped" | "Submited"}`]: boolean;
@@ -129,12 +129,34 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
   }, [maxHeightWithLastItems, scroll.get]);
   // render element list
   const isScrollAnimation = getSettingValue("window/scroll/animation.boolean");
+  const scrollBarHoverd = useCopyState(false);
+  const changableComponentViewConfig = useCopyState<null | DOMRect>(null);
   const Item = React.useMemo(() => component, []);
+  const colorMerge = useColorMerge();
+  const changePositionCallback = (clientY: number) => {
+    const configuration = changableComponentViewConfig.get;
+    if (configuration) {
+      const y = clientY - configuration.top - (scrollBarRefElement.current?.clientHeight || 0) / 2;
+      let scrollValue = (y / configuration.height) * maxHeightWithLastItems;
+      const s = maxHeightWithLastItems - configuration.height;
+      if (scrollValue < 0) {
+        scrollValue = 0;
+      } else if (scrollValue > s) {
+        scrollValue = s;
+      }
+      scroll.set(scrollValue);
+    }
+  };
+  const scrollBarRefElement = React.createRef<HTMLDivElement>();
+  const scrollVisibility = React.useMemo(() => {
+    return heightPercantage <= 100;
+  }, [heightPercantage]);
   return (
     <Focus focusId={focusId} className="w-full h-full" ignoreOutline={typeof focused == "number"} id={slotId}>
       <ChangableComponent
         onContentChange={(props) => {
           height.set(props.height);
+          changableComponentViewConfig.set(props);
         }}
         className="relative h-full overflow-hidden"
         onWheel={(e) => {
@@ -218,7 +240,49 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
             }
           })}
         </div>
-        {heightPercantage <= 100 && <ScrollBar height={height.get} onChangeScrollBarValue={scroll.set} heightPercantage={heightPercantage} topScroll={topScroll} />}
+        <div
+          hidden={!scrollVisibility}
+          aria-label="scroll-bar"
+          onMouseEnter={() => {
+            scrollBarHoverd.set(true);
+          }}
+          onMouseLeave={() => {
+            scrollBarHoverd.set(false);
+          }}
+          onPointerDown={(e) => {
+            scrollingUsingBar.set(true);
+            changePositionCallback(e.clientY);
+          }}
+          style={{
+            ...colorMerge(scrollBarHoverd.get && "gray.opacity"),
+          }}
+          className={tw(`absolute right-0 w-[5px] h-full inset-y-0 transition-[width] duration-300 backdrop-blur-md`, scrollBarHoverd.get && "w-[20px]")}
+        >
+          <div
+            aria-label="scroll-bar-thumb"
+            className={`w-full transition-[top] duration-100 inset-x-0 absolute`}
+            ref={scrollBarRefElement}
+            style={{
+              ...colorMerge("gray.opacity.2"),
+              ...mergeObject({
+                height: `${heightPercantage}%`,
+                top: `${topScroll}%`,
+              }),
+            }}
+            onMouseDown={() => {
+              scrollingUsingBar.set(true);
+              const callback = (e: MouseEvent) => {
+                changePositionCallback(e.clientY);
+              };
+              document.addEventListener("mousemove", callback);
+              const onMouseUpCallback = () => {
+                document.removeEventListener("mousemove", callback);
+                document.removeEventListener("mouseup", onMouseUpCallback);
+              };
+              document.addEventListener("mouseup", onMouseUpCallback);
+            }}
+          />
+        </div>
         <ScrollShadow value={scroll.get} />
       </ChangableComponent>
     </Focus>

@@ -4,6 +4,9 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/variants";
 // append tailwind configurations
+.window {
+  @apply fixed inset-0 overflow-hidden;
+}
 // append scss files
 .resize-bar {
   &.left,

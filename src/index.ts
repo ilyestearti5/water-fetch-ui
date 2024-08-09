@@ -1,3 +1,4 @@
+import "./scss/index.scss";
 export { store } from "./store";
 export * as webUtils from "./functions/app/web/web-utils";
 export { default as Input } from "Components/ReactComponentOnly/Input";

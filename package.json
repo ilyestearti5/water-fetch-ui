@@ -75,7 +75,10 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "license": "MIT",
-  "main": "",
+  "main": "dist/index.umd.js",
+  "files": [
+    "dist"
+  ],
   "name": "@water-fetch/ui",
   "scripts": {
     "build": "tsc && vite build",

@@ -2,8 +2,9 @@ This Is A Lib For **Manage** Your `UI` Every Time
 
 # Code Exmple
 
-```tsx
-import { Button } from "@water-fetch/ui/src/Components/Clicks";
+```jsx
+// define a Button
+import { Button } from "@water-fetch/ui";
 import { startApplication } from "@water-fetch/ui/src";
 const app = startApplication(
   <Button
@@ -15,3 +16,5 @@ const app = startApplication(
   </Button>
 );
 ```
+
+accept `firebase` config from single project detected
