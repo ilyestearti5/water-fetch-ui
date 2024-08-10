@@ -1,11 +1,11 @@
 import React from "react";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { store } from "@/store";
 import { QueryStatus } from "react-query";
-import { useAsyncEffect } from "main/src/functions/react-utils";
 import { onceState } from "main/src/onceState";
+import { useAsyncEffect } from "@/hooks";
 export interface Action {
   actionId: string;
   status: QueryStatus | "ready";

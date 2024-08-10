@@ -1,11 +1,12 @@
 import React from "react";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
-import { data } from "@/apis/feilds.json";
-import { TextAreaProps } from "main/src/Components/ReactComponentOnly/TextArea";
+import { TableDefConfig } from "@/types/global";
+import feilds from "@/apis/feilds";
 import { store } from "@/store";
-import { FullStoreManagment } from "main/src/Components/Feilds/Types";
-type FeildIds = keyof typeof data;
+import { TextAreaProps } from "@/components/TextArea";
+import { FullStateManagment } from "@/types/global";
+const { data } = feilds;
+export type FeildIds = keyof typeof data;
 export interface Feild {
   feildId: string;
   selection: TextAreaProps["selection"];
@@ -121,7 +122,7 @@ export function getFeildSelected(feildId: string) {
   return getSelected(value, cursor);
 }
 export const feildElement = (id: string) => document.getElementById(id) as HTMLTextAreaElement | null;
-export function checkFormByFeilds(feilds: string[], state: FullStoreManagment = store.getState()) {
+export function checkFormByFeilds(feilds: string[], state: FullStateManagment = store.getState()) {
   const controls = feilds.map((feildName) => {
     const feildInfo = state.feilds.entities[feildName];
     const controls = Object.keys(feildInfo?.controls || {});

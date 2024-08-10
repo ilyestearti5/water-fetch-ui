@@ -1,43 +1,32 @@
 {
   "compilerOptions": {
-    "declaration": true, // Generate declaration files
-    "declarationMap": true, // Generate map files for declarations
-    /* Bundler mode */
-    "allowImportingTsExtensions": true,
-    /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "composite": true,
-    "esModuleInterop": false,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "ES2021"],
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist", // Ensure this matches where you want the types to go
+    "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "noEmit": true,
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "api/*": ["src/apis/*"],
       "assets/*": ["src/assets/*"],
-      "Components/*": ["src/Components/*"],
+      "Components/*": ["src/components/*"],
       "database/*": ["src/data/db/*"],
       "hooks/*": ["src/hooks/*"],
       "main/*": ["./*"],
       "models/*": ["src/data/*"],
-      "utils/*": ["utils/*"]
-    },
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-    "typeRoots": ["src/lib/vite-env.d.ts"],
-    "useDefineForClassFields": true
+      "utils/*": ["src/utils/*"]
+    }
   },
-  "include": ["src", "utils"],
+  "include": ["./src", "src/utils"],
   "references": []
 }

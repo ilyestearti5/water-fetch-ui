@@ -1,5 +1,5 @@
+import { FullStateManagment } from "@/types/global";
 import { getTemp, getTempFromStore, setTemp, useTemp } from "./object.slice";
-import { FullStoreManagment } from "main/src/Components/Feilds/Types";
 export class Temp {
   static allTemps: Record<string, Temp> = {};
   constructor(
@@ -15,7 +15,7 @@ export class Temp {
     const result = getTemp<T>([this.name, direction].join("."));
     return result;
   }
-  getTempFromStore<T>(direction: string, s?: FullStoreManagment) {
+  getTempFromStore<T>(direction: string, s?: FullStateManagment) {
     return getTempFromStore<T>([this.name, direction].join("."), s);
   }
   setTemp<T>(direction: string, value: T) {

@@ -1,6 +1,7 @@
-import { TableDefConfig } from "../pkg/types";
-import data from "@/apis/cash.json";
+import cash from "@/apis/cash";
 import { defineTable } from "../pkg/table.def";
+import { TableDefConfig } from "@/types/global";
+const { data } = cash;
 export interface Casher {
   linkId: string;
   response?: string;

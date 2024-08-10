@@ -1,7 +1,7 @@
 import { store } from "@/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { isLike } from "utils/index";
+import { isLike } from "@/utils/index";
 export interface TitleInitState {
   content: string | number | null | undefined;
   position: null | [number, number];

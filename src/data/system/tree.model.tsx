@@ -1,9 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ReactElement } from "@/types/global";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import React from "react";
-import { EmptyComponent } from "main/src/Components/Helpers/EmptyComponent";
+import { EmptyComponent } from "@/components/EmptyComponent";
 export const initState: TableDefConfig<Tree, "treeId", "tree"> = {
   id: "treeId",
   name: "tree",

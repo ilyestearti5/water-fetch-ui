@@ -1,4 +1,4 @@
-import { doubleFilter } from "utils/index";
+import { doubleFilter } from "@/utils/index";
 export class Db {
   static join<P extends object, PK extends keyof P, C extends object, CK extends keyof C>(
     parentData: P,

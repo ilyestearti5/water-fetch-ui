@@ -1,5 +1,5 @@
 import React from "react";
-import { isLike } from "utils/index";
+import { isLike } from "@/utils/index";
 import { store } from "@/store";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";

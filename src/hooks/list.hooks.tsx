@@ -1,13 +1,13 @@
 import { ReactElement } from "@/types/global";
 import { SlotType, initNewList, slotHooks } from "@/data/system/slot.slice";
 import React from "react";
-import { isVisible, scrollToElement } from "main/src/functions/react-utils";
-import { tw } from "main/src/functions/react-utils";
-import { useCopyState } from "main/src/functions/react-utils";
-import { Focus, FocusProps } from "main/src/Components/Helpers/Focus";
+import { isVisible, scrollToElement } from "@/utils";
+import { tw } from "@/utils";
+import { Focus, FocusProps } from "@/components/Focus";
 import { useColorMerge } from "@/data/system/colors.model";
-import { Scroll } from "main/src/Components/Helpers/Scroll";
-import { EmptyComponent } from "main/src/Components/Helpers/EmptyComponent";
+import { Scroll } from "@/components/Scroll";
+import { EmptyComponent } from "@/components/EmptyComponent";
+import { useCopyState } from ".";
 export interface ListItemProps<T> extends ReactElement {
   handelSubmit: (fn?: Function) => (e?: any) => void;
   handelFocus: (fn?: Function) => (e?: any) => void;

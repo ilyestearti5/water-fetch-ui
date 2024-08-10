@@ -1,6 +1,7 @@
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
-import { data } from "@/apis/positions.json";
+import { TableDefConfig } from "@/types/global";
+import positions from "@/apis/positions";
+const { data } = positions;
 export interface Positions extends Partial<Omit<DOMRect, "toJSON">> {
   positionId: string;
 }

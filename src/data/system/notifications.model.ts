@@ -1,10 +1,11 @@
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { settingHooks } from "@/reducers/Settings/settings.model";
 import { nanoid } from "@reduxjs/toolkit";
-import { data } from "@/apis/notifications.json";
+import notifications from "@/apis/notifications";
+const { data } = notifications;
 import { CommandIds } from "./command.model";
-import { defaultObject, delay } from "utils/index";
+import { defaultObject, delay } from "@/utils/index";
 export type NotificationIds = keyof typeof data;
 export interface NotificationType {
   id: string;

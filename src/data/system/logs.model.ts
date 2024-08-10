@@ -1,6 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 export interface Log {
   logId?: string;
   title: string;

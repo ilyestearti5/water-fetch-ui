@@ -1,10 +1,11 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { store } from "@/store";
-import { Delay, con, transformCase } from "utils/index";
+import { Delay, con, transformCase } from "@/utils/index";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
-import { data } from "@/apis/commands.json";
-import { FullStoreManagment } from "main/src/Components/Feilds/Types";
+import { TableDefConfig } from "@/types/global";
+import commands from "@/apis/commands";
+import { FullStateManagment } from "@/types/global";
+const { data } = commands;
 export type CommandIds = string;
 // Data Rendering Of One Command
 export interface Command {
@@ -15,7 +16,7 @@ export interface Command {
   blocked?: boolean;
 }
 export const name = "commands";
-export function execList(cmdId: CommandIds, state: FullStoreManagment = store.getState()): (PayloadAction<any> | number)[] {
+export function execList(cmdId: CommandIds, state: FullStateManagment = store.getState()): (PayloadAction<any> | number)[] {
   //
   const { [name]: cmds } = state;
   //
@@ -36,10 +37,10 @@ export function execList(cmdId: CommandIds, state: FullStoreManagment = store.ge
   });
   return payloadList;
 }
-export function isExist(cmd: string, state: FullStoreManagment = store.getState()) {
+export function isExist(cmd: string, state: FullStateManagment = store.getState()) {
   return !!state?.commands.entities[cmd];
 }
-export async function execCommand(cmd: CommandIds, state: ReturnType<typeof store.getState> = store.getState()) {
+export async function execCommand(cmd: CommandIds, state: FullStateManagment = store.getState()) {
   const str = cmd.toString();
   con.inf(`start invoke command : `, str);
   state = state || store.getState();

@@ -1,5 +1,5 @@
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { nanoid } from "@reduxjs/toolkit";
 export interface ToastType {
   id?: string;

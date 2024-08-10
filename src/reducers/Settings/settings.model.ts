@@ -1,15 +1,16 @@
 import React from "react";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { feildHooks } from "@/data/system/feild.model";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { getSeparateSearchInput, include, isLike } from "utils/index";
-import { data } from "@/apis/settings.json";
+import { getSeparateSearchInput, include, isLike } from "@/utils/index";
+import settings from "@/apis/settings";
 import { SettingConfig, SettingValueType } from "./SettingConfig";
 import { viewHooks } from "@/data/system/views.model";
 import { Db } from "main/src/functions/classes";
 import { setTemp } from "../Object/object.slice";
-import { mergeArray } from "main/src/functions/react-utils";
+import { mergeArray } from "@/utils";
+const { data } = settings;
 //
 export type SettingIds = keyof typeof data;
 //

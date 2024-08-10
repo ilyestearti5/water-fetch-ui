@@ -1,13 +1,11 @@
 import React from "react";
-import { defaultObject, Delay } from "utils/index";
-import { useAsyncEffect, useCopyState, useDref } from "main/src/functions/react-utils";
+import { defaultObject, Delay } from "@/utils/index";
 import { store } from "@/store";
 import { EntityId, PayloadAction, Update, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { GetOptinal, InitState, TableDefConfig } from "./types";
-export const allSections: TableDefConfig<any, keyof any, any, object>[] = [];
+import { GetOptinal, InitState, TableDefConfig } from "@/types/global";
+import { useAsyncEffect, useCopyState, useDref } from "@/hooks";
 export function defineTable<T extends object, I extends keyof T, N extends string, A extends object, O extends GetOptinal<T> = any>(config: TableDefConfig<T, I, N, A>) {
-  allSections.push(config as any);
   const { name, default: def, id, actions, uniques = [], onSave, onRead } = config;
   const entity = createEntityAdapter<T, EntityId>({
     selectId: (d) => d[id] as EntityId,

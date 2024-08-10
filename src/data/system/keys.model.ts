@@ -1,16 +1,18 @@
 import React from "react";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { Command, CommandIds, execCommand, isExist } from "./command.model";
-import { Shortcut, getFocus, useEffectDelay } from "main/src/functions/react-utils";
+import { Shortcut, getFocus } from "@/utils";
 import { store } from "@/store";
 import { Db } from "main/src/functions/classes";
 import { nanoid } from "@reduxjs/toolkit";
-import { con } from "utils/index";
-import { data } from "@/apis/keys.json";
+import { con } from "@/utils/index";
+import keys from "@/apis/keys";
 import { getTemp } from "@/reducers/Object/object.slice";
 import { Action } from "./actions.model";
-import { FullStateManagment } from "@/vite-env";
+import { FullStateManagment } from "@/types/global";
+import { useEffectDelay } from "@/hooks";
+const { data } = keys;
 export interface Key {
   value?: string;
   keyId?: string;

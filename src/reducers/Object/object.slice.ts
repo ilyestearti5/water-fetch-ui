@@ -1,10 +1,10 @@
-import { con, isLike, valueFromString } from "utils/index";
-import { useCopyState } from "main/src/functions/react-utils";
+import { con, isLike, valueFromString } from "@/utils/index";
 import { store } from "@/store";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import React from "react";
 import { useSelector } from "react-redux";
 import { QueryStatus } from "react-query";
+import { useCopyState } from "@/hooks";
 export type TempState = Record<typeof objectName, typeof initialState>;
 export const objectName = "object";
 export interface ObjectTemp {

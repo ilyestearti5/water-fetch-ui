@@ -1,6 +1,6 @@
-import { delay } from "utils/index";
-import { tw } from "main/src/functions/react-utils";
-import { useCopyState } from "main/src/functions/react-utils";
+import { delay } from "@/utils/index";
+import { tw } from "@/utils";
+import { useCopyState } from "@/hooks";
 import { Feild, feildHooks, getPrevious } from "@/data/system/feild.model";
 import React from "react";
 import { useColorMerge } from "@/data/system/colors.model";

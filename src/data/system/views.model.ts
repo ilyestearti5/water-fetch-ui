@@ -1,8 +1,9 @@
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
-import { data } from "@/apis/views.json";
+import views from "@/apis/views";
 import React from "react";
+const { data } = views;
 export type ViewIds = keyof typeof data;
 export interface View {
   viewId: string;

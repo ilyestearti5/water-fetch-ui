@@ -1,3 +1,4 @@
+import "pdfmake/build/vfs_fonts";
 import { store } from "./store";
 // Components
 import React from "react";
@@ -7,11 +8,12 @@ import { Provider } from "react-redux";
 import "@/scss/index.scss";
 import { execAction } from "@/data/system/actions.model";
 import { execCommand } from "@/data/system/command.model";
-import { initSystem } from "./Components/App/Main/initSystem";
-import { initConfigurations } from "./Components/initing";
+import { initSystem } from "./components/initSystem";
+import { initConfigurations } from "./components/initing";
 import { settingHooks } from "./reducers/Settings/settings.model";
-import { data } from "@/apis/settings.json";
-import { EmptyComponent } from "./Components/Helpers/EmptyComponent";
+import settings from "@/apis/settings";
+import { EmptyComponent } from "./components/EmptyComponent";
+const { data } = settings;
 export const defineGlobal = (configName: string, config: any) => {
   (window as any)[configName] = config;
 };

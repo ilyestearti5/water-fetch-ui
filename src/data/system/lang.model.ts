@@ -1,6 +1,7 @@
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
-import { data } from "@/apis/langs.json";
+import { TableDefConfig } from "@/types/global";
+import langs from "@/apis/langs";
+const { data } = langs;
 export type LangIds = keyof typeof data;
 export interface Lang {
   langId: string;

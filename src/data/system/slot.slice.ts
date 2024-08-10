@@ -1,10 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { defineTable } from "@/data/pkg/table.def";
-import { TableDefConfig } from "@/data/pkg/types";
+import { TableDefConfig } from "@/types/global";
 import { nanoid } from "@reduxjs/toolkit";
-import { range } from "utils/index";
+import { range } from "@/utils";
 import { store } from "@/store";
-import config from "@/apis/slot.json";
+import config from "@/apis/slot";
 import React from "react";
 export type SlotIds = keyof typeof config.data;
 export interface SlotType {

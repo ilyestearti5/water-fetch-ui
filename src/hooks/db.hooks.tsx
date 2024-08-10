@@ -1,7 +1,8 @@
 import React from "react";
 import { Setting, SettingIds } from "@/reducers/Settings/settings.model";
 import { feildHooks } from "@/data/system/feild.model";
-import { include, getSeparateSearchInput } from "utils/index";
+import { getSeparateSearchInput } from "@/utils/index";
+import { include } from "@/utils";
 import { Db } from "main/src/functions/classes";
 import { setTemp } from "@/reducers/Object/object.slice";
 import { commandsHooks } from "@/data/system/command.model";

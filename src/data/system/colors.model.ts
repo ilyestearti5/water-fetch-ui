@@ -1,10 +1,10 @@
 import React from "react";
-import { TableDefConfig } from "@/data/pkg/types";
-import { Nothing } from "utils/interfaces";
+import { Nothing, TableDefConfig } from "@/types/global";
 import { getSettingValue } from "@/reducers/Settings/settings.model";
 import { EntityId } from "@reduxjs/toolkit";
 import { defineTable } from "@/data/pkg/table.def";
-import { data } from "@/apis/color.json";
+import colors from "@/apis/color";
+const { data } = colors;
 export type ColorIds = keyof typeof data;
 // Each Record Of One Color
 export interface Color {
