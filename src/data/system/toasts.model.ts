@@ -18,19 +18,3 @@ const initConfig: TableDefConfig<ToastType, "id", "toasts"> = {
   },
 };
 export const { hooks: toastHooks, init: initToasts, select: selectToasts, slice: taostsSlice, entity: toastsEntity } = defineTable(initConfig);
-
-export function showToast(message: ToastType["message"], type: ToastType["type"], id = nanoid(), time: number = ToastTime.short) {
-  toastHooks.add([
-    {
-      message,
-      type,
-      time,
-      id,
-    },
-  ]);
-  return id;
-}
-export enum ToastTime {
-  short = 5,
-  long = 5,
-}

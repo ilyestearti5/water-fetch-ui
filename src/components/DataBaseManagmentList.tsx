@@ -1,6 +1,6 @@
 import React from "react";
-import { useColorMerge } from "@/data/system/colors.model";
-import { feildHooks } from "@/data/system/feild.model";
+import { useColorMerge } from "@/hooks";
+import { fieldHooks } from "@/data/system/field.model";
 import { execCommand } from "@/data/system/command.model";
 import { include, setFocused, tw } from "@/utils";
 import { getSlotData, slotHooks } from "@/data/system/slot.slice";
@@ -36,7 +36,7 @@ export function DataBaseManagmentList({ data }: DataBaseManagmentListProps) {
   // desc:
   const searchCommandType = getTemp<string>("commandId");
   // desc:
-  const findValue = feildHooks.getOneFeild("findCommand", "value");
+  const findValue = fieldHooks.getOneFeild("findCommand", "value");
   //
   const info = React.useMemo(() => {
     if (!searchCommandType) {
@@ -63,7 +63,7 @@ export function DataBaseManagmentList({ data }: DataBaseManagmentListProps) {
       return;
     }
     execCommand("commands.close");
-    feildHooks.setOneFeild("findCommand", "value", "");
+    fieldHooks.setOneFeild("findCommand", "value", "");
     info?.onSubmit?.(submitedItem);
     slotHooks.setOneFeild("cmds/list", "submited", null);
   }, [submitedItem, info]);

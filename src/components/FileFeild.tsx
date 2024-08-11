@@ -1,5 +1,5 @@
 import React from "react";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { faFileUpload, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";

@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

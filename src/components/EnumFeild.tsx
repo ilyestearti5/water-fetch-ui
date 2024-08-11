@@ -1,7 +1,7 @@
 import React from "react";
 import { isLike, range } from "@/utils/index";
 import { Shortcut, tw } from "@/utils";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { back, getSlotData, next, slotHooks } from "@/data/system/slot.slice";
 import { FastList } from "./FastList";

@@ -1,14 +1,13 @@
 import React from "react";
 import { Shortcut, tw } from "@/utils";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { KeyPanding } from "@/components/KeyPanding";
-import { getKeys } from "@/data/system/keys.model";
-import { Db } from "main/src/functions/classes";
+import { Db } from "@/utils";
 import { setTemp } from "@/reducers/Object/object.slice";
 import { useAction } from "@/data/system/actions.model";
 import { randomItem } from "@/utils/index";
 import { EmptyComponent } from "./EmptyComponent";
-import { useCopyState } from "@/hooks";
+import { getAllKeys, useCopyState } from "@/hooks";
 export interface TextAreaProps extends React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
   propositions?: string[];
   selection?: {
@@ -61,7 +60,7 @@ export function TextArea({
   ...props
 }: TextAreaProps) {
   const elementRef = React.createRef<HTMLTextAreaElement>(),
-    allKeys = getKeys(),
+    allKeys = getAllKeys(),
     autoCompleteInput = React.useMemo(() => {
       return Db.join({ commandId: "input.completeWord" }, allKeys, "commandId->command");
     }, [allKeys]),

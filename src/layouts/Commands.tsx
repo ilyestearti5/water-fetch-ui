@@ -1,25 +1,24 @@
 import React from "react";
-import { FindCommandInput } from "../components/FindCommandInput";
-import { settingHooks, getSettingValue, getPublicSettings, Setting } from "@/reducers/Settings/settings.model";
-import { handelGradientColor, useColorMerge } from "@/data/system/colors.model";
+import { FindCommandInput } from "./FindCommandInput";
+import { settingHooks, Setting } from "@/reducers/Settings/settings.model";
+import { handelGradientColor, useColorMerge } from "@/hooks";
 import { mergeObject, setFocused, tw } from "@/utils";
 import { BlurOverlay } from "@/components/Overlays";
-import { Db } from "main/src/functions/classes";
+import { Db } from "@/utils";
 import { Line } from "@/components/Line";
 import { execCommand } from "@/data/system/command.model";
-import { showSetting, usePublicCommands } from "main/src/hooks/db.hooks";
-import { getKeys, test } from "@/data/system/keys.model";
+import { test } from "@/data/system/keys.model";
 import { store } from "@/store";
 import { DataBaseManagmentList, DataBaseManagmentListProps } from "../components/DataBaseManagmentList";
 import { getTemp, setTemp } from "../reducers/Object/object.slice";
-import { feildHooks } from "@/data/system/feild.model";
 import { slotHooks } from "@/data/system/slot.slice";
 import { actionHooks, execAction } from "@/data/system/actions.model";
 import { CircleLoading } from "@/components/Loading";
 import { transformCase } from "@/utils/index";
+import { getAllKeys, usePublicCommands, getPublicSettings, getSettingValue, showSetting, fieldHooks } from "@/hooks";
 export function Commands() {
   const colorMerge = useColorMerge();
-  const keys = getKeys();
+  const keys = getAllKeys();
   const commands = usePublicCommands();
   const finalCommands = React.useMemo(() => {
     const state = store.getState();
@@ -120,7 +119,7 @@ export function Commands() {
       moreManger,
     );
   }, [finalCommands, settingsList, prefixes, actions]);
-  const findCommandValue = feildHooks.getOneFeild("findCommand", "value");
+  const findCommandValue = fieldHooks.getOneFeild("findCommand", "value");
   const isHelp = React.useMemo(() => !!findCommandValue?.match(/^ *\?/), [findCommandValue]);
   const list: DataBaseManagmentListProps["data"] = React.useMemo(() => {
     return mergeObject(

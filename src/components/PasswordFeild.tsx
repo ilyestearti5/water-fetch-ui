@@ -2,7 +2,7 @@ import React from "react";
 import { State } from "@/types/global";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
 import { faExchange, faEye, faLowVision } from "@fortawesome/free-solid-svg-icons";
@@ -37,7 +37,7 @@ export function Password({ eays = true, state, onFocus, onBlur, className, style
         type={show.get ? "text" : "password"}
         className={tw(`p-2 text-xs border border-solid border-transparent font-[inherit] whitespace-nowrap rounded-sm w-full`, className)}
         style={{
-          ...colorMerge("feild.background", {
+          ...colorMerge("field.background", {
             borderColor: focused.get ? "primary" : "borders",
           }),
           ...style,

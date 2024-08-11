@@ -1,11 +1,11 @@
 import React from "react";
 import { setFocused, tw } from "@/utils";
-import { SettingsSide } from "../components/SettingsSide";
-import { Settings } from "../components/Settings";
-import { HeaderSettings } from "../components/HeaderSettings";
+import { SettingsSide } from "./SettingsSide";
+import { Settings } from "./Settings";
+import { HeaderSettings } from "./HeaderSettings";
 import { Line } from "@/components/Line";
-import { settingHooks, getSettingValue } from "@/reducers/Settings/settings.model";
-import { useColorMerge } from "@/data/system/colors.model";
+import { settingHooks, getSettingValue } from "@/hooks";
+import { useColorMerge } from "@/hooks";
 import { DownOverlay } from "@/components/Overlays";
 import { visibilityTemp } from "@/reducers/Object/allTemps";
 const settingVisibility = "visibility/configurations.boolean";

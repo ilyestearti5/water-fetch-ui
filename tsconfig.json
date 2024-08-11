@@ -27,6 +27,6 @@
       "utils/*": ["src/utils/*"]
     }
   },
-  "include": ["./src", "src/utils"],
+  "include": ["./src"],
   "references": []
 }

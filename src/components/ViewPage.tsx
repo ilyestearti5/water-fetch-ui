@@ -1,6 +1,6 @@
 import { viewHooks } from "@/data/system/views.model";
 import { EmptyComponent } from "./EmptyComponent";
-interface ViewPageProps {
+export interface ViewPageProps {
   views: Partial<Record<string, () => JSX.Element>>;
   viewId: string;
 }

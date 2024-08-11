@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
 import React from "react";

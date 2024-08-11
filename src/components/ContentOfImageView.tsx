@@ -1,15 +1,14 @@
-import React from "react";
 import QrCodeReader from "react-qrcode-reader";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
-import { TitleView } from "./Title";
-import { SeparatedViewsLine, SeparatedViewsLineTitle } from "./SimpleComponents";
+import { TitleView } from "./TitleView";
+import { SeparatedViewsLine, SeparatedViewsLineTitle } from "./SeparatedComponents";
 import { faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { execAction } from "@/data/system/actions.model";
 import { cameraTemp } from "@/reducers/Object/allTemps";
-import { CameraOptions } from "main/src/functions/app-utils";
 import { CircleTip } from "@/components/CircleTip";
-export const ContentOfImageView = React.memo(() => {
+import { CameraOptions } from "@/types/global";
+export const ContentOfImageView = () => {
   const cameraType = cameraTemp.getTemp<CameraOptions["type"]>("type");
   const colorMerge = useColorMerge();
   return (
@@ -43,7 +42,7 @@ export const ContentOfImageView = React.memo(() => {
             <TitleView title="take image">
               <CircleTip
                 onClick={() => {
-                  execAction("camera.take");
+                  execAction("camera-take");
                 }}
                 icon={faCamera}
               />
@@ -60,4 +59,4 @@ export const ContentOfImageView = React.memo(() => {
       }}
     />
   );
-});
+};

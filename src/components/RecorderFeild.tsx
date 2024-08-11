@@ -2,7 +2,7 @@ import React from "react";
 import { Tip } from "@/components/Tip";
 import { faMicrophone, faPause, faPlay, faStop, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useCopyState } from "@/hooks";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { FeildGeneralProps } from "@/types/global";
 import { openDuringNotifay } from "@/data/system/notifications.model";
 import { EmptyComponent } from "./EmptyComponent";

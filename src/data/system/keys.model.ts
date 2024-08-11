@@ -4,7 +4,7 @@ import { TableDefConfig } from "@/types/global";
 import { Command, CommandIds, execCommand, isExist } from "./command.model";
 import { Shortcut, getFocus } from "@/utils";
 import { store } from "@/store";
-import { Db } from "main/src/functions/classes";
+import { Db } from "@/utils";
 import { nanoid } from "@reduxjs/toolkit";
 import { con } from "@/utils/index";
 import keys from "@/apis/keys";
@@ -119,23 +119,4 @@ export function initKeys() {
     [handelKeyPandingFunctions],
     1000,
   );
-}
-export function getKeyOf(commandId: CommandIds | string) {
-  const allKeys = keyHooks.getAll();
-  const keys = React.useMemo(() => {
-    return Db.join({ commandId }, allKeys, "commandId->command");
-  }, [commandId, allKeys]);
-  return keys;
-}
-export function getKeys() {
-  const allKeys = keyHooks.getAll();
-  return React.useMemo(() => {
-    return allKeys.filter(({ value }) => value);
-  }, [allKeys]);
-}
-export function shortcutOf(actionName: string) {
-  const allKeys = getKeys();
-  return React.useMemo(() => {
-    return Db.join({ actionName }, allKeys, "actionName->action");
-  }, [allKeys]);
 }

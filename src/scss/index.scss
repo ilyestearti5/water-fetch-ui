@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@800&display=swap");
 @import "./markdown.scss";
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -101,7 +103,7 @@ textarea {
 .card {
   @apply rounded-2xl lg:w-[500px] w-[400px] h-[300px] max-sm:w-full border-solid border-transparent border shadow-lg flex flex-col;
 }
-.array-feild {
+.array-field {
   .items {
     @apply flex flex-wrap gap-1 mb-2;
     .item {

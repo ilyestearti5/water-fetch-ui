@@ -1,7 +1,7 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
-import { settingHooks, getSettingValue } from "@/reducers/Settings/settings.model";
+import { settingHooks, getSettingValue } from "@/hooks";
 import React from "react";
 import { Text } from "./Text";
 import { EmptyComponent } from "./EmptyComponent";

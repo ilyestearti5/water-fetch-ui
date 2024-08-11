@@ -4,10 +4,10 @@ import { execAction, useAction } from "@/data/system/actions.model";
 import { setFocused, tw } from "@/utils";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import Input from ".//Input";
 import { Text } from "./Text";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { useCopyState } from "@/hooks";
+import { Input } from "./Input";
 export type NumberFeildProps = FeildGeneralProps<number | undefined | null, SettingConfig["number"]>;
 export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
   React.useEffect(() => {

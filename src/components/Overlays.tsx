@@ -1,9 +1,9 @@
-import { handelGradientColor, useColorMerge } from "@/data/system/colors.model";
+import { handelGradientColor, useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { ReactElement } from "@/types/global";
 import React from "react";
 import { delay } from "@/utils/index";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
+import { getSettingValue } from "@/hooks";
 import { useAsyncEffect, useCopyState } from "@/hooks";
 interface OverlaysProps extends ReactElement {
   onLoadContent?: () => void;

@@ -4,7 +4,7 @@ import { TableDefConfig } from "@/types/global";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { store } from "@/store";
 import { QueryStatus } from "react-query";
-import { onceState } from "main/src/onceState";
+import { onceState } from "@/hooks";
 import { useAsyncEffect } from "@/hooks";
 export interface Action {
   actionId: string;

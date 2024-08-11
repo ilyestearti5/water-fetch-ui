@@ -1,19 +1,20 @@
 import React from "react";
-import Input from "@/components/Input";
 import { include, tw } from "@/utils";
-import { TitleView } from "@/components/Title";
+import { TitleView } from "@/components/TitleView";
 import { setTemp } from "@/reducers/Object/object.slice";
 import { transformCase } from "@/utils/index";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
-import { feildHooks } from "@/data/system/feild.model";
+import { getColor, getSettingValue, useColorMerge } from "@/hooks";
+import { fieldHooks } from "@/data/system/field.model";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { colorHooks, getColor, useColorMerge } from "@/data/system/colors.model";
+import { colorHooks } from "@/data/system/colors.model";
+
 import { FastList } from "./FastList";
 import { useCopyState } from "@/hooks";
 import { Tip } from "@/components/Tip";
+import { Input } from "./Input";
 export function ColorsList() {
-  const findConfigurationsValue = feildHooks.getOneFeild("findConfigurations", "value");
+  const findConfigurationsValue = fieldHooks.getOneFeild("findConfigurations", "value");
   const allColors = colorHooks.getAll();
   const colorList = React.useMemo(() => {
     return typeof findConfigurationsValue == "string" ? allColors.filter(({ colorId }) => include(colorId, findConfigurationsValue)) : allColors;

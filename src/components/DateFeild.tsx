@@ -1,6 +1,5 @@
 import React from "react";
-import Input from "./Input";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { Shortcut, tw } from "@/utils";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
 import { getText } from "./Text";
@@ -9,6 +8,7 @@ import { FeildGeneralProps } from "@/types/global";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useCopyState } from "@/hooks";
 import { Tip } from "@/components/Tip";
+import { Input } from "./Input";
 export const dateToStringForInput = (date: Date, to: SettingConfig["date"]["format"] = "datetime-local") => {
   if (to == "time") {
     return format(date, "HH:mm");

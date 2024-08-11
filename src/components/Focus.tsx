@@ -3,12 +3,12 @@ import { ReactElement } from "@/types/global";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
 import { nanoid } from "@reduxjs/toolkit";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 export interface FocusProps extends ReactElement {
   focusId?: string;
   ignoreOutline?: boolean;
 }
-export const Focus = React.forwardRef(
+export let Focus = React.forwardRef(
   ({ focusId = nanoid(30), id: _i, children, onFocus, onBlur, style, className, ignoreOutline = false, ...props }: FocusProps, elementRef: React.ForwardedRef<HTMLDivElement>) => {
     const focused = useCopyState(false);
     const colorMerge = useColorMerge();

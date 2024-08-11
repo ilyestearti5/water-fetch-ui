@@ -3,15 +3,15 @@ import { mergeObject } from "@/utils";
 import { BlurOverlay } from "@/components/Overlays";
 import { Line } from "@/components/Line";
 import { KeyPanding } from "@/components/KeyPanding";
-import { handelShadowColor, useColorMerge } from "@/data/system/colors.model";
 import { menuTemp } from "@/reducers/Object/allTemps";
-import { position } from "@/types/global";
-import { List, ListItemProps } from "main/src/hooks/list.hooks";
+import { ListItemProps, position } from "@/types/global";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { slotHooks } from "@/data/system/slot.slice";
 import { PositionView } from "../components/PositionView";
 import { positionsHooks } from "@/data/system/positions.model";
 import { Icon } from "@/components/Icon";
+import { List } from "@/components/List";
+import { handelShadowColor, useColorMerge } from "@/hooks";
 export const MenuRecord = ({ item: props, status, handelFocus, handelSubmit }: ListItemProps<Partial<Electron.MenuItem>>) => {
   if (props.type == "separator") {
     return (

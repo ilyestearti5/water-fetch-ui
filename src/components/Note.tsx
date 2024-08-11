@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { ClickProps } from "@/types/global";
 import { tw } from "@/utils";
 

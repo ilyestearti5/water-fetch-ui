@@ -1,6 +1,6 @@
-import { commandsHooks } from "@/data/system/command.model";
 import React from "react";
-import { useColorMerge } from "@/data/system/colors.model";
+import { commandsHooks } from "@/data/system/command.model";
+import { useColorMerge } from "@/hooks";
 import { isLike, transformCase } from "@/utils/index";
 import { setFocused } from "@/utils";
 import { Shortcut } from "@/utils";
@@ -13,20 +13,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPen, faRepeat, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { JoinComponentBy } from "@/components/JoinComponentBy";
 import { Key, keyHooks } from "@/data/system/keys.model";
-import { Db } from "main/src/functions/classes";
+import { Db } from "@/utils";
 import { nanoid } from "@reduxjs/toolkit";
 import { faCopy, faHandPointDown, faHandPointUp } from "@fortawesome/free-regular-svg-icons";
-import { Input } from "main/src/hooks/input.hooks";
-import { TitleView } from "@/components/Title";
+import { TitleView } from "@/components/TitleView";
 import { Text } from "@/components/Text";
 import { Anchor } from "@/components/Anchor";
 import { Tip } from "@/components/Tip";
 import { useCopyState } from "@/hooks";
+import { Input } from "@/components/Input";
 const direction = {
   commandId: "keyboard.commandId",
   position: "keyboard.editingPosition",
 };
-const feildUpdateWhen = "key.changeWhen";
+const fieldUpdateWhen = "key.changeWhen";
 interface KeyboardTitleProps {
   commandId: string;
 }
@@ -53,7 +53,7 @@ const KeyPandingLine = ({ keyPanding }: KeyPandingLineProps) => {
   const hover = useCopyState(false);
   React.useEffect(() => {
     if (state.get) {
-      setFocused(feildUpdateWhen);
+      setFocused(fieldUpdateWhen);
     }
   }, [state.get]);
   //
@@ -153,7 +153,7 @@ const KeyPandingLine = ({ keyPanding }: KeyPandingLineProps) => {
             }}
             value={whenState.get}
             onValueChange={whenState.set}
-            id={feildUpdateWhen}
+            id={fieldUpdateWhen}
             onFocus={(e) => {
               e.currentTarget.select();
             }}

@@ -1,5 +1,4 @@
-import { useColorMerge, handelGradientColor } from "@/data/system/colors.model";
-import { useCopyState } from "@/hooks";
+import { useCopyState, useColorMerge, handelGradientColor } from "@/hooks";
 import { ClickProps } from "@/types/global";
 import { tw } from "@/utils";
 import { Icon } from "./Icon";

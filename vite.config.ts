@@ -33,9 +33,10 @@ export default defineConfig({
         hooks: path.resolve(__dirname, "src/hooks/index.ts"),
         layouts: path.resolve(__dirname, "src/layouts/index.ts"),
         utils: path.resolve(__dirname, "src/utils/index.ts"),
+        app: path.resolve(__dirname, "src/app/index.ts"),
       }, // Entry point for your library
       name: pkg.name, // The name of the library
-      fileName: () => "index.js",
+      fileName: (_, entry) => `${entry}.js`,
       formats: ["es"],
     },
     rollupOptions: {
@@ -49,5 +50,6 @@ export default defineConfig({
         format: "esm", // Universal Module Definition
       },
     },
+    minify: true,
   },
 });

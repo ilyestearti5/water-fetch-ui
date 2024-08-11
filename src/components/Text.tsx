@@ -1,6 +1,6 @@
 import React from "react";
 import { cashLangs, langHooks } from "@/data/system/lang.model";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
+import { getSettingValue } from "@/hooks";
 import { transformCase } from "@/utils/index";
 import { getModel } from "../hooks/api/googleApi";
 import { logHooks } from "@/data/system/logs.model";

@@ -47,3 +47,104 @@ export interface TableDefConfig<T extends object = any, I extends keyof T = any,
   onRead?: () => Promise<T[]> | T[];
 }
 export type ClickProps<T> = ReactElement<T> & IconProps;
+export interface SetSmallStateProps {
+  force?: boolean;
+  direction: string;
+  value: any;
+}
+export interface SetProgressProps {
+  value?: number;
+  options?: globalThis.Electron.ProgressBarOptions | undefined;
+}
+export interface SendEmailProps {
+  to: string;
+  subject?: string;
+  body?: string;
+}
+export interface SendTelProps {
+  tel: string;
+}
+export interface SendSmsProps {
+  to: string;
+  body?: string;
+}
+export interface OpenMenuProps {
+  menu: Partial<Electron.MenuItem>[];
+  x: number;
+  y: number;
+}
+export interface DialogProps extends Electron.MessageBoxOptions {
+  force?: boolean;
+}
+export interface ListItemProps<T> extends ReactElement {
+  handelSubmit: (fn?: Function) => (e?: any) => void;
+  handelFocus: (fn?: Function) => (e?: any) => void;
+  handelSelect: (fn?: Function) => (e?: any) => void;
+  item: T;
+  index: number;
+  status: {
+    isFocused: boolean;
+    isSelected: boolean;
+    isSubmited: boolean;
+    isSkiped: boolean;
+  };
+}
+export type FunctionComponentListItem<T> = (props: ListItemProps<T>) => JSX.Element;
+export interface TreeComponentProps<T> extends ReactElement {
+  position: string;
+  data: T;
+  index: number;
+  handels: {
+    expand: (only: boolean, value: boolean) => any;
+    focus: Function;
+    select: (only: boolean, value: boolean) => any;
+    submit: Function;
+  };
+  status: Record<`is${"Submited" | "Selected" | "Focused" | "Expanded"}`, boolean>;
+  parent?: TreeProps<T>["parent"];
+  isFins: boolean;
+  innerTree: TreeProps<T>["tree"];
+  level: number;
+}
+export interface TreeProps<T> {
+  treeId: string;
+  tree?: {
+    data: T;
+    innerTree?: TreeProps<T>["tree"] | undefined;
+  }[];
+  component: (props: TreeComponentProps<T>) => JSX.Element;
+  level?: number;
+  size?: string;
+  position?: string;
+  parent?: {
+    data: T;
+    parent: TreeProps<T>["parent"];
+  };
+}
+export interface CameraOptions {
+  type: keyof FullCameraResult;
+}
+export interface FullCameraResult {
+  scanner: string;
+  take: string;
+}
+export type CameraResult<T extends keyof FullCameraResult> = FullCameraResult[T];
+export interface CameraConfig<T extends keyof FullCameraResult> {
+  result?: CameraResult<T>;
+  error?: string;
+  id?: string;
+}
+export type CssColorKeys =
+  | "background"
+  | "backgroundColor"
+  | "color"
+  | "borderColor"
+  | "outlineColor"
+  | "borderLeftColor"
+  | "borderRightColor"
+  | "borderBottomColor"
+  | "borderTopColor"
+  | "boxShadow"
+  | "caretColor"
+  | "fill"
+  | "stroke";

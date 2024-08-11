@@ -1,12 +1,35 @@
-import { DialogProps, SendEmailProps, SendTelProps, SendSmsProps, AddRecentDocumentsProps, GoogleAuthCodeProps, SetProgressProps, OpenMenuProps } from "../types";
-import * as appUtils from "main/src/functions/app-utils";
-import { onceState } from "main/src/onceState";
-import { menuTemp, progressTemp } from "@/reducers/Object/allTemps";
+import { DialogProps, SendEmailProps, SendTelProps, SendSmsProps, SetProgressProps, OpenMenuProps } from "@/types/global";
+import { onceState } from "@/hooks";
+import { dialogTemps, menuTemp, progressTemp } from "@/reducers/Object/allTemps";
 import { nanoid } from "@reduxjs/toolkit";
+import { mapAsync } from "@/utils";
+import { setTemp } from "@/reducers/Object/object.slice";
+import { store } from "@/store";
 // desc
 export const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "svg", "webp", "tiff", "ico", "jfif"];
-export function openDialog(config: DialogProps) {
-  return appUtils.openDialog(config);
+export function openDialog(props: DialogProps) {
+  const id = nanoid();
+  return new Promise<Electron.MessageBoxReturnValue>((res, rej) => {
+    if (!props.buttons?.length) {
+      rej("Need Minimum One Button");
+      return;
+    }
+    dialogTemps.setTemp("id", id);
+    dialogTemps.setTemp("params", props);
+    const callback = async () => {
+      const { slot, object } = store.getState();
+      const response = slot.entities["dialog-list"]?.submited;
+      if (typeof response == "number") {
+        res({
+          response,
+          checkboxChecked: object.data?.dialog?.checked || false,
+        });
+        un();
+        setTemp("dialog.id", null);
+      }
+    };
+    const un = store.subscribe(callback);
+  });
 }
 export async function getWindowData() {
   const { screenX, screenY, innerWidth, innerHeight } = window;
@@ -45,23 +68,21 @@ export const getImageFileType = (filePath: string) => {
 export const sendEmail = async ({ to, subject = "", body = "" }: SendEmailProps) => {
   const a = document.createElement("a");
   a.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  a.target = "_blank";
   a.click();
 };
 export const sendTel = ({ tel }: SendTelProps) => {
   const a = document.createElement("a");
   a.href = `tel:${tel}`;
+  a.target = "_blank";
   a.click();
 };
 export const sendSms = ({ to, body = "" }: SendSmsProps) => {
   const a = document.createElement("a");
   a.href = `sms:${to}?body=${encodeURIComponent(body)}`;
+  a.target = "_blank";
   a.click();
 };
-export const addToRecentDocuments = (_config: AddRecentDocumentsProps) => {};
-export const clearRecentDocuments = () => {};
-export const setJumpList = (_config: Electron.JumpListCategory[] | null) => {};
-export const getJumpListSettings = () => {};
-export const getGoogleAuthCode = (_config: GoogleAuthCodeProps) => {};
 const callbacks: Map<string, (ev: Event) => void> = new Map();
 export const on = (event: string, callback: () => boolean | void | Promise<boolean | void>) => {
   const call = async () => {
@@ -105,4 +126,36 @@ export const openMenu = (config: OpenMenuProps) => {
     },
   );
 };
-export const openPath = async () => {};
+export const openPath = (config: Electron.OpenDialogOptions) => {
+  return new Promise((resolve, rej) => {
+    const fileElement = document.createElement("input");
+    fileElement.type = "file";
+    fileElement.accept = "image/*";
+    fileElement.multiple = !!config.properties?.includes("multiSelections");
+    fileElement.onchange = async () => {
+      if (fileElement.files?.length) {
+        const files: File[] = [];
+        for (let i = 0; i < fileElement.files.length; i++) {
+          const file = fileElement.files.item(i);
+          if (file) {
+            files.push();
+          }
+        }
+        const allFiles = await mapAsync<File, string>(files, async (file) => {
+          return new Promise((res) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              if (reader.result) {
+                res(reader.result.toString());
+              }
+            };
+            reader.readAsDataURL(file);
+          });
+        });
+        resolve(allFiles);
+      }
+    };
+    fileElement.click();
+    fileElement.onerror = rej;
+  });
+};

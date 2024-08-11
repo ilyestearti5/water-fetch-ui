@@ -1,3 +1,3 @@
-import { startApplication } from "../application";
-import { App } from "@/layouts/Test";
-startApplication(<App />);
+import { startApplication } from "../app/application";
+import { Test } from "@/layouts/Test";
+startApplication(<Test />);

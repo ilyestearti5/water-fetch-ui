@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 export function Line() {
   const colorMerge = useColorMerge();
   return (

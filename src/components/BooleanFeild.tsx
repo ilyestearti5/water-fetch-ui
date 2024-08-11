@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +19,7 @@ export function BooleanFeild({ state, config = {}, id }: BooleanFeildProps) {
   }, []);
   const colorMerge = useColorMerge();
   const focused = useCopyState(false);
-  // desc: This is a boolean feild component that can be used to toggle between true and false values.
+  // desc: This is a boolean field component that can be used to toggle between true and false values.
   return (
     <span className="inline-flex items-center gap-1">
       {config.style == "checkbox" ? (

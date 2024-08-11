@@ -1,10 +1,9 @@
-import { handelShadowColor, useColorMerge } from "@/data/system/colors.model";
-import { useCopyState } from "@/hooks";
 import React from "react";
-import { Icon } from "./Icon";
+import { handelShadowColor, useColorMerge } from "@/hooks";
+import { useCopyState } from "@/hooks";
+import { Icon, IconProps } from "./Icon";
 import { mergeObject, tw } from "@/utils";
-import { ClickProps } from "@/types/global";
-export type ButtonProps = ClickProps<HTMLButtonElement>;
+export type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps;
 export function Button({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ButtonProps) {
   const colorMerge = useColorMerge();
   const focused = useCopyState(false);
@@ -40,8 +39,12 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
   }, [colorMerge, props, focused.get, handelShadowColor, style, active.get]);
   return (
     <button
-      onFocus={() => focused.set(true)}
-      onBlur={() => focused.set(false)}
+      onFocus={() => {
+        focused.set(true);
+      }}
+      onBlur={() => {
+        focused.set(false);
+      }}
       onMouseEnter={(e) => {
         hover.set(true);
         onMouseEnter?.(e);

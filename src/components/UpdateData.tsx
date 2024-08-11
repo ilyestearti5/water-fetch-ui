@@ -3,8 +3,8 @@ import { setFocused } from "@/utils";
 import { useCopyState } from "@/hooks";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Feild as FeildProps, feildHooks } from "@/data/system/feild.model";
-import { useColorMerge } from "@/data/system/colors.model";
+import { Feild as FeildProps, fieldHooks } from "@/data/system/field.model";
+import { useColorMerge } from "@/hooks";
 import { Feild } from "./Feild";
 import { CircleTip } from "@/components/CircleTip";
 export interface UpdateDataProps {
@@ -27,14 +27,14 @@ export function UpdateData({ inputName, defaultContent, value, setValue, visibil
     focusAction,
     async () => {
       setVisibility(true);
-      feildHooks.setOneFeild(inputName, "value", value || "");
+      fieldHooks.setOneFeild(inputName, "value", value || "");
       await new Delay().start(100);
       setFocused(inputName);
       (document.getElementById(inputName) as HTMLInputElement | null)?.select();
     },
     [value, setVisibility],
   );
-  const inputContent = feildHooks.getOneFeild(inputName, "value");
+  const inputContent = fieldHooks.getOneFeild(inputName, "value");
   useAction(
     escapeAction,
     () => {

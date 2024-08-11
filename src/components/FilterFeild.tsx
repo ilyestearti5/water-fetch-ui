@@ -1,9 +1,8 @@
 import React from "react";
-import { useColorMerge, handelGradientColor } from "@/data/system/colors.model";
 import { isLike } from "@/utils/index";
 import { tw } from "@/utils";
-import { useCopyState } from "@/hooks";
-import { List } from "main/src/hooks/list.hooks";
+import { handelGradientColor, useColorMerge, useCopyState } from "@/hooks";
+import { List } from "@/components/List";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { slotHooks } from "@/data/system/slot.slice";

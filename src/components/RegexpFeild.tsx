@@ -1,11 +1,11 @@
 import React from "react";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
-import { Input } from "main/src/hooks/input.hooks";
 import { Button } from "@/components/Button";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
+import { Input } from "./Input";
 export type RegexpFeildProps = FeildGeneralProps<string | undefined, SettingConfig["regexp"]>;
 // render RegExp Feild Prop
 function RegexpFeild({ state, id }: RegexpFeildProps) {

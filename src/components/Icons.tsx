@@ -9,13 +9,13 @@ import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
 import { FastList } from "./FastList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Db } from "main/src/functions/classes";
-import { useColorMerge } from "@/data/system/colors.model";
-import { feildHooks } from "@/data/system/feild.model";
+import { Db } from "@/utils";
+import { useColorMerge } from "@/hooks";
+import { fieldHooks } from "@/data/system/field.model";
 import { setTemp } from "@/reducers/Object/object.slice";
 import { EmptyComponent } from "@/components/EmptyComponent";
 export function Icons() {
-  const findConfigurationsValue = feildHooks.getOneFeild("findConfigurations", "value");
+  const findConfigurationsValue = fieldHooks.getOneFeild("findConfigurations", "value");
   const allIconsList = React.useMemo(() => {
     // solid icons
     const solidList = Object.entries(solidIcons).map(([iconName, icon]) => ({

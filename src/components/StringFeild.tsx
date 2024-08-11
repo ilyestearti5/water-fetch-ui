@@ -1,16 +1,16 @@
 import { Button } from "@/components/Button";
-import { feildHooks, initNewFeild } from "@/data/system/feild.model";
+import { fieldHooks, initNewFeild } from "@/hooks";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import Input from ".//Input";
 import { getFocus } from "@/utils";
-import { useColorMerge } from "@/data/system/colors.model";
-type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
+import { useColorMerge } from "@/hooks";
+import { Input } from "./Input";
+export type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
 // String Feild Rendering
 export function StringFeild({ state, config = {}, id }: StringFeildProps) {
   initNewFeild(`${id}:input`);
-  const value = feildHooks.useOneFeild(`${id}:input`, "value");
+  const value = fieldHooks.useOneFeild(`${id}:input`, "value");
   //
   useAction(
     "string.change",
@@ -25,12 +25,17 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
   useAction(
     "string.cancel",
     () => {
+      if (config.uncancable) {
+        return;
+      }
       const focused = getFocus();
       if (focused && [id, `${id}:cancel`].includes(focused)) {
-        value.set(state.get || "");
+        const val = state.get || "";
+        value.set(val);
+        state.set(val);
       }
     },
-    [state.get, id],
+    [state.get, id, config],
   );
   /*
    ******************************************************************************************************************************************************
@@ -63,18 +68,20 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
       />
       {(state.get || "") != (value.get || "") && (
         <div className="flex items-cente gap-x-2">
-          <Button
-            className="py-1"
-            id={`${id}:cancel`}
-            onClick={() => {
-              execAction("string.cancel");
-            }}
-            style={{
-              ...colorMerge("gray.opacity.2"),
-            }}
-          >
-            cancel
-          </Button>
+          {!config.uncancable && (
+            <Button
+              className="py-1"
+              id={`${id}:cancel`}
+              onClick={() => {
+                execAction("string.cancel");
+              }}
+              style={{
+                ...colorMerge("gray.opacity.2"),
+              }}
+            >
+              cancel
+            </Button>
+          )}
           <Button
             className="py-1"
             id={`${id}:change`}

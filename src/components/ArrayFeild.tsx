@@ -1,27 +1,26 @@
 // main React package
 import React from "react";
 // Tip for add tips in Array file
-// customize input element
-import { Input } from "main/src/hooks/input.hooks";
 // configure keypanding
 import { Shortcut, tw } from "@/utils";
 // use slot function for configure slot
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { keyHooks } from "@/data/system/keys.model";
 import { Text } from "./Text";
 import { useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
+import { Input } from "./Input";
 export type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
 // term of use is when you have state contain array and you want to update the state from
 export function ArrayFeild({ state, id }: ArrayFeildProps) {
   // init the key panding needed
   const pending = keyHooks.getOneFeild("addItemInArray", "value");
-  // full input element for append new items in array feild
+  // full input element for append new items in array field
   const inputValue = useCopyState("");
   // transform the array to unqiue data (ilyes,ilyes,aymen,akrem) => (ilyes,aymen,akrem)
   const uniqueData = React.useMemo(() => Array.from(new Set(state.get)), [state.get]);
@@ -35,7 +34,7 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
   }, [inputValue.get, uniqueData, inputValue.set, state.set]);
   // render ArrayFeild element component
   return (
-    <div className="array-feild">
+    <div className="array-field">
       <div className="items">
         {uniqueData.map((item, index) => {
           return (

@@ -1,4 +1,4 @@
-import { handelGradientColor, useColorMerge } from "@/data/system/colors.model";
+import { handelGradientColor, useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { ReactElement } from "@/types/global";
 export function LineLoading() {

@@ -1,7 +1,7 @@
 import React from "react";
-import { HeaderNotification } from "@/components/HeaderNotification";
+import { HeaderNotification } from "@/layouts/HeaderNotification";
 import { tw } from "@/utils";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
+import { getSettingValue } from "@/hooks";
 export interface WindowProps {
   children?: React.ReactNode;
 }

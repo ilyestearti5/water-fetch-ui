@@ -3,7 +3,7 @@ import { FeildGeneralProps } from "@/types/global";
 import { JoinComponentBy } from "./JoinComponentBy";
 import { EmptyComponent } from "./EmptyComponent";
 import { Shortcut, tw } from "@/utils";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { Focus } from "./Focus";
 import { useCopyState } from "@/hooks";
 type PinFeildProps = FeildGeneralProps<number | undefined, SettingConfig["pin"]>;

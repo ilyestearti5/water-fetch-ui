@@ -4,9 +4,9 @@ import { Focus } from "@/components/Focus";
 import { isSorted, renameValues } from "@/utils/index";
 import { mergeObject, tw } from "@/utils";
 import { ReactElement } from "@/types/global";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
+import { getSettingValue } from "@/hooks";
 import { ChangableComponent } from "./PositionView";
-import { handelShadowColor, useColorMerge } from "@/data/system/colors.model";
+import { handelShadowColor, useColorMerge } from "@/hooks";
 import { useCopyState } from "@/hooks";
 export interface FastListItemProps<T> extends ReactElement {
   status: {
@@ -282,7 +282,6 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
             }}
           />
         </div>
-        return (
         <div
           data-scrolled={scroll.get >= 10}
           className="-top-[20px] absolute inset-x-0 h-[20px]"
@@ -302,7 +301,6 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
             ),
           }}
         />
-        );
       </ChangableComponent>
     </Focus>
   );

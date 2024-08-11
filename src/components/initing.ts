@@ -1,7 +1,7 @@
 import React from "react";
-import { colorHooks, getColor } from "@/data/system/colors.model";
+import { colorHooks } from "@/data/system/colors.model";
 import { setTemp } from "@/reducers/Object/object.slice";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
+import { getColor, getSettingValue } from "@/hooks";
 export function initDarkSystem() {
   const isDark = getSettingValue("window/dark.boolean");
   const mainBackground = colorHooks.getOne("primary.background");

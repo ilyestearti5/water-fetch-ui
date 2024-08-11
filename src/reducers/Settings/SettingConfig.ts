@@ -25,6 +25,7 @@ export interface SettingConfig {
     help: string[];
     locked: boolean;
     hint: string;
+    uncancable: boolean;
   }>;
   boolean: Partial<{
     onActive: string;

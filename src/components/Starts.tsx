@@ -2,7 +2,7 @@ import { range } from "@/utils";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStartOutLine } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { EmptyComponent } from "./EmptyComponent";
 interface StartsProps {
   length?: number;

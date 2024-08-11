@@ -1,15 +1,15 @@
 import React from "react";
-import { Feild as FeildType, feildHooks, initNewFeild } from "@/data/system/feild.model";
+import { Feild as FeildType, fieldHooks } from "@/data/system/field.model";
 import { TextArea, TextAreaProps } from "./TextArea";
 import { tw } from "@/utils";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { con } from "@/utils/index";
 import { JoinComponentBy } from "./JoinComponentBy";
 import { Line } from "@/components/Line";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { MarkDown } from "./MarkDown";
-import { useCopyState, useMemoDelay } from "@/hooks";
+import { initNewFeild, useCopyState, useMemoDelay } from "@/hooks";
 export interface FeildProps extends TextAreaProps {
   inputName: string;
   selectWhenFocusIn?: boolean;
@@ -37,9 +37,9 @@ export function Feild({
   propositions,
   ...props
 }: FeildProps) {
-  const value = feildHooks.getOneFeild(inputName, "value");
-  const selection = feildHooks.getOneFeild(inputName, "selection");
-  const hists = feildHooks.useOneFeild(inputName, "history");
+  const value = fieldHooks.getOneFeild(inputName, "value");
+  const selection = fieldHooks.getOneFeild(inputName, "selection");
+  const hists = fieldHooks.useOneFeild(inputName, "history");
   const colorMerge = useColorMerge();
   const focused = useCopyState(false);
   useMemoDelay(
@@ -61,7 +61,7 @@ export function Feild({
   initNewFeild(inputName);
   //
   React.useEffect(() => {
-    feildHooks.setOneFeild(inputName, "controls", controls || {});
+    fieldHooks.setOneFeild(inputName, "controls", controls || {});
   }, [controls, inputName]);
   const controlsArray = React.useMemo(() => {
     return Object.entries(controls || {})
@@ -132,16 +132,16 @@ export function Feild({
         }}
         value={value}
         onValueChange={(val) => {
-          feildHooks.setOneFeild(inputName, "value", val);
+          fieldHooks.setOneFeild(inputName, "value", val);
         }}
         selection={selection}
         onSelectionChange={(sel) => {
-          feildHooks.setOneFeild(inputName, "selection", sel);
+          fieldHooks.setOneFeild(inputName, "selection", sel);
         }}
         style={{
           ...colorMerge({
             borderColor: focused.get ? "primary" : "borders",
-            backgroundColor: "feild.background",
+            backgroundColor: "field.background",
           }),
           ...style,
         }}

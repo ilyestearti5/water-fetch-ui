@@ -154,47 +154,47 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
         },
       );
     },
-    getOneFeild<F extends keyof T>(recordId: EntityId, feild: F) {
+    getOneFeild<F extends keyof T>(recordId: EntityId, field: F) {
       const row = useSelector((state: FullState) => {
-        const r = entitySelect.selectById(state[name], recordId)?.[feild];
+        const r = entitySelect.selectById(state[name], recordId)?.[field];
         return typeof r == "undefined" ? undefined : r;
       });
       return row;
     },
-    setOneFeild<F extends keyof T>(id: EntityId, feild: F, value: T[F]) {
+    setOneFeild<F extends keyof T>(id: EntityId, field: F, value: T[F]) {
       store.dispatch(
         slice.actions.update([
           {
             id,
             changes: {
-              [feild]: value,
+              [field]: value,
             } as any,
           },
         ]),
       );
     },
-    useOneFeild<F extends keyof T>(recordeId: EntityId, feild: F) {
-      const data = hooks.getOneFeild(recordeId, feild);
+    useOneFeild<F extends keyof T>(recordeId: EntityId, field: F) {
+      const data = hooks.getOneFeild(recordeId, field);
       const rs = useDref(
         data,
         (v) => {
           if (v != undefined) {
-            hooks.setOneFeild(recordeId, feild, v);
+            hooks.setOneFeild(recordeId, field, v);
           }
         },
         (v) => v,
       );
       return rs;
     },
-    getOneFeilds<F extends keyof T>(id: EntityId, feilds: F[]) {
+    getOneFeilds<F extends keyof T>(id: EntityId, fields: F[]) {
       const row = useSelector((state: FullState) => {
         const result = entitySelect.selectById(state[name], id);
         if (!result) {
           return undefined;
         }
         const o: any = {};
-        feilds.forEach((feild) => {
-          o[feild] = result![feild];
+        fields.forEach((field) => {
+          o[field] = result![field];
         });
         return o as { [key in F]: T[F] };
       });

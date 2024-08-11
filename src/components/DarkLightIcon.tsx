@@ -3,27 +3,26 @@ import { settingHooks } from "@/reducers/Settings/settings.model";
 import React from "react";
 import { tw } from "@/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { getText } from "@/components/Text";
-import { TitleView } from "@/components/Title";
-export const DarkLightIcon = React.memo(
-  () => {
-    const isDark = settingHooks.useOneFeild("window/dark.boolean", "value");
-    const colorMerge = useColorMerge();
-    const toLight = getText("toggle to light");
-    const toDark = getText("toggle to dark");
-    return (
-      <TitleView
-        title={(isDark.get ? toLight : toDark) ?? undefined}
-        position={{
-          x: "left",
-          y: "bottom",
-        }}
-        className="flex items-center"
-      >
-        <button
-          tabIndex={-1}
-          className={tw(`
+import { TitleView } from "@/components/TitleView";
+export const DarkLightIcon = () => {
+  const isDark = settingHooks.useOneFeild("window/dark.boolean", "value");
+  const colorMerge = useColorMerge();
+  const toLight = getText("toggle to light");
+  const toDark = getText("toggle to dark");
+  return (
+    <TitleView
+      title={(isDark.get ? toLight : toDark) ?? undefined}
+      position={{
+        x: "left",
+        y: "bottom",
+      }}
+      className="flex items-center"
+    >
+      <button
+        tabIndex={-1}
+        className={tw(`
             relative
             inline-block
             h-[20px]
@@ -33,19 +32,19 @@ export const DarkLightIcon = React.memo(
             border-solid
             border-transparent
           `)}
-          onClick={() => {
-            isDark.set(!isDark.get);
-          }}
-          style={{
-            ...colorMerge({
-              backgroundColor: "primary.background",
-              borderColor: "borders",
-            }),
-          }}
-        >
-          <span
-            className={tw(
-              `
+        onClick={() => {
+          isDark.set(!isDark.get);
+        }}
+        style={{
+          ...colorMerge({
+            backgroundColor: "primary.background",
+            borderColor: "borders",
+          }),
+        }}
+      >
+        <span
+          className={tw(
+            `
                 transition-[left]
                 duration-200
                 w-[20px]
@@ -64,19 +63,17 @@ export const DarkLightIcon = React.memo(
                 border-transparent
                 left-0
               `,
-              isDark.get && "left-1/2",
-            )}
-            style={{
-              ...colorMerge("primary.background", {
-                borderColor: "borders",
-              }),
-            }}
-          >
-            <FontAwesomeIcon icon={isDark.get ? faMoon : faSun} />
-          </span>
-        </button>
-      </TitleView>
-    );
-  },
-  () => false,
-);
+            isDark.get && "left-1/2",
+          )}
+          style={{
+            ...colorMerge("primary.background", {
+              borderColor: "borders",
+            }),
+          }}
+        >
+          <FontAwesomeIcon icon={isDark.get ? faMoon : faSun} />
+        </span>
+      </button>
+    </TitleView>
+  );
+};

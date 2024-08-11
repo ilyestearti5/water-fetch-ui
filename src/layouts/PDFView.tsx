@@ -1,7 +1,7 @@
 import { viewTemps } from "@/reducers/Object/allTemps";
 import { BlurOverlay } from "@/components/Overlays";
-import { SeparatedViewsLine, SeparatedViewsLineTitle } from "@/components/SimpleComponents";
-import { TitleView } from "@/components/Title";
+import { SeparatedViewsLine, SeparatedViewsLineTitle } from "@/components/SeparatedComponents";
+import { TitleView } from "@/components/TitleView";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ResizeView } from "@/components/ResizeView";
 import { Tip } from "@/components/Tip";

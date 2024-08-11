@@ -6,7 +6,7 @@ import { TableDefConfig } from "@/types/global";
 import commands from "@/apis/commands";
 import { FullStateManagment } from "@/types/global";
 const { data } = commands;
-export type CommandIds = string;
+export type CommandIds = keyof typeof data;
 // Data Rendering Of One Command
 export interface Command {
   commandId: string;

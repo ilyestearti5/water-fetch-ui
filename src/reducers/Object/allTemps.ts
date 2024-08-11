@@ -13,3 +13,4 @@ export const visibilityTemp = new Temp("visibility");
 export const ipinfoTemp = new Temp("ipinfo");
 export const submitedTemp = new Temp("submited");
 export const cameraTemp = new Temp("camera");
+export const recaptchaTemp = new Temp("recaptcha");

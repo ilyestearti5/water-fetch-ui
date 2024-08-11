@@ -1,14 +1,12 @@
 import React from "react";
 import { tw } from "@/utils";
-import { useCopyState } from "@/hooks";
+import { openCamera, useCopyState, showToast } from "@/hooks";
 import { Tip } from "@/components/Tip";
 import { faCamera, faFileUpload, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { handelShadowColor, useColorMerge } from "@/data/system/colors.model";
+import { handelShadowColor, useColorMerge } from "@/hooks";
 import { Image } from "@/components/Image";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
-import { openCamera } from "main/src/functions/app-utils";
-import { showToast } from "@/data/system/toasts.model";
-import { webApi } from "main/src/functions/app/web";
+import { getSettingValue } from "@/hooks";
+import { openDialog } from "@/functions/app/web/web-utils";
 export type ImageParam = {
   dataURL?: string;
 };
@@ -105,7 +103,7 @@ export function ImageChoiser({ onChange, alt, src }: ImageChoiserProps) {
           {src && (
             <Tip
               onClick={async () => {
-                const { response } = await webApi.openDialog({
+                const { response } = await openDialog({
                   message: "do you want to recenlty this image",
                   title: "confirmation",
                   type: "warning",
@@ -127,7 +125,7 @@ export function ImageChoiser({ onChange, alt, src }: ImageChoiserProps) {
           <Tip
             onClick={async () => {
               if (src) {
-                const { response } = await webApi.openDialog({
+                const { response } = await openDialog({
                   message: "do you want to recenlty this image",
                   title: "confirmation",
                   type: "warning",
@@ -178,7 +176,7 @@ export function ImageChoiser({ onChange, alt, src }: ImageChoiserProps) {
             }}
             onClick={async () => {
               if (src) {
-                const { response } = await webApi.openDialog({
+                const { response } = await openDialog({
                   message: "do you want to recenlty this image",
                   title: "confirmation",
                   type: "warning",

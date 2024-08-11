@@ -58,6 +58,14 @@ export default {
       config: {
         list: [
           {
+            content: "Outfit",
+            value: "Outfit",
+          },
+          {
+            content: "Karla",
+            value: "Karla",
+          },
+          {
             content: "arial",
             value: "arial",
           },
@@ -99,7 +107,7 @@ export default {
           },
         ],
       },
-      def: "arial",
+      def: "Outfit",
       desc: "change one between this fonts ${state.settings.entities['preferences/font.enum']?.config.list.map(({ content })=> '`' + content + '`').join(' , ')}",
       name: "change font of app",
     },
@@ -195,7 +203,7 @@ export default {
       config: {
         style: "checkbox",
       },
-      def: true,
+      def: false,
       desc: "change the theme of the app to dark mode",
       name: "dark mode",
     },

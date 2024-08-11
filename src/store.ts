@@ -11,7 +11,7 @@ import { logSlice } from "@/data/system/logs.model";
 import { langsSlice } from "./data/system/lang.model";
 import { keySlice } from "@/data/system/keys.model";
 import { keyboardSlice } from "@/reducers/Global/keyboard.slice";
-import { feildSlice } from "@/data/system/feild.model";
+import { fieldSlice } from "@/data/system/field.model";
 import { configureStore } from "@reduxjs/toolkit";
 import { commandsSlice } from "@/data/system/command.model";
 import { colorSlice } from "@/data/system/colors.model";
@@ -31,7 +31,7 @@ export const store = configureStore({
     [positionsSlice.name]: positionsSlice.reducer,
     [slotSlice.name]: slotSlice.reducer,
     [settingSlice.name]: settingSlice.reducer,
-    [feildSlice.name]: feildSlice.reducer,
+    [fieldSlice.name]: fieldSlice.reducer,
     [actionSlice.name]: actionSlice.reducer,
     [colorSlice.name]: colorSlice.reducer,
     [treeSlice.name]: treeSlice.reducer,

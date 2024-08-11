@@ -39,7 +39,7 @@ export default {
     "facebook-icon": {
       default: "#014DE4",
     },
-    "feild.background": {
+    "field.background": {
       default: "rgba(160 160 160 / 0.2)",
     },
     "focus.text": {

@@ -88,16 +88,16 @@ export default {
     },
     {
       command: "string.change",
-      when: "focused && state.feilds.ids.includes(focused + ':input')",
+      when: "focused && state.fields.ids.includes(focused + ':input')",
       value: "enter",
     },
     {
       command: "string.cancel",
-      when: "focused && state.feilds.ids.includes(focused + ':input')",
+      when: "focused && state.fields.ids.includes(focused + ':input')",
       value: "escape",
     },
     {
-      when: "focused == 'feedback' && state.feilds.entities['feedback']?.value",
+      when: "focused == 'feedback' && state.fields.entities['feedback']?.value",
       command: "feedback/add",
       value: "control+enter",
       private: true,
@@ -234,17 +234,17 @@ export default {
     },
     {
       value: "arrowdown",
-      command: "colors-list.next",
+      command: "colors-list-next",
       when: "['findConfigurations-local','color-list'].includes(focused) && state.views.entities.settings.focused == 'colors'",
     },
     {
       value: "arrowup",
-      command: "colors-list.back",
+      command: "colors-list-back",
       when: "['findConfigurations-local','color-list'].includes(focused) && state.views.entities.settings.focused == 'colors'",
     },
     {
       value: "enter",
-      command: "colors-list.submit",
+      command: "colors-list-submit",
       when: "['findConfigurations-local','color-list'].includes(focused) && state.views.entities.settings.focused == 'colors'",
     },
     {
@@ -466,7 +466,7 @@ export default {
       value: "enter",
     },
     {
-      command: "camera.take",
+      command: "camera-take",
       value: "enter",
       when: "state.object.data?.camera?.id",
     },

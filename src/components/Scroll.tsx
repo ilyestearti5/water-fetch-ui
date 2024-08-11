@@ -1,4 +1,4 @@
-import { handelShadowColor, useColorMerge } from "@/data/system/colors.model";
+import { handelShadowColor, useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
 import { ReactElement } from "@/types/global";

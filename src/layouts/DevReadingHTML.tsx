@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { getTemp } from "@/reducers/Object/object.slice";
 import { EmptyComponent } from "@/components/EmptyComponent";

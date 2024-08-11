@@ -1,14 +1,14 @@
 export default {
   data: {
-    "camera.take": {
+    "camera-take": {
       commands: [
         {
-          payload: ["camera.take"],
+          payload: ["camera-take"],
           type: "actions/exec",
         },
       ],
     },
-    "colors-list.back": {
+    "colors-list-back": {
       commands: [
         {
           payload: "colors-list",
@@ -16,7 +16,7 @@ export default {
         },
       ],
     },
-    "colors-list.next": {
+    "colors-list-next": {
       commands: [
         {
           payload: "colors-list",
@@ -24,7 +24,7 @@ export default {
         },
       ],
     },
-    "colors-list.submit": {
+    "colors-list-submit": {
       commands: [
         {
           payload: "colors-list",
@@ -719,7 +719,7 @@ export default {
               id: "findConfigurations-local",
             },
           ],
-          type: "feilds/update",
+          type: "fields/update",
         },
         {
           payload: ["focus", "findConfigurations-local"],

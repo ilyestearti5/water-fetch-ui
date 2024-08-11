@@ -1,10 +1,10 @@
 import React from "react";
-import { useColorMerge } from "@/data/system/colors.model";
+import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { useCopyState, useMemoDelay } from "@/hooks";
 import { ReactElement } from "@/types/global";
 import { getTempFromStore, setTemp } from "@/reducers/Object/object.slice";
-import { getSettingValue } from "@/reducers/Settings/settings.model";
+import { getSettingValue } from "@/hooks";
 export interface ResizeViewProps extends ReactElement {
   position?: "top" | "left" | "right" | "bottom"; // position of resize bar
   max?: number | ((change: number) => number); // max change or height of element resized (accept function)

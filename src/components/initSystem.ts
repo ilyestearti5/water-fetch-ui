@@ -1,7 +1,7 @@
 import { initCommands } from "@/data/system/command.model";
 import { initSlot } from "@/data/system/slot.slice";
 import { initSettings } from "@/reducers/Settings/settings.model";
-import { initFeilds } from "@/data/system/feild.model";
+import { initFeilds } from "@/data/system/field.model";
 import { initPositions } from "@/data/system/positions.model";
 import { initViews } from "@/data/system/views.model";
 import { initColors } from "@/data/system/colors.model";

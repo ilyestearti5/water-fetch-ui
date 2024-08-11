@@ -1,4 +1,4 @@
-import { handelShadowColor, useColorMerge } from "@/data/system/colors.model";
+import { handelShadowColor, useColorMerge } from "@/hooks";
 import React from "react";
 import Component from "markdown-to-jsx";
 import { Line } from "./Line";
