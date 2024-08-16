@@ -4,7 +4,7 @@ import { SeparatedViewsLine, SeparatedViewsLineTitle } from "@/components/Separa
 import { TitleView } from "@/components/TitleView";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ResizeView } from "@/components/ResizeView";
-import { Tip } from "@/components/Tip";
+import { CircleTip } from "@/components";
 export const PDFView = () => {
   const baseUrl64Uri = viewTemps.getTemp<string>("pdf");
   return (
@@ -19,7 +19,7 @@ export const PDFView = () => {
                 rightSide={
                   <div className="flex tools">
                     <TitleView title="close view">
-                      <Tip
+                      <CircleTip
                         icon={faXmark}
                         onClick={() => {
                           viewTemps.setTemp("pdf", null);
@@ -29,7 +29,7 @@ export const PDFView = () => {
                   </div>
                 }
               />,
-              <div className="h-full">{baseUrl64Uri && <embed src={baseUrl64Uri} className="w-full h-full" />}</div>,
+              <div className="p-2 h-full">{baseUrl64Uri && <embed src={baseUrl64Uri} className="rounded-xl w-full h-full overflow-hidden" />}</div>,
             ]}
           />
         </ResizeView>

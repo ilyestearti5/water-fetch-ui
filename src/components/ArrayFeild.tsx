@@ -52,7 +52,7 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
                 rounded-sm
               `)}
               style={{
-                ...colorMerge({
+                ...colorMerge("gray.opacity", {
                   borderColor: "borders",
                 }),
               }}
@@ -100,7 +100,7 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
           />
         </div>
         {inputValue.get && (
-          <Button onClick={add}>
+          <Button onClick={add} className="w-fit">
             <Text content="add" />
           </Button>
         )}

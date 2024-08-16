@@ -69,11 +69,13 @@ export function DateFeild({ state, config = {}, id }: DateFeildProps) {
         onKeyDown={(e) => {
           const current = new Shortcut("control+shift+d");
           if (current.test(e)) {
+            e.preventDefault();
             resetToDefault();
             return;
           }
           const deleteAll = new Shortcut("control+backspace");
           if (deleteAll.test(e)) {
+            e.preventDefault();
             state.set("");
           }
         }}

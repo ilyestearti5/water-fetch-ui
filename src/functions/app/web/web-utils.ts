@@ -127,10 +127,14 @@ export const openMenu = (config: OpenMenuProps) => {
   );
 };
 export const openPath = (config: Electron.OpenDialogOptions) => {
-  return new Promise((resolve, rej) => {
+  return new Promise<string[]>((resolve, rej) => {
     const fileElement = document.createElement("input");
     fileElement.type = "file";
-    fileElement.accept = "image/*";
+    if (config.filters) {
+      fileElement.accept = config.filters.map(({ name, extensions }) => `${name}.{${extensions.join(",")}`).join(",");
+    } else {
+      fileElement.accept = "*";
+    }
     fileElement.multiple = !!config.properties?.includes("multiSelections");
     fileElement.onchange = async () => {
       if (fileElement.files?.length) {
@@ -138,7 +142,7 @@ export const openPath = (config: Electron.OpenDialogOptions) => {
         for (let i = 0; i < fileElement.files.length; i++) {
           const file = fileElement.files.item(i);
           if (file) {
-            files.push();
+            files.push(file);
           }
         }
         const allFiles = await mapAsync<File, string>(files, async (file) => {

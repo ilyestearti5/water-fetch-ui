@@ -14,8 +14,8 @@ export const firebaseConfig = {
   projectId: "water-fetch",
   storageBucket: "water-fetch.appspot.com",
   messagingSenderId: "911813185967",
-  appId: "1:911813185967:web:e146c600afacbbe0315f5a",
-  measurementId: "G-6MYL1EYDGD",
+  appId: "1:911813185967:web:156422661781bf11315f5a",
+  measurementId: "G-NE6Z35DJ1F",
 };
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

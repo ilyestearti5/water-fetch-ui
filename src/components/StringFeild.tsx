@@ -70,7 +70,7 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
         <div className="flex items-cente gap-x-2">
           {!config.uncancable && (
             <Button
-              className="py-1"
+              className="w-fit"
               id={`${id}:cancel`}
               onClick={() => {
                 execAction("string.cancel");
@@ -83,7 +83,7 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
             </Button>
           )}
           <Button
-            className="py-1"
+            className="w-fit"
             id={`${id}:change`}
             onClick={() => {
               execAction("string.change");

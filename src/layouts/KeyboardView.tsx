@@ -1,14 +1,15 @@
 import { Tip } from "@/components/Tip";
 import { Line } from "@/components/Line";
 import { TitleView } from "@/components/TitleView";
-import { handelShadowColor, useColorMerge } from "@/hooks";
+import { getSettingValue, handelShadowColor, useColorMerge } from "@/hooks";
 import { mergeObject, tw } from "@/utils";
 import { getModifier } from "@/reducers/Global/keyboard.slice";
 import { settingHooks } from "@/reducers/Settings/settings.model";
 import { ReactElement, position } from "@/types/global";
-import { faAngleDown, faGripVertical } from "@fortawesome/free-solid-svg-icons";
+import { faGripVertical, faXmark } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { fieldHooks, initNewFeilds, useCopyState, useEffectDelay } from "@/hooks";
+import { CircleTip } from "@/components";
 export interface KeyboardButtonProps extends ReactElement<HTMLSpanElement> {
   isActive?: boolean;
 }
@@ -121,8 +122,10 @@ export const KeyboardView = () => {
   initNewFeilds(["keyboard-view"]);
   const value = fieldHooks.useOneFeild("keyboard-view", "value");
   const position = useCopyState<position>([0, innerHeight - 300]);
+  const keyboardViewVisibility = getSettingValue("visibility/keyboard.boolean");
   return (
     <div
+      hidden={!keyboardViewVisibility}
       className="z-[100000000000000000000000000000] fixed flex flex-col border border-transparent border-solid rounded-xl w-1/2 max-md:w-2/3 h-[300px] overflow-hidden"
       style={{
         ...colorMerge("primary.background", {
@@ -145,7 +148,7 @@ export const KeyboardView = () => {
         ),
       }}
     >
-      <div className="flex justify-between p-2">
+      <div className="flex justify-between items-center p-2">
         <div>
           <Tip
             onPointerDown={() => {
@@ -187,11 +190,11 @@ export const KeyboardView = () => {
             x: "left",
           }}
         >
-          <Tip
+          <CircleTip
             onClick={() => {
-              settingHooks.setOneFeild("window/mode.enum", "value", "desktop");
+              settingHooks.setOneFeild("visibility/keyboard.boolean", "value", false);
             }}
-            icon={faAngleDown}
+            icon={faXmark}
           />
         </TitleView>
       </div>

@@ -21,35 +21,26 @@ export function initDarkSystem() {
       document.body.style.color = getColor(!!isDark, mainColor)!;
     }
   }, [mainColor, isDark]);
-  React.useEffect(() => {
-    if (bgSelectedColor && textSelectedColor) {
-      const ruleNumber = document.styleSheets.item(0)?.insertRule(`
-        ::selection {
-          background-color: ${getColor(!!isDark, bgSelectedColor)};
-          color: ${getColor(!!isDark, textSelectedColor)};
-        }
-      `);
-      return () => {
-        typeof ruleNumber == "number" && document.styleSheets.item(0)?.deleteRule(ruleNumber);
-      };
-    }
-  }, [isDark, bgSelectedColor, textSelectedColor]);
-}
-export function initFonts() {
   const font = getSettingValue("preferences/font.enum");
   React.useEffect(() => {
-    if (!font) {
-      return;
+    if (font) {
+      document.body.style.fontFamily = font;
     }
-    const item = document.styleSheets.item(0);
-    if (!item) {
-      return;
+    let element: HTMLStyleElement | null;
+    if (bgSelectedColor && textSelectedColor) {
+      const element = document.createElement("style");
+      element.textContent = `
+        ::selection {
+          background: ${getColor(!!isDark, bgSelectedColor)};
+          color: ${getColor(!!isDark, textSelectedColor)};
+        }
+      `;
+      document.head.append(element);
     }
-    item.insertRule(`* { font-family: ${font}; }`);
     return () => {
-      item.deleteRule(0);
+      element?.remove();
     };
-  }, [font]);
+  }, [isDark, bgSelectedColor, textSelectedColor, font]);
 }
 export function initAdress() {
   // desc: for check connection
@@ -74,6 +65,5 @@ export function initAdress() {
 export function initConfigurations(more?: () => void) {
   initDarkSystem();
   initAdress();
-  initFonts();
   more?.();
 }

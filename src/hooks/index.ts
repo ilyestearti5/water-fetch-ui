@@ -654,3 +654,7 @@ export const verifieCapatcha = async () => {
 export const showProfile = () => {
   viewTemps.setTemp("profile-view", true);
 };
+
+export const showPdf = (content: null | string) => {
+  viewTemps.setTemp("pdf", content);
+};

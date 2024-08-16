@@ -71,9 +71,15 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
       {...props}
     >
       <span
-        className={tw(`absolute inset-0 opacity-0 transition-[opacity] inline-block pointer-events-none`, hover.get && `opacity-60`)}
+        className={tw(`absolute inset-0 opacity-0 transition-[opacity] inline-block pointer-events-none`, active.get && `opacity-60`)}
         style={{
-          ...colorMerge("shadow.color", active.get && "gray.opacity.toLight"),
+          ...colorMerge("shadow.color"),
+        }}
+      />
+      <span
+        className={tw(`scale-0 absolute w-[700px] h-[700px] rounded-full duration-700 transition-[transform] inline-block pointer-events-none`, hover.get && `scale-100 rounded-[0px]`)}
+        style={{
+          ...colorMerge("gray.opacity.toLight"),
         }}
       />
       <Icon iconClassName={iconClassName} icon={icon} />

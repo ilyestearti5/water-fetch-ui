@@ -1,7 +1,7 @@
 import React from "react";
+import settings from "@/apis/settings";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import "pdfmake/build/vfs_fonts";
 import { store } from "@/store";
 // Components
 // Deps
@@ -11,7 +11,6 @@ import { execCommand } from "@/data/system/command.model";
 import { initSystem } from "@/components/initSystem";
 import { initConfigurations } from "@/components/initing";
 import { settingHooks } from "@/reducers/Settings/settings.model";
-import settings from "@/apis/settings";
 import { EmptyComponent } from "@/components/EmptyComponent";
 import { initUser } from "@/hooks";
 const { data } = settings;
@@ -20,6 +19,11 @@ export const defineGlobal = (configName: string, config: any) => {
 };
 export interface ApplicationProps {
   children?: React.ReactNode;
+}
+if (import.meta.env.DEV) {
+  defineGlobal("store", store);
+  defineGlobal("execAction", execAction);
+  defineGlobal("execCommand", execCommand);
 }
 export const Application = ({ children }: ApplicationProps) => {
   initConfigurations();
@@ -39,12 +43,7 @@ export const Application = ({ children }: ApplicationProps) => {
   }, []);
   return <EmptyComponent>{children}</EmptyComponent>;
 };
-export const startApplication = (App: JSX.Element | (() => JSX.Element)) => {
-  if (import.meta.env.DEV) {
-    defineGlobal("store", store);
-    defineGlobal("execAction", execAction);
-    defineGlobal("execCommand", execCommand);
-  }
+export const startApplication = async (App: JSX.Element | (() => JSX.Element)) => {
   const rootElement = document.createElement("div");
   rootElement.classList.add("window");
   //

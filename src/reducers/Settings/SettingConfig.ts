@@ -56,6 +56,8 @@ export interface SettingConfig {
   audio: Partial<{}>;
   image: Partial<{
     filter: string[];
+    alt?: string;
+    rounded?: boolean;
   }>;
 }
 // nesisary values
@@ -65,7 +67,7 @@ export interface SettingValueType extends Record<keyof SettingConfig, any> {
   number: number;
   array: string[];
   enum: string;
-  file: string | null;
+  file: string[] | null;
   filter: string[];
   password: string | null;
   object: Record<string, string>;

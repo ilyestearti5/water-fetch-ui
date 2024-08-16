@@ -260,7 +260,7 @@ export const LoginPage = () => {
             icon={signInWithPopupFacebookAction?.status == "loading" ? faRotate : faFacebook}
             onClick={async () => {
               // Facebook Sign In
-              execAction("sign-in-facebook");
+              await execAction("sign-in-facebook");
             }}
           />
         </div>

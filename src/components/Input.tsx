@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/hooks";
+import { getSettingValue, useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import React from "react";
 export interface InputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -9,6 +9,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, selectOnFocus, onFocus, onBlur, onValueChange, onChange, style, ...props }: InputProps, ref: React.Ref<HTMLInputElement>) => {
     const colorMerge = useColorMerge();
     const [focused, setFocused] = React.useState(false);
+    const isAnimation = getSettingValue("preferences/animation.boolean");
     return (
       <input
         {...props}
@@ -26,16 +27,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         }}
         className={tw(
           `
-          p-2
-          border
-          border-solid
-          border-transparent
-          font-[inherit]
-          resize-none
-          whitespace-nowrap
-          rounded-sm
-          w-full
-      `,
+            p-2
+            border
+            border-solid
+            border-transparent
+            font-[inherit]
+            resize-none
+            whitespace-nowrap
+            rounded-sm
+            w-full
+          `,
+          isAnimation && "transition-[border-color]",
           className,
         )}
         style={{
@@ -44,7 +46,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               borderColor: "borders",
               backgroundColor: "field.background",
             },
-            focused && { borderColor: "primary" },
+            focused && {
+              borderColor: "primary",
+            },
           ),
           ...style,
         }}

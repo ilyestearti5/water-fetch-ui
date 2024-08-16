@@ -87,7 +87,7 @@ export const MenuList = () => {
       <PositionView
         positionId="menu-list"
         ref={elementRef}
-        className="absolute py-1 border border-transparent border-solid rounded-md w-[350px]"
+        className="absolute py-1 border border-transparent border-solid rounded-md w-[350px] max-md:w-[150px]"
         style={{
           ...colorMerge("secondry.background", {
             borderColor: "borders",

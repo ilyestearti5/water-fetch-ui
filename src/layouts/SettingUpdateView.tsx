@@ -17,8 +17,8 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { BlurOverlay } from "@/components/Overlays";
 import { faAudible } from "@fortawesome/free-brands-svg-icons";
 import { SettingUpdating } from "./SettingUpdating";
-import { Tip } from "@/components/Tip";
 import { openDialog } from "@/functions/app/web/web-utils";
+import { CircleTip } from "@/components";
 export const SettingUpdateView = () => {
   const colorMerge = useColorMerge();
   const id = useTemp<string>("view.settings");
@@ -48,7 +48,7 @@ export const SettingUpdateView = () => {
     >
       <div
         hidden={!id.get}
-        className={tw(`rounded-md border-solid border border-transparent w-1/2`)}
+        className={tw(`rounded-md border-solid border border-transparent w-1/2 max-md:w-5/6`)}
         style={colorMerge("secondry.background", {
           borderColor: "borders",
         })}
@@ -124,7 +124,7 @@ export const SettingUpdateView = () => {
           )}
           <div className="flex tools">
             {canReset && (
-              <Tip
+              <CircleTip
                 icon={faArrowsTurnRight}
                 onClick={async () => {
                   const { response } = await openDialog({
@@ -138,7 +138,7 @@ export const SettingUpdateView = () => {
                 }}
               />
             )}
-            <Tip
+            <CircleTip
               onClick={() => {
                 id.set(null);
                 setFocused("findConfigurations");

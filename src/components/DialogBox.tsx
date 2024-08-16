@@ -145,7 +145,7 @@ export const DialogBox = () => {
                     component={({ item: button, index, status, handelSubmit, handelFocus }) => {
                       return (
                         <Button
-                          className="px-4"
+                          className="px-4 max-md:w-full"
                           key={index}
                           style={{
                             ...colorMerge(

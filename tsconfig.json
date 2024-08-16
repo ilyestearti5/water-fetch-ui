@@ -19,7 +19,7 @@
       "@/*": ["src/*"],
       "api/*": ["src/apis/*"],
       "assets/*": ["src/assets/*"],
-      "Components/*": ["src/components/*"],
+      "components/*": ["src/components/*"],
       "database/*": ["src/data/db/*"],
       "hooks/*": ["src/hooks/*"],
       "main/*": ["./*"],

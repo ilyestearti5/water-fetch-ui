@@ -249,5 +249,10 @@ export default {
       desc: "scrolling with animation",
       name: "scroll animation",
     },
+    "visibility/keyboard.boolean": {
+      name: "Keyboard Visibility",
+      desc: "The Visibility Of Keyboard Screen",
+      def: false,
+    },
   },
 };
