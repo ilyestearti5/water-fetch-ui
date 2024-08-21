@@ -13,7 +13,7 @@ export interface SinglePandingProps {
 }
 export function SinglePanding({ content }: SinglePandingProps) {
   const colorMerge = useColorMerge();
-  const isDarwin = false;
+  const isMac = /mac/gi.test(navigator.platform);
   const styles = {
     ...colorMerge({
       backgroundColor: "gray.opacity",
@@ -30,11 +30,12 @@ export function SinglePanding({ content }: SinglePandingProps) {
         border-b-4
         border-x
         border-t
+        capitalize
         px-1
       `)}
     >
-      {/control/gi.test(content) && (isDarwin ? <FontAwesomeIcon icon={faApple} /> : "ctrl")}
-      {/shift/gi.test(content) && (isDarwin ? <FontAwesomeIcon icon={faAngleUp} /> : "shift")}
+      {/control/gi.test(content) && (isMac ? <FontAwesomeIcon icon={faApple} /> : "ctrl")}
+      {/shift/gi.test(content) && (isMac ? <FontAwesomeIcon icon={faAngleUp} /> : "shift")}
       {[/control/gi, /shift/gi].every((s) => !s.test(content)) && content}
     </div>
   );

@@ -1,5 +1,4 @@
 import { useAction } from "@/data/system/actions.model";
-import { ResizeView } from "../components/ResizeView";
 import { ContentOfImageView } from "../components/ContentOfImageView";
 import { cameraTemp } from "@/reducers/Object/allTemps";
 import { BlurOverlay } from "../components/Overlays";
@@ -31,11 +30,7 @@ export function CameraView() {
   // render element for image
   return (
     <BlurOverlay hidden={!cameraId}>
-      <div>
-        <ResizeView temp="camera" max={() => innerHeight} min={() => 200} position="right">
-          <ContentOfImageView />
-        </ResizeView>
-      </div>
+      <ContentOfImageView />
     </BlurOverlay>
   );
 }

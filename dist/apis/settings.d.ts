@@ -1,30 +1,5 @@
 declare const _default: {
     data: {
-        "activity/position.enum": {
-            config: {
-                list: {
-                    content: string;
-                    value: string;
-                }[];
-            };
-            def: string;
-            desc: string;
-            name: string;
-        };
-        "camera/clear/time.number": {
-            config: {
-                max: number;
-                min: number;
-            };
-            def: number;
-            desc: string;
-            name: string;
-        };
-        "camera/loading/time.number": {
-            def: number;
-            desc: string;
-            name: string;
-        };
         "preferences/animation.boolean": {
             def: boolean;
             desc: string;
@@ -85,10 +60,6 @@ declare const _default: {
             desc: string;
             name: string;
         };
-        "visibility/activity.boolean": {
-            def: boolean;
-            name: string;
-        };
         "visibility/configurations.boolean": {
             def: boolean;
             desc: string;
@@ -147,7 +118,7 @@ declare const _default: {
             desc: string;
             name: string;
         };
-        "window/scroll/animation.boolean": {
+        "preferences/scrollAnimation.boolean.boolean": {
             def: boolean;
             desc: string;
             name: string;

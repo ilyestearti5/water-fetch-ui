@@ -9,18 +9,26 @@ export function initDarkSystem() {
   const bgSelectedColor = colorHooks.getOne("bg.selection");
   const textSelectedColor = colorHooks.getOne("text.selection");
   React.useEffect(() => {
+    // toggle attribute named data-dark=true/false
+    if (isDark == undefined) {
+      return;
+    }
+    document.body.setAttribute("data-dark", isDark ? "true" : "false");
+    return () => {
+      document.body.removeAttribute("data-dark");
+    };
+  }, [isDark]);
+  React.useEffect(() => {
     if (isDark == undefined) {
       return;
     }
     if (mainBackground) {
       document.body.style.backgroundColor = getColor(isDark, mainBackground)!;
     }
-  }, [mainBackground, isDark]);
-  React.useEffect(() => {
     if (mainColor) {
-      document.body.style.color = getColor(!!isDark, mainColor)!;
+      document.body.style.color = getColor(isDark, mainColor)!;
     }
-  }, [mainColor, isDark]);
+  }, [mainBackground, mainColor, isDark]);
   const font = getSettingValue("preferences/font.enum");
   React.useEffect(() => {
     if (font) {

@@ -7,4 +7,4 @@ export interface TitleViewProps extends React.DetailedHTMLProps<React.HTMLAttrib
     };
     canMouseOn?: boolean;
 }
-export declare function TitleView({ title, position: { x, y }, onMouseMove, onMouseLeave, children, canMouseOn, ...props }: TitleViewProps): import("react/jsx-runtime").JSX.Element;
+export declare function TitleView({ title, onClick, position: { x, y }, onMouseMove, onMouseLeave, children, canMouseOn, ...props }: TitleViewProps): import("react/jsx-runtime").JSX.Element;

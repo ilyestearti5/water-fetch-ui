@@ -190,6 +190,10 @@ declare const data: {
     "window.inWindows.close": {
         default: string;
     };
+    opacity: {
+        dark: string;
+        light: string;
+    };
 };
 export type ColorIds = keyof typeof data;
 export interface Color {

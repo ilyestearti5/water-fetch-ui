@@ -107,7 +107,7 @@ export function Commands() {
         actions: {
           lines: actions.map(({ actionId, status }) => {
             return {
-              content: `${transformCase(actionId.replaceAll(/[^a-z0-9A-Z]/gi, " ").replaceAll(/ +/gi, " "), undefined, "normal")} ${status ? "[running...]" : ""}`,
+              content: `${transformCase(actionId.replaceAll(/[^a-z0-9A-Z]/gi, " ").replaceAll(/ +/gi, " "), undefined, "normal")} ${status == "loading" ? "[running...]" : ""}`,
               id: actionId,
             };
           }),

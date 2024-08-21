@@ -7,7 +7,16 @@ export interface TitleViewProps extends React.DetailedHTMLProps<React.HTMLAttrib
   };
   canMouseOn?: boolean;
 }
-export function TitleView({ title, position: { x = "right", y = "bottom" } = { x: "right", y: "bottom" }, onMouseMove, onMouseLeave, children, canMouseOn = false, ...props }: TitleViewProps) {
+export function TitleView({
+  title,
+  onClick,
+  position: { x = "right", y = "bottom" } = { x: "right", y: "bottom" },
+  onMouseMove,
+  onMouseLeave,
+  children,
+  canMouseOn = false,
+  ...props
+}: TitleViewProps) {
   // desc: element ref
   const element = React.createRef<HTMLDivElement>();
   // desc: state
@@ -19,9 +28,19 @@ export function TitleView({ title, position: { x = "right", y = "bottom" } = { x
     };
   }, []);
   // effect element
+  const resetTitle = () => {
+    if (!canMouseOn) {
+      setTitle(null);
+      setPosition(null);
+    }
+  };
   return (
     <div
       ref={element}
+      onClick={(e) => {
+        resetTitle();
+        onClick?.(e);
+      }}
       onMouseMove={(e) => {
         if (title) {
           setTitle(title);
@@ -32,10 +51,7 @@ export function TitleView({ title, position: { x = "right", y = "bottom" } = { x
         onMouseMove?.(e);
       }}
       onMouseLeave={(e) => {
-        if (!canMouseOn) {
-          setTitle(null);
-          setPosition(null);
-        }
+        resetTitle();
         onMouseLeave?.(e);
       }}
       {...props}

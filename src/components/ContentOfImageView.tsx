@@ -13,6 +13,7 @@ export const ContentOfImageView = () => {
   const colorMerge = useColorMerge();
   return (
     <SeparatedViewsLine
+      className="flex flex-col justify-between max-md:rounded-none w-[70vw] max-md:w-full h-[80vh] max-md:h-full"
       list={[
         <SeparatedViewsLineTitle
           title={cameraType || "Work Off"}
@@ -25,20 +26,20 @@ export const ContentOfImageView = () => {
             />
           }
         />,
-        <div className={tw(`p-2 relative overflow-hidden`)}>
+        <div className={tw(`p-2 relative overflow-hidden flex items-center`)}>
           <div
-            className="border border-transparent border-solid rounded-[10px] overflow-hidden"
+            className="border border-transparent border-solid rounded-[10px] w-full h-full overflow-hidden"
             style={{
               ...colorMerge("secondry.background", {
                 borderColor: "borders",
               }),
             }}
           >
-            {cameraType && <QrCodeReader delay={200} width={400} height={400} videoConstraints />}
+            {cameraType && <QrCodeReader onRead={() => {}} delay={200} width={400} height={400} videoConstraints />}
           </div>
         </div>,
         cameraType == "take" && (
-          <div className="flex justify-evenly p-4 w-full text-2xl">
+          <div className="flex justify-evenly p-4 w-full h-[70px] text-2xl">
             <TitleView title="take image">
               <CircleTip
                 onClick={() => {

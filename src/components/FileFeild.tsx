@@ -1,4 +1,4 @@
-import { useColorMerge } from "@/hooks";
+import { getSettingValue, useColorMerge, useCopyState } from "@/hooks";
 import { faFileUpload, faXmark, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
@@ -6,11 +6,23 @@ import { Anchor } from "./Anchor";
 import { Tip } from "./Tip";
 import { openPath } from "@/functions/app/web/web-utils";
 import { Text } from "./Text";
+import { tw } from "@/utils";
 export type FileFeildProps = FeildGeneralProps<SettingValueType["file"], SettingConfig["file"]>;
 export function FileFeild({ state, config = {}, id }: FileFeildProps) {
   const colorMerge = useColorMerge();
+  const hover = useCopyState(false);
+  const isAnimation = getSettingValue("preferences/animation.boolean");
   return (
-    <div className="relative flex items-center gap-1 w-full">
+    <div
+      className={tw("relative border border-solid border-transparent flex items-center gap-1 w-full px-3 py-1 rounded-md", isAnimation && "transition-[background-color] duration-200")}
+      onMouseEnter={() => hover.set(true)}
+      onMouseLeave={() => hover.set(false)}
+      style={{
+        ...colorMerge("gray.opacity", hover.get && "gray.opacity.2", {
+          borderColor: "borders",
+        }),
+      }}
+    >
       <div className="relative flex flex-wrap gap-1 w-full">
         {state.get?.map((href, index) => {
           return (

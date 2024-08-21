@@ -1,3 +1,4 @@
+export { StyledButton } from "./StyledButton";
 export { Anchor } from "@/components/Anchor";
 export { ArrayFeild } from "@/components/ArrayFeild";
 export { AsyncComponent } from "@/components/AsyncComponent";

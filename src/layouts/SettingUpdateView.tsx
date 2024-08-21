@@ -56,8 +56,8 @@ export const SettingUpdateView = () => {
         <div className="flex justify-between items-center gap-1 p-3">
           {setting && (
             <EmptyComponent>
-              <h1 className="text-2xl">{setting.name}</h1>
-              <div className="flex flex-wrap items-center gap-2 text-xs">
+              <h1 className="text-2xl truncate">{setting.name}</h1>
+              <div className="flex flex-wrap items-center gap-[1px] max-md:hidden text-xs">
                 <JoinComponentBy
                   list={setting.settingId
                     .split("/")

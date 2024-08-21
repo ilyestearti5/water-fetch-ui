@@ -19,12 +19,13 @@ import { toastHooks, ToastType } from "@/data/system/toasts.model";
 import { logHooks } from "@/data/system/logs.model";
 import { positionsHooks } from "@/data/system/positions.model";
 import { actionHooks } from "@/data/system/actions.model";
-import { notifayHooks } from "@/data/system/notifications.model";
+import { notifayHooks, NotificationType } from "@/data/system/notifications.model";
 import { FeildIds, FeildRecord, fieldHooks } from "@/data/system/field.model";
 import { viewHooks } from "@/data/system/views.model";
 import { auth, db } from "@/apis/firebase";
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
-import { onAuthStateChanged, onIdTokenChanged, RecaptchaVerifier, updatePhoneNumber, updateProfile, User } from "firebase/auth";
+import { onAuthStateChanged, onIdTokenChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
+export { getModel } from "./api/googleApi";
 export { slotHooks, langHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
 export function useAsyncMemo<T>(callback: () => Promise<T>, deps: any[] = [], cleanUp?: (deps: any[]) => void): T | null {
   const state = useCopyState<T | null>(null);
@@ -398,7 +399,7 @@ export function checkFormByFeilds(fields: string[], state: FullStateManagment = 
     isValide: controls.every(({ isValide }) => isValide),
   };
 }
-export function showToast(message: ToastType["message"], type: ToastType["type"], id = nanoid(), time: number = ToastTime.short) {
+export function showToast(message: ToastType["message"], type: ToastType["type"] = "info", id = nanoid(), time: number = ToastTime.short) {
   toastHooks.add([
     {
       message,
@@ -655,6 +656,26 @@ export const showProfile = () => {
   viewTemps.setTemp("profile-view", true);
 };
 
+export const closeProfile = () => {
+  viewTemps.setTemp("profile-view", false);
+};
+
 export const showPdf = (content: null | string) => {
   viewTemps.setTemp("pdf", content);
+};
+
+export const showNotification = ({ ...notification }: Partial<NotificationType>) => {
+  settingHooks.setOneFeild(`visibility/notifays.boolean`, "value", true);
+  notifayHooks.add([
+    {
+      id: nanoid(),
+      buttons: [],
+      desc: " - ",
+      showDesc: false,
+      removable: true,
+      status: "idle",
+      title: "Untitled",
+      ...notification,
+    },
+  ]);
 };

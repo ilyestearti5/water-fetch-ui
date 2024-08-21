@@ -1,36 +1,5 @@
 export default {
   data: {
-    "activity/position.enum": {
-      config: {
-        list: [
-          {
-            content: "left side",
-            value: "leftSide",
-          },
-          {
-            content: "right side",
-            value: "rightSide",
-          },
-        ],
-      },
-      def: "leftSide",
-      desc: "activity position in the sides has two values ${state.settings.entities['activity/position.enum']?.config.list?.map(({ content })=> '\\`' + content '\\`')}",
-      name: "activity side position",
-    },
-    "camera/clear/time.number": {
-      config: {
-        max: 5,
-        min: 1,
-      },
-      def: 4,
-      desc: "time to clear the qrcode output by s and is between (**1**) to (**5**)",
-      name: "time to clear",
-    },
-    "camera/loading/time.number": {
-      def: 5,
-      desc: "time of loading camera by ms",
-      name: "loading time camera",
-    },
     "preferences/animation.boolean": {
       def: true,
       desc: "animation in the preferences",
@@ -156,10 +125,6 @@ export default {
       desc: "the position of the toast is one between ${state.settings.entities['toast/position.enum']?.config.list.map(({ content })=> '`' + content + '`').join(' , ')}",
       name: "toast position",
     },
-    "visibility/activity.boolean": {
-      def: true,
-      name: "activity visibility",
-    },
     "visibility/configurations.boolean": {
       def: false,
       desc: "hide or visible the configurations view",
@@ -244,7 +209,7 @@ export default {
       desc: "change one between this langs ${state.settings.entities['window/lang.enum']?.config.list.map(({ content })=> '`' + content + '`').join(' , ')}",
       name: "change lang of app",
     },
-    "window/scroll/animation.boolean": {
+    "preferences/scrollAnimation.boolean.boolean": {
       def: false,
       desc: "scrolling with animation",
       name: "scroll animation",

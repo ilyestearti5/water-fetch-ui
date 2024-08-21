@@ -17,3 +17,4 @@ export declare const off: (event: string) => void;
 export declare const setProgress: ({ options, value }: SetProgressProps) => Promise<void>;
 export declare const openMenu: (config: OpenMenuProps) => void;
 export declare const openPath: (config: Electron.OpenDialogOptions) => Promise<string[]>;
+export declare const confirmation: (config: Omit<DialogProps, "buttons">) => Promise<boolean>;

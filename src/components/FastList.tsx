@@ -127,7 +127,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
     return (scroll.get * 100) / maxHeightWithLastItems;
   }, [maxHeightWithLastItems, scroll.get]);
   // render element list
-  const isScrollAnimation = getSettingValue("window/scroll/animation.boolean");
+  const isScrollAnimation = getSettingValue("preferences/scrollAnimation.boolean.boolean");
   const scrollBarHoverd = useCopyState(false);
   const changableComponentViewConfig = useCopyState<null | DOMRect>(null);
   const Item = React.useMemo(() => component, []);

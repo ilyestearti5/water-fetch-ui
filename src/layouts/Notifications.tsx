@@ -3,7 +3,7 @@ import { tw } from "@/utils";
 import { Tip } from "@/components/Tip";
 import { Focus } from "@/components/Focus";
 import { Scroll } from "@/components/Scroll";
-import { faChevronDown, faChevronUp, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronRight, faChevronUp, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
 import { Line } from "@/components/Line";
 import { NotifaysSlot } from "./NotifaysSlot";
 import { useAction } from "@/data/system/actions.model";
@@ -42,10 +42,13 @@ export function Notifications() {
     },
     [focusedNotifay],
   );
+  const isAnimation = getSettingValue("preferences/animation.boolean");
   return (
     <div
       onClick={() => {
-        settingHooks.setOneFeild(notificationVisibility, "value", true);
+        if (!visibility) {
+          settingHooks.setOneFeild(notificationVisibility, "value", true);
+        }
       }}
       className={tw(
         `
@@ -58,12 +61,13 @@ export function Notifications() {
         right-[10px]
         rounded-xl
         w-[400px]
+        max-md:w-[calc(100%-20px)]
         border
         border-solid
         border-transparent
         overflow-hidden;
       `,
-        !visibility && "translate-x-[400px]",
+        !visibility && "translate-x-[calc(100%)]",
       )}
       style={{
         ...colorMerge({
@@ -82,7 +86,7 @@ export function Notifications() {
       }}
     >
       <div
-        className="notifay-top-view flex justify-between items-center gap-2 p-3 cursor-pointer group"
+        className="notifay-top-view flex justify-between items-center gap-2 p-3 cursor-pointer"
         onClick={() => {
           settingHooks.setOneFeild(notsVisibility, "value", !notes);
         }}
@@ -99,41 +103,32 @@ export function Notifications() {
             {!notes && `(${notifaysIds.length})`}
           </span>
         </h3>
-        <div className="group-hover:visible flex invisible">
+        <div className="flex">
           <Tip
             onClick={() => {
-              notifayHooks.setAll([]);
+              notifayHooks.remove(notifays.filter(({ removable = true }) => removable).map(({ id }) => id));
             }}
             className={tw(!notifaysIds.length && "pointer-events-none")}
             icon={faXmarksLines}
           />
-          <Tip hidden={Boolean(!notifaysIds.length)} icon={notes ? faChevronDown : faChevronUp} />
+          {!!notifaysIds.length && <Tip icon={notes ? faChevronDown : faChevronUp} />}
+          <Tip
+            onClick={() => {
+              settingHooks.setOneFeild(notificationVisibility, "value", false);
+            }}
+            icon={faChevronRight}
+          />
         </div>
       </div>
       {Boolean(notifaysIds.length) && notes && <Line />}
-      {notes && Boolean(notifaysIds.length) && (
-        <Focus
-          focusId="notifications"
-          className={tw(
-            `
-          w-[400px]
-          flex
-          flex-col
-          overflow-hidden
-          transition-[max-height]
-          duration-500
-          max-h-[80vh]
-          rounded-ee-xl
-          rounded-es-xl
-        `,
-            !notes && "max-h-[0vh]",
-          )}
-        >
-          <Scroll>
-            <NotifaysSlot />
-          </Scroll>
-        </Focus>
-      )}
+      <Focus
+        focusId="notifications"
+        className={tw(`flex flex-col overflow-hidden max-h-[80vh] rounded-ee-xl rounded-es-xl`, isAnimation && "duration-300 transition-[max-height]", !notes && "max-h-[0vh]")}
+      >
+        <Scroll>
+          <NotifaysSlot />
+        </Scroll>
+      </Focus>
     </div>
   );
 }

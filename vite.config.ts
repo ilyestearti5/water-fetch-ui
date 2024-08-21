@@ -23,6 +23,7 @@ export default defineConfig(({ command }) => {
     layouts: path.resolve(__dirname, "src/layouts/index.ts"),
     utils: path.resolve(__dirname, "src/utils/index.ts"),
     app: path.resolve(__dirname, "src/app/index.ts"),
+    apis: path.resolve(__dirname, "src/apis/index.ts"),
   };
   if (command == "serve") {
     return {

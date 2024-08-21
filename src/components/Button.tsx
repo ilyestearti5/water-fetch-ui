@@ -2,7 +2,7 @@ import React from "react";
 import { handelShadowColor, useColorMerge } from "@/hooks";
 import { useCopyState } from "@/hooks";
 import { Icon, IconProps } from "./Icon";
-import { mergeObject, tw } from "@/utils";
+import { mergeObject, range, tw } from "@/utils";
 export type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps;
 export function Button({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ButtonProps) {
   const colorMerge = useColorMerge();
@@ -65,25 +65,29 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
         active.set(false);
         onPointerLeave?.(e);
       }}
-      className={tw(`p-2 rounded-[4px] gap-2 flex items-center outline-2 outline-offset-1 outline-transparent truncate justify-center`, className, `relative`)}
       type="button"
-      style={mergeObject(fullStyle, focused.get && { outlineColor: fullStyle.backgroundColor?.toString() })}
+      style={{
+        ...colorMerge("primary"),
+        ...mergeObject(fullStyle),
+      }}
+      className={tw("btn rounded-md cursor-pointer w-full px-3 py-2 relative lowercase overflow-hidden transition-[transform] active:scale-95", className)}
       {...props}
     >
-      <span
-        className={tw(`absolute inset-0 opacity-0 transition-[opacity] inline-block pointer-events-none`, active.get && `opacity-60`)}
-        style={{
-          ...colorMerge("shadow.color"),
-        }}
-      />
-      <span
-        className={tw(`scale-0 absolute w-[700px] h-[700px] rounded-full duration-700 transition-[transform] inline-block pointer-events-none`, hover.get && `scale-100 rounded-[0px]`)}
-        style={{
-          ...colorMerge("gray.opacity.toLight"),
-        }}
-      />
-      <Icon iconClassName={iconClassName} icon={icon} />
-      {children}
+      <div className="flex justify-center items-center gap-2 btn-content">
+        <Icon iconClassName={iconClassName} icon={icon} />
+        {children}
+      </div>
+      {range(1, 4).map((index) => {
+        return (
+          <i
+            key={index}
+            className="btn__bg"
+            style={{
+              ...colorMerge("opacity"),
+            }}
+          />
+        );
+      })}
     </button>
   );
 }

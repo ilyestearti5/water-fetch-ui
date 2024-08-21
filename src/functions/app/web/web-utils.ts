@@ -163,3 +163,11 @@ export const openPath = (config: Electron.OpenDialogOptions) => {
     fileElement.onerror = rej;
   });
 };
+
+export const confirmation = async (config: Omit<DialogProps, "buttons">) => {
+  const res = await openDialog({
+    ...config,
+    buttons: ["Yes", "No"],
+  });
+  return res.response === 0;
+};

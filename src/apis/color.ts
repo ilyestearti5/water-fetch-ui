@@ -88,7 +88,7 @@ export default {
       default: "#2e7aec",
     },
     "notifay.success": {
-      default: "#33dd24",
+      default: "#2b8817",
     },
     "notifay.warning": {
       default: "#e7a428",
@@ -189,6 +189,10 @@ export default {
     },
     "window.inWindows.close": {
       default: "red",
+    },
+    opacity: {
+      dark: "#fff2",
+      light: "#0002",
     },
   },
 };

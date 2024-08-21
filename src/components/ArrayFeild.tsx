@@ -2,7 +2,7 @@
 import React from "react";
 // Tip for add tips in Array file
 // configure keypanding
-import { Shortcut, tw } from "@/utils";
+import { setFocused, Shortcut, tw } from "@/utils";
 // use slot function for configure slot
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
@@ -18,8 +18,6 @@ import { Input } from "./Input";
 export type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
 // term of use is when you have state contain array and you want to update the state from
 export function ArrayFeild({ state, id }: ArrayFeildProps) {
-  // init the key panding needed
-  const pending = keyHooks.getOneFeild("addItemInArray", "value");
   // full input element for append new items in array field
   const inputValue = useCopyState("");
   // transform the array to unqiue data (ilyes,ilyes,aymen,akrem) => (ilyes,aymen,akrem)
@@ -31,6 +29,7 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
     }
     state.set([...uniqueData, inputValue.get]);
     inputValue.set("");
+    setFocused(id);
   }, [inputValue.get, uniqueData, inputValue.set, state.set]);
   // render ArrayFeild element component
   return (
@@ -86,10 +85,7 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
             placeholder="write item..."
             id={id}
             onKeyDown={(e) => {
-              if (!pending) {
-                return;
-              }
-              const shortcut = new Shortcut(pending);
+              const shortcut = new Shortcut("enter");
               if (!shortcut.test(e)) {
                 return;
               }

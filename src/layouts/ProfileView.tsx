@@ -132,9 +132,11 @@ export const SignupPage = () => {
               }),
             }}
           >
-            Payment And Achet Cards
+            Sigin Into Water Fetch
           </h2>
-          <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus.</p>
+          <p className="mb-4 capitalize">
+            <Text content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
+          </p>
           <div className="flex items-center space-x-4">
             <div className="flex justify-center items-center bg-white shadow-md rounded-full w-12 h-12">
               <span className="text-xl">📦</span>
@@ -294,9 +296,11 @@ export const LoginPage = () => {
               }),
             }}
           >
-            Payment And Achet Cards
+            Login Into Water Fetch
           </h2>
-          <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus.</p>
+          <p className="mb-4 capitalize">
+            <Text content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
+          </p>
           <div className="flex items-center space-x-4">
             <div className="flex justify-center items-center bg-white shadow-md rounded-full w-12 h-12">
               <span className="text-xl">📦</span>

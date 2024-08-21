@@ -32,14 +32,53 @@ import {
   ImageFeild,
   CircleLoading,
   LineLoading,
+  RecorderFeild,
+  Feild,
+  PasswordFeild,
+  NumberFeild,
+  Starts,
+  LargeButton,
+  Tab,
+  DarkLightIcon,
+  StyledButton,
 } from "@/components";
 import { FixedProfileView } from "./ProfileView";
-import { getUserFromDB, openCamera, setSettingValue, settingHooks, showPdf, showProfile, showSetting, showToast, useColorMerge, useCopyState } from "@/hooks";
-import { faAdd, faLink } from "@fortawesome/free-solid-svg-icons";
+import { getUserFromDB, handelShadowColor, openCamera, setSettingValue, settingHooks, showNotification, showPdf, showProfile, showSetting, showToast, useColorMerge, useCopyState } from "@/hooks";
+import { faAdd, faHome, faLink } from "@fortawesome/free-solid-svg-icons";
 import { openDialog, openMenu } from "@/functions/app/web/web-utils";
-import { range } from "@/utils";
+import { randomItem, range } from "@/utils";
 import { PDFView } from "./PDFView";
 import { KeyboardView } from "./KeyboardView";
+import { NotificationType } from "@/data/system/notifications.model";
+
+const notificationsExmples: Omit<NotificationType, "id">[] = [
+  {
+    title: "Product Posted",
+    type: "info",
+    desc: "Ahmed Post A New Product",
+  },
+  {
+    title: "You Post A Product",
+    type: "success",
+    desc: "Your Product Is Now Live",
+  },
+  {
+    title: "Product Deleted",
+    type: "error",
+    desc: "Your Product Is Deleted",
+  },
+  {
+    title: "Product Updated",
+    type: "warning",
+    desc: "Your Product Is Updated",
+  },
+  {
+    title: "Product Posted",
+    type: "info",
+    desc: "Ahmed Post A New Product",
+  },
+];
+
 export function Test() {
   const userFromDb = getUserFromDB();
   const booleanFieldState = useCopyState<null | boolean>(null);
@@ -50,6 +89,10 @@ export function Test() {
   const pinFieldState = useCopyState<number | undefined>(undefined);
   const dateFieldState = useCopyState<null | string | undefined>(null);
   const imageFieldState = useCopyState<string | null>(null);
+  const recorderFieldState = useCopyState<string | null>(null);
+  const passwordFieldState = useCopyState<string | undefined>(undefined);
+  const numberFieldState = useCopyState<number | undefined | null>(null);
+  const homePageIsActive = useCopyState(false);
   const allSettings = settingHooks.getAll();
   const colorMerge = useColorMerge();
   return (
@@ -76,6 +119,20 @@ export function Test() {
               label: "Buttons",
               elements: [
                 {
+                  jsxElement: (
+                    <StyledButton
+                      onClick={() => {
+                        showToast("You Clic Rate Now 🙃", "info");
+                      }}
+                    />
+                  ),
+                  label: "New Outher Button",
+                },
+                {
+                  jsxElement: <LargeButton>Large Button</LargeButton>,
+                  label: "Large Button",
+                },
+                {
                   jsxElement: <Button>Ok</Button>,
                   label: "Button",
                   definition: "",
@@ -87,6 +144,33 @@ export function Test() {
                 {
                   jsxElement: <Tip icon={faAdd} />,
                   label: "Tip",
+                },
+                {
+                  jsxElement: (
+                    <Tab
+                      className="text-4xl"
+                      isActive={homePageIsActive.get}
+                      onClick={() => {
+                        homePageIsActive.set(!homePageIsActive.get);
+                      }}
+                      icon={faHome}
+                    />
+                  ),
+                  label: "Tab",
+                },
+                {
+                  jsxElement: <DarkLightIcon />,
+                  label: "Dark Light Icon",
+                  definition: "Recommended To Use In The Header And One Time In The App",
+                },
+              ],
+            },
+            {
+              label: "Inputs",
+              elements: [
+                {
+                  jsxElement: <Feild className="h-[200px]" multiLines inputName="exmple" propositions={["Dog", "Cat", "Link", "Simple", "Word", "Hi"]} placeholder="Input Exmple" />,
+                  label: "Feild",
                 },
               ],
             },
@@ -100,6 +184,14 @@ export function Test() {
                 {
                   jsxElement: <StringFeild state={stringFieldState} id="string-field" />,
                   label: "String Field",
+                },
+                {
+                  jsxElement: <PasswordFeild state={passwordFieldState} id="password-field" />,
+                  label: "Password Field",
+                },
+                {
+                  jsxElement: <NumberFeild state={numberFieldState} id="number-field" />,
+                  label: "Number Field",
                 },
                 {
                   jsxElement: (
@@ -138,6 +230,10 @@ export function Test() {
                   label: "Pin Field",
                 },
                 {
+                  jsxElement: <RecorderFeild id="recorder-field" state={recorderFieldState} />,
+                  label: "Recorder Field",
+                },
+                {
                   jsxElement: <ArrayFeild state={arrayFieldState} id="array-field" />,
                   label: "Array Field",
                 },
@@ -163,6 +259,14 @@ export function Test() {
               label: "UI",
               elements: [
                 {
+                  jsxElement: <Starts length={10} starts={2} />,
+                  label: "Starts",
+                },
+                {
+                  jsxElement: <EmptyComponent></EmptyComponent>,
+                  label: "",
+                },
+                {
                   jsxElement: (
                     <Card className="w-fit">
                       <p className="p-2">
@@ -182,6 +286,22 @@ export function Test() {
             {
               label: "Layouts",
               elements: [
+                {
+                  jsxElement: (
+                    <Button
+                      onClick={() => {
+                        const value = randomItem(notificationsExmples).value;
+                        if (value) {
+                          showNotification(value);
+                        }
+                      }}
+                    >
+                      Show Notification
+                    </Button>
+                  ),
+                  label: "Notification",
+                },
+
                 {
                   jsxElement: (
                     <Button

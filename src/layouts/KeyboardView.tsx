@@ -200,34 +200,36 @@ export const KeyboardView = () => {
       </div>
       <Line />
       <div className="flex justify-center items-stretch h-full overflow-hidden">
-        <div className="flex flex-col flex-1 justify-center items-center gap-1 p-2 w-[200px] h-full overflow-hidden">
-          {[
-            {
-              name: "shift",
-              state: shiftKey,
-            },
-            {
-              name: "alt gr",
-              state: altKey,
-            },
-            {
-              name: "control",
-              state: controlKey,
-            },
-          ].map(({ state, name }, i) => {
-            return (
-              <KeyboardButton
-                key={i}
-                isActive={state.get}
-                className="w-full max-lg:w-full"
-                onPointerDown={() => {
-                  state.set((s) => !s);
-                }}
-              >
-                {name}
-              </KeyboardButton>
-            );
-          })}
+        <div className="w-fit">
+          <div className="flex flex-col flex-1 justify-center items-center gap-1 p-2 w-[20px] h-full overflow-hidden">
+            {[
+              {
+                name: "shift",
+                state: shiftKey,
+              },
+              {
+                name: "alt gr",
+                state: altKey,
+              },
+              {
+                name: "control",
+                state: controlKey,
+              },
+            ].map(({ state, name }, i) => {
+              return (
+                <KeyboardButton
+                  key={i}
+                  isActive={state.get}
+                  className="w-full max-lg:w-full"
+                  onPointerDown={() => {
+                    state.set((s) => !s);
+                  }}
+                >
+                  {name}
+                </KeyboardButton>
+              );
+            })}
+          </div>
         </div>
         <div
           className="relative flex flex-col justify-between gap-3 border-x p-2 border-transparent border-solid h-full overflow-hidden"
@@ -307,33 +309,35 @@ export const KeyboardView = () => {
             children={"space"}
           />
         </div>
-        <div className="flex flex-col flex-1 justify-center items-center gap-1 p-2 w-[200px] h-full overflow-hidden">
-          {[
-            {
-              name: "backspace",
-              onClick() {
-                value.set((s) => s?.slice(0, -1));
+        <div className="w-fit">
+          <div className="flex flex-col flex-1 justify-center items-center gap-1 p-2 w-[20px] h-full overflow-hidden">
+            {[
+              {
+                name: "backspace",
+                onClick() {
+                  value.set((s) => s?.slice(0, -1));
+                },
               },
-            },
-            {
-              name: "clean",
-              onClick() {
-                value.set("");
+              {
+                name: "clean",
+                onClick() {
+                  value.set("");
+                },
               },
-            },
-          ].map(({ onClick, name }, i) => {
-            return (
-              <KeyboardButton
-                key={i}
-                className="w-full max-lg:w-full"
-                onPointerDown={() => {
-                  onClick?.();
-                }}
-              >
-                {name}
-              </KeyboardButton>
-            );
-          })}
+            ].map(({ onClick, name }, i) => {
+              return (
+                <KeyboardButton
+                  key={i}
+                  className="w-full max-lg:w-full"
+                  onPointerDown={() => {
+                    onClick?.();
+                  }}
+                >
+                  {name}
+                </KeyboardButton>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

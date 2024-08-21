@@ -243,9 +243,8 @@ export function TextArea({
           ...colorMerge({
             caretColor: "text.color",
           }),
-          color: "transparent",
         }}
-        className={tw(className, `font-[inherit] selection:text-transparent selection:bg-transparent`)}
+        className={tw(className, `font-[inherit] text-[inherit]`)}
         spellCheck={false}
         onSelect={(e) => {
           handelSelectionChange(e);
@@ -268,28 +267,8 @@ export function TextArea({
         }}
       />
       <div ref={ref} className={tw(className, `absolute inset-0 pointer-events-none overflow-y-auto overflow-x-hidden`)}>
-        <pre
-          className="font-[inherit] text-wrap"
-          style={{
-            ...colorMerge({
-              color: "text.color",
-            }),
-          }}
-        >
-          <span>{props.value?.toString().slice(0, selection?.start)}</span>
-          {selection && (
-            <span
-              className="rounded-sm"
-              style={{
-                ...colorMerge("bg.selection", {
-                  color: "text.selection",
-                }),
-              }}
-            >
-              {props.value?.toString().slice(selection?.start, selection?.end)}
-            </span>
-          )}
-          {selection && <span>{props.value?.toString().slice(selection.end)}</span>}
+        <pre className="font-[inherit] text-wrap">
+          <span className="text-transparent">{props.value}</span>
           {typeof lastWord == "string" && proposition && (
             <EmptyComponent>
               <span

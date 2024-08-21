@@ -1,11 +1,12 @@
 import React from "react";
-import { Tip } from "@/components/Tip";
+import { CircleTip } from "@/components/CircleTip";
 import { faMicrophone, faPause, faPlay, faStop, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useCopyState } from "@/hooks";
 import { useColorMerge } from "@/hooks";
 import { FeildGeneralProps } from "@/types/global";
 import { openDuringNotifay } from "@/data/system/notifications.model";
 import { EmptyComponent } from "./EmptyComponent";
+import { openDialog } from "@/functions/app/web/web-utils";
 export type RecorderFeildProps = FeildGeneralProps<string | null, {}>;
 export function RecorderFeild({ id, state }: RecorderFeildProps) {
   const mediaRecorder = useCopyState<MediaRecorder | null>(null);
@@ -77,18 +78,37 @@ export function RecorderFeild({ id, state }: RecorderFeildProps) {
       };
     }
   }, [audioRef.current]);
+  const timer = useCopyState<number | null>(null);
+  React.useEffect(() => {
+    if (isStarted.get) {
+      const timerInterval = setInterval(() => {
+        timer.set((s) => (s ?? 0) + 1);
+      }, 1000);
+      return () => {
+        clearInterval(timerInterval);
+      };
+    } else {
+      timer.set(null);
+    }
+  }, [isStarted.get]);
   return (
     <div className="flex gap-2">
-      <div className="inline-block relative">
+      <div className="inline-flex relative gap-1">
         {state.get && (
           <EmptyComponent>
-            <Tip
+            <CircleTip
               icon={faXmark}
-              onClick={() => {
-                state.set(null);
+              onClick={async () => {
+                const { response } = await openDialog({
+                  title: "Delete audio",
+                  message: "Are you sure you want to delete the audio?",
+                  type: "warning",
+                  buttons: ["No", "Yes"],
+                });
+                if (response === 1) state.set(null);
               }}
             />
-            <Tip
+            <CircleTip
               onClick={() => {
                 !isStarted.get ? audioRef.current?.play() : audioRef.current?.pause();
               }}
@@ -96,7 +116,7 @@ export function RecorderFeild({ id, state }: RecorderFeildProps) {
             />
           </EmptyComponent>
         )}
-        <Tip
+        <CircleTip
           id={id}
           style={{
             ...colorMerge(
@@ -106,7 +126,18 @@ export function RecorderFeild({ id, state }: RecorderFeildProps) {
               },
             ),
           }}
-          onClick={() => {
+          onClick={async () => {
+            if (state.get) {
+              const { response } = await openDialog({
+                title: "Overwrite audio",
+                message: "Are you sure you want to overwrite the audio?",
+                type: "warning",
+                buttons: ["No", "Yes"],
+              });
+              if (!response) {
+                return;
+              }
+            }
             isStartRecorder.set((s) => !s);
             if (isStartRecorder.get) {
               handleStopRecording();

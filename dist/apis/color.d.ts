@@ -190,6 +190,10 @@ declare const _default: {
         "window.inWindows.close": {
             default: string;
         };
+        opacity: {
+            dark: string;
+            light: string;
+        };
     };
 };
 export default _default;

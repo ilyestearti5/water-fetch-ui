@@ -1,7 +1,7 @@
 import React from "react";
 import { notifayHooks } from "@/data/system/notifications.model";
 import { tw } from "@/utils";
-import { useColorMerge, useCopyState } from "@/hooks";
+import { getSettingValue, useColorMerge, useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
 import { List } from "@/components/List";
@@ -12,18 +12,20 @@ import { faCheckDouble, faChevronDown, faChevronUp, faClose, faInfoCircle, faWar
 import { ColorIds } from "@/data/system/colors.model";
 import { execCommand } from "@/data/system/command.model";
 import { execAction } from "@/data/system/actions.model";
+import { MarkDown, Scroll } from "@/components";
 export const NotifaysSlot = () => {
   const notifications = notifayHooks.getAll();
   return (
     <List
       data={notifications}
       slotId={"notification"}
-      component={({ item: notifay, id, handelFocus, handelSelect, handelSubmit, status }) => {
+      component={({ item: notifay, index, id, handelFocus, handelSelect, handelSubmit, status }) => {
         const hover = useCopyState(false);
         function iwes<T>(info: T, warning: T, error: T, success: T) {
           return notifay.type == "warning" ? warning : notifay.type == "error" ? error : notifay.type == "success" ? success : info;
         }
         const colorMerge = useColorMerge();
+        const isAnimation = getSettingValue("preferences/animation.boolean");
         return (
           <div
             id={id}
@@ -34,6 +36,8 @@ export const NotifaysSlot = () => {
             }}
             style={{
               ...colorMerge(
+                "secondry.background",
+                index % 2 && "primary.background",
                 hover.get && "gray.opacity",
                 status.isFocused && {
                   borderColor: "secondry",
@@ -100,7 +104,7 @@ export const NotifaysSlot = () => {
                     onClick={() => {
                       notifayHooks.setOneFeild(notifay.id, "showDesc", !notifay.showDesc);
                     }}
-                    icon={notifay.showDesc ? faChevronDown : faChevronUp}
+                    icon={notifay.showDesc ? faChevronUp : faChevronDown}
                   />
                 )}
                 {notifay.removable && (
@@ -113,7 +117,13 @@ export const NotifaysSlot = () => {
                 )}
               </ul>
             </div>
-            {notifay.desc && notifay.showDesc && <p className="p-6">{notifay.desc}</p>}
+            {notifay.desc && (
+              <div className={tw("h-[0px]", isAnimation && "transition-[height] duration-700", notifay.showDesc && "h-[170px]")}>
+                <Scroll className="p-6">
+                  <MarkDown value={notifay.desc} />
+                </Scroll>
+              </div>
+            )}
             {Array.isArray(notifay.buttons) && (
               <div className="flex justify-end p-5 overflow-x-auto">
                 {notifay.buttons.map(({ command, label }, index) => {

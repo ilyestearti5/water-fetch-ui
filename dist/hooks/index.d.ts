@@ -15,10 +15,11 @@ import { toastHooks, ToastType } from "@/data/system/toasts.model";
 import { logHooks } from "@/data/system/logs.model";
 import { positionsHooks } from "@/data/system/positions.model";
 import { actionHooks } from "@/data/system/actions.model";
-import { notifayHooks } from "@/data/system/notifications.model";
+import { notifayHooks, NotificationType } from "@/data/system/notifications.model";
 import { FeildIds, FeildRecord, fieldHooks } from "@/data/system/field.model";
 import { viewHooks } from "@/data/system/views.model";
 import { RecaptchaVerifier, User } from "firebase/auth";
+export { getModel } from "./api/googleApi";
 export { slotHooks, langHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
 export declare function useAsyncMemo<T>(callback: () => Promise<T>, deps?: any[], cleanUp?: (deps: any[]) => void): T | null;
 export declare function useAsyncEffect(callback: () => Promise<void>, deps?: any[], cleanUp?: (deps: any[]) => void): void;
@@ -88,7 +89,7 @@ export declare function checkFormByFeilds(fields: string[], state?: FullStateMan
     })[];
     isValide: boolean;
 };
-export declare function showToast(message: ToastType["message"], type: ToastType["type"], id?: string, time?: number): string;
+export declare function showToast(message: ToastType["message"], type?: ToastType["type"], id?: string, time?: number): string;
 export declare enum ToastTime {
     short = 5,
     long = 5
@@ -126,4 +127,6 @@ export declare const initUser: () => void;
 export declare const getUser: () => User | null;
 export declare const verifieCapatcha: () => Promise<RecaptchaVerifier>;
 export declare const showProfile: () => void;
+export declare const closeProfile: () => void;
 export declare const showPdf: (content: null | string) => void;
+export declare const showNotification: ({ ...notification }: Partial<NotificationType>) => void;
