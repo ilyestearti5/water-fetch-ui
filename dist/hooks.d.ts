@@ -226,6 +226,89 @@ declare interface Command {
 
 declare type CommandIds = keyof typeof data;
 
+export declare const commandsHooks: {
+    getFull(): InitState<any, "commandId">;
+    getIds(): EntityId[];
+    getId(): "commandId";
+    remove(ids: EntityId[]): void;
+    add(data: Command[]): void;
+    upsert(data: Command[]): void;
+    getOne(id: EntityId): {
+        commandId: string;
+        label?: string;
+        commands?: (Command["commandId"] | PayloadAction<any> | number)[];
+        private?: boolean;
+        blocked?: boolean;
+    } | undefined;
+    setOne(id: EntityId, changes: Partial<Command>): void;
+    setWriteStatus(status?: InitState<Command, "commandId">["writeStatus"]): void;
+    useOne(id: EntityId): {
+        get: {
+            commandId: string;
+            label?: string;
+            commands?: (Command["commandId"] | PayloadAction<any> | number)[];
+            private?: boolean;
+            blocked?: boolean;
+        } | undefined;
+        set: Dispatch<SetStateAction<    {
+        commandId: string;
+        label?: string;
+        commands?: (Command["commandId"] | PayloadAction<any> | number)[];
+        private?: boolean;
+        blocked?: boolean;
+        } | undefined>>;
+    };
+    getOneFeild<F extends keyof Command>(recordId: EntityId, field: F): ({
+        commandId: string;
+        label?: string;
+        commands?: (Command["commandId"] | PayloadAction<any> | number)[];
+        private?: boolean;
+        blocked?: boolean;
+    }[F] & ({} | null)) | undefined;
+    setOneFeild<F extends keyof Command>(id: EntityId, field: F, value: Command[F]): void;
+    useOneFeild<F extends keyof Command>(recordeId: EntityId, field: F): {
+        get: ({
+            commandId: string;
+            label?: string;
+            commands?: (Command["commandId"] | PayloadAction<any> | number)[];
+            private?: boolean;
+            blocked?: boolean;
+        }[F] & ({} | null)) | undefined;
+        set: Dispatch<SetStateAction<({
+        commandId: string;
+        label?: string;
+        commands?: (Command["commandId"] | PayloadAction<any> | number)[];
+        private?: boolean;
+        blocked?: boolean;
+        }[F] & ({} | null)) | undefined>>;
+    };
+    getOneFeilds<F extends keyof Command>(id: EntityId, fields: F[]): (F extends infer T extends keyof Command ? { [key in T]: Command[F]; } : never) | undefined;
+    getAll(): Command[];
+    setAll(data: Record<EntityId, Command> | readonly Command[]): void;
+    useAll(): {
+        get: Command[];
+        set: Dispatch<SetStateAction<Command[]>>;
+    };
+    getWriteStatus(): "ready" | QueryStatus;
+    useWriteStatus(): {
+        get: "idle" | "ready" | "loading" | "error" | "success";
+        set: Dispatch<SetStateAction<"idle" | "ready" | "loading" | "error" | "success">>;
+    };
+    getStatus(): QueryStatus;
+    setStatus(value: ReturnType<() => QueryStatus>): void;
+    useStatus(): {
+        get: "idle" | "loading" | "error" | "success";
+        set: Dispatch<SetStateAction<"idle" | "loading" | "error" | "success">>;
+    };
+    getEntity(): Record<EntityId, Command>;
+    getLoadingTime(): number;
+    setLoadingTime(time: number): void;
+    useLoadingTime(): void;
+    getChanged(): boolean;
+    setChanged(value: boolean): void;
+    useChanged(): void;
+};
+
 declare type CssColorKeys = "background" | "backgroundColor" | "color" | "borderColor" | "outlineColor" | "borderLeftColor" | "borderRightColor" | "borderBottomColor" | "borderTopColor" | "boxShadow" | "caretColor" | "fill" | "stroke";
 
 declare const data: {

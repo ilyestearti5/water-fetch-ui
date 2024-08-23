@@ -4,7 +4,7 @@ import { EntityId } from "@reduxjs/toolkit";
 import { QueryStatus } from "react-query";
 import { SettingValueType, SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { Setting, settingHooks, SettingIds } from "@/reducers/Settings/settings.model";
-import { CommandIds } from "@/data/system/command.model";
+import { CommandIds, commandsHooks } from "@/data/system/command.model";
 import { TextAreaProps } from "@/components/TextArea";
 import { CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
 import { slotHooks } from "@/data/system/slot.slice";
@@ -20,7 +20,7 @@ import { FeildIds, FeildRecord, fieldHooks } from "@/data/system/field.model";
 import { viewHooks } from "@/data/system/views.model";
 import { RecaptchaVerifier, User } from "firebase/auth";
 export { getModel } from "./api/googleApi";
-export { slotHooks, langHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
+export { slotHooks, langHooks, commandsHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
 export declare function useAsyncMemo<T>(callback: () => Promise<T>, deps?: any[], cleanUp?: (deps: any[]) => void): T | null;
 export declare function useAsyncEffect(callback: () => Promise<void>, deps?: any[], cleanUp?: (deps: any[]) => void): void;
 export declare function useCopyState<T>(initData: T | (() => T)): {

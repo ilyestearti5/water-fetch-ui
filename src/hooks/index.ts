@@ -22,11 +22,11 @@ import { actionHooks } from "@/data/system/actions.model";
 import { notifayHooks, NotificationType } from "@/data/system/notifications.model";
 import { FeildIds, FeildRecord, fieldHooks } from "@/data/system/field.model";
 import { viewHooks } from "@/data/system/views.model";
-import { auth, db } from "@/apis/firebase";
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { onAuthStateChanged, onIdTokenChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
+import { Server } from "@/apis/firebase";
 export { getModel } from "./api/googleApi";
-export { slotHooks, langHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
+export { slotHooks, langHooks, commandsHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
 export function useAsyncMemo<T>(callback: () => Promise<T>, deps: any[] = [], cleanUp?: (deps: any[]) => void): T | null {
   const state = useCopyState<T | null>(null);
   React.useEffect(() => {
@@ -585,8 +585,8 @@ export const getUserFromDB = () => getTemp<UserDB>("userInfo");
 export const initUser = () => {
   const user = getUser();
   useAsyncEffect(async () => {
-    if (user?.uid) {
-      const col = collection(db, "users");
+    if (user?.uid && Server.server?.db) {
+      const col = collection(Server.server.db, "users");
       const userDoc = doc(col, user.uid);
       const userInfo: Partial<UserDB> = {
         photo: user.photoURL,
@@ -617,38 +617,43 @@ export const initUser = () => {
   }, [userDb, user]);
 
   React.useEffect(() => {
-    if (!user) {
-      return;
+    const server = Server.server;
+    if (user && server) {
+      return onSnapshot(doc(collection(server.db, "users"), user.uid), (doc) => {
+        if (doc.exists()) {
+          setTemp("userInfo", doc.data());
+        }
+      });
     }
-    return onSnapshot(doc(collection(db, "users"), user.uid), (doc) => {
-      if (doc.exists()) {
-        setTemp("userInfo", doc.data());
-      }
-    });
   }, [user]);
 };
 export const getUser = () => {
-  const user = useCopyState<User | null>(auth.currentUser);
+  const user = useCopyState<User | null>(Server.server?.auth.currentUser || null);
   // on user change
   React.useEffect(() => {
-    user.set(auth.currentUser);
-    const unAuth = onAuthStateChanged(auth, user.set);
-    const unIdToken = onIdTokenChanged(auth, user.set);
-    return () => {
-      unAuth();
-      unIdToken();
-    };
+    if (Server.server?.auth) {
+      user.set(Server.server.auth.currentUser);
+      const unAuth = onAuthStateChanged(Server.server.auth, user.set);
+      const unIdToken = onIdTokenChanged(Server.server.auth, user.set);
+      return () => {
+        unAuth();
+        unIdToken();
+      };
+    }
   }, []);
   return user.get;
 };
 export const verifieCapatcha = async () => {
+  if (!Server.server) {
+    throw Error("Server is not initialized");
+  }
   recaptchaTemp.setTemp("open", true);
   await delay(1000);
   const element = document.getElementById("capatcha-view");
   if (!element) {
     throw Error("capatcha view element is not exists");
   }
-  const capatcha = new RecaptchaVerifier(auth, element);
+  const capatcha = new RecaptchaVerifier(Server.server.auth, element);
   return capatcha;
 };
 

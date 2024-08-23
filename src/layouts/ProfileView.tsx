@@ -1,5 +1,5 @@
 import React from "react";
-import { storage, auth, db } from "@/apis/firebase";
+import { Server } from "@/apis/firebase";
 import {
   Anchor,
   AsyncComponent,
@@ -43,6 +43,10 @@ export const SignupPage = () => {
   const signupAction = useAction(
     "signup",
     async () => {
+      if (!Server.server?.auth) {
+        showToast("Error When Loading The Auth", "error");
+        return;
+      }
       if (!email) {
         showToast("Email is required", "error");
         setFocused("signupUseremail");
@@ -63,7 +67,7 @@ export const SignupPage = () => {
         setFocused("user-password-confirm");
         return;
       }
-      await createUserWithEmailAndPassword(auth, email, passwordState.get);
+      await createUserWithEmailAndPassword(Server.server.auth, email, passwordState.get);
     },
     [email, passwordState.get, passwordConfirmState.get],
   );
@@ -185,6 +189,10 @@ export const LoginPage = () => {
   useAction(
     "login",
     async () => {
+      if (!Server.server?.auth) {
+        showToast("Error When Loading The Auth", "error");
+        return;
+      }
       if (!email) {
         showToast("Email is required", "error");
         return;
@@ -193,21 +201,25 @@ export const LoginPage = () => {
         showToast("Password must be at least 6 characters", "error");
         return;
       }
-      await signInWithEmailAndPassword(auth, email, passwordState.get);
+      await signInWithEmailAndPassword(Server.server.auth, email, passwordState.get);
     },
     [email, passwordState.get],
   );
   const signInWithPopupFacebookAction = useAction(
     "sign-in-facebook",
     async () => {
-      await signInWithPopup(auth, new FacebookAuthProvider());
+      if (Server.server?.auth) {
+        await signInWithPopup(Server.server.auth, new FacebookAuthProvider());
+      }
     },
     [],
   );
   const signInWithPopupGoogleAction = useAction(
     "sign-in-google",
     async () => {
-      await signInWithPopup(auth, new GoogleAuthProvider());
+      if (Server.server?.auth) {
+        await signInWithPopup(Server.server.auth, new GoogleAuthProvider());
+      }
     },
     [],
   );
@@ -217,9 +229,13 @@ export const LoginPage = () => {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
+            if (!Server.server?.auth) {
+              showToast("Error When Loading The Auth", "error");
+              return;
+            }
             if (email && passwordState.get) {
               try {
-                await signInWithEmailAndPassword(auth, email, passwordState.get);
+                await signInWithEmailAndPassword(Server.server.auth, email, passwordState.get);
               } catch {
                 showToast("Password Or Email Is Incorrect 😴", "error");
               }
@@ -352,10 +368,13 @@ export interface PayoutsProps {
 export const Payouts = ({ projectId }: PayoutsProps) => {
   const user = getUser();
   const { data, error, status } = useIdleStatus(async () => {
+    if (!Server.server?.db) {
+      return [];
+    }
     if (!user?.uid) {
       return [];
     } else {
-      const { docs } = await getDocs(collection(db, "users", user.uid, "projects", projectId, "payouts"));
+      const { docs } = await getDocs(collection(Server.server.db, "users", user.uid, "projects", projectId, "payouts"));
       return docs;
     }
   }, [projectId, user]);
@@ -416,9 +435,9 @@ export const ProfileContent = () => {
   const actionChangeMyName = useAction(
     "change-my-name",
     async () => {
-      if (state.get && user) {
+      if (Server.server && state.get && user) {
         await setDoc(
-          doc(db, "users", user.uid),
+          doc(Server.server.db, "users", user.uid),
           {
             name: state.get,
           },
@@ -442,6 +461,10 @@ export const ProfileContent = () => {
   const action = useAction(
     "profile-change-image",
     async () => {
+      if (!Server.server) {
+        showToast("Error When Loading The Server", "error");
+        return;
+      }
       if (!user) {
         return;
       }
@@ -468,13 +491,16 @@ export const ProfileContent = () => {
           input.type = "file";
           input.accept = "image/*";
           input.onchange = async () => {
+            if (!Server.server) {
+              return;
+            }
             const file = input.files?.[0];
             if (!file) {
               return;
             }
             // upload a file to firestore
             let p = ["users", user.uid, "profile", nanoid()].filter(Boolean).join("/");
-            let refStore = ref(storage, p);
+            let refStore = ref(Server.server.storage, p);
             await uploadBytes(refStore, file);
             const photoURL = await getDownloadURL(refStore);
             await updateProfile(user, {
@@ -489,10 +515,13 @@ export const ProfileContent = () => {
       if (!cameraBaseUrl64) {
         return;
       }
+      if (!Server.server) {
+        return;
+      }
       // upload a baseUrl image to firestore
       const imageBlob = await fetch(cameraBaseUrl64).then((response) => response.blob());
       let p = ["users", user.uid, "profile", nanoid()].filter(Boolean).join("/");
-      let refStore = ref(storage, p);
+      let refStore = ref(Server.server.storage, p);
       await uploadBytes(refStore, imageBlob);
       const photoURL = await getDownloadURL(refStore);
       await updateProfile(user, {
@@ -530,8 +559,8 @@ export const ProfileContent = () => {
     status,
     error,
   } = useIdleStatus(async () => {
-    if (user) {
-      const { docs } = await getDocs(collection(db, "users", user.uid, "projects"));
+    if (user && Server.server) {
+      const { docs } = await getDocs(collection(Server.server.db, "users", user.uid, "projects"));
       return docs;
     } else {
       return [];
@@ -727,9 +756,9 @@ export const ProfileContent = () => {
               buttons: ["No", "Yes"],
               defaultId: 1,
             });
-            if (response) {
+            if (response && Server.server) {
               user?.delete();
-              await signOut(auth);
+              await signOut(Server.server.auth);
             }
           }}
         >
@@ -741,6 +770,9 @@ export const ProfileContent = () => {
             ...colorMerge("error"),
           }}
           onClick={async () => {
+            if (!Server.server) {
+              return;
+            }
             const { response } = await openDialog({
               title: "Logout",
               message: "Are you sure you want to logout?",
@@ -748,7 +780,7 @@ export const ProfileContent = () => {
               defaultId: 1,
             });
             if (response) {
-              await signOut(auth);
+              await signOut(Server.server.auth);
             } else {
               showToast("Ignore Logout", "error");
             }

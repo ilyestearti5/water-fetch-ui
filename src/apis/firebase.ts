@@ -1,32 +1,46 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { FirebaseStorage, getStorage } from "firebase/storage";
+import { Analytics, getAnalytics } from "firebase/analytics";
+import { Auth } from "firebase/auth";
+import { Firestore } from "firebase/firestore";
 export const firebaseConfig = {
   apiKey: "AIzaSyBmcnHP80KXpBXltHrVnP1MZPsiSbVbWqQ",
   authDomain: "water-fetch.firebaseapp.com",
   projectId: "water-fetch",
   storageBucket: "water-fetch.appspot.com",
   messagingSenderId: "911813185967",
-  appId: "1:911813185967:web:156422661781bf11315f5a",
-  measurementId: "G-NE6Z35DJ1F",
 };
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const analytics = getAnalytics(app);
-export const firebase = {
-  app,
-  auth,
-  db,
-  storage,
-  analytics,
+export interface ServerProps {
+  appId: string;
+  measurementId: string;
+}
+export const initServer = ({ appId, measurementId }: ServerProps) => {
+  const compltedConfig = {
+    ...firebaseConfig,
+    appId,
+    measurementId,
+  };
+  return initializeApp(compltedConfig);
 };
+export class Server {
+  static server: Server | null = null;
+  public app: FirebaseApp;
+  public auth: Auth;
+  public db: Firestore;
+  public storage: FirebaseStorage;
+  public analytics: Analytics;
+  constructor(props: ServerProps) {
+    if (Server.server) {
+      throw new Error("Server already initialized");
+    }
+    this.app = initServer(props);
+    this.auth = getAuth(this.app);
+    this.db = getFirestore(this.app);
+    this.storage = getStorage(this.app);
+    this.analytics = getAnalytics(this.app);
+    Server.server = this;
+  }
+}
