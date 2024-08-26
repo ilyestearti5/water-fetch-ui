@@ -1,10 +1,10 @@
 import { j as e, a as r, E as O } from "./EmptyComponent-DdPDoXyL.mjs";
-import { c as Se, b as U, a as N, d as lt, i as qt, j as ct, t as Xt, k as Zt, l as Z, g as L, m as Jt, s as T, n as dt, o as ee, e as K, f as A, p as z, q as W, r as mt, v as te, w as he, x as _t, u as x, y as ut, z as _, h as se, A as ft, B as Qt, C as en, D as X, E as tn, F as ue, G as nn, H as $, I as pe, J as ht, K as sn, L as pt, M as j, N as gt, O as Me, P as bt, Q as yt, R as Ee, S as xt, T as We, U as on, V as an, W as Ye } from "./index-2JmIR0gT.mjs";
-import { B as J, g as rn, a5 as le, F as Y, t as C, v as ne, i as ln, a2 as D, T as V, a6 as G, X as cn, a0 as S, U as R, l as Pe, K as be, C as B, Q as ye, e as ce, G as dn, w as xe, I as Te, M as ve, d as I, u as De, o as vt, V as mn, W as un, a3 as fn, a4 as wt, p as hn, f as pn, N as gn, D as bn, c as Nt, a as Ct, E as yn, O as xn, Z as Oe, y as kt, m as St, n as It, P as Ft, j as Et, H as vn, R as jt, r as Lt, J as Mt, a7 as ie, a8 as je, A as we, x as wn, b as Nn, S as Cn, L as kn, _ as Sn, h as In, z as Fn, Y as En, a9 as jn, a1 as Ln, k as Mn, s as Pn } from "./ViewPage-NkNaucbF.mjs";
+import { c as Se, b as U, a as N, d as lt, i as qt, j as ct, t as Xt, k as Zt, l as Z, g as L, m as Jt, s as T, n as dt, o as ee, e as K, f as A, p as z, q as W, r as mt, v as te, w as he, x as _t, u as x, y as ut, z as _, h as se, A as ft, B as Qt, C as en, D as X, E as tn, F as ue, G as nn, H, I as pe, J as ht, K as sn, L as pt, M as j, N as gt, O as Me, P as bt, Q as yt, R as Ee, S as xt, T as We, U as on, V as an, W as Ye } from "./index-8qQxvEIo.mjs";
+import { B as J, g as rn, a7 as le, F as Y, x as C, z as ne, i as ln, ac as D, T as V, af as G, a3 as cn, aa as S, a0 as R, n as Pe, K as be, C as B, $ as ye, e as ce, I as Te, Y as dn, G as xe, M as ve, d as I, y as De, q as vt, a1 as mn, a2 as un, ad as fn, ae as wt, r as hn, f as pn, N as gn, D as bn, c as Nt, a as Ct, m as yn, Q as xn, a5 as Oe, O as kt, o as St, p as It, U as Ft, k as Et, _ as vn, Z as jt, u as Lt, J as Mt, ag as ie, R as je, A as we, H as wn, b as Nn, S as Cn, L as kn, a6 as Sn, h as In, W as Fn, a4 as En, ah as jn, ab as Ln, l as Mn, v as Pn } from "./ViewPage-C6t5wQXF.mjs";
 import f from "react";
-import { a as de, m as Q, b as me, s as F, t as y, i as Ae, D as Tn, c as ge, g as Ge, d as Dn, e as On, f as An, h as Un, j as Vn, S as Rn } from "./index-xG9JJ5Ch.mjs";
-import { b as Ue, c as Ne, f as H, d as Ve, a as Pt, e as zn, g as Re, h as Bn, i as Tt, j as Hn, k as Dt, l as Ot, m as $n, n as At, o as Kn, p as Ut, q as Vt, r as Wn, s as Ce, t as Yn, u as Gn, v as qn, w as Xn, x as Zn, y as Jn, z as _n, A as Qn, B as es, C as Le, D as ts, E as ns, F as ss, G as os, H as as, I as rs, J as qe, K as is, L as ls, M as cs, N as ds } from "./index-Dr7qSHtq.mjs";
-import { S as k, c as ms, s as Xe, a as us, d as fs, g as Rt, b as zt, e as Ze, f as Je, F as hs, G as ps, u as Ie, r as _e, h as Qe, i as et } from "./firebase-UCiyK4H7.mjs";
+import { a as de, m as Q, b as me, s as F, t as y, i as Ae, D as Tn, c as ge, g as Ge, d as Dn, e as On, f as An, h as Un, j as Vn, S as Rn } from "./index-DRKFUSi1.mjs";
+import { b as Ue, c as Ne, f as $, d as Ve, a as Pt, e as zn, g as Re, h as Bn, i as Tt, j as $n, k as Dt, l as Ot, m as Hn, n as At, o as Kn, p as Ut, q as Vt, r as Wn, s as Ce, t as Yn, u as Gn, v as qn, w as Xn, x as Zn, y as Jn, z as _n, A as Qn, B as es, C as Le, D as ts, E as ns, F as ss, G as os, H as as, I as rs, J as qe, K as is, L as ls, M as cs, N as ds } from "./index-Buy7cH84.mjs";
+import { S as k, c as ms, s as Xe, a as Ze, F as us, G as fs, g as Rt, b as zt, d as hs, e as ps, u as Ie, r as Je, f as _e, h as Qe, i as et } from "./firebase-oFaglbxa.mjs";
 function gs() {
   const n = Se.getTemp("type"), t = Se.getTemp("id");
   return U(
@@ -388,7 +388,7 @@ function ws() {
                       return l && (l.expanded = !l.expanded), a;
                     });
                   },
-                  icon: H
+                  icon: $
                 }
               ) })
             ] }),
@@ -431,7 +431,7 @@ const Ns = "visibility/configurations.boolean", Cs = () => {
             onClick: () => {
               T.setOneFeild(Ns, "value", !1);
             },
-            icon: H
+            icon: $
           }
         )
       }
@@ -519,7 +519,7 @@ function ks() {
                       S,
                       {
                         tabIndex: -1,
-                        icon: H,
+                        icon: $,
                         onClick: () => {
                           X.remove(p.map(({ keyId: d }) => d));
                         }
@@ -710,7 +710,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                   onClick: () => {
                     T.setOneFeild("visibility/keyboard.boolean", "value", !1);
                   },
-                  icon: H
+                  icon: $
                 }
               )
             }
@@ -1002,7 +1002,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
     }
   ) });
 }, Ls = () => {
-  const n = $.getAll();
+  const n = H.getAll();
   return /* @__PURE__ */ e(
     xe,
     {
@@ -1021,7 +1021,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
             onClick: l(),
             onPointerDown: s(a()),
             onDoubleClick: () => {
-              $.setOneFeild(t.id, "showDesc", !t.showDesc);
+              H.setOneFeild(t.id, "showDesc", !t.showDesc);
             },
             style: {
               ...g(
@@ -1057,7 +1057,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                   /* @__PURE__ */ e(
                     G,
                     {
-                      icon: p(Ot, Dt, Hn, Tt),
+                      icon: p(Ot, Dt, $n, Tt),
                       style: {
                         ...g({
                           color: p("notifay.info", "notifay.warning", "notifay.error", "notifay.success")
@@ -1100,7 +1100,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                         S,
                         {
                           onClick: () => {
-                            $.setOneFeild(t.id, "showDesc", !t.showDesc);
+                            H.setOneFeild(t.id, "showDesc", !t.showDesc);
                           },
                           icon: t.showDesc ? Ue : Ne
                         }
@@ -1109,7 +1109,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                         S,
                         {
                           onClick: () => {
-                            $.remove([t.id]);
+                            H.remove([t.id]);
                           },
                           icon: Bn
                         }
@@ -1139,17 +1139,17 @@ const fe = ({ isActive: n, className: t, ...o }) => {
   );
 }, Fe = "visibility/notifays.boolean", ot = "visibility/notifays/nots.boolean";
 function Ms() {
-  const n = L(Fe), t = L(ot), o = $.getIds(), i = N(), s = W.getOneFeild("notification", "focused"), a = $.getAll(), l = f.useMemo(() => typeof s != "number" ? null : a[s] || null, [a, s]);
+  const n = L(Fe), t = L(ot), o = H.getIds(), i = N(), s = W.getOneFeild("notification", "focused"), a = H.getAll(), l = f.useMemo(() => typeof s != "number" ? null : a[s] || null, [a, s]);
   U(
     "toggleExpandNotifay",
     () => {
-      l && $.setOneFeild(l.id, "showDesc", !l.showDesc);
+      l && H.setOneFeild(l.id, "showDesc", !l.showDesc);
     },
     [l]
   ), U(
     "notification.deleteFocus",
     () => {
-      l && $.remove([l.id]);
+      l && H.remove([l.id]);
     },
     [l]
   );
@@ -1222,10 +1222,10 @@ function Ms() {
                   S,
                   {
                     onClick: () => {
-                      $.remove(a.filter(({ removable: c = !0 }) => c).map(({ id: c }) => c));
+                      H.remove(a.filter(({ removable: c = !0 }) => c).map(({ id: c }) => c));
                     },
                     className: y(!o.length && "pointer-events-none"),
-                    icon: $n
+                    icon: Hn
                   }
                 ),
                 !!o.length && /* @__PURE__ */ e(S, { icon: t ? Ne : Ue }),
@@ -1269,7 +1269,7 @@ const Ps = () => {
             rightSide: /* @__PURE__ */ e("div", { className: "flex tools", children: /* @__PURE__ */ e(D, { title: "close view", children: /* @__PURE__ */ e(
               B,
               {
-                icon: H,
+                icon: $,
                 onClick: () => {
                   pe.setTemp("pdf", null);
                 }
@@ -1814,7 +1814,7 @@ function Bs({ settingId: n }) {
     }
   );
 }
-const Hs = () => {
+const $s = () => {
   const n = N(), t = ft("view.settings"), o = T.getOne(t.get || ""), i = f.useMemo(() => !o || o.settingId.match(/\.password$/gi) ? !1 : !ge(o.def, o.value), [o]), s = f.useMemo(() => {
     try {
       const a = Function(`return (state)=> \`${(o == null ? void 0 : o.desc) || "**no description defined**"}\` `)(), l = ct.getState();
@@ -1925,7 +1925,7 @@ const Hs = () => {
                     onClick: () => {
                       t.set(null), F("findConfigurations");
                     },
-                    icon: H
+                    icon: $
                   }
                 )
               ] })
@@ -1941,7 +1941,7 @@ const Hs = () => {
       )
     }
   );
-}, $s = ({ item: n, index: t }) => {
+}, Hs = ({ item: n, index: t }) => {
   const o = x(!1), i = x(!1), s = x(!1), a = x(0), { message: l } = n, m = N(), c = L("preferences/toastTime.number"), p = L("preferences/animation.boolean"), g = f.useMemo(() => n.time || c || 5, [c, n.time]);
   f.useEffect(() => {
     if (s.get) {
@@ -2024,7 +2024,7 @@ const Hs = () => {
                 onClick: () => {
                   s.set(!0);
                 },
-                icon: H
+                icon: $
               }
             )
           ] })
@@ -2033,7 +2033,7 @@ const Hs = () => {
     }
   );
 }, Ks = () => {
-  const n = pt.getAll(), t = N(), o = L("preferences/animation.boolean"), i = f.useMemo(() => $s, []), s = L("toast/position.enum");
+  const n = pt.getAll(), t = N(), o = L("preferences/animation.boolean"), i = f.useMemo(() => Hs, []), s = L("toast/position.enum");
   return /* @__PURE__ */ e(
     "div",
     {
@@ -2069,7 +2069,7 @@ function Ws({ children: n }) {
     /* @__PURE__ */ e("div", { className: "flex items-stretch h-full overflow-hidden", children: n })
   ] });
 }
-const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
+const $t = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   const n = N(), t = A.getOneFeild("signupUseremail", "value"), o = x(""), i = x(""), s = U(
     "signup",
     async () => {
@@ -2113,7 +2113,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
                 Y,
                 {
                   controls: {
-                    [Ht]: {
+                    [$t]: {
                       err: "Invalid email",
                       succ: "Valid email"
                     }
@@ -2238,14 +2238,14 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
     "sign-in-facebook",
     async () => {
       var a;
-      (a = k.server) != null && a.auth && await Je(k.server.auth, new hs());
+      (a = k.server) != null && a.auth && await Ze(k.server.auth, new us());
     },
     []
   ), s = U(
     "sign-in-google",
     async () => {
       var a;
-      (a = k.server) != null && a.auth && await Je(k.server.auth, new ps());
+      (a = k.server) != null && a.auth && await Ze(k.server.auth, new fs());
     },
     []
   );
@@ -2274,7 +2274,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
                 Y,
                 {
                   controls: {
-                    [Ht]: {
+                    [$t]: {
                       err: "Invalid email",
                       succ: "Valid email"
                     }
@@ -2396,7 +2396,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   return /* @__PURE__ */ e(wn, { focused: n ?? 0, pages: [/* @__PURE__ */ e(Gs, {}), /* @__PURE__ */ e(Ys, {})] });
 }, Xs = ({ projectId: n }) => {
   var a, l;
-  const t = Me(), { data: o, error: i, status: s } = yt(async () => {
+  const t = Me(), { data: o, error: i, status: s } = bt(async () => {
     var m;
     if (!((m = k.server) != null && m.db))
       return [];
@@ -2447,11 +2447,11 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   ] });
 }, Zs = () => {
   var w, M, P;
-  const n = N(), t = Me(), o = bt(), i = x(!1), s = x(void 0), a = L("preferences/animation.boolean"), l = U(
+  const n = N(), t = Me(), o = yt(), i = x(!1), s = x(void 0), a = L("preferences/animation.boolean"), l = U(
     "change-my-name",
     async () => {
-      k.server && s.get && t && await us(
-        fs(k.server.db, "users", t.uid),
+      k.server && s.get && t && await hs(
+        ps(k.server.db, "users", t.uid),
         {
           name: s.get
         },
@@ -2478,7 +2478,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
       }
       if (!t)
         return;
-      const E = An(t.photoURL && "Delete", "Cancel", "Upload", "Open Camera"), { response: q } = await ie({
+      const E = On(t.photoURL && "Delete", "Cancel", "Upload", "Open Camera"), { response: q } = await ie({
         title: "Profile Picture",
         message: "Change your profile picture",
         buttons: E,
@@ -2499,12 +2499,12 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
             var Ke;
             if (!k.server)
               return;
-            const He = (Ke = ae.files) == null ? void 0 : Ke[0];
-            if (!He)
+            const $e = (Ke = ae.files) == null ? void 0 : Ke[0];
+            if (!$e)
               return;
-            let Yt = ["users", t.uid, "profile", Ee()].filter(Boolean).join("/"), $e = _e(k.server.storage, Yt);
-            await Qe($e, He);
-            const Gt = await et($e);
+            let Yt = ["users", t.uid, "profile", Ee()].filter(Boolean).join("/"), He = Je(k.server.storage, Yt);
+            await _e(He, $e);
+            const Gt = await Qe(He);
             return await Ie(t, {
               photoURL: Gt
             }), ke("Done");
@@ -2513,10 +2513,10 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
       const ze = await xt("take");
       if (!ze || !k.server)
         return;
-      const $t = await fetch(ze).then((ke) => ke.blob());
-      let Kt = ["users", t.uid, "profile", Ee()].filter(Boolean).join("/"), Be = _e(k.server.storage, Kt);
-      await Qe(Be, $t);
-      const Wt = await et(Be);
+      const Ht = await fetch(ze).then((ke) => ke.blob());
+      let Kt = ["users", t.uid, "profile", Ee()].filter(Boolean).join("/"), Be = Je(k.server.storage, Kt);
+      await _e(Be, Ht);
+      const Wt = await Qe(Be);
       await Ie(t, {
         photoURL: Wt
       });
@@ -2539,7 +2539,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
     data: b,
     status: u,
     error: v
-  } = yt(async () => {
+  } = bt(async () => {
     if (t && k.server) {
       const { docs: E } = await Rt(zt(k.server.db, "users", t.uid, "projects"));
       return E;
@@ -2737,7 +2737,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
               buttons: ["No", "Yes"],
               defaultId: 1
             });
-            E && k.server && (t == null || t.delete(), await Ze(k.server.auth));
+            E && k.server && (t == null || t.delete(), await et(k.server.auth));
           },
           children: /* @__PURE__ */ e(V, { content: "delete" })
         }
@@ -2758,7 +2758,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
               buttons: ["No", "Yes"],
               defaultId: 1
             });
-            E ? await Ze(k.server.auth) : j("Ignore Logout", "error");
+            E ? await et(k.server.auth) : j("Ignore Logout", "error");
           },
           children: /* @__PURE__ */ e(V, { content: "logout" })
         }
@@ -2770,7 +2770,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   return /* @__PURE__ */ e("div", { className: "relative w-full h-full overflow-hidden", children: /* @__PURE__ */ e(
     Nn,
     {
-      render: async () => (await On(1e3), /* @__PURE__ */ r(O, { children: [
+      render: async () => (await An(1e3), /* @__PURE__ */ r(O, { children: [
         n && /* @__PURE__ */ e(Zs, {}),
         !n && /* @__PURE__ */ e(qs, {})
       ] })),
@@ -2785,7 +2785,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
       /* @__PURE__ */ e(
         B,
         {
-          icon: H,
+          icon: $,
           onClick: () => {
             pe.setTemp("profile-view", !1);
           }
@@ -2823,7 +2823,7 @@ const Ht = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   }
 ];
 function uo() {
-  const n = bt(), t = x(null), o = x(void 0), i = x(null), s = x(void 0), a = x(void 0), l = x(void 0), m = x(null), c = x(null), p = x(null), g = x(void 0), h = x(null), b = x(!1), u = T.getAll(), v = N();
+  const n = yt(), t = x(null), o = x(void 0), i = x(null), s = x(void 0), a = x(void 0), l = x(void 0), m = x(null), c = x(null), p = x(null), g = x(void 0), h = x(null), b = x(!1), u = T.getAll(), v = N();
   return /* @__PURE__ */ r(O, { children: [
     /* @__PURE__ */ e(vs, { children: /* @__PURE__ */ r("h1", { className: "w-full text-center capitalize", children: [
       "click in the link to see your account ",
@@ -3193,7 +3193,7 @@ function uo() {
     /* @__PURE__ */ e(_s, {}),
     /* @__PURE__ */ e(zs, {}),
     /* @__PURE__ */ e(Is, {}),
-    /* @__PURE__ */ e(Hs, {}),
+    /* @__PURE__ */ e($s, {}),
     /* @__PURE__ */ e(gs, {}),
     /* @__PURE__ */ e(Ms, {}),
     /* @__PURE__ */ e(ys, {}),
@@ -3264,7 +3264,7 @@ const re = {
                   onClick: () => {
                     X.remove([i]), F("edit-keyPanding");
                   },
-                  icon: H
+                  icon: $
                 }
               ) }),
               /* @__PURE__ */ e(D, { title: "copy when value", children: /* @__PURE__ */ e(
@@ -3413,7 +3413,7 @@ function fo() {
                   onClick: async () => {
                     z(re.commandId, null), z(re.position, null), F("findConfigurations");
                   },
-                  icon: H
+                  icon: $
                 }
               )
             ] }),
@@ -3449,6 +3449,7 @@ export {
   vs as Header,
   ws as HeaderNotification,
   Cs as HeaderSettings,
+  fe as KeyboardButton,
   ks as KeyboardShortcuts,
   Is as KeyboardView,
   Fs as LeftSide,
@@ -3456,13 +3457,15 @@ export {
   qs as LoginContent,
   Gs as LoginPage,
   js as MenuList,
+  Es as MenuRecord,
   Ls as NotifaysSlot,
   Ms as Notifications,
   Ps as PDFView,
+  Xs as Payouts,
   Zs as ProfileContent,
   Js as ProfileView,
   Ts as RightSide,
-  Hs as SettingUpdateView,
+  $s as SettingUpdateView,
   Bs as SettingUpdating,
   Us as Settings,
   Ds as SettingsList,
@@ -3471,8 +3474,12 @@ export {
   zs as SettingsView,
   Ys as SignupPage,
   uo as Test,
+  Hs as ToastItem,
   Ks as Toasts,
   fo as UpdateKeyboardShortcut,
   As as UserSetting,
-  Ws as Window
+  Ws as Window,
+  Ss as dataKeyboard,
+  Bt as getTree,
+  tt as headerVisibility
 };

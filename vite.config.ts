@@ -1,14 +1,14 @@
-import path from "node:path";
-import react from "@vitejs/plugin-react";
-import pkg from "./package.json";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import path from "node:path";
+import pkg from "./package.json";
+import react from "@vitejs/plugin-react";
 export default defineConfig(({ command }) => {
   const args = process.argv.slice(2);
   const platform = args[2];
   const alias = {
     "@": path.resolve("./src"),
-    Components: path.resolve("./src/components"),
+    components: path.resolve("./src/components"),
     database: path.resolve("./src/data/db"),
     models: path.resolve("./src/data"),
     hooks: path.resolve("./src/hooks"),

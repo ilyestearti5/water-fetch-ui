@@ -85,14 +85,15 @@
     "build:lib": "tsc && vite build --mode lib",
     "build:web": "tsc && vite build --mode web",
     "compile": "tsc && echo \"no problems has ben detected\"",
-    "build": "npm run build:lib && npm run build:web",
+    "build": "npm run build:web && npm run build:lib",
     "deploy": "firebase deploy --only hosting",
     "dev": "vite",
     "e2e": "playwright test",
     "lint": "eslint . --ext tsx,ts --fix",
     "pree2e": "vite build --mode=test",
     "prettier:format": "prettier --write ./",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "remove": "node ./commands.js"
   },
   "version": "0.0.0"
 }

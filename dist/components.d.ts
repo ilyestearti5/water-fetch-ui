@@ -6,15 +6,15 @@ import { OpenDialogOptions } from 'electron';
 
 export declare function Anchor({ className, style, ...props }: AnchorProps): JSX_2.Element;
 
-declare type AnchorProps = React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+export declare type AnchorProps = React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
 export declare function ArrayFeild({ state, id }: ArrayFeildProps): JSX_2.Element;
 
-declare type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
+export declare type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
 
 export declare function AsyncComponent({ render, error, deps, loading }: AsyncComponentProps): JSX_2.Element;
 
-declare interface AsyncComponentProps {
+export declare interface AsyncComponentProps {
     render: () => Promise<JSX.Element>;
     error?: JSX.Element;
     loading?: JSX.Element;
@@ -25,20 +25,30 @@ export declare function BlurOverlay({ className, animted, style, hidden, onLoadC
 
 export declare function BooleanFeild({ state, config, id }: BooleanFeildProps): JSX_2.Element;
 
-declare type BooleanFeildProps = FeildGeneralProps<boolean | null, SettingConfig["boolean"]>;
+export declare type BooleanFeildProps = FeildGeneralProps<boolean | null, SettingConfig["boolean"]>;
 
 export declare function Button({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ButtonProps): JSX_2.Element;
 
-declare type ButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps;
+export declare type ButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps;
 
 export declare const Card: ({ className, style, ...props }: CardProps) => JSX_2.Element;
 
-declare type CardProps = ReactElement;
+export declare type CardProps = ReactElement;
 
 export declare function CenterWindowDrag({ children }: CenterWindowDragProps): JSX_2.Element;
 
-declare interface CenterWindowDragProps {
+export declare interface CenterWindowDragProps {
     children?: React.ReactNode;
+}
+
+/**
+ *
+ * For Local State
+ */
+export declare const ChangableComponent: ({ onContentChange, ...props }: ChangableComponentProps) => JSX_2.Element;
+
+export declare interface ChangableComponentProps extends default_2.DetailedHTMLProps<default_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    onContentChange?: (rect: DOMRect) => any;
 }
 
 export declare const CircleLoading: ({ className, circleClassName, ...props }: CircleLoadingProps) => JSX_2.Element;
@@ -49,14 +59,16 @@ declare interface CircleLoadingProps extends ReactElement {
 
 export declare function CircleTip({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: CircleTipProps): JSX_2.Element;
 
-declare interface CircleTipProps extends ClickProps<HTMLButtonElement> {
+export declare interface CircleTipProps extends ClickProps<HTMLButtonElement> {
 }
 
 declare type ClickProps<T> = ReactElement<T> & IconProps;
 
+export declare const CloseActionIcon: ({ color }: SVGIconProps) => JSX_2.Element;
+
 export declare function ColorsList(): JSX_2.Element;
 
-declare interface CommandLine {
+export declare interface CommandLine {
     id: string;
     content?: string;
     keyPanding?: string | string[];
@@ -66,6 +78,16 @@ declare interface CommandLine {
     }[];
     checked?: boolean;
     sub?: string;
+}
+
+export declare interface ComponentVarFastListProps<T, D extends Record<string, any>> {
+    style: default_2.CSSProperties;
+    data: T;
+    index: number;
+    scrollToMe(margin?: number | "top" | "bottom"): void;
+    scrollByIndex(index: number): void;
+    scroll: number;
+    deps: D;
 }
 
 export declare const ContentOfImageView: () => JSX_2.Element;
@@ -84,7 +106,7 @@ declare const data: {
 
 export declare function DataBaseManagmentList({ data }: DataBaseManagmentListProps): JSX_2.Element;
 
-declare interface DataBaseManagmentListProps {
+export declare interface DataBaseManagmentListProps {
     data: Record<string, {
         onSubmit?: (line: CommandLine) => void;
         lines?: CommandLine[];
@@ -93,7 +115,9 @@ declare interface DataBaseManagmentListProps {
 
 export declare function DateFeild({ state, config, id }: DateFeildProps): JSX_2.Element;
 
-declare type DateFeildProps = FeildGeneralProps<SettingValueType["date"] | undefined, SettingConfig["date"]>;
+export declare type DateFeildProps = FeildGeneralProps<SettingValueType["date"] | undefined, SettingConfig["date"]>;
+
+export declare const dateToStringForInput: (date: Date, to?: SettingConfig["date"]["format"]) => string;
 
 export declare const DialogBox: () => JSX_2.Element;
 
@@ -101,17 +125,26 @@ export declare function DownOverlay({ hidden, animted, className, style, childre
 
 export declare const EmptyComponent: ({ children }: EmptyComponentProps) => JSX_2.Element;
 
-declare interface EmptyComponentProps {
+export declare interface EmptyComponentProps {
     children?: ReactElement["children"];
 }
 
 export declare function EnumFeild({ config, id, state }: EnumFeildProps): JSX_2.Element;
 
-declare type EnumFeildProps = FeildGeneralProps<string | undefined, SettingConfig["enum"]>;
+export declare type EnumFeildProps = FeildGeneralProps<string | undefined, SettingConfig["enum"]>;
+
+export declare const EnumList: default_2.MemoExoticComponent<({ list }: EnumListProps) => JSX_2.Element>;
+
+export declare interface EnumListProps {
+    list: {
+        isChoised: boolean;
+        item?: Required<SettingConfig["enum"]>["list"][number];
+    }[];
+}
 
 export declare function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, data, countLastItems, overflow: { top, bottom } }: FastListProps<T>): JSX_2.Element;
 
-declare interface FastListItemProps<T> extends ReactElement {
+export declare interface FastListItemProps<T> extends ReactElement {
     status: {
         [key in `is${"Selected" | "Focused" | "Skiped" | "Submited"}`]: boolean;
     };
@@ -125,7 +158,7 @@ declare interface FastListItemProps<T> extends ReactElement {
     };
 }
 
-declare interface FastListProps<T> {
+export declare interface FastListProps<T> {
     focusId: string;
     slotId: string;
     itemSize: number;
@@ -165,7 +198,7 @@ declare interface FeildGeneralProps<T, C extends object> {
     config?: C;
 }
 
-declare interface FeildProps extends TextAreaProps {
+export declare interface FeildProps extends TextAreaProps {
     inputName: string;
     selectWhenFocusIn?: boolean;
     help?: any;
@@ -179,7 +212,7 @@ declare interface FeildProps extends TextAreaProps {
 
 export declare function FileFeild({ state, config, id }: FileFeildProps): JSX_2.Element;
 
-declare type FileFeildProps = FeildGeneralProps<SettingValueType["file"], SettingConfig["file"]>;
+export declare type FileFeildProps = FeildGeneralProps<SettingValueType["file"], SettingConfig["file"]>;
 
 declare interface FileProps extends OpenDialogOptions {
     nullable: boolean;
@@ -191,18 +224,20 @@ declare type FilterFeildProps = FeildGeneralProps<string[] | undefined, SettingC
 
 export declare let Focus: default_2.ForwardRefExoticComponent<Omit<FocusProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
 
-declare interface FocusProps extends ReactElement {
+export declare interface FocusProps extends ReactElement {
     focusId?: string;
     ignoreOutline?: boolean;
 }
 
 declare type FunctionComponentListItem<T> = (props: ListItemProps<T>) => JSX.Element;
 
+export declare const getText: (content: TextProps["content"]) => string;
+
 export declare function Hours(): JSX_2.Element;
 
 export declare const Icon: ({ icon, iconClassName }: IconProps) => JSX_2.Element;
 
-declare interface IconProps {
+export declare interface IconProps {
     icon?: FontAwesomeIconProps["icon"];
     iconClassName?: ReactElement["className"];
 }
@@ -220,29 +255,38 @@ declare interface ImageProps extends Omit<default_2.DetailedHTMLProps<default_2.
     alt?: any;
 }
 
+export declare function InnerText({ component, text }: InnerTextProps): JSX_2.Element;
+
+export declare interface InnerTextProps {
+    component: (props: {
+        text: string;
+    }) => JSX.Element;
+    text: string;
+}
+
 export declare const Input: default_2.ForwardRefExoticComponent<Omit<InputProps, "ref"> & default_2.RefAttributes<HTMLInputElement>>;
 
-declare interface InputProps extends default_2.DetailedHTMLProps<default_2.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+export declare interface InputProps extends default_2.DetailedHTMLProps<default_2.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     onValueChange?: (value: string, number: number) => any;
     selectOnFocus?: boolean;
 }
 
 export declare function JoinComponentBy({ joinComponent, list }: JoinComponentByProps): JSX.Element[];
 
-declare interface JoinComponentByProps {
+export declare interface JoinComponentByProps {
     list: JSX.Element[];
     joinComponent: JSX.Element;
 }
 
 export declare function KeyPanding({ shortcut, className, ...props }: KeyPandingProps): JSX_2.Element;
 
-declare interface KeyPandingProps extends ReactElement<HTMLSpanElement> {
+export declare interface KeyPandingProps extends ReactElement<HTMLSpanElement> {
     shortcut: string | string[];
 }
 
 export declare function LargeButton({ "aria-selected": selected, children, className, icon, iconClassName, onBlur, onFocus, onMouseEnter, onMouseLeave, onPointerDown, onPointerUp, style, ...props }: LargeButtonProps): JSX_2.Element;
 
-declare type LargeButtonProps = ClickProps<HTMLButtonElement>;
+export declare type LargeButtonProps = ClickProps<HTMLButtonElement>;
 
 export declare function Line(): JSX_2.Element;
 
@@ -264,7 +308,7 @@ declare interface ListItemProps<T> extends ReactElement {
     };
 }
 
-declare interface ListProps<T> {
+export declare interface ListProps<T> {
     slotId: string;
     data: T[];
     component: FunctionComponentListItem<T>;
@@ -275,6 +319,10 @@ export declare function MarkDown({ value }: {
     value: string;
 }): JSX_2.Element;
 
+export declare const MaximizeActionIcon: ({ color }: SVGIconProps) => JSX_2.Element;
+
+export declare const MinimizeActionIcon: ({ color }: SVGIconProps) => JSX_2.Element;
+
 export declare function MultiScreenPage({ pages, focused }: MultiScreenPageProps): JSX_2.Element;
 
 declare interface MultiScreenPageProps {
@@ -284,17 +332,19 @@ declare interface MultiScreenPageProps {
 
 export declare function Note({ onClick, className, children, iconClassName, ...props }: NoteProps): JSX_2.Element;
 
-declare type NoteProps = ClickProps<HTMLSpanElement>;
+export declare type NoteProps = ClickProps<HTMLSpanElement>;
 
 declare type Nothing = false | 0 | null | "" | undefined;
 
 export declare function NumberFeild({ state, config, id }: NumberFeildProps): JSX_2.Element;
 
-declare type NumberFeildProps = FeildGeneralProps<number | undefined | null, SettingConfig["number"]>;
+export declare type NumberFeildProps = FeildGeneralProps<number | undefined | null, SettingConfig["number"]>;
 
 export declare function ObjectFeild({ state, id }: ObjectFeildProps): JSX_2.Element;
 
-declare type ObjectFeildProps = FeildGeneralProps<Record<string, string> | undefined, SettingConfig["object"]>;
+export declare type ObjectFeildProps = FeildGeneralProps<Record<string, string> | undefined, SettingConfig["object"]>;
+
+export declare const objectIfPrefix: (id: string) => string;
 
 declare interface OverlaysProps extends ReactElement {
     onLoadContent?: () => void;
@@ -303,21 +353,28 @@ declare interface OverlaysProps extends ReactElement {
 
 export declare function PanelSide({ position, style, className, children, ...props }: PanelSideProps): JSX_2.Element;
 
-declare interface PanelSideProps extends ReactElement {
+export declare interface PanelSideProps extends ReactElement {
     position: position;
 }
 
+export declare function Password({ eays, state, onFocus, onBlur, className, style, value, type, ...props }: PasswordProps): JSX_2.Element;
+
 export declare function PasswordFeild({ state, config, id }: PasswordFeildProps): JSX_2.Element;
 
-declare type PasswordFeildProps = FeildGeneralProps<string | undefined, SettingConfig["password"]>;
+export declare type PasswordFeildProps = FeildGeneralProps<string | undefined, SettingConfig["password"]>;
+
+export declare interface PasswordProps extends default_2.DetailedHTMLProps<default_2.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+    state: State<string | undefined>;
+    eays?: boolean;
+}
 
 export declare function PinFeild({ id, config, state }: PinFeildProps): JSX_2.Element;
 
-declare type PinFeildProps = FeildGeneralProps<number | undefined, SettingConfig["pin"]>;
+export declare type PinFeildProps = FeildGeneralProps<number | undefined, SettingConfig["pin"]>;
 
 declare type position = [number, number] | undefined;
 
-declare interface PositionProps extends default_2.DetailedHTMLProps<default_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export declare interface PositionProps extends default_2.DetailedHTMLProps<default_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     readonly positionId: PositionsIds | string;
 }
 
@@ -333,15 +390,15 @@ declare type ReactElement<T = HTMLDivElement> = React.DetailedHTMLProps<React.HT
 
 export declare function RecorderFeild({ id, state }: RecorderFeildProps): JSX_2.Element;
 
-declare type RecorderFeildProps = FeildGeneralProps<string | null, {}>;
+export declare type RecorderFeildProps = FeildGeneralProps<string | null, {}>;
 
 export declare function RegexpFeild({ state, id }: RegexpFeildProps): JSX_2.Element;
 
-declare type RegexpFeildProps = FeildGeneralProps<string | undefined, SettingConfig["regexp"]>;
+export declare type RegexpFeildProps = FeildGeneralProps<string | undefined, SettingConfig["regexp"]>;
 
 export declare function ResizeView({ temp, animited, style, children, max, min, position, hidden, handelResize, className, ...props }: ResizeViewProps): JSX_2.Element;
 
-declare interface ResizeViewProps extends ReactElement {
+export declare interface ResizeViewProps extends ReactElement {
     position?: "top" | "left" | "right" | "bottom";
     max?: number | ((change: number) => number);
     min?: number | ((change: number) => number);
@@ -356,19 +413,19 @@ declare interface ResizeViewProps extends ReactElement {
 
 export declare const Scroll: default_2.ForwardRefExoticComponent<Omit<ScrollProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
 
-declare interface ScrollProps extends ReactElement {
+export declare interface ScrollProps extends ReactElement {
     type?: "list" | "normal";
 }
 
 export declare const SeparatedViewsLine: default_2.ForwardRefExoticComponent<Omit<SeparatedViewsLineProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
 
-declare interface SeparatedViewsLineProps extends ReactElement {
+export declare interface SeparatedViewsLineProps extends ReactElement {
     list: (JSX.Element | Nothing)[];
 }
 
 export declare const SeparatedViewsLineTitle: ({ title, rightSide }: SeparatedViewsLineTitleProps) => JSX_2.Element;
 
-declare interface SeparatedViewsLineTitleProps {
+export declare interface SeparatedViewsLineTitleProps {
     title: string;
     rightSide?: ReactElement["children"];
 }
@@ -452,9 +509,17 @@ declare interface SettingValueType extends Record<keyof SettingConfig, any> {
     image: string | null;
 }
 
+export declare function SinglePanding({ content }: SinglePandingProps): JSX_2.Element;
+
+export declare interface SinglePandingProps {
+    content: string;
+}
+
 export declare function Slot<T>({ data, slotId, focusId, component: compo, children, handelSkipedItem, className, direction, ref, type, ...props }: SlotProps<T>): JSX_2.Element;
 
-declare interface SlotProps<T> extends FocusProps {
+export declare const slotId = "enum/list";
+
+export declare interface SlotProps<T> extends FocusProps {
     slotId: string;
     data: T[];
     direction?: (keyof T)[];
@@ -478,13 +543,17 @@ declare type State<T = undefined> = {
 
 export declare function StringFeild({ state, config, id }: StringFeildProps): JSX_2.Element;
 
-declare type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
+export declare type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
 
 export declare const StyledButton: ({ className, ...props }: ClickProps<HTMLButtonElement>) => JSX_2.Element;
 
+export declare interface SVGIconProps {
+    color?: string;
+}
+
 export declare function Tab({ children, icon, className, iconClassName, isActive, style, ...props }: TabProps): JSX_2.Element;
 
-declare interface TabProps extends ClickProps<HTMLSpanElement> {
+export declare interface TabProps extends ClickProps<HTMLSpanElement> {
     isActive?: boolean;
 }
 
@@ -493,14 +562,14 @@ export { Text_2 as Text }
 
 export declare const TextAnimation: ({ content, time }: TextAnimationProps) => JSX_2.Element;
 
-declare interface TextAnimationProps {
+export declare interface TextAnimationProps {
     content?: string;
     time?: number;
 }
 
 export declare function TextArea({ className, multiLines, onChange, onKeyDown, onSelect, onSelectionChange, onValueChange, onFocus, onBlur, propositions, selection, style, tabSize, supportTab, hidden, acceptKeys, pattern, ...props }: TextAreaProps): JSX_2.Element;
 
-declare interface TextAreaProps extends default_2.DetailedHTMLProps<default_2.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
+export declare interface TextAreaProps extends default_2.DetailedHTMLProps<default_2.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
     propositions?: string[];
     selection?: {
         direction: HTMLTextAreaElement["selectionDirection"];
@@ -516,13 +585,13 @@ declare interface TextAreaProps extends default_2.DetailedHTMLProps<default_2.Te
     pattern?: string | RegExp;
 }
 
-declare interface TextProps {
+export declare interface TextProps {
     content: string;
 }
 
 export declare function Tip({ icon, className, children, "aria-checked": checked, iconClassName, onFocus, onBlur, onMouseEnter, onMouseLeave, onPointerDown, onPointerUp, onPointerLeave, style, ...props }: TipProps): JSX_2.Element;
 
-declare type TipProps = ClickProps<HTMLSpanElement>;
+export declare type TipProps = ClickProps<HTMLSpanElement>;
 
 declare interface TitleInitState {
     content: string | number | null | undefined;
@@ -535,7 +604,7 @@ export declare function TitleProvider(): JSX_2.Element;
 
 export declare function TitleView({ title, onClick, position: { x, y }, onMouseMove, onMouseLeave, children, canMouseOn, ...props }: TitleViewProps): JSX_2.Element;
 
-declare interface TitleViewProps extends default_2.DetailedHTMLProps<default_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export declare interface TitleViewProps extends default_2.DetailedHTMLProps<default_2.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     position?: {
         x?: TitleInitState["x"];
         y?: TitleInitState["y"];
@@ -578,9 +647,11 @@ declare interface TreeProps<T> {
     };
 }
 
+export declare const UnMaximizeActionIcon: ({ color }: SVGIconProps) => JSX_2.Element;
+
 export declare function UpdateData({ inputName, defaultContent, value, setValue, visibility, setVisibility, controls, placeholder }: UpdateDataProps): JSX_2.Element;
 
-declare interface UpdateDataProps {
+export declare interface UpdateDataProps {
     inputName: string;
     visibility: boolean;
     setVisibility: (value: boolean) => void;
@@ -591,16 +662,37 @@ declare interface UpdateDataProps {
     placeholder?: string;
 }
 
+export declare function useTextAnimation({ string, time }: {
+    string?: string;
+    time?: number;
+}): {
+    state: {
+        get: string;
+        set: default_2.Dispatch<default_2.SetStateAction<string>>;
+    };
+    value: string;
+    isLoading: boolean;
+};
+
+export declare function VarFastList<T, D extends Record<string, any>>({ data, deps, itemSize, Render }: VarFastListProps<T, D>): JSX_2.Element;
+
+export declare interface VarFastListProps<T, D extends Record<string, any>> {
+    data?: T[];
+    deps: D;
+    itemSize: (row: T, index: number) => number;
+    Render: (props: ComponentVarFastListProps<T, D>) => JSX.Element;
+}
+
 export declare function ViewPage({ views, viewId }: ViewPageProps): JSX_2.Element;
 
-declare interface ViewPageProps {
+export declare interface ViewPageProps {
     views: Partial<Record<string, () => JSX.Element>>;
     viewId: string;
 }
 
 export declare function ViewPanel({ ref, position: [left, top], children, style, className, ...props }: ViewPanelProps): JSX_2.Element;
 
-declare interface ViewPanelProps extends ReactElement {
+export declare interface ViewPanelProps extends ReactElement {
     position: position;
 }
 
@@ -608,6 +700,6 @@ export declare function WindowControls(): JSX_2.Element;
 
 export declare const WindowsButton: ({ ...props }: WindowsButtonProps) => JSX_2.Element;
 
-declare type WindowsButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+export declare type WindowsButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 export { }

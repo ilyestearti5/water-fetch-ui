@@ -56,7 +56,7 @@ export declare const store: import("@reduxjs/toolkit").EnhancedStore<{
         loadingTime: number;
         changed: boolean;
     };
-    settings: import("@reduxjs/toolkit").EntityState<import("@/reducers/Settings/settings.model").Setting<keyof import("./reducers/Settings/SettingConfig").SettingConfig>, import("@reduxjs/toolkit").EntityId> & {
+    settings: import("@reduxjs/toolkit").EntityState<import("@/reducers/Settings/settings.model").Setting<keyof import("./hooks").SettingConfig>, import("@reduxjs/toolkit").EntityId> & {
         saved: boolean;
         status: string;
         writeStatus: string;
@@ -196,7 +196,7 @@ export declare const store: import("@reduxjs/toolkit").EnhancedStore<{
             loadingTime: number;
             changed: boolean;
         };
-        settings: import("@reduxjs/toolkit").EntityState<import("@/reducers/Settings/settings.model").Setting<keyof import("./reducers/Settings/SettingConfig").SettingConfig>, import("@reduxjs/toolkit").EntityId> & {
+        settings: import("@reduxjs/toolkit").EntityState<import("@/reducers/Settings/settings.model").Setting<keyof import("./hooks").SettingConfig>, import("@reduxjs/toolkit").EntityId> & {
             saved: boolean;
             status: string;
             writeStatus: string;

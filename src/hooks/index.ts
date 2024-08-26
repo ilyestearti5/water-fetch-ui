@@ -1,32 +1,43 @@
 import React from "react";
+import { viewTemps, cameraTemp, recaptchaTemp } from "@/reducers/Object/allTemps";
+import { viewHooks } from "@/data/system/views.model";
+import { ToastType, toastHooks } from "@/data/system/toasts.model";
+import { TextAreaProps } from "@/components/TextArea";
 import { store } from "@/store";
-import { EntityId, nanoid } from "@reduxjs/toolkit";
-import { QueryStatus } from "react-query";
-import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, valueFromString } from "@/utils/index";
-import { getTemp, setTemp } from "@/reducers/Object/object.slice";
 import { SettingValueType, SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { Setting, settingHooks, SettingIds } from "@/reducers/Settings/settings.model";
-import { CommandIds, commandsHooks } from "@/data/system/command.model";
-import { keyHooks } from "@/data/system/keys.model";
-import { cameraTemp, recaptchaTemp, viewTemps } from "@/reducers/Object/allTemps";
-import { TextAreaProps } from "@/components/TextArea";
-import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
-import { slotHooks } from "@/data/system/slot.slice";
-import { langHooks } from "@/data/system/lang.model";
-import { treeHooks } from "@/data/system/tree.model";
-import { Color, colorHooks, ColorIds } from "@/data/system/colors.model";
-import { toastHooks, ToastType } from "@/data/system/toasts.model";
-import { logHooks } from "@/data/system/logs.model";
-import { positionsHooks } from "@/data/system/positions.model";
-import { actionHooks } from "@/data/system/actions.model";
-import { notifayHooks, NotificationType } from "@/data/system/notifications.model";
-import { FeildIds, FeildRecord, fieldHooks } from "@/data/system/field.model";
-import { viewHooks } from "@/data/system/views.model";
-import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
-import { onAuthStateChanged, onIdTokenChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
+import { setTemp, getTemp } from "@/reducers/Object/object.slice";
 import { Server } from "@/apis/firebase";
+import { QueryStatus } from "react-query";
+import { onAuthStateChanged, onIdTokenChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
+import { NotificationType, notifayHooks } from "@/data/system/notifications.model";
+import { keyHooks } from "@/data/system/keys.model";
+import { fieldHooks, FeildRecord, FeildIds } from "@/data/system/field.model";
+import { EntityId, nanoid } from "@reduxjs/toolkit";
+import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, valueFromString } from "@/utils/index";
+import { CommandIds, commandsHooks } from "@/data/system/command.model";
+import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
+import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
+export * from "@/functions/app/web/web-utils";
+export * from "@/reducers/Settings/settings.model";
+export * from "@/reducers/Settings/SettingConfig";
+export * from "@/reducers/Object/object.slice";
+export * from "@/reducers/Object/allTemps";
+export * from "@/data/system/views.model";
+export * from "@/data/system/tree.model";
+export * from "@/data/system/toasts.model";
+export * from "@/data/system/slot.slice";
+export * from "@/data/system/positions.model";
+export * from "@/data/system/notifications.model";
+export * from "@/data/system/logs.model";
+export * from "@/data/system/lang.model";
+export * from "@/data/system/keys.model";
+export * from "@/data/system/field.model";
+export * from "@/data/system/command.model";
+export * from "@/data/system/colors.model";
+export * from "@/data/system/actions.model";
 export { getModel } from "./api/googleApi";
-export { slotHooks, langHooks, commandsHooks, settingHooks, treeHooks, logHooks, positionsHooks, actionHooks, notifayHooks, fieldHooks, viewHooks, colorHooks, toastHooks };
 export function useAsyncMemo<T>(callback: () => Promise<T>, deps: any[] = [], cleanUp?: (deps: any[]) => void): T | null {
   const state = useCopyState<T | null>(null);
   React.useEffect(() => {
@@ -683,4 +694,30 @@ export const showNotification = ({ ...notification }: Partial<NotificationType>)
       ...notification,
     },
   ]);
+};
+
+const waterFetchAccountUrl = "https://water-fetch-account.web.app";
+export interface AuthicateProps {
+  name: string;
+  logo: string;
+}
+export const authicate = async ({ name, logo }: AuthicateProps) => {
+  return new Promise((res, rej) => {
+    const url = new URL(waterFetchAccountUrl);
+    url.searchParams.append("appName", name);
+    url.searchParams.append("imageSrc", logo);
+    const win = window.open();
+    const timer = setInterval(() => {
+      if (win && location.hostname == win.location.hostname) {
+        const urlSearchParams = new URLSearchParams(win.location.search);
+        const token = urlSearchParams.get("token");
+        const status = urlSearchParams.get("status");
+        if (status == "error") {
+          rej(null);
+        } else if (token && status == "success") {
+          res(token);
+        }
+      }
+    }, 1000);
+  });
 };

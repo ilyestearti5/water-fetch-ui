@@ -91,7 +91,7 @@ export function Test() {
   const imageFieldState = useCopyState<string | null>(null);
   const recorderFieldState = useCopyState<string | null>(null);
   const passwordFieldState = useCopyState<string | undefined>(undefined);
-  const numberFieldState = useCopyState<number | undefined | null>(null);
+  const numberFieldState = useCopyState<number | undefined | null>(3);
   const homePageIsActive = useCopyState(false);
   const allSettings = settingHooks.getAll();
   const colorMerge = useColorMerge();
