@@ -1,7 +1,7 @@
 import { j as u, E as R } from "./EmptyComponent-DdPDoXyL.mjs";
 import * as l from "react";
 import c from "react";
-import { an as k, ao as N, ap as U, aq as A, ar as D, as as T, at as I, au as P, av as j, aw as B, ax as M, ay as V, az as $, aA as F, aB as q, aC as H, g as w, a8 as b, a9 as m, p as W, j as z, aD as K, s as Y, aE as G } from "./index-8qQxvEIo.mjs";
+import { ap as k, aq as N, ar as U, as as A, at as D, au as T, av as I, aw as P, ax as j, ay as B, az as F, aA as M, aB as V, aC as $, aD as q, aE as H, g as w, aa as b, ab as m, p as W, j as z, aF as G, s as K, aG as Y } from "./index-Ck57f-5M.mjs";
 import J from "react-dom";
 function Q() {
   const e = k();
@@ -129,7 +129,7 @@ else {
   };
 }
 function ne() {
-  U(), A(), D(), T(), I(), P(), j(), B(), M(), V(), $(), F(), q(), H();
+  U(), A(), D(), T(), I(), P(), j(), B(), F(), M(), V(), $(), q(), H();
 }
 function ie() {
   const e = w("window/dark.boolean"), o = b.getOne("primary.background"), i = b.getOne("text.color"), t = b.getOne("bg.selection"), s = b.getOne("text.selection");
@@ -169,8 +169,8 @@ function oe() {
 function se(e) {
   ie(), oe();
 }
-const { data: re } = G, ae = ({ children: e }) => (se(), ne(), K(), c.useEffect(() => {
-  Y.setAll(
+const { data: re } = Y, ae = ({ children: e }) => (se(), ne(), G(), c.useEffect(() => {
+  K.setAll(
     Object.entries(re).map(([o, { def: i, ...t }]) => ({
       ...t,
       settingId: o,

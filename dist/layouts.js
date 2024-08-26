@@ -1,8 +1,8 @@
 import { j as e, a as r, E as O } from "./EmptyComponent-DdPDoXyL.mjs";
-import { c as Se, b as U, a as N, d as lt, i as qt, j as ct, t as Xt, k as Zt, l as Z, g as L, m as Jt, s as T, n as dt, o as ee, e as K, f as A, p as z, q as W, r as mt, v as te, w as he, x as _t, u as x, y as ut, z as _, h as se, A as ft, B as Qt, C as en, D as X, E as tn, F as ue, G as nn, H, I as pe, J as ht, K as sn, L as pt, M as j, N as gt, O as Me, P as bt, Q as yt, R as Ee, S as xt, T as We, U as on, V as an, W as Ye } from "./index-8qQxvEIo.mjs";
-import { B as J, g as rn, a7 as le, F as Y, x as C, z as ne, i as ln, ac as D, T as V, af as G, a3 as cn, aa as S, a0 as R, n as Pe, K as be, C as B, $ as ye, e as ce, I as Te, Y as dn, G as xe, M as ve, d as I, y as De, q as vt, a1 as mn, a2 as un, ad as fn, ae as wt, r as hn, f as pn, N as gn, D as bn, c as Nt, a as Ct, m as yn, Q as xn, a5 as Oe, O as kt, o as St, p as It, U as Ft, k as Et, _ as vn, Z as jt, u as Lt, J as Mt, ag as ie, R as je, A as we, H as wn, b as Nn, S as Cn, L as kn, a6 as Sn, h as In, W as Fn, a4 as En, ah as jn, ab as Ln, l as Mn, v as Pn } from "./ViewPage-C6t5wQXF.mjs";
+import { c as Se, b as U, a as N, d as lt, i as qt, j as ct, t as Xt, k as Zt, l as Z, g as L, m as Jt, s as T, n as dt, o as ee, e as K, f as A, p as z, q as W, r as mt, v as te, w as he, x as _t, u as x, y as ut, z as _, h as se, A as ft, B as Qt, C as en, D as X, E as tn, F as ue, G as nn, H, I as pe, J as ht, K as sn, L as ie, M as pt, N as j, O as gt, P as Me, Q as bt, R as yt, S as Ee, T as xt, U as We, V as on, W as an, X as rn, Y as Ye } from "./index-Ck57f-5M.mjs";
+import { B as J, g as ln, a7 as le, F as Y, x as C, z as ne, i as cn, ac as D, T as V, af as G, a3 as dn, aa as S, a0 as R, n as Pe, K as be, C as B, $ as ye, e as ce, I as Te, Y as mn, G as xe, M as ve, d as I, y as De, q as vt, a1 as un, a2 as fn, ad as hn, ae as wt, r as pn, f as gn, N as bn, D as yn, c as Nt, a as Ct, m as xn, Q as vn, a5 as Oe, O as kt, o as St, p as It, U as Ft, k as Et, _ as wn, Z as jt, u as Lt, J as Mt, R as je, A as we, H as Nn, b as Cn, S as kn, L as Sn, a6 as In, h as Fn, W as En, a4 as jn, ab as Ln, l as Mn, v as Pn } from "./ViewPage-CiBtxH_v.mjs";
 import f from "react";
-import { a as de, m as Q, b as me, s as F, t as y, i as Ae, D as Tn, c as ge, g as Ge, d as Dn, e as On, f as An, h as Un, j as Vn, S as Rn } from "./index-DRKFUSi1.mjs";
+import { a as de, m as Q, b as me, s as F, t as y, i as Ae, D as Tn, c as ge, g as Ge, d as Dn, e as On, f as An, h as Un, j as Vn, S as Rn } from "./index-BAWoqxfk.mjs";
 import { b as Ue, c as Ne, f as $, d as Ve, a as Pt, e as zn, g as Re, h as Bn, i as Tt, j as $n, k as Dt, l as Ot, m as Hn, n as At, o as Kn, p as Ut, q as Vt, r as Wn, s as Ce, t as Yn, u as Gn, v as qn, w as Xn, x as Zn, y as Jn, z as _n, A as Qn, B as es, C as Le, D as ts, E as ns, F as ss, G as os, H as as, I as rs, J as qe, K as is, L as ls, M as cs, N as ds } from "./index-Buy7cH84.mjs";
 import { S as k, c as ms, s as Xe, a as Ze, F as us, G as fs, g as Rt, b as zt, d as hs, e as ps, u as Ie, r as Je, f as _e, h as Qe, i as et } from "./firebase-oFaglbxa.mjs";
 function gs() {
@@ -23,7 +23,7 @@ function gs() {
       }
     },
     [n, t]
-  ), /* @__PURE__ */ e(J, { hidden: !t, children: /* @__PURE__ */ e(rn, {}) });
+  ), /* @__PURE__ */ e(J, { hidden: !t, children: /* @__PURE__ */ e(ln, {}) });
 }
 function bs() {
   const n = le("press ? for help");
@@ -183,7 +183,7 @@ function ys() {
               }
             ),
             /* @__PURE__ */ e(C, {}),
-            /* @__PURE__ */ e(ln, { data: b })
+            /* @__PURE__ */ e(cn, { data: b })
           ]
         }
       )
@@ -371,7 +371,7 @@ function ws() {
         })
       },
       children: !!t.length && /* @__PURE__ */ e(
-        cn,
+        dn,
         {
           data: t,
           slotId: "header-notifications",
@@ -967,7 +967,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
   }, [a, i]);
   const l = nn.getOne("menu-list");
   return /* @__PURE__ */ e(J, { hidden: !i, children: /* @__PURE__ */ e(
-    dn,
+    mn,
     {
       positionId: "menu-list",
       ref: s,
@@ -1258,12 +1258,12 @@ function Ms() {
 const Ps = () => {
   const n = pe.getTemp("pdf");
   return /* @__PURE__ */ e(J, { hidden: !n, children: /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e(ye, { className: "h-[70vh]", position: "right", temp: "pdf", min: 400, max: () => innerWidth - 30, children: /* @__PURE__ */ e(
-    mn,
+    un,
     {
       className: "h-full overflow-hidden",
       list: [
         /* @__PURE__ */ e(
-          un,
+          fn,
           {
             title: "PDF..",
             rightSide: /* @__PURE__ */ e("div", { className: "flex tools", children: /* @__PURE__ */ e(D, { title: "close view", children: /* @__PURE__ */ e(
@@ -1484,7 +1484,7 @@ function Bt(n = [], t = ".") {
 function Os() {
   const n = ht(), t = f.useMemo(() => n.map(({ settingId: o }) => o), [n]);
   return /* @__PURE__ */ e("div", { id: "settings.tree.view", className: "flex flex-col h-full overflow-hidden", tabIndex: 1, children: /* @__PURE__ */ e(R, { children: /* @__PURE__ */ e(
-    fn,
+    hn,
     {
       treeId: "setting-tree-layout",
       tree: Bt(t, "/"),
@@ -1663,8 +1663,8 @@ function Us() {
         views: {
           keyboardShortcuts: ks,
           user: As,
-          icons: hn,
-          colors: pn
+          icons: pn,
+          colors: gn
         }
       }
     )
@@ -1711,7 +1711,7 @@ function Vs() {
                   /* @__PURE__ */ r("div", { className: "flex items-center gap-2 p-2", children: [
                     (m == null ? void 0 : m.value) && /* @__PURE__ */ e(G, { icon: Ge(m.type, m.value) }),
                     h,
-                    a && /* @__PURE__ */ e(gn, { children: /* @__PURE__ */ e(G, { icon: Ge(a.type, a.value) }) })
+                    a && /* @__PURE__ */ e(bn, { children: /* @__PURE__ */ e(G, { icon: Ge(a.type, a.value) }) })
                   ] })
                 ]
               },
@@ -1732,7 +1732,7 @@ function zs() {
   return f.useEffect(() => {
     n && he.setTemp("config", !0);
   }, [n]), /* @__PURE__ */ e(
-    bn,
+    yn,
     {
       hidden: !n,
       onLoadContent: () => {
@@ -1799,15 +1799,15 @@ function Bs({ settingId: n }) {
       children: /* @__PURE__ */ r("div", { className: y((t == null ? void 0 : t.readonly) && "pointer-events-none"), children: [
         l == "boolean" && /* @__PURE__ */ e(Nt, { id: a, state: s, config: i }),
         l == "array" && /* @__PURE__ */ e(Ct, { id: a, state: s, config: i }),
-        l == "enum" && /* @__PURE__ */ e(yn, { id: a, state: s, config: i }),
-        l == "object" && /* @__PURE__ */ e(xn, { id: a, state: s, config: i }),
+        l == "enum" && /* @__PURE__ */ e(xn, { id: a, state: s, config: i }),
+        l == "object" && /* @__PURE__ */ e(vn, { id: a, state: s, config: i }),
         l == "string" && /* @__PURE__ */ e(Oe, { id: a, state: s, config: i }),
         l == "number" && /* @__PURE__ */ e(kt, { id: a, state: s, config: i }),
         l == "file" && /* @__PURE__ */ e(St, { id: a, state: s, config: i }),
         l == "filter" && /* @__PURE__ */ e(It, { id: a, state: s, config: i }),
         l == "password" && /* @__PURE__ */ e(Ft, { id: a, state: s, config: i }),
         l == "date" && /* @__PURE__ */ e(Et, { id: a, state: s, config: i }),
-        l == "regexp" && /* @__PURE__ */ e(vn, { id: a, state: s }),
+        l == "regexp" && /* @__PURE__ */ e(wn, { id: a, state: s }),
         l == "audio" && /* @__PURE__ */ e(jt, { id: a, state: s, config: i }),
         l == "image" && /* @__PURE__ */ e(Lt, { id: a, state: s, config: i })
       ] })
@@ -2393,7 +2393,7 @@ const $t = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   ] });
 }, qs = () => {
   const n = Z("focusedLoginView");
-  return /* @__PURE__ */ e(wn, { focused: n ?? 0, pages: [/* @__PURE__ */ e(Gs, {}), /* @__PURE__ */ e(Ys, {})] });
+  return /* @__PURE__ */ e(Nn, { focused: n ?? 0, pages: [/* @__PURE__ */ e(Gs, {}), /* @__PURE__ */ e(Ys, {})] });
 }, Xs = ({ projectId: n }) => {
   var a, l;
   const t = Me(), { data: o, error: i, status: s } = bt(async () => {
@@ -2768,7 +2768,7 @@ const $t = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
 }, Js = () => {
   const n = Me();
   return /* @__PURE__ */ e("div", { className: "relative w-full h-full overflow-hidden", children: /* @__PURE__ */ e(
-    Nn,
+    Cn,
     {
       render: async () => (await An(1e3), /* @__PURE__ */ r(O, { children: [
         n && /* @__PURE__ */ e(Zs, {}),
@@ -2823,7 +2823,7 @@ const $t = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Ys = () => {
   }
 ];
 function uo() {
-  const n = yt(), t = x(null), o = x(void 0), i = x(null), s = x(void 0), a = x(void 0), l = x(void 0), m = x(null), c = x(null), p = x(null), g = x(void 0), h = x(null), b = x(!1), u = T.getAll(), v = N();
+  const n = yt(), t = x(null), o = x(void 0), i = x(null), s = x(void 0), a = x(void 0), l = x(void 0), m = x(null), c = x(null), p = x(null), g = x(void 0), h = x(3), b = x(!1), u = T.getAll(), v = N();
   return /* @__PURE__ */ r(O, { children: [
     /* @__PURE__ */ e(vs, { children: /* @__PURE__ */ r("h1", { className: "w-full text-center capitalize", children: [
       "click in the link to see your account ",
@@ -2849,7 +2849,7 @@ function uo() {
           elements: [
             {
               jsxElement: /* @__PURE__ */ e(
-                Cn,
+                kn,
                 {
                   onClick: () => {
                     j("You Clic Rate Now 🙃", "info");
@@ -2859,7 +2859,7 @@ function uo() {
               label: "New Outher Button"
             },
             {
-              jsxElement: /* @__PURE__ */ e(kn, { children: "Large Button" }),
+              jsxElement: /* @__PURE__ */ e(Sn, { children: "Large Button" }),
               label: "Large Button"
             },
             {
@@ -2877,7 +2877,7 @@ function uo() {
             },
             {
               jsxElement: /* @__PURE__ */ e(
-                Sn,
+                In,
                 {
                   className: "text-4xl",
                   isActive: b.get,
@@ -2890,7 +2890,7 @@ function uo() {
               label: "Tab"
             },
             {
-              jsxElement: /* @__PURE__ */ e(In, {}),
+              jsxElement: /* @__PURE__ */ e(Fn, {}),
               label: "Dark Light Icon",
               definition: "Recommended To Use In The Header And One Time In The App"
             }
@@ -2952,7 +2952,7 @@ function uo() {
             },
             {
               jsxElement: /* @__PURE__ */ e(
-                Fn,
+                En,
                 {
                   config: {
                     match: "...."
@@ -2994,7 +2994,7 @@ function uo() {
           label: "UI",
           elements: [
             {
-              jsxElement: /* @__PURE__ */ e(En, { length: 10, starts: 2 }),
+              jsxElement: /* @__PURE__ */ e(jn, { length: 10, starts: 2 }),
               label: "Starts"
             },
             {
@@ -3126,7 +3126,7 @@ function uo() {
                 I,
                 {
                   onClick: ({ clientX: d, clientY: w }) => {
-                    jn({
+                    an({
                       x: d,
                       y: w,
                       menu: Vn(15).map((M, P) => ({
@@ -3152,7 +3152,7 @@ function uo() {
                 I,
                 {
                   onClick: () => {
-                    an("visibility/keyboard.boolean", !0);
+                    rn("visibility/keyboard.boolean", !0);
                   },
                   children: "Show Keyboard"
                 }

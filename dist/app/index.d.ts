@@ -1,1 +1,0 @@
-export { startApplication } from "./application";

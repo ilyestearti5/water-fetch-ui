@@ -231,6 +231,13 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
+export declare const authicate: ({ name, logo }: AuthicateProps) => Promise<unknown>;
+
+export declare interface AuthicateProps {
+    name: string;
+    logo: string;
+}
+
 export declare function back(slotId: SlotType["slotId"]): {
     type: string;
     payload: string | undefined;
@@ -698,6 +705,8 @@ name: "commands";
 loadingTime: number;
 changed: boolean;
 }>>;
+
+export declare const confirmation: (config: Omit<DialogProps, "buttons">) => Promise<boolean>;
 
 declare type CssColorKeys = "background" | "backgroundColor" | "color" | "borderColor" | "outlineColor" | "borderLeftColor" | "borderRightColor" | "borderBottomColor" | "borderTopColor" | "boxShadow" | "caretColor" | "fill" | "stroke";
 
@@ -2199,6 +2208,10 @@ declare const _default: {
     data: {};
 };
 
+declare interface DialogProps extends Electron.MessageBoxOptions {
+    force?: boolean;
+}
+
 export declare const dialogTemps: Temp;
 
 export declare const endReloadTemps: () => void;
@@ -2479,6 +2492,10 @@ export declare function getFeildPrevious(fieldId: string): string;
 
 export declare function getFeildSelected(fieldId: string): string;
 
+export declare const getImageFileType: (filePath: string) => string;
+
+export declare function getLocalAdressIp(): Promise<string | null>;
+
 export declare function getManyFeilds<S extends string | number, T extends FeildRecord<S>>(fields: T, deps?: any): Record<keyof T, string | undefined>;
 
 export declare const getModel: ({ model }: GetModelProps) => GenerativeModel | null;
@@ -2534,6 +2551,13 @@ export declare const getUserFromDB: () => Partial<{
 
 export declare const getWatch: () => boolean;
 
+export declare function getWindowData(): Promise<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}>;
+
 export declare function handelGradientColor(direction: string, ...colors: ColorIds[]): ReturnColorHandelFunction;
 
 export declare function handelShadowColor(array?: {
@@ -2544,6 +2568,8 @@ export declare function handelShadowColor(array?: {
     blur?: number;
     isInset?: boolean;
 }[]): ReturnColorHandelFunction;
+
+export declare const imageExtensions: string[];
 
 export declare const init: () => {
     id: "keyId";
@@ -3668,11 +3694,17 @@ export declare interface ObjectTemp {
     };
 }
 
+export declare const off: (event: string) => void;
+
+export declare const on: (event: string, callback: () => boolean | void | Promise<boolean | void>) => void;
+
 export declare const onceState: <T extends object | string | number | boolean | null>(stateDir: string, comparedValue: T | ((val: T | undefined) => boolean), on: (state: FullStateManagment) => void) => Unsubscribe;
 
 export declare const onState: <T extends object | string | number | boolean | null>(stateDir: string, comparedValue: T | ((val: T | undefined) => boolean), on?: (state: FullStateManagment) => void) => Unsubscribe;
 
 export declare function openCamera<T extends keyof FullCameraResult>(type: T): Promise<CameraResult<T>>;
+
+export declare function openDialog(props: DialogProps): Promise<Electron.MessageBoxReturnValue>;
 
 export declare function openDuringNotifay(notifay: Partial<NotificationType>, options?: Partial<{
     time: number;
@@ -3682,7 +3714,17 @@ export declare function openDuringNotifay(notifay: Partial<NotificationType>, op
 
 export declare function openForActionDone<T>(notifay: NotificationType, action: () => Promise<T> | T): Promise<T>;
 
+export declare const openMenu: (config: OpenMenuProps) => void;
+
+declare interface OpenMenuProps {
+    menu: Partial<Electron.MenuItem>[];
+    x: number;
+    y: number;
+}
+
 export declare function openNotifays(): void;
+
+export declare const openPath: (config: Electron.OpenDialogOptions) => Promise<string[]>;
 
 declare type OptinalKeys<T> = {
     [K in keyof T]-?: undefined extends T[K] ? K : never;
@@ -3955,6 +3997,34 @@ export declare const selectNotifays: (state: {
 export declare const selectToasts: (state: {
     [x: string]: InitState<ToastType, "id">;
 }) => InitState<ToastType, "id">;
+
+export declare const sendEmail: ({ to, subject, body }: SendEmailProps) => Promise<void>;
+
+declare interface SendEmailProps {
+    to: string;
+    subject?: string;
+    body?: string;
+}
+
+export declare const sendSms: ({ to, body }: SendSmsProps) => void;
+
+declare interface SendSmsProps {
+    to: string;
+    body?: string;
+}
+
+export declare const sendTel: ({ tel }: SendTelProps) => void;
+
+declare interface SendTelProps {
+    tel: string;
+}
+
+export declare const setProgress: ({ options, value }: SetProgressProps) => Promise<void>;
+
+declare interface SetProgressProps {
+    value?: number;
+    options?: globalThis.Electron.ProgressBarOptions | undefined;
+}
 
 export declare function setSettingConfig<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`, config: SettingConfig[ID]): void;
 
