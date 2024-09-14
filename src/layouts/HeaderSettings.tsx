@@ -14,7 +14,7 @@ export const HeaderSettings = () => {
   const transformedString = React.useMemo(() => {
     return transformCase(String(focusTabSetting), "camel", "normal");
   }, [focusTabSetting]);
-  const title = getText(transformedString);
+  const [title] = getText(transformedString);
   return (
     <div className="flex justify-between items-center p-2">
       <h1 className="font-bold text-2xl capitalize">{title}</h1>

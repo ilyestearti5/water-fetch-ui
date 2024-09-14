@@ -6,7 +6,7 @@ import { tw } from "@/utils";
 import { getModifier } from "@/reducers/Global/keyboard.slice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { settingHooks, getSettingValue } from "@/hooks";
+import { settingHooks, useSettingValue } from "@/hooks";
 import { handelShadowColor, useColorMerge } from "@/hooks";
 import { getTemp } from "@/reducers/Object/object.slice";
 import { useCopyState } from "@/hooks";
@@ -15,7 +15,7 @@ export interface HeaderProps {
   children?: React.ReactNode;
 }
 export function Header({ children }: HeaderProps) {
-  const visibility = getSettingValue(headerVisibility);
+  const visibility = useSettingValue(headerVisibility);
   const showIcon = useCopyState(false);
   const shift = getModifier("Shift");
   React.useEffect(() => {
@@ -30,7 +30,7 @@ export function Header({ children }: HeaderProps) {
   const colorMerge = useColorMerge();
   // desc: window focused
   const windowFocused = getTemp<boolean>("window.isFocused");
-  const animation = getSettingValue("preferences/animation.boolean");
+  const animation = useSettingValue("preferences/animation.boolean");
   // desc: header bar style
   const styles = React.useMemo(() => {
     return colorMerge(windowFocused ? "primary.background" : "secondry.background", {

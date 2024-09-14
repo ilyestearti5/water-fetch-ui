@@ -336,34 +336,40 @@ export default {
     {
       command: "enum/next",
       value: "arrowdown",
-      when: "state.object.data.enum.focused",
+      when: "state.object.data.enum.id",
     },
     {
       command: "enum/next",
       value: "arrowright",
-      when: "state.object.data.enum.focused",
+      when: "state.object.data.enum.id",
     },
     {
       command: "enum/back",
       value: "arrowleft",
-      when: "state.object.data.enum.focused",
+      when: "state.object.data.enum.id",
     },
     {
       command: "enum/back",
       value: "arrowup",
-      when: "state.object.data.enum.focused",
+      when: "state.object.data.enum.id",
     },
     {
       repeation: false,
       command: "enum/submit",
       value: "space",
-      when: "state.object.data.enum.focused",
+      when: "state.object.data.enum.id",
     },
     {
       repeation: false,
       command: "enum/submit",
       value: "enter",
-      when: "state.object.data.enum.focused",
+      when: "state.object.data.enum.id",
+    },
+    {
+      repeation: false,
+      command: "enum/escape",
+      value: "escape",
+      when: "state.object.data.enum.id",
     },
     {
       repeation: false,

@@ -11,7 +11,13 @@ export declare const dataKeyboard: {
     alt: string;
 }[][];
 
+export declare const DateLayout: () => JSX_2.Element;
+
 export declare function DevReadingHTML(): JSX_2.Element;
+
+export declare const DialogBoxLayout: () => JSX_2.Element;
+
+export declare const EnumLayout: () => JSX_2.Element;
 
 export declare function FindCommandInput(): JSX_2.Element;
 
@@ -33,6 +39,8 @@ export declare const HeaderSettings: () => JSX_2.Element;
 
 export declare const headerVisibility = "visibility/header.boolean";
 
+export declare const IframeLayout: () => JSX_2.Element;
+
 export declare const KeyboardButton: ({ isActive, className, ...props }: KeyboardButtonProps) => JSX_2.Element;
 
 export declare interface KeyboardButtonProps extends ReactElement<HTMLSpanElement> {
@@ -42,6 +50,12 @@ export declare interface KeyboardButtonProps extends ReactElement<HTMLSpanElemen
 export declare function KeyboardShortcuts(): JSX_2.Element;
 
 export declare const KeyboardView: () => JSX_2.Element;
+
+export declare const Layoutes: ({ children }: LayoutesProps) => JSX_2.Element;
+
+export declare interface LayoutesProps {
+    children: React.ReactNode;
+}
 
 export declare const LeftSide: ({ children }: LeftSideProps) => JSX_2.Element;
 
@@ -116,8 +130,6 @@ export declare interface SettingUpdatingProps {
 }
 
 export declare const SignupPage: () => JSX_2.Element;
-
-export declare function Test(): JSX_2.Element;
 
 export declare const ToastItem: ({ item, index }: ToastItemProps) => JSX_2.Element;
 

@@ -1,7 +1,7 @@
 import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
-import { settingHooks, getSettingValue } from "@/hooks";
+import { settingHooks, useSettingValue } from "@/hooks";
 import React from "react";
 import { Text } from "./Text";
 import { EmptyComponent } from "./EmptyComponent";
@@ -10,7 +10,7 @@ const Time = ({ time }: { time: number }) => {
 };
 const timerVisibility = "visibility/timer.boolean";
 export function Hours() {
-  const visibility = getSettingValue(timerVisibility);
+  const visibility = useSettingValue(timerVisibility);
   const date = useCopyState<Date | null>(null);
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -21,7 +21,7 @@ export function Hours() {
       clearInterval(timer);
     };
   }, []);
-  const isAnimation = getSettingValue("preferences/animation.boolean");
+  const isAnimation = useSettingValue("preferences/animation.boolean");
   const colorMerge = useColorMerge();
   const styles = {
     ...colorMerge("secondry.background", {

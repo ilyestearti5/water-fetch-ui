@@ -24,10 +24,14 @@ export default defineConfig(({ command }) => {
     utils: path.resolve(__dirname, "src/utils/index.ts"),
     app: path.resolve(__dirname, "src/app/index.ts"),
     apis: path.resolve(__dirname, "src/apis/index.ts"),
+    routes: path.resolve(__dirname, "src/routes/index.ts"),
   };
   if (command == "serve") {
     return {
       plugins: [react()],
+      define: {
+        global: "globalThis", // This will point global to the globalThis object in the browser
+      },
       resolve: {
         alias,
       },
@@ -35,12 +39,16 @@ export default defineConfig(({ command }) => {
   }
   if (platform == "lib") {
     return {
+      define: {
+        global: "globalThis", // This will point global to the globalThis object in the browser
+      },
       plugins: [
         react(),
         dts({
           tsconfigPath: "./tsconfig.json", // Path to your tsconfig
           rollupTypes: true, // Bundle all .d.ts files into one
-          insertTypesEntry: true, // Create a single index.d.ts file
+          insertTypesEntry: true, // Create a single index.d.ts file,
+          outDir: "./ui",
         }),
       ],
       resolve: {
@@ -53,9 +61,10 @@ export default defineConfig(({ command }) => {
           fileName: (_, entry) => `${entry}.js`,
           formats: ["es"],
         },
+        outDir: "./ui",
         rollupOptions: {
           // Ensure external dependencies are not bundled into your library
-          external: ["react", "react-dom"],
+          external: ["react", "react-dom", "firebase"],
           output: {
             globals: {
               react: "React",
@@ -69,6 +78,9 @@ export default defineConfig(({ command }) => {
     };
   } else if (platform == "web") {
     return {
+      define: {
+        global: "globalThis", // This will point global to the globalThis object in the browser
+      },
       plugins: [react()],
       resolve: {
         alias,

@@ -15,10 +15,10 @@ import { slotHooks } from "@/data/system/slot.slice";
 import { actionHooks, execAction } from "@/data/system/actions.model";
 import { CircleLoading } from "@/components/Loading";
 import { transformCase } from "@/utils/index";
-import { getAllKeys, usePublicCommands, getPublicSettings, getSettingValue, showSetting, fieldHooks } from "@/hooks";
+import { useAllKeys, usePublicCommands, usePublicSettings, useSettingValue, showSetting, fieldHooks } from "@/hooks";
 export function Commands() {
   const colorMerge = useColorMerge();
-  const keys = getAllKeys();
+  const keys = useAllKeys();
   const commands = usePublicCommands();
   const finalCommands = React.useMemo(() => {
     const state = store.getState();
@@ -47,9 +47,9 @@ export function Commands() {
         return s.length || !cmd.keys.length;
       });
   }, [keys, commands]);
-  const settingsList = getPublicSettings();
+  const settingsList = usePublicSettings();
   const commandId = getTemp<string>("commandId");
-  const prefixes = getSettingValue("commands/enum/prefixes.object");
+  const prefixes = useSettingValue("commands/enum/prefixes.object");
   const isLoading = getTemp<boolean>("commands.isLoading");
   const actions = actionHooks.getAll();
   const views: DataBaseManagmentListProps["data"] = React.useMemo(() => {

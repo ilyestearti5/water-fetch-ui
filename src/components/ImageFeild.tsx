@@ -2,7 +2,7 @@ import React from "react";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
 import { openDialog } from "@/functions/app/web/web-utils";
-import { useColorMerge, getSettingValue, useCopyState, handelShadowColor, openCamera, showToast } from "@/hooks";
+import { useColorMerge, useSettingValue, useCopyState, handelShadowColor, openCamera, showToast } from "@/hooks";
 import { tw } from "@/utils";
 import { faXmark, faFileUpload, faCamera } from "@fortawesome/free-solid-svg-icons";
 import { Tip } from "./Tip";
@@ -12,7 +12,7 @@ type ImageFeildProps = FeildGeneralProps<SettingValueType["image"], SettingConfi
 export function ImageFeild({ state, config }: ImageFeildProps) {
   // render ArrayFeild element component
   const colorMerge = useColorMerge();
-  const isAnimation = getSettingValue("preferences/animation.boolean");
+  const isAnimation = useSettingValue("preferences/animation.boolean");
   const hoverState = useCopyState(false);
   const src = state.get;
   const callback = React.useCallback(

@@ -1,9 +1,9 @@
 import React from "react";
 import { colorHooks } from "@/data/system/colors.model";
 import { setTemp } from "@/reducers/Object/object.slice";
-import { getColor, getSettingValue } from "@/hooks";
+import { getColor, useSettingValue } from "@/hooks";
 export function initDarkSystem() {
-  const isDark = getSettingValue("window/dark.boolean");
+  const isDark = useSettingValue("window/dark.boolean");
   const mainBackground = colorHooks.getOne("primary.background");
   const mainColor = colorHooks.getOne("text.color");
   const bgSelectedColor = colorHooks.getOne("bg.selection");
@@ -29,7 +29,7 @@ export function initDarkSystem() {
       document.body.style.color = getColor(isDark, mainColor)!;
     }
   }, [mainBackground, mainColor, isDark]);
-  const font = getSettingValue("preferences/font.enum");
+  const font = useSettingValue("preferences/font.enum");
   React.useEffect(() => {
     if (font) {
       document.body.style.fontFamily = font;

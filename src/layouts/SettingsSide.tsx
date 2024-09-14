@@ -2,7 +2,7 @@ import React from "react";
 import { viewHooks } from "@/data/system/views.model";
 import { transformCase } from "@/utils/index";
 import { getIcon } from "@/utils";
-import { getAllKeys, useCopyState } from "@/hooks";
+import { useAllKeys, useCopyState } from "@/hooks";
 import { List } from "@/components/List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ResizeView } from "@/components/ResizeView";
@@ -40,12 +40,12 @@ function SettingSideList() {
           const cmdId = React.useMemo(() => {
             return `settings.${id}.show`;
           }, [id]);
-          const allKeys = getAllKeys();
+          const allKeys = useAllKeys();
           const keys = React.useMemo(() => {
             return Db.join({ cmdId }, allKeys, "cmdId->command").map(({ value }) => value!);
           }, [cmdId, allKeys]);
           //
-          const label = getText(transformCase(id, "camel", "normal"));
+          const [label] = getText(transformCase(id, "camel", "normal"));
           //
           const hover = useCopyState(false);
           //

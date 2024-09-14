@@ -5,8 +5,8 @@ export interface FileProps extends OpenDialogOptions {
 // setting configurations
 export interface SettingConfig {
   date: Partial<{
-    format?: "date" | "time" | "month" | "datetime-local";
-    goToCurrent?: boolean;
+    format: "date" | "time" | "month" | "datetime-local";
+    goToCurrent: boolean;
   }>;
   pin: Partial<{
     length: number;
@@ -56,8 +56,14 @@ export interface SettingConfig {
   audio: Partial<{}>;
   image: Partial<{
     filter: string[];
-    alt?: string;
-    rounded?: boolean;
+    alt: string;
+    rounded: boolean;
+  }>;
+  range: Partial<{
+    min: number;
+    max: number;
+    isFloat: boolean;
+    showValue: boolean;
   }>;
 }
 // nesisary values
@@ -76,4 +82,5 @@ export interface SettingValueType extends Record<keyof SettingConfig, any> {
   audio: string | null;
   pin: number | null;
   image: string | null;
+  range: number;
 }

@@ -21,12 +21,12 @@ import {
 } from "@/components";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { openDialog } from "@/functions/app/web/web-utils";
-import { checkFormByFeilds, fieldHooks, getSettingValue, getUser, getUserFromDB, openCamera, showToast, useColorMerge, useCopyState, useIdleStatus } from "@/hooks";
+import { checkFormByFeilds, fieldHooks, useSettingValue, getUser, getUserFromDB, openCamera, showToast, useColorMerge, useCopyState, useIdleStatus } from "@/hooks";
 import { delay, mergeArray, setFocused, tw } from "@/utils";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft, faArrowRight, faRefresh, faRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { nanoid } from "@reduxjs/toolkit";
-import { updateProfile, signOut, createUserWithEmailAndPassword } from "firebase/auth";
+import { updateProfile, signOut, createUserWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { FacebookAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -431,7 +431,7 @@ export const ProfileContent = () => {
   const userFromDb = getUserFromDB();
   const editName = useCopyState<boolean>(false);
   const state = useCopyState<string | undefined>(undefined);
-  const isAnimation = getSettingValue("preferences/animation.boolean");
+  const isAnimation = useSettingValue("preferences/animation.boolean");
   const actionChangeMyName = useAction(
     "change-my-name",
     async () => {
@@ -744,26 +744,6 @@ export const ProfileContent = () => {
       </Scroll>
       <Line />
       <div className="flex justify-end gap-2 p-2">
-        <Button
-          className="max-sm:w-full sm:w-1/4 capitalize"
-          style={{
-            ...colorMerge("error"),
-          }}
-          onClick={async () => {
-            const { response } = await openDialog({
-              title: "Delete Account",
-              message: "Are you sure you want to delete your account?",
-              buttons: ["No", "Yes"],
-              defaultId: 1,
-            });
-            if (response && Server.server) {
-              user?.delete();
-              await signOut(Server.server.auth);
-            }
-          }}
-        >
-          <Text content="delete" />
-        </Button>
         <Button
           className="max-sm:w-full sm:w-1/4 capitalize"
           style={{

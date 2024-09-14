@@ -1,6 +1,6 @@
 import React from "react";
 import { ResizeView } from "@/components/ResizeView";
-import { settingHooks, getSettingValue } from "@/hooks";
+import { settingHooks, useSettingValue } from "@/hooks";
 import { useColorMerge } from "@/hooks";
 import { isSorted } from "@/utils/index";
 import { tw } from "@/utils";
@@ -9,7 +9,7 @@ export interface LeftSideProps {
   children?: React.ReactNode;
 }
 export const LeftSide = ({ children }: LeftSideProps) => {
-  const visibility = getSettingValue(leftSideVisibility);
+  const visibility = useSettingValue(leftSideVisibility);
   const colorMerge = useColorMerge();
   return (
     <ResizeView

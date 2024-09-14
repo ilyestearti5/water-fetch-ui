@@ -2,8 +2,8 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": false,
-    "emitDeclarationOnly": true,
-    "outDir": "./dist", // Ensure this matches where you want the types to go
+    "noEmit": true,
+    "outDir": "./ui", // Ensure this matches where you want the types to go
     "skipLibCheck": true,
     "module": "ESNext",
     "target": "ESNext",

@@ -1,7 +1,7 @@
 import React from "react";
 import { notifayHooks } from "@/data/system/notifications.model";
 import { tw } from "@/utils";
-import { getSettingValue, useColorMerge, useCopyState } from "@/hooks";
+import { useSettingValue, useColorMerge, useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
 import { List } from "@/components/List";
@@ -25,7 +25,7 @@ export const NotifaysSlot = () => {
           return notifay.type == "warning" ? warning : notifay.type == "error" ? error : notifay.type == "success" ? success : info;
         }
         const colorMerge = useColorMerge();
-        const isAnimation = getSettingValue("preferences/animation.boolean");
+        const isAnimation = useSettingValue("preferences/animation.boolean");
         return (
           <div
             id={id}
@@ -55,7 +55,7 @@ export const NotifaysSlot = () => {
                 transition-[transform,opacity]
                 relative
                 max-h-[calc(80vh+50px)]
-                border
+                border-2
                 border-solid
                 border-transparent
               `,
@@ -93,8 +93,8 @@ export const NotifaysSlot = () => {
                   ...colorMerge(iwes<ColorIds>("notifay.info", "notifay.warning", "notifay.error", "notifay.success")),
                 }}
               />
-              <ul
-                className="flex gap-1"
+              <div
+                className="flex gap-1 text-xl"
                 style={{
                   visibility: hover.get || status.isSubmited ? "visible" : "hidden",
                 }}
@@ -115,7 +115,7 @@ export const NotifaysSlot = () => {
                     icon={faClose}
                   />
                 )}
-              </ul>
+              </div>
             </div>
             {notifay.desc && (
               <div className={tw("h-[0px]", isAnimation && "transition-[height] duration-700", notifay.showDesc && "h-[170px]")}>

@@ -231,13 +231,6 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
-export declare const authicate: ({ name, logo }: AuthicateProps) => Promise<unknown>;
-
-export declare interface AuthicateProps {
-    name: string;
-    logo: string;
-}
-
 export declare function back(slotId: SlotType["slotId"]): {
     type: string;
     payload: string | undefined;
@@ -267,6 +260,8 @@ export declare function checkFormByFeilds(fields: string[], state?: FullStateMan
     })[];
     isValide: boolean;
 };
+
+export declare const closeFrame: () => void;
 
 export declare function closeNotifays(): void;
 
@@ -1287,6 +1282,38 @@ declare const data: {
         }[];
         label: string;
     };
+    "enum/next": {
+        commands: {
+            type: string;
+            payload: string;
+        }[];
+        label: string;
+    };
+    "enum/back": {
+        commands: {
+            type: string;
+            payload: string;
+        }[];
+        label: string;
+    };
+    "enum/submit": {
+        commands: {
+            type: string;
+            payload: string;
+        }[];
+        label: string;
+    };
+    "enum/escape": {
+        commands: {
+            payload: {
+                direction: string;
+                force: boolean;
+                value: null;
+            };
+            type: string;
+        }[];
+        label: string;
+    };
 };
 
 declare const data_2: {
@@ -1626,6 +1653,11 @@ declare const data_4: {
         name: string;
     };
     "visibility/keyboard.boolean": {
+        name: string;
+        desc: string;
+        def: boolean;
+    };
+    "notification/clearAllConfirmation.boolean": {
         name: string;
         desc: string;
         def: boolean;
@@ -2218,6 +2250,8 @@ export declare const endReloadTemps: () => void;
 
 export declare const endSaveTemps: () => void;
 
+export declare const enumTemp: Temp;
+
 declare function escape_2(slotId: SlotType["slotId"]): {
     type: string;
     payload: string | undefined;
@@ -2482,55 +2516,27 @@ declare interface FullCameraResult {
 
 declare type FullStateManagment = ReturnType<typeof store.getState>;
 
-export declare function getAllKeys(): Key[];
-
 export declare function getColor(isDark: boolean, color: Color): string | undefined;
-
-export declare function getFeildNext(fieldId: string): string;
-
-export declare function getFeildPrevious(fieldId: string): string;
-
-export declare function getFeildSelected(fieldId: string): string;
 
 export declare const getImageFileType: (filePath: string) => string;
 
 export declare function getLocalAdressIp(): Promise<string | null>;
 
-export declare function getManyFeilds<S extends string | number, T extends FeildRecord<S>>(fields: T, deps?: any): Record<keyof T, string | undefined>;
-
 export declare const getModel: ({ model }: GetModelProps) => GenerativeModel | null;
 
-declare interface GetModelProps {
+export declare interface GetModelProps {
     model?: "gemini-pro" | "gemini-pro-vision";
 }
-
-export declare function getNext(value: string | undefined, selection: TextAreaProps["selection"]): string;
 
 declare type GetOptinal<T extends object> = Partial<{
     [key in OptinalKeys<T>]: T[key];
 }>;
 
-export declare function getPrevious(value: string | undefined, selection: TextAreaProps["selection"]): string;
-
-export declare function getPublicSettings(): Setting<keyof SettingConfig>[];
-
-export declare function getPublicSettingsFilter(): Setting<keyof SettingConfig>[];
+export declare function getPosition(): [number, number] | null;
 
 export declare const getReloaded: () => boolean;
 
 export declare const getSaved: () => boolean;
-
-export declare function getSelected(value: string | undefined, selection: TextAreaProps["selection"]): string;
-
-export declare function getSettingById<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): Setting<ID> | null;
-
-export declare function getSettingConfig<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): SettingConfig[ID] | null;
-
-export declare function getSettingValue<ID extends keyof SettingConfig>(settingId: Setting<ID>["settingId"]): SettingValueType[ID] | undefined;
-
-export declare function getShortcutsOfAction(actionName: string): Key[];
-
-export declare function getShortcutsOfCommand(commandId: CommandIds | string): Key[];
 
 export declare function getSlotData<T>(data: T[], slotId: string, get?: "focused" | "submited"): NonNullable<T> | null;
 
@@ -2540,6 +2546,8 @@ export declare function getTemp<T>(direction: string): T | null;
 
 export declare function getTempFromStore<T>(direction: string, s?: ReturnType<typeof store.getState>): T | null;
 
+export declare function getTitle(): string | number | null | undefined;
+
 export declare const getUser: () => User | null;
 
 export declare const getUserFromDB: () => Partial<{
@@ -2547,6 +2555,7 @@ export declare const getUserFromDB: () => Partial<{
     email: string | null;
     phone: string | null;
     photo: string | null;
+    uid: string;
 }> | null;
 
 export declare const getWatch: () => boolean;
@@ -2558,6 +2567,10 @@ export declare function getWindowData(): Promise<{
     height: number;
 }>;
 
+export declare function getX(): "right" | "left" | "center";
+
+export declare function getY(): "center" | "top" | "bottom";
+
 export declare function handelGradientColor(direction: string, ...colors: ColorIds[]): ReturnColorHandelFunction;
 
 export declare function handelShadowColor(array?: {
@@ -2568,6 +2581,8 @@ export declare function handelShadowColor(array?: {
     blur?: number;
     isInset?: boolean;
 }[]): ReturnColorHandelFunction;
+
+export declare const iframeTemp: Temp;
 
 export declare const imageExtensions: string[];
 
@@ -2606,8 +2621,6 @@ export declare const initFeilds: () => {
     status: QueryStatus;
     timeLoading: number;
 };
-
-export declare const initialState: ObjectTemp;
 
 export declare function initKeys(): void;
 
@@ -3665,6 +3678,8 @@ export declare interface NotificationType {
     }[];
 }
 
+export declare const objectInitialState: ObjectTemp;
+
 export declare const objectName = "object";
 
 export declare const objectSlice: Slice<ObjectTemp, {
@@ -3751,12 +3766,12 @@ export declare const positionsHooks: {
     upsert(data: Positions[]): void;
     getOne(id: EntityId): {
         positionId: string;
-        x?: number | undefined;
-        y?: number | undefined;
         height?: number | undefined;
         width?: number | undefined;
-        readonly left?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
         readonly right?: number | undefined;
+        readonly left?: number | undefined;
         readonly top?: number | undefined;
         readonly bottom?: number | undefined;
     } | undefined;
@@ -3765,35 +3780,35 @@ export declare const positionsHooks: {
     useOne(id: EntityId): {
         get: {
             positionId: string;
-            x?: number | undefined;
-            y?: number | undefined;
             height?: number | undefined;
             width?: number | undefined;
-            readonly left?: number | undefined;
+            x?: number | undefined;
+            y?: number | undefined;
             readonly right?: number | undefined;
+            readonly left?: number | undefined;
             readonly top?: number | undefined;
             readonly bottom?: number | undefined;
         } | undefined;
         set: Dispatch<SetStateAction<    {
         positionId: string;
-        x?: number | undefined;
-        y?: number | undefined;
         height?: number | undefined;
         width?: number | undefined;
-        readonly left?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
         readonly right?: number | undefined;
+        readonly left?: number | undefined;
         readonly top?: number | undefined;
         readonly bottom?: number | undefined;
         } | undefined>>;
     };
     getOneFeild<F extends keyof Positions>(recordId: EntityId, field: F): ({
         positionId: string;
-        x?: number | undefined;
-        y?: number | undefined;
         height?: number | undefined;
         width?: number | undefined;
-        readonly left?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
         readonly right?: number | undefined;
+        readonly left?: number | undefined;
         readonly top?: number | undefined;
         readonly bottom?: number | undefined;
     }[F] & {}) | undefined;
@@ -3801,23 +3816,23 @@ export declare const positionsHooks: {
     useOneFeild<F extends keyof Positions>(recordeId: EntityId, field: F): {
         get: ({
             positionId: string;
-            x?: number | undefined;
-            y?: number | undefined;
             height?: number | undefined;
             width?: number | undefined;
-            readonly left?: number | undefined;
+            x?: number | undefined;
+            y?: number | undefined;
             readonly right?: number | undefined;
+            readonly left?: number | undefined;
             readonly top?: number | undefined;
             readonly bottom?: number | undefined;
         }[F] & {}) | undefined;
         set: Dispatch<SetStateAction<({
         positionId: string;
-        x?: number | undefined;
-        y?: number | undefined;
         height?: number | undefined;
         width?: number | undefined;
-        readonly left?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
         readonly right?: number | undefined;
+        readonly left?: number | undefined;
         readonly top?: number | undefined;
         readonly bottom?: number | undefined;
         }[F] & {}) | undefined>>;
@@ -4019,6 +4034,8 @@ declare interface SendTelProps {
     tel: string;
 }
 
+export declare function setPosition(position: TitleInitState["position"]): void;
+
 export declare const setProgress: ({ options, value }: SetProgressProps) => Promise<void>;
 
 declare interface SetProgressProps {
@@ -4046,8 +4063,8 @@ export declare interface Setting<T extends keyof SettingConfig> {
 
 export declare interface SettingConfig {
     date: Partial<{
-        format?: "date" | "time" | "month" | "datetime-local";
-        goToCurrent?: boolean;
+        format: "date" | "time" | "month" | "datetime-local";
+        goToCurrent: boolean;
     }>;
     pin: Partial<{
         length: number;
@@ -4101,8 +4118,14 @@ export declare interface SettingConfig {
     audio: Partial<{}>;
     image: Partial<{
         filter: string[];
-        alt?: string;
-        rounded?: boolean;
+        alt: string;
+        rounded: boolean;
+    }>;
+    range: Partial<{
+        min: number;
+        max: number;
+        isFloat: boolean;
+        showValue: boolean;
     }>;
 }
 
@@ -4116,11 +4139,11 @@ export declare const settingHooks: {
     add(data: Setting<keyof SettingConfig>[]): void;
     upsert(data: Setting<keyof SettingConfig>[]): void;
     getOne(id: EntityId): {
-        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.file` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.image`;
+        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.image` | `${string}.file` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.range`;
         name?: string;
         desc?: string;
         private?: boolean;
-        value: string | number | boolean | string[] | Record<string, string> | null;
+        value: string | number | boolean | Record<string, string> | string[] | null;
         config?: Partial<{
             maxLength: number;
             minLength: number;
@@ -4145,8 +4168,12 @@ export declare const settingHooks: {
             list: string[];
             extra: string[][];
         }> | Partial<{
-            format?: "date" | "time" | "month" | "datetime-local";
-            goToCurrent?: boolean;
+            filter: string[];
+            alt: string;
+            rounded: boolean;
+        }> | Partial<FileProps> | Partial<{
+            format: "date" | "time" | "month" | "datetime-local";
+            goToCurrent: boolean;
         }> | Partial<{
             length: number;
             nullable: boolean;
@@ -4160,26 +4187,27 @@ export declare const settingHooks: {
             }[];
             nullable: boolean;
             expandIcon: boolean;
-        }> | Partial<{}> | Partial<FileProps> | Partial<{
+        }> | Partial<{}> | Partial<{
             canEmpty: string;
         }> | Partial<{
-            filter: string[];
-            alt?: string;
-            rounded?: boolean;
+            min: number;
+            max: number;
+            isFloat: boolean;
+            showValue: boolean;
         }> | undefined;
         deperacted?: boolean;
-        def?: string | number | boolean | string[] | Record<string, string> | null | undefined;
+        def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
         readonly?: boolean;
     } | undefined;
     setOne(id: EntityId, changes: Partial<Setting<keyof SettingConfig>>): void;
     setWriteStatus(status?: InitState<Setting<keyof SettingConfig>, "settingId">["writeStatus"]): void;
     useOne(id: EntityId): {
         get: {
-            settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.file` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.image`;
+            settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.image` | `${string}.file` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.range`;
             name?: string;
             desc?: string;
             private?: boolean;
-            value: string | number | boolean | string[] | Record<string, string> | null;
+            value: string | number | boolean | Record<string, string> | string[] | null;
             config?: Partial<{
                 maxLength: number;
                 minLength: number;
@@ -4204,8 +4232,12 @@ export declare const settingHooks: {
                 list: string[];
                 extra: string[][];
             }> | Partial<{
-                format?: "date" | "time" | "month" | "datetime-local";
-                goToCurrent?: boolean;
+                filter: string[];
+                alt: string;
+                rounded: boolean;
+            }> | Partial<FileProps> | Partial<{
+                format: "date" | "time" | "month" | "datetime-local";
+                goToCurrent: boolean;
             }> | Partial<{
                 length: number;
                 nullable: boolean;
@@ -4219,23 +4251,24 @@ export declare const settingHooks: {
                 }[];
                 nullable: boolean;
                 expandIcon: boolean;
-            }> | Partial<{}> | Partial<FileProps> | Partial<{
+            }> | Partial<{}> | Partial<{
                 canEmpty: string;
             }> | Partial<{
-                filter: string[];
-                alt?: string;
-                rounded?: boolean;
+                min: number;
+                max: number;
+                isFloat: boolean;
+                showValue: boolean;
             }> | undefined;
             deperacted?: boolean;
-            def?: string | number | boolean | string[] | Record<string, string> | null | undefined;
+            def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
             readonly?: boolean;
         } | undefined;
         set: Dispatch<SetStateAction<    {
-        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.file` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.image`;
+        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.image` | `${string}.file` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.range`;
         name?: string;
         desc?: string;
         private?: boolean;
-        value: string | number | boolean | string[] | Record<string, string> | null;
+        value: string | number | boolean | Record<string, string> | string[] | null;
         config?: Partial<{
         maxLength: number;
         minLength: number;
@@ -4260,8 +4293,12 @@ export declare const settingHooks: {
         list: string[];
         extra: string[][];
         }> | Partial<{
-        format?: "date" | "time" | "month" | "datetime-local";
-        goToCurrent?: boolean;
+        filter: string[];
+        alt: string;
+        rounded: boolean;
+        }> | Partial<FileProps> | Partial<{
+        format: "date" | "time" | "month" | "datetime-local";
+        goToCurrent: boolean;
         }> | Partial<{
         length: number;
         nullable: boolean;
@@ -4275,24 +4312,25 @@ export declare const settingHooks: {
         }[];
         nullable: boolean;
         expandIcon: boolean;
-        }> | Partial<{}> | Partial<FileProps> | Partial<{
+        }> | Partial<{}> | Partial<{
         canEmpty: string;
         }> | Partial<{
-        filter: string[];
-        alt?: string;
-        rounded?: boolean;
+        min: number;
+        max: number;
+        isFloat: boolean;
+        showValue: boolean;
         }> | undefined;
         deperacted?: boolean;
-        def?: string | number | boolean | string[] | Record<string, string> | null | undefined;
+        def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
         readonly?: boolean;
         } | undefined>>;
     };
     getOneFeild<F extends keyof Setting<keyof SettingConfig>>(recordId: EntityId, field: F): ({
-        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.file` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.image`;
+        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.image` | `${string}.file` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.range`;
         name?: string;
         desc?: string;
         private?: boolean;
-        value: string | number | boolean | string[] | Record<string, string> | null;
+        value: string | number | boolean | Record<string, string> | string[] | null;
         config?: Partial<{
             maxLength: number;
             minLength: number;
@@ -4317,8 +4355,12 @@ export declare const settingHooks: {
             list: string[];
             extra: string[][];
         }> | Partial<{
-            format?: "date" | "time" | "month" | "datetime-local";
-            goToCurrent?: boolean;
+            filter: string[];
+            alt: string;
+            rounded: boolean;
+        }> | Partial<FileProps> | Partial<{
+            format: "date" | "time" | "month" | "datetime-local";
+            goToCurrent: boolean;
         }> | Partial<{
             length: number;
             nullable: boolean;
@@ -4332,25 +4374,26 @@ export declare const settingHooks: {
             }[];
             nullable: boolean;
             expandIcon: boolean;
-        }> | Partial<{}> | Partial<FileProps> | Partial<{
+        }> | Partial<{}> | Partial<{
             canEmpty: string;
         }> | Partial<{
-            filter: string[];
-            alt?: string;
-            rounded?: boolean;
+            min: number;
+            max: number;
+            isFloat: boolean;
+            showValue: boolean;
         }> | undefined;
         deperacted?: boolean;
-        def?: string | number | boolean | string[] | Record<string, string> | null | undefined;
+        def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
         readonly?: boolean;
     }[F] & ({} | null)) | undefined;
     setOneFeild<F extends keyof Setting<keyof SettingConfig>>(id: EntityId, field: F, value: Setting<keyof SettingConfig>[F]): void;
     useOneFeild<F extends keyof Setting<keyof SettingConfig>>(recordeId: EntityId, field: F): {
         get: ({
-            settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.file` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.image`;
+            settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.image` | `${string}.file` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.range`;
             name?: string;
             desc?: string;
             private?: boolean;
-            value: string | number | boolean | string[] | Record<string, string> | null;
+            value: string | number | boolean | Record<string, string> | string[] | null;
             config?: Partial<{
                 maxLength: number;
                 minLength: number;
@@ -4375,8 +4418,12 @@ export declare const settingHooks: {
                 list: string[];
                 extra: string[][];
             }> | Partial<{
-                format?: "date" | "time" | "month" | "datetime-local";
-                goToCurrent?: boolean;
+                filter: string[];
+                alt: string;
+                rounded: boolean;
+            }> | Partial<FileProps> | Partial<{
+                format: "date" | "time" | "month" | "datetime-local";
+                goToCurrent: boolean;
             }> | Partial<{
                 length: number;
                 nullable: boolean;
@@ -4390,23 +4437,24 @@ export declare const settingHooks: {
                 }[];
                 nullable: boolean;
                 expandIcon: boolean;
-            }> | Partial<{}> | Partial<FileProps> | Partial<{
+            }> | Partial<{}> | Partial<{
                 canEmpty: string;
             }> | Partial<{
-                filter: string[];
-                alt?: string;
-                rounded?: boolean;
+                min: number;
+                max: number;
+                isFloat: boolean;
+                showValue: boolean;
             }> | undefined;
             deperacted?: boolean;
-            def?: string | number | boolean | string[] | Record<string, string> | null | undefined;
+            def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
             readonly?: boolean;
         }[F] & ({} | null)) | undefined;
         set: Dispatch<SetStateAction<({
-        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.file` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.image`;
+        settingId: `${string}.string` | `${string}.number` | `${string}.boolean` | `${string}.object` | `${string}.filter` | `${string}.image` | `${string}.file` | `${string}.date` | `${string}.pin` | `${string}.enum` | `${string}.regexp` | `${string}.array` | `${string}.password` | `${string}.audio` | `${string}.range`;
         name?: string;
         desc?: string;
         private?: boolean;
-        value: string | number | boolean | string[] | Record<string, string> | null;
+        value: string | number | boolean | Record<string, string> | string[] | null;
         config?: Partial<{
         maxLength: number;
         minLength: number;
@@ -4431,8 +4479,12 @@ export declare const settingHooks: {
         list: string[];
         extra: string[][];
         }> | Partial<{
-        format?: "date" | "time" | "month" | "datetime-local";
-        goToCurrent?: boolean;
+        filter: string[];
+        alt: string;
+        rounded: boolean;
+        }> | Partial<FileProps> | Partial<{
+        format: "date" | "time" | "month" | "datetime-local";
+        goToCurrent: boolean;
         }> | Partial<{
         length: number;
         nullable: boolean;
@@ -4446,15 +4498,16 @@ export declare const settingHooks: {
         }[];
         nullable: boolean;
         expandIcon: boolean;
-        }> | Partial<{}> | Partial<FileProps> | Partial<{
+        }> | Partial<{}> | Partial<{
         canEmpty: string;
         }> | Partial<{
-        filter: string[];
-        alt?: string;
-        rounded?: boolean;
+        min: number;
+        max: number;
+        isFloat: boolean;
+        showValue: boolean;
         }> | undefined;
         deperacted?: boolean;
-        def?: string | number | boolean | string[] | Record<string, string> | null | undefined;
+        def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
         readonly?: boolean;
         }[F] & ({} | null)) | undefined>>;
     };
@@ -4623,7 +4676,16 @@ export declare interface SettingValueType extends Record<keyof SettingConfig, an
     audio: string | null;
     pin: number | null;
     image: string | null;
+    range: number;
 }
+
+export declare function setTitle(title: TitleInitState["content"]): void;
+
+export declare function setX(origin?: TitleInitState["x"]): void;
+
+export declare function setY(origin?: TitleInitState["y"]): void;
+
+export declare const showFrame: (src: string | URL, id?: string) => string;
 
 export declare const showNotification: ({ ...notification }: Partial<NotificationType>) => void;
 
@@ -5341,7 +5403,7 @@ declare class Temp {
     get childsTemps(): Temp[];
 }
 
-export declare type TempState = Record<typeof objectName, typeof initialState>;
+export declare type TempState = Record<typeof objectName, typeof objectInitialState>;
 
 export declare function test(when: string): (props: {
     state: FullStateManagment;
@@ -5364,12 +5426,21 @@ declare interface TextAreaProps extends default_2.DetailedHTMLProps<default_2.Te
     pattern?: string | RegExp;
 }
 
-declare interface TitleInitState {
+export declare const titleInitialState: TitleInitState;
+
+export declare interface TitleInitState {
     content: string | number | null | undefined;
     position: null | [number, number];
     x: "left" | "right" | "center";
     y: "top" | "bottom" | "center";
 }
+
+export declare const titleSlice: Slice<TitleInitState, {
+setContent(state: WritableDraft<TitleInitState>, { payload }: PayloadAction<TitleInitState["content"]>): void;
+setPosition(state: WritableDraft<TitleInitState>, { payload }: PayloadAction<TitleInitState["position"]>): void;
+setX(state: WritableDraft<TitleInitState>, { payload }: PayloadAction<TitleInitState["x"]>): void;
+setY(state: WritableDraft<TitleInitState>, { payload }: PayloadAction<TitleInitState["y"]>): void;
+}, "title", "title", SliceSelectors<TitleInitState>>;
 
 export declare const toastHooks: {
     getFull(): InitState<any, "id">;
@@ -5454,7 +5525,7 @@ export declare const toastTemps: Temp;
 
 export declare enum ToastTime {
     short = 5,
-    long = 5
+    long = 10
 }
 
 export declare interface ToastType {
@@ -5704,9 +5775,13 @@ export declare function useAction<T extends string, ARGS, S>(actionId: T, fn: (a
     output?: any;
 } | undefined;
 
-export declare function useAsyncEffect(callback: () => Promise<void>, deps?: any[], cleanUp?: (deps: any[]) => void): void;
+export declare function useAllKeys(): Key[];
+
+export declare function useAsyncEffect(callback: () => Promise<void>, deps?: any[], cleanUp?: (deps: any[]) => void): boolean;
 
 export declare function useAsyncMemo<T>(callback: () => Promise<T>, deps?: any[], cleanUp?: (deps: any[]) => void): T | null;
+
+export declare const useChangedSetting: () => Setting<keyof SettingConfig>[];
 
 export declare function useColorMerge<T extends Partial<Record<CssColorKeys, ColorIds | ReturnColorHandelFunction>>>(): (...args: (Nothing | ColorIds | T)[]) => Partial<Record<keyof T, string>>;
 
@@ -5721,6 +5796,12 @@ export declare function useDref<T>(firstState: T, upload: (val: T) => any, downl
 };
 
 export declare function useEffectDelay(fn: () => Promise<void> | void | (() => Promise<void> | void), deps?: any[], time?: number): boolean;
+
+export declare function useFeildNext(fieldId: string): string;
+
+export declare function useFeildPrevious(fieldId: string): string;
+
+export declare function useFeildSelected(fieldId: string): string;
 
 export declare function useFocusedTab(id: EntityId): {
     icon?: {
@@ -5746,7 +5827,13 @@ export declare const useIdleStatus: <T>(fn: () => Promise<T>, deps?: any[]) => {
     };
 };
 
+export declare function useManyFeilds<S extends string | number, T extends FeildRecord<S>>(fields: T, deps?: any): Record<keyof T, string | undefined>;
+
 export declare function useMemoDelay<G>(fn: () => G, deps?: any[], time?: number): [boolean, G | null];
+
+export declare function useNext(value: string | undefined, selection: TextAreaProps["selection"]): string;
+
+export declare function usePrevious(value: string | undefined, selection: TextAreaProps["selection"]): string;
 
 export declare function usePublicCommands(): Command[];
 
@@ -5759,12 +5846,29 @@ export declare function usePublicCommandsFilter(): {
     blocked?: boolean;
 }[];
 
+export declare function usePublicSettings(): Setting<keyof SettingConfig>[];
+
+export declare function usePublicSettingsFilter(): Setting<keyof SettingConfig>[];
+
 export declare type UserDB = Partial<{
     name: string | null;
     email: string | null;
     phone: string | null;
     photo: string | null;
+    uid: string;
 }>;
+
+export declare function useSelected(value: string | undefined, selection: TextAreaProps["selection"]): string;
+
+export declare function useSettingById<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): Setting<ID> | null;
+
+export declare function useSettingConfig<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): SettingConfig[ID] | null;
+
+export declare function useSettingValue<ID extends keyof SettingConfig>(settingId: Setting<ID>["settingId"]): SettingValueType[ID] | undefined;
+
+export declare function useShortcutsOfAction(actionName: string): Key[];
+
+export declare function useShortcutsOfCommand(commandId: CommandIds | string): Key[];
 
 export declare function useTemp<T>(direction: string): {
     get: T | null;

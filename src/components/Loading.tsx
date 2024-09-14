@@ -1,20 +1,28 @@
 import { handelGradientColor, useColorMerge } from "@/hooks";
-import { tw } from "@/utils";
+import { tw, range } from "@/utils";
 import { ReactElement } from "@/types/global";
 export function LineLoading() {
   const colorMerge = useColorMerge();
   return (
     <div
-      className="relative bg-opacity-10 h-[2px] pointer-events-none"
+      className="relative bg-opacity-10 h-[2px] w-full pointer-events-none"
       style={{
         ...colorMerge("gray.opacity"),
       }}
     >
       <div
-        className={tw(`absolute h-full left-1/2 transform -translate-x-1/2 animate-loading`)}
+        className={tw(`absolute h-full left-0 transform animate-loading`)}
         style={{
           ...colorMerge({
-            background: handelGradientColor("to right", "transparent", "primary", "primary", "primary", "transparent"),
+            background: handelGradientColor("to right", "transparent", "primary"),
+          }),
+        }}
+      />
+      <div
+        className={tw(`absolute h-full right-0 transform animate-loading`)}
+        style={{
+          ...colorMerge({
+            background: handelGradientColor("to right", "primary", "transparent"),
           }),
         }}
       />
@@ -41,5 +49,30 @@ export const CircleLoading = ({ className, circleClassName, ...props }: CircleLo
         />
       </span>
     </span>
+  );
+};
+
+interface BallLoadingProps extends ReactElement {
+  balls?: number;
+  ballClassName?: string;
+}
+
+export const BallLoading = ({ balls = 3, ballClassName = "" }: BallLoadingProps) => {
+  const colorMerge = useColorMerge();
+  return (
+    <div className="flex">
+      {range(1, balls).map((index) => {
+        return (
+          <span
+            key={index}
+            className="inline-block animate-ty w-[40px] h-[40px] rounded-full"
+            style={{
+              ...colorMerge("primary"),
+              animationDelay: `${(index / balls) * 1}s`,
+            }}
+          />
+        );
+      })}
+    </div>
   );
 };

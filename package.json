@@ -6,6 +6,7 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": [],
   "debug": {
     "env": {
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
@@ -13,6 +14,8 @@
   },
   "dependencies": {
     "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/browser": "^6.0.2",
     "@capacitor/cli": "^6.1.2",
     "@capacitor/core": "^6.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -21,10 +24,15 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@google/generative-ai": "^0.2.1",
+    "@types/pouchdb": "^6.4.2",
+    "@types/pouchdb-upsert": "^2.2.9",
     "axios": "^1.7.2",
     "date-fns": "^3.3.1",
     "firebase": "^10.12.5",
+    "js-cookie": "^3.0.5",
     "js-yaml": "^4.1.0",
+    "pouchdb": "^9.0.0",
+    "pouchdb-upsert": "^2.2.0",
     "qrcode": "^1.5.3",
     "quagga-scanner": "^0.13.0",
     "react-router-dom": "^5.3.4"
@@ -37,6 +45,7 @@
     "@types/bwip-js": "^3.2.3",
     "@types/date-fns": "^2.6.0",
     "@types/electron": "^1.6.10",
+    "@types/js-cookie": "^3.0.6",
     "@types/js-yaml": "^4.0.9",
     "@types/markdown-to-jsx": "^7.0.1",
     "@types/pdf-parse": "^1.1.4",
@@ -80,7 +89,7 @@
   "files": [
     "dist"
   ],
-  "name": "@water-fetch/ui",
+  "name": "water-fetch",
   "scripts": {
     "build:lib": "tsc && vite build --mode lib",
     "build:web": "tsc && vite build --mode web",

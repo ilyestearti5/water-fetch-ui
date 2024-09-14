@@ -3,7 +3,7 @@ import { getModifier } from "@/reducers/Global/keyboard.slice";
 import { settingHooks } from "@/reducers/Settings/settings.model";
 import { isLike } from "@/utils/index";
 import { tw } from "@/utils";
-import { getPublicSettingsFilter, showSetting, useCopyState } from "@/hooks";
+import { usePublicSettingsFilter, showSetting, useCopyState } from "@/hooks";
 import { fieldHooks } from "@/data/system/field.model";
 import { useColorMerge } from "@/hooks";
 import { Tip } from "@/components/Tip";
@@ -12,7 +12,7 @@ import { useAction } from "@/data/system/actions.model";
 import { TitleView } from "@/components/TitleView";
 import { FastList } from "../components/FastList";
 export function SettingsList() {
-  const settings = getPublicSettingsFilter();
+  const settings = usePublicSettingsFilter();
   return (
     <FastList
       data={settings}

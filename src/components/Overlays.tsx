@@ -3,7 +3,7 @@ import { tw } from "@/utils";
 import { ReactElement } from "@/types/global";
 import React from "react";
 import { delay } from "@/utils/index";
-import { getSettingValue } from "@/hooks";
+import { useSettingValue } from "@/hooks";
 import { useAsyncEffect, useCopyState } from "@/hooks";
 interface OverlaysProps extends ReactElement {
   onLoadContent?: () => void;
@@ -11,7 +11,7 @@ interface OverlaysProps extends ReactElement {
 }
 export function DownOverlay({ hidden, animted, className, style, children, onLoadContent, onTransitionEnd, ...props }: OverlaysProps) {
   const colorMerge = useColorMerge();
-  const isAnimation = typeof animted == "boolean" ? animted : getSettingValue("preferences/animation.boolean");
+  const isAnimation = typeof animted == "boolean" ? animted : useSettingValue("preferences/animation.boolean");
   const hiddenTransition = useCopyState(hidden);
   React.useEffect(() => {
     if (!hidden) {
@@ -58,7 +58,7 @@ export function BlurOverlay({ className, animted, style, hidden, onLoadContent, 
     }
   }, [hidden]);
   const elementRf = React.useRef<HTMLDivElement>(null);
-  const isAnimation = typeof animted == "boolean" ? animted : getSettingValue("preferences/animation.boolean");
+  const isAnimation = typeof animted == "boolean" ? animted : useSettingValue("preferences/animation.boolean");
   useAsyncEffect(async () => {
     if (hiddenTransition.get && onLoadContent) {
       await delay(100);

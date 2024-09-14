@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { FirebaseApp, initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp, FirebaseOptions } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { FirebaseStorage, getStorage } from "firebase/storage";
@@ -17,14 +17,6 @@ export interface ServerProps {
   appId: string;
   measurementId: string;
 }
-export const initServer = ({ appId, measurementId }: ServerProps) => {
-  const compltedConfig = {
-    ...firebaseConfig,
-    appId,
-    measurementId,
-  };
-  return initializeApp(compltedConfig);
-};
 export class Server {
   static server: Server | null = null;
   public app: FirebaseApp;
@@ -32,15 +24,23 @@ export class Server {
   public db: Firestore;
   public storage: FirebaseStorage;
   public analytics: Analytics;
+  private lockConfig: FirebaseOptions;
   constructor(props: ServerProps) {
     if (Server.server) {
       throw new Error("Server already initialized");
     }
-    this.app = initServer(props);
+    this.lockConfig = {
+      ...firebaseConfig,
+      ...props
+    };
+    this.app = initializeApp(this.lockConfig)
     this.auth = getAuth(this.app);
     this.db = getFirestore(this.app);
     this.storage = getStorage(this.app);
     this.analytics = getAnalytics(this.app);
     Server.server = this;
+  }
+  get config() {
+    return this.lockConfig;
   }
 }

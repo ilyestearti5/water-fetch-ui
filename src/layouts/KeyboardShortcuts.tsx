@@ -4,7 +4,7 @@ import { useColorMerge } from "@/hooks";
 import { Delay } from "@/utils/index";
 import { setFocused } from "@/utils";
 import { tw } from "@/utils";
-import { fieldHooks, getShortcutsOfCommand, useCopyState, usePublicCommandsFilter } from "@/hooks";
+import { fieldHooks, useShortcutsOfCommand, useCopyState, usePublicCommandsFilter } from "@/hooks";
 import { getModifier } from "@/reducers/Global/keyboard.slice";
 import { FastList } from "@/components/FastList";
 import { Tip } from "@/components/Tip";
@@ -46,7 +46,7 @@ export function KeyboardShortcuts() {
       }}
       component={({ data: command, index, status, handel, style }) => {
         const { commandId, label = "" } = command;
-        const keys = getShortcutsOfCommand(commandId);
+        const keys = useShortcutsOfCommand(commandId);
         const ref = React.createRef<HTMLDivElement>();
         const colorMerge = useColorMerge();
         const isControl = getModifier("Control");

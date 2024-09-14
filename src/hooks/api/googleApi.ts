@@ -5,7 +5,7 @@ export interface GetModelProps {
 }
 export const getModel = ({ model = "gemini-pro" }: GetModelProps) => {
   const s = React.useMemo(() => {
-    const apiKey = import.meta.env.GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     if (!apiKey) {
       return null;
     }

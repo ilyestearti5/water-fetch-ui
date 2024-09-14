@@ -1,9 +1,11 @@
+import pouchdbUpsert from "pouchdb-upsert";
+import PouchDB from "pouchdb";
 import React from "react";
-import { viewTemps, cameraTemp, recaptchaTemp } from "@/reducers/Object/allTemps";
+import { store } from "@/store";
+import { viewTemps, cameraTemp, recaptchaTemp, iframeTemp } from "@/reducers/Object/allTemps";
 import { viewHooks } from "@/data/system/views.model";
 import { ToastType, toastHooks } from "@/data/system/toasts.model";
 import { TextAreaProps } from "@/components/TextArea";
-import { store } from "@/store";
 import { SettingValueType, SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { Setting, settingHooks, SettingIds } from "@/reducers/Settings/settings.model";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
@@ -17,12 +19,13 @@ import { EntityId, nanoid } from "@reduxjs/toolkit";
 import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, valueFromString } from "@/utils/index";
 import { CommandIds, commandsHooks } from "@/data/system/command.model";
 import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
-import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
+export * from "@/reducers/Object/object.slice";
+export * from "@/reducers/Global/title.slice";
 export * from "@/functions/app/web/web-utils";
 export * from "@/reducers/Settings/settings.model";
 export * from "@/reducers/Settings/SettingConfig";
-export * from "@/reducers/Object/object.slice";
 export * from "@/reducers/Object/allTemps";
 export * from "@/data/system/views.model";
 export * from "@/data/system/tree.model";
@@ -37,7 +40,15 @@ export * from "@/data/system/field.model";
 export * from "@/data/system/command.model";
 export * from "@/data/system/colors.model";
 export * from "@/data/system/actions.model";
-export { getModel } from "./api/googleApi";
+export * from "./api/googleApi";
+PouchDB.plugin(pouchdbUpsert);
+export type UserDB = Partial<{
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  photo: string | null;
+  uid: string;
+}>;
 export function useAsyncMemo<T>(callback: () => Promise<T>, deps: any[] = [], cleanUp?: (deps: any[]) => void): T | null {
   const state = useCopyState<T | null>(null);
   React.useEffect(() => {
@@ -49,10 +60,17 @@ export function useAsyncMemo<T>(callback: () => Promise<T>, deps: any[] = [], cl
   return state.get;
 }
 export function useAsyncEffect(callback: () => Promise<void>, deps: any[] = [], cleanUp: (deps: any[]) => void = () => {}) {
+  const isLoading = useCopyState(true);
   React.useEffect(() => {
-    callback().then();
+    isLoading.set(true);
+    callback()
+      .then()
+      .finally(() => {
+        isLoading.set(false);
+      });
     return () => cleanUp(deps);
   }, deps);
+  return isLoading.get;
 }
 export function useCopyState<T>(initData: T | (() => T)) {
   const [get, set] = React.useState(initData);
@@ -137,28 +155,28 @@ export const useIdleStatus = <T>(fn: () => Promise<T>, deps: any[] = []) => {
 };
 // settings
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-export function getSettingById<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): Setting<ID> | null {
+export function useSettingById<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): Setting<ID> | null {
   const setting = settingHooks.getOne(settingId);
   const result = React.useMemo(() => {
     return setting ? setting : null;
   }, [setting]) as any;
   return result;
 }
-export function getPublicSettings() {
+export function usePublicSettings() {
   const settings = settingHooks.getAll();
   const result = React.useMemo(() => settings.filter(({ private: prev = false }) => !prev), [settings]);
   return result;
 }
-export function getSettingConfig<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): SettingConfig[ID] | null {
+export function useSettingConfig<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`): SettingConfig[ID] | null {
   const setting = settingHooks.getOneFeild(settingId, "config");
   const result = React.useMemo(() => {
     return setting ? setting : null;
   }, [setting]) as any;
   return result;
 }
-export function getPublicSettingsFilter() {
+export function usePublicSettingsFilter() {
   // all public settings
-  const settings = getPublicSettings();
+  const settings = usePublicSettings();
   // get value of what search for
   const value = fieldHooks.getOneFeild("findConfigurations", "value");
   // get the choised view
@@ -173,7 +191,7 @@ export function getPublicSettingsFilter() {
       return settings;
     }
   }, [viewSetting, settings]);
-  const findBy = getSettingValue("settings/findBy.enum") as keyof Setting<keyof SettingConfig> | "nice" | undefined;
+  const findBy = useSettingValue("settings/findBy.enum") as keyof Setting<keyof SettingConfig> | "nice" | undefined;
   //
   const separateSearchInput = React.useMemo(() => {
     return Object.entries(getSeparateSearchInput(String(value))).map(([key, value]) => [key, value.join(" ")]);
@@ -221,28 +239,28 @@ export function setSettingConfig<ID extends keyof SettingValueType>(settingId: `
 export function setSettingValue<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`, value: SettingValueType[ID]) {
   settingHooks.setOneFeild(settingId, "value", value);
 }
-export function getSettingValue<ID extends keyof SettingConfig>(settingId: Setting<ID>["settingId"]) {
-  const setting = getSettingById(settingId);
+export function useSettingValue<ID extends keyof SettingConfig>(settingId: Setting<ID>["settingId"]) {
+  const setting = useSettingById(settingId);
   return setting?.value;
 }
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // keys
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-export function getShortcutsOfCommand(commandId: CommandIds | string) {
+export function useShortcutsOfCommand(commandId: CommandIds | string) {
   const allKeys = keyHooks.getAll();
   const keys = React.useMemo(() => {
     return Db.join({ commandId }, allKeys, "commandId->command");
   }, [commandId, allKeys]);
   return keys;
 }
-export function getAllKeys() {
+export function useAllKeys() {
   const allKeys = keyHooks.getAll();
   return React.useMemo(() => {
     return allKeys.filter(({ value }) => value);
   }, [allKeys]);
 }
-export function getShortcutsOfAction(actionName: string) {
-  const allKeys = getAllKeys();
+export function useShortcutsOfAction(actionName: string) {
+  const allKeys = useAllKeys();
   return React.useMemo(() => {
     return Db.join({ actionName }, allKeys, "actionName->action");
   }, [allKeys]);
@@ -256,7 +274,7 @@ export function usePublicCommands() {
 export function usePublicCommandsFilter() {
   const commands = usePublicCommands();
   const v = fieldHooks.getOneFeild("findConfigurations", "value");
-  const allKeys = getAllKeys();
+  const allKeys = useAllKeys();
   const commandsAndKeys = React.useMemo(() => {
     const data = Db.fullJoin(commands, allKeys, "commandId->command").map(({ childs, data }) => {
       return {
@@ -302,7 +320,7 @@ export function usePublicCommandsFilter() {
 }
 //
 // -------------------
-export function getManyFeilds<S extends string | number, T extends FeildRecord<S>>(fields: T, deps: any = []): Record<keyof T, string | undefined> {
+export function useManyFeilds<S extends string | number, T extends FeildRecord<S>>(fields: T, deps: any = []): Record<keyof T, string | undefined> {
   const e = Object.entries<FeildIds>(fields);
   const allFeilds = e.map(([, fieldId]) => fieldHooks.getOneFeild(fieldId, "value"));
   return React.useMemo(() => {
@@ -339,7 +357,7 @@ export function initNewFeild(fieldId: string) {
     ]);
   }, [field]);
 }
-export function getPrevious(value: string | undefined, selection: TextAreaProps["selection"]) {
+export function usePrevious(value: string | undefined, selection: TextAreaProps["selection"]) {
   const previousString = React.useMemo(() => {
     if (!selection) {
       return value || "";
@@ -350,7 +368,7 @@ export function getPrevious(value: string | undefined, selection: TextAreaProps[
   return previousString;
 }
 //
-export function getNext(value: string | undefined, selection: TextAreaProps["selection"]) {
+export function useNext(value: string | undefined, selection: TextAreaProps["selection"]) {
   const nextString = React.useMemo(() => {
     if (!selection) {
       return value || "";
@@ -361,7 +379,7 @@ export function getNext(value: string | undefined, selection: TextAreaProps["sel
   return nextString;
 }
 //
-export function getSelected(value: string | undefined, selection: TextAreaProps["selection"]) {
+export function useSelected(value: string | undefined, selection: TextAreaProps["selection"]) {
   const selectedString = React.useMemo(() => {
     if (!selection) {
       return value || "";
@@ -376,20 +394,20 @@ export function initNewFeilds(inputNames: string[]) {
   inputNames.forEach(initNewFeild);
 }
 //
-export function getFeildPrevious(fieldId: string) {
+export function useFeildPrevious(fieldId: string) {
   const value = fieldHooks.getOneFeild(fieldId, "value");
   const cursor = fieldHooks.getOneFeild(fieldId, "selection");
-  return getPrevious(value, cursor);
+  return usePrevious(value, cursor);
 }
-export function getFeildNext(fieldId: string) {
+export function useFeildNext(fieldId: string) {
   const value = fieldHooks.getOneFeild(fieldId, "value");
   const cursor = fieldHooks.getOneFeild(fieldId, "selection");
-  return getNext(value, cursor);
+  return useNext(value, cursor);
 }
-export function getFeildSelected(fieldId: string) {
+export function useFeildSelected(fieldId: string) {
   const value = fieldHooks.getOneFeild(fieldId, "value");
   const cursor = fieldHooks.getOneFeild(fieldId, "selection");
-  return getSelected(value, cursor);
+  return useSelected(value, cursor);
 }
 export function checkFormByFeilds(fields: string[], state: FullStateManagment = store.getState()) {
   const controls = fields.map((fieldName) => {
@@ -423,7 +441,7 @@ export function showToast(message: ToastType["message"], type: ToastType["type"]
 }
 export enum ToastTime {
   short = 5,
-  long = 5,
+  long = 10,
 }
 export const scanQr = async () => {
   const id = nanoid();
@@ -478,7 +496,7 @@ export function openCamera<T extends keyof FullCameraResult>(type: T) {
 // This Values Represent No Value
 export function useColorMerge<T extends Partial<Record<CssColorKeys, ColorIds | ReturnColorHandelFunction>>>() {
   const allColors = colorHooks.getEntity();
-  const isDark = getSettingValue("window/dark.boolean");
+  const isDark = useSettingValue("window/dark.boolean");
   return React.useCallback(
     (...args: (Nothing | ColorIds | T)[]) => {
       const firstResult: any = {};
@@ -585,18 +603,11 @@ export const onState = <T extends object | string | number | boolean | null>(sta
   return store.subscribe(callback);
 };
 export { store };
-
-export type UserDB = Partial<{
-  name: string | null;
-  email: string | null;
-  phone: string | null;
-  photo: string | null;
-}>;
 export const getUserFromDB = () => getTemp<UserDB>("userInfo");
 export const initUser = () => {
   const user = getUser();
   useAsyncEffect(async () => {
-    if (user?.uid && Server.server?.db) {
+    if (user?.uid && Server.server) {
       const col = collection(Server.server.db, "users");
       const userDoc = doc(col, user.uid);
       const userInfo: Partial<UserDB> = {
@@ -605,15 +616,14 @@ export const initUser = () => {
         name: user.displayName,
         email: user.email,
       };
-      setTemp("userInfo", userInfo);
+      const userControlledInfo = { ...userInfo, uid: user.uid };
+      setTemp("userInfo", userControlledInfo);
       await setDoc(userDoc, userInfo, { merge: true });
     } else {
       setTemp("userInfo", null);
     }
   }, [user]);
-
   const userDb = getUserFromDB();
-
   useAsyncEffect(async () => {
     if (user && userDb) {
       let updatedData: Partial<{ displayName: string | null; photoURL: string | null }> = {};
@@ -626,7 +636,6 @@ export const initUser = () => {
       await updateProfile(user, updatedData);
     }
   }, [userDb, user]);
-
   React.useEffect(() => {
     const server = Server.server;
     if (user && server) {
@@ -667,19 +676,15 @@ export const verifieCapatcha = async () => {
   const capatcha = new RecaptchaVerifier(Server.server.auth, element);
   return capatcha;
 };
-
 export const showProfile = () => {
   viewTemps.setTemp("profile-view", true);
 };
-
 export const closeProfile = () => {
   viewTemps.setTemp("profile-view", false);
 };
-
 export const showPdf = (content: null | string) => {
   viewTemps.setTemp("pdf", content);
 };
-
 export const showNotification = ({ ...notification }: Partial<NotificationType>) => {
   settingHooks.setOneFeild(`visibility/notifays.boolean`, "value", true);
   notifayHooks.add([
@@ -695,29 +700,17 @@ export const showNotification = ({ ...notification }: Partial<NotificationType>)
     },
   ]);
 };
-
-const waterFetchAccountUrl = "https://water-fetch-account.web.app";
-export interface AuthicateProps {
-  name: string;
-  logo: string;
-}
-export const authicate = async ({ name, logo }: AuthicateProps) => {
-  return new Promise((res, rej) => {
-    const url = new URL(waterFetchAccountUrl);
-    url.searchParams.append("appName", name);
-    url.searchParams.append("imageSrc", logo);
-    const win = window.open();
-    const timer = setInterval(() => {
-      if (win && location.hostname == win.location.hostname) {
-        const urlSearchParams = new URLSearchParams(win.location.search);
-        const token = urlSearchParams.get("token");
-        const status = urlSearchParams.get("status");
-        if (status == "error") {
-          rej(null);
-        } else if (token && status == "success") {
-          res(token);
-        }
-      }
-    }, 1000);
-  });
+export const useChangedSetting = () => {
+  const settings = settingHooks.getAll();
+  return React.useMemo(() => settings.filter(({ def, value }) => !isLike(def, value)), [settings]);
+};
+export const showFrame = (src: string | URL, id = nanoid()) => {
+  const customId = "iframe-" + id;
+  iframeTemp.setTemp("id", customId);
+  iframeTemp.setTemp("src", src.toString());
+  return customId;
+};
+export const closeFrame = () => {
+  iframeTemp.setTemp("id", null);
+  iframeTemp.setTemp("src", null);
 };

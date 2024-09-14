@@ -4,7 +4,7 @@ import { FeildGeneralProps } from "@/types/global";
 import { JoinComponentBy } from "./JoinComponentBy";
 import { EmptyComponent } from "./EmptyComponent";
 import { setFocused, tw } from "@/utils";
-import { handelShadowColor, useColorMerge, useCopyState } from "@/hooks";
+import { handelShadowColor, useColorMerge, useCopyState, useSettingValue } from "@/hooks";
 export type PinFeildProps = FeildGeneralProps<number | undefined, SettingConfig["pin"]>;
 export function PinFeild({ id, config, state }: PinFeildProps) {
   const colorMerge = useColorMerge();
@@ -20,6 +20,7 @@ export function PinFeild({ id, config, state }: PinFeildProps) {
     return undefined;
   }, [state.get]);
   const focused = useCopyState(false);
+  const isAnimited = useSettingValue("preferences/animation.boolean");
   return (
     <div
       tabIndex={1}
@@ -77,28 +78,28 @@ export function PinFeild({ id, config, state }: PinFeildProps) {
         value={state.get}
         className="w-[0px] h-[0px]"
       />
-      <div
-        style={{
-          ...colorMerge({
-            boxShadow: handelShadowColor([
-              {
-                colorId: "shadow.color",
-                blur: 4,
-                size: 0,
-                x: 0,
-                y: 5,
-              },
-            ]),
-          }),
-        }}
-        className="flex items-center gap-2 rounded-lg w-fit"
-      >
+      <div className="flex items-center gap-2 rounded-lg w-fit">
         <JoinComponentBy
           list={matchers.map((num, i) => {
             const s = num.split("");
             const l = s.length;
             return (
-              <div className="flex">
+              <div
+                style={{
+                  ...colorMerge({
+                    boxShadow: handelShadowColor([
+                      {
+                        colorId: "shadow.color",
+                        blur: 4,
+                        size: 0,
+                        x: 0,
+                        y: 5,
+                      },
+                    ]),
+                  }),
+                }}
+                className={tw("flex gap-0", isAnimited && "transition-[gap,border-radius]", focused.get && "gap-1")}
+              >
                 <JoinComponentBy
                   key={i}
                   list={s.map((_, j) => {
@@ -116,6 +117,7 @@ export function PinFeild({ id, config, state }: PinFeildProps) {
                           flex items-center justify-center
                         `,
                           j == 0 && `rounded-ss-lg rounded-es-lg border-l`,
+                          focused.get && "border-x rounded-lg",
                           j + 1 == l && `rounded-se-lg rounded-ee-lg`,
                         )}
                         style={{
@@ -124,7 +126,7 @@ export function PinFeild({ id, config, state }: PinFeildProps) {
                               borderColor: "borders",
                             },
                             focused.get && {
-                              color: "primary",
+                              borderColor: "primary",
                             },
                           ),
                         }}

@@ -2,13 +2,13 @@ import { ResizeView } from "@/components/ResizeView";
 import { useColorMerge } from "@/hooks";
 import { isSorted } from "@/utils/index";
 import { tw } from "@/utils";
-import { getSettingValue, settingHooks } from "@/hooks";
+import { useSettingValue, settingHooks } from "@/hooks";
 const rightSideVisibility = "visibility/rightSide.boolean";
 export interface RightSideProps {
   children?: React.ReactNode;
 }
 export const RightSide = ({ children }: RightSideProps) => {
-  const visibility = getSettingValue(rightSideVisibility);
+  const visibility = useSettingValue(rightSideVisibility);
   const colorMerge = useColorMerge();
   return (
     <ResizeView

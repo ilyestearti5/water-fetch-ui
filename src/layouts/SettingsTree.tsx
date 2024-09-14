@@ -3,7 +3,7 @@ import { Tip } from "@/components/Tip";
 import { faChevronDown, faChevronRight, faGear } from "@fortawesome/free-solid-svg-icons";
 import { Scroll } from "@/components/Scroll";
 import { useColorMerge } from "@/hooks";
-import { getPublicSettingsFilter, showSetting, useCopyState } from "@/hooks";
+import { usePublicSettingsFilter, showSetting, useCopyState } from "@/hooks";
 import { Tree } from "@/components/Tree";
 export interface TreeReturn {
   data: string;
@@ -26,7 +26,7 @@ export function getTree(inputs: string[] = [], sep = "."): TreeReturn[] {
   });
 }
 export function SettingsTree() {
-  const settings = getPublicSettingsFilter();
+  const settings = usePublicSettingsFilter();
   const settingsIds = React.useMemo(() => {
     return settings.map(({ settingId }) => settingId);
   }, [settings]);

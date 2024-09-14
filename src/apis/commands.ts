@@ -754,5 +754,45 @@ export default {
       ],
       label: "window : toggle between (light/dark) mode",
     },
+    "enum/next": {
+      commands: [
+        {
+          type: "slot/next",
+          payload: "enum-list",
+        },
+      ],
+      label: "enum : go to next",
+    },
+    "enum/back": {
+      commands: [
+        {
+          type: "slot/back",
+          payload: "enum-list",
+        },
+      ],
+      label: "enum : go to back",
+    },
+    "enum/submit": {
+      commands: [
+        {
+          type: "slot/submit",
+          payload: "enum-list",
+        },
+      ],
+      label: "enum : select",
+    },
+    "enum/escape": {
+      commands: [
+        {
+          payload: {
+            direction: "enum.id",
+            force: true,
+            value: null,
+          },
+          type: "object/setValue",
+        },
+      ],
+      label: "enum : escape",
+    },
   },
 };

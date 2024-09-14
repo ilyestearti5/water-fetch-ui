@@ -18,8 +18,8 @@ export function FindSettingFeild() {
   const colorMerge = useColorMerge();
   const lengthOfConfigsFound = getTemp<number>("configurations.found.length");
   const s = React.useMemo(() => transformCase(focused || "no settings focused", "camel", "normal"), [focused]);
-  const placeholder = getText(`search ${s} in list`);
-  const focusedConfig = getText(s);
+  const [placeholder] = getText(`search ${s} in list`);
+  const [focusedConfig] = getText(s);
   const hover = useCopyState(false);
   const findConfigurationsLocal = fieldHooks.getOneFeild("findConfigurations-local", "value");
   useEffectDelay(

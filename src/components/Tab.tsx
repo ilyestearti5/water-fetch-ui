@@ -1,5 +1,5 @@
 import React from "react";
-import { useCopyState, useColorMerge, handelShadowColor } from "@/hooks";
+import { useCopyState, useColorMerge, handelShadowColor, useSettingValue } from "@/hooks";
 import { ClickProps } from "@/types/global";
 import { tw } from "@/utils";
 import { Icon } from "./Icon";
@@ -14,6 +14,7 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
     };
   }, []);
   const colorMerge = useColorMerge();
+  const isAnimation = useSettingValue("preferences/animation.boolean");
   return (
     <span
       onMouseEnter={() => {
@@ -24,6 +25,7 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
       }}
       style={{
         ...colorMerge(
+          "secondry.background",
           isActive && "primary",
           isActive && {
             color: "primary.content",
@@ -31,10 +33,21 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
           {
             borderColor: "borders",
           },
+          {
+            boxShadow: handelShadowColor([
+              {
+                colorId: "shadow.color",
+                blur: 20,
+                size: 3,
+                x: 0,
+                y: 4,
+              },
+            ]),
+          },
         ),
         ...style,
       }}
-      className={tw(`styled-tab flex items-center justify-center p-2 rounded-[15%] cursor-pointer border border-solid`, className)}
+      className={tw(`flex items-center justify-center p-2 rounded-[15%] cursor-pointer border border-solid active:scale-95`, isAnimation && "transition-[background,color,transform]", className)}
       {...props}
     >
       <Icon iconClassName={iconClassName} icon={icon} />

@@ -10,14 +10,14 @@ import { useAction } from "@/data/system/actions.model";
 import { slotHooks } from "@/data/system/slot.slice";
 import React from "react";
 import { Text } from "@/components/Text";
-import { getSettingValue, handelShadowColor, settingHooks, useColorMerge } from "@/hooks";
+import { useSettingValue, handelShadowColor, openDialog, setSettingValue, settingHooks, useColorMerge } from "@/hooks";
 const notificationVisibility = "visibility/notifays.boolean";
 const notsVisibility = "visibility/notifays/nots.boolean";
 //
 export function Notifications() {
-  const visibility = getSettingValue(notificationVisibility);
+  const visibility = useSettingValue(notificationVisibility);
   // visibility for if show notifications or not
-  const notes = getSettingValue(notsVisibility);
+  const notes = useSettingValue(notsVisibility);
   const notifaysIds = notifayHooks.getIds();
   const colorMerge = useColorMerge();
   const focusedIndex = slotHooks.getOneFeild("notification", "focused");
@@ -42,7 +42,10 @@ export function Notifications() {
     },
     [focusedNotifay],
   );
-  const isAnimation = getSettingValue("preferences/animation.boolean");
+  const isAnimation = useSettingValue("preferences/animation.boolean");
+
+  const confirmationBefore = useSettingValue("notification/clearAllConfirmation.boolean");
+
   return (
     <div
       onClick={() => {
@@ -92,26 +95,46 @@ export function Notifications() {
         }}
       >
         <h3 className="font-bold text-lg uppercase notifay-full-title">
-          <Text content="notifications" />
           <span
             style={{
-              ...colorMerge({
-                color: "gray.opacity.2",
-              }),
+              ...colorMerge(
+                {
+                  color: "gray.opacity.2",
+                },
+                notifaysIds.length && {
+                  color: "primary",
+                },
+              ),
             }}
+            className="mr-2"
           >
             {!notes && `(${notifaysIds.length})`}
           </span>
+          <Text content="notifications" />
         </h3>
-        <div className="flex">
-          <Tip
-            onClick={() => {
-              notifayHooks.remove(notifays.filter(({ removable = true }) => removable).map(({ id }) => id));
-            }}
-            className={tw(!notifaysIds.length && "pointer-events-none")}
-            icon={faXmarksLines}
-          />
-          {!!notifaysIds.length && <Tip icon={notes ? faChevronDown : faChevronUp} />}
+        <div className="flex gap-3 text-xl">
+          {!!notifaysIds.length && (
+            <Tip
+              onClick={async () => {
+                let response = 1;
+                if (confirmationBefore) {
+                  const props = await openDialog({
+                    message: "Do You Want To Clear All Notifications",
+                    checkboxLabel: "Don't Ask Me Again",
+                    buttons: ["No", "Yes"],
+                  });
+                  if (props.checkboxChecked) {
+                    setSettingValue("notification/clearAllConfirmation.boolean", false);
+                  }
+                  response = props.response;
+                }
+                if (response) {
+                  notifayHooks.remove(notifays.filter(({ removable = true }) => removable).map(({ id }) => id));
+                }
+              }}
+              icon={faXmarksLines}
+            />
+          )}
           <Tip
             onClick={() => {
               settingHooks.setOneFeild(notificationVisibility, "value", false);
@@ -123,6 +146,7 @@ export function Notifications() {
       {Boolean(notifaysIds.length) && notes && <Line />}
       <Focus
         focusId="notifications"
+        ignoreOutline={!!focusedNotifay}
         className={tw(`flex flex-col overflow-hidden max-h-[80vh] rounded-ee-xl rounded-es-xl`, isAnimation && "duration-300 transition-[max-height]", !notes && "max-h-[0vh]")}
       >
         <Scroll>

@@ -219,5 +219,10 @@ export default {
       desc: "The Visibility Of Keyboard Screen",
       def: false,
     },
+    "notification/clearAllConfirmation.boolean": {
+      name: "clear all notifications",
+      desc: "ask before clearing all notifications",
+      def: true,
+    },
   },
 };

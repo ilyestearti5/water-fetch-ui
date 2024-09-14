@@ -1,6 +1,5 @@
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { settingHooks } from "@/reducers/Settings/settings.model";
-import React from "react";
 import { tw } from "@/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useColorMerge } from "@/hooks";
@@ -9,8 +8,8 @@ import { TitleView } from "@/components/TitleView";
 export const DarkLightIcon = () => {
   const isDark = settingHooks.useOneFeild("window/dark.boolean", "value");
   const colorMerge = useColorMerge();
-  const toLight = getText("toggle to light");
-  const toDark = getText("toggle to dark");
+  const [toLight] = getText("toggle to light");
+  const [toDark] = getText("toggle to dark");
   return (
     <TitleView
       title={(isDark.get ? toLight : toDark) ?? undefined}

@@ -3,12 +3,11 @@ import { include, tw } from "@/utils";
 import { TitleView } from "@/components/TitleView";
 import { setTemp } from "@/reducers/Object/object.slice";
 import { transformCase } from "@/utils/index";
-import { getColor, getSettingValue, useColorMerge } from "@/hooks";
+import { getColor, useSettingValue, useColorMerge } from "@/hooks";
 import { fieldHooks } from "@/data/system/field.model";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { colorHooks } from "@/data/system/colors.model";
-
 import { FastList } from "./FastList";
 import { useCopyState } from "@/hooks";
 import { Tip } from "@/components/Tip";
@@ -34,7 +33,7 @@ export function ColorsList() {
         const hover = useCopyState(false);
         const copyed = useCopyState(false);
         const colorMerge = useColorMerge();
-        const isDark = getSettingValue("window/dark.boolean");
+        const isDark = useSettingValue("window/dark.boolean");
         const backgroundColor = React.useMemo(() => {
           return getColor(!!isDark, data);
         }, [isDark, data]);

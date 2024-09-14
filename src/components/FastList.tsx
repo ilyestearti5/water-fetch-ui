@@ -1,13 +1,9 @@
 import React from "react";
-import { escape, initNewList, slotHooks } from "@/data/system/slot.slice";
 import { Focus } from "@/components/Focus";
-import { isSorted, renameValues } from "@/utils/index";
-import { mergeObject, tw } from "@/utils";
+import { mergeObject, tw, isSorted } from "@/utils";
 import { ReactElement } from "@/types/global";
-import { getSettingValue } from "@/hooks";
+import { useSettingValue, useCopyState, handelShadowColor, useColorMerge, escape, initNewList, slotHooks } from "@/hooks";
 import { ChangableComponent } from "./PositionView";
-import { handelShadowColor, useColorMerge } from "@/hooks";
-import { useCopyState } from "@/hooks";
 export interface FastListItemProps<T> extends ReactElement {
   status: {
     [key in `is${"Selected" | "Focused" | "Skiped" | "Submited"}`]: boolean;
@@ -108,7 +104,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
     scroll.set(s);
   }, [focused, data, countLastItems, scroll.get, height.get, scrollingUsingBar.get]);
   // key for where press this key the scroll gona scrolling speedly and is one of alt , control , shift
-  const speedKey = getSettingValue("preferences/fastScrollKey.enum");
+  const speedKey = useSettingValue("preferences/fastScrollKey.enum");
   // make component not every time changed
   const maxHeight = React.useMemo(() => {
     return itemSize * data.length;
@@ -127,7 +123,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
     return (scroll.get * 100) / maxHeightWithLastItems;
   }, [maxHeightWithLastItems, scroll.get]);
   // render element list
-  const isScrollAnimation = getSettingValue("preferences/scrollAnimation.boolean.boolean");
+  const isScrollAnimation = useSettingValue("preferences/scrollAnimation.boolean.boolean");
   const scrollBarHoverd = useCopyState(false);
   const changableComponentViewConfig = useCopyState<null | DOMRect>(null);
   const Item = React.useMemo(() => component, []);
@@ -150,14 +146,26 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
   const scrollVisibility = React.useMemo(() => {
     return heightPercantage <= 100;
   }, [heightPercantage]);
+  const elementRef = React.createRef<HTMLDivElement>();
+  const handleMouseMove = (e: MouseEvent) => {};
+  const handleMouseUp = () => {
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+  };
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleMouseMove(e.nativeEvent); // Update immediately
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+  };
   return (
-    <Focus focusId={focusId} className="w-full h-full" ignoreOutline={typeof focused == "number"} id={slotId}>
+    <Focus focusId={focusId} className="relative w-full h-full" ignoreOutline={typeof focused == "number"} id={slotId}>
       <ChangableComponent
         onContentChange={(props) => {
           height.set(props.height);
           changableComponentViewConfig.set(props);
         }}
         className="relative h-full overflow-hidden"
+        onPointerDown={handleMouseDown}
         onWheel={(e) => {
           if (heightPercantage < 100) {
             let speed = false;
@@ -180,6 +188,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
         }}
       >
         <div
+          ref={elementRef}
           className={tw(`absolute inset-x-0`, isScrollAnimation && "transition-[top,left]")}
           style={{
             top: -scroll.get,
@@ -303,114 +312,5 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
         />
       </ChangableComponent>
     </Focus>
-  );
-}
-export interface ComponentVarFastListProps<T, D extends Record<string, any>> {
-  style: React.CSSProperties;
-  data: T;
-  index: number;
-  scrollToMe(margin?: number | "top" | "bottom"): void;
-  scrollByIndex(index: number): void;
-  scroll: number;
-  deps: D;
-}
-export interface VarFastListProps<T, D extends Record<string, any>> {
-  data?: T[];
-  deps: D;
-  itemSize: (row: T, index: number) => number;
-  Render: (props: ComponentVarFastListProps<T, D>) => JSX.Element;
-}
-export function VarFastList<T, D extends Record<string, any>>({ data, deps, itemSize, Render }: VarFastListProps<T, D>) {
-  const [scroll, setScroll] = React.useState(0);
-  const maxHeight = React.useMemo(() => {
-    if (!data) {
-      return 0;
-    }
-    return data.reduce((prv, curr, index) => prv + itemSize(curr, index) || 0, 0);
-  }, [data, itemSize]);
-  const [dom, setDom] = React.useState<Omit<DOMRect, "toJSON"> | null>(null);
-  const itemsPositions = React.useMemo(() => {
-    const newArray = data || [];
-    let top = 0;
-    const result: { top: number; bottom: number; height: number }[] = [];
-    for (let index = 0; index < newArray.length; index++) {
-      const ele = newArray[index];
-      const height = itemSize(ele, index);
-      const bottom = top + height;
-      result.push({
-        height,
-        top,
-        bottom,
-      });
-      top = bottom;
-    }
-    return result;
-  }, [data, itemSize]);
-  const height = React.useMemo(() => dom?.height || 0, [dom]);
-  return (
-    <ChangableComponent
-      onContentChange={({ x, y, left, right, bottom, height, top, width }) => {
-        setDom({ x, y, left, right, bottom, height, top, width });
-      }}
-      className={tw(`
-        h-full
-        w-full
-        relative
-      `)}
-      onWheel={(e) => {
-        setScroll((s) => {
-          s += e.deltaY * 0.6;
-          if (s < 0) {
-            return 0;
-          }
-          return Math.min(s, maxHeight - height);
-        });
-      }}
-    >
-      <div
-        className={tw(`
-          absolute
-          inset-x-0
-        `)}
-        style={{
-          height: `${maxHeight}px`,
-          top: `${-1 * scroll}px`,
-        }}
-      >
-        {data?.map((item, index) => {
-          const position = itemsPositions[index] || { top: 0, bottom: 0 };
-          //
-          if (isSorted(scroll, position.bottom) && isSorted(position.top, scroll + height)) {
-            return (
-              <Render
-                deps={deps}
-                scroll={scroll}
-                scrollToMe={(s = 0) => {
-                  if (typeof s == "string") {
-                    if (s == "top") {
-                      setScroll(position.top);
-                    } else {
-                      setScroll(2 * position.top - height - position.bottom);
-                    }
-                  }
-                }}
-                scrollByIndex={(index) => {
-                  const pos = itemsPositions[index];
-                  pos && setScroll(pos.top);
-                }}
-                index={index}
-                data={item}
-                key={index}
-                style={{
-                  position: "absolute",
-                  insetInline: 0,
-                  ...renameValues(position, (val) => `${val}px`),
-                }}
-              />
-            );
-          }
-        })}
-      </div>
-    </ChangableComponent>
   );
 }

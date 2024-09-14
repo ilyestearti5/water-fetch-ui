@@ -14,3 +14,5 @@ export const ipinfoTemp = new Temp("ipinfo");
 export const submitedTemp = new Temp("submited");
 export const cameraTemp = new Temp("camera");
 export const recaptchaTemp = new Temp("recaptcha");
+export const iframeTemp = new Temp("iframe");
+export const enumTemp = new Temp("enum");

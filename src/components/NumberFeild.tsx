@@ -5,8 +5,7 @@ import { setFocused, tw } from "@/utils";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { Text } from "./Text";
-import { useColorMerge } from "@/hooks";
-import { useCopyState } from "@/hooks";
+import { useColorMerge, useCopyState } from "@/hooks";
 import { Input } from "./Input";
 export type NumberFeildProps = FeildGeneralProps<number | undefined | null, SettingConfig["number"]>;
 export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
@@ -43,7 +42,6 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
         } else {
           state.set(null);
         }
-        setFocused(id);
       }
     },
     [value.get, id],

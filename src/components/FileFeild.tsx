@@ -1,4 +1,4 @@
-import { getSettingValue, useColorMerge, useCopyState } from "@/hooks";
+import { useSettingValue, useColorMerge, useCopyState } from "@/hooks";
 import { faFileUpload, faXmark, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
@@ -11,7 +11,7 @@ export type FileFeildProps = FeildGeneralProps<SettingValueType["file"], Setting
 export function FileFeild({ state, config = {}, id }: FileFeildProps) {
   const colorMerge = useColorMerge();
   const hover = useCopyState(false);
-  const isAnimation = getSettingValue("preferences/animation.boolean");
+  const isAnimation = useSettingValue("preferences/animation.boolean");
   return (
     <div
       className={tw("relative border border-solid border-transparent flex items-center gap-1 w-full px-3 py-1 rounded-md", isAnimation && "transition-[background-color] duration-200")}

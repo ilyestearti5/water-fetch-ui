@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { QueryStatus } from "react-query";
 import { useCopyState } from "@/hooks";
-export type TempState = Record<typeof objectName, typeof initialState>;
+export type TempState = Record<typeof objectName, typeof objectInitialState>;
 export const objectName = "object";
 export interface ObjectTemp {
   data: any;
@@ -17,7 +17,7 @@ export interface ObjectTemp {
     ignoreAccess: { dir: string; pass: string }[];
   };
 }
-export const initialState: ObjectTemp = {
+export const objectInitialState: ObjectTemp = {
   data: {} as any,
   settings: {
     saved: true,
@@ -28,7 +28,7 @@ export const initialState: ObjectTemp = {
   },
 };
 export const objectSlice = createSlice({
-  initialState,
+  initialState: objectInitialState,
   name: objectName,
   reducers: {
     setValue(state, { payload }: PayloadAction<{ value: any; direction: string; force: boolean; pass?: string }>) {

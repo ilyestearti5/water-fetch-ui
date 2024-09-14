@@ -4,7 +4,7 @@ import { tw } from "@/utils";
 import { useCopyState, useMemoDelay } from "@/hooks";
 import { ReactElement } from "@/types/global";
 import { getTempFromStore, setTemp } from "@/reducers/Object/object.slice";
-import { getSettingValue } from "@/hooks";
+import { useSettingValue } from "@/hooks";
 export interface ResizeViewProps extends ReactElement {
   position?: "top" | "left" | "right" | "bottom"; // position of resize bar
   max?: number | ((change: number) => number); // max change or height of element resized (accept function)
@@ -37,7 +37,7 @@ export function ResizeView({ temp, animited, style, children, max = 0, min = 600
   let size = 0;
   // check of a resizing is in max position or min or between (null)
   const on = useCopyState<null | "min" | "max">(null);
-  const isAnimited = typeof animited == "boolean" ? animited : getSettingValue("preferences/animation.boolean");
+  const isAnimited = typeof animited == "boolean" ? animited : useSettingValue("preferences/animation.boolean");
   // start resizing
   const start = useCopyState<null | DOMRect>(null);
   // handel event

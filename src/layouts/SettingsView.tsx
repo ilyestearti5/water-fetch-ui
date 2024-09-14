@@ -4,13 +4,13 @@ import { SettingsSide } from "./SettingsSide";
 import { Settings } from "./Settings";
 import { HeaderSettings } from "./HeaderSettings";
 import { Line } from "@/components/Line";
-import { settingHooks, getSettingValue } from "@/hooks";
+import { settingHooks, useSettingValue } from "@/hooks";
 import { useColorMerge } from "@/hooks";
 import { DownOverlay } from "@/components/Overlays";
 import { visibilityTemp } from "@/reducers/Object/allTemps";
 const settingVisibility = "visibility/configurations.boolean";
 export function SettingsView() {
-  const visibility = getSettingValue(settingVisibility);
+  const visibility = useSettingValue(settingVisibility);
   const colorMerge = useColorMerge();
   React.useEffect(() => {
     if (visibility) {

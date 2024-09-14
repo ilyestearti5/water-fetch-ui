@@ -6,6 +6,7 @@ import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { getFocus } from "@/utils";
 import { useColorMerge } from "@/hooks";
 import { Input } from "./Input";
+import React from "react";
 export type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
 // String Feild Rendering
 export function StringFeild({ state, config = {}, id }: StringFeildProps) {
@@ -54,6 +55,9 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
    ******************************************************************************************************************************************************
    */
   const colorMerge = useColorMerge();
+  const currentValue = React.useMemo(() => {
+    return value.get || "";
+  }, [value.get]);
   return (
     <div className="flex justify-between items-center gap-3">
       <Input
@@ -62,7 +66,7 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
         type={config.locked ? "password" : "text"}
         id={id}
         className="text-xs"
-        value={value.get}
+        value={currentValue}
         placeholder={config.hint || `provide value for ${id}`}
         onValueChange={value.set}
       />

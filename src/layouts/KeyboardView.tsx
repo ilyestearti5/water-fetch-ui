@@ -1,7 +1,7 @@
 import { Tip } from "@/components/Tip";
 import { Line } from "@/components/Line";
 import { TitleView } from "@/components/TitleView";
-import { getSettingValue, handelShadowColor, useColorMerge } from "@/hooks";
+import { useSettingValue, handelShadowColor, useColorMerge } from "@/hooks";
 import { mergeObject, tw } from "@/utils";
 import { getModifier } from "@/reducers/Global/keyboard.slice";
 import { settingHooks } from "@/reducers/Settings/settings.model";
@@ -17,7 +17,7 @@ export const KeyboardButton = ({ isActive, className, ...props }: KeyboardButton
   const colorMerge = useColorMerge();
   return (
     <span
-      className={tw(`w-[35px] h-[35px] gap-2 rounded-md inline-flex items-center justify-center border border-solid border-transparent`, className)}
+      className={tw(`min-w-[100px] h-[35px] gap-2 rounded-md inline-flex items-center justify-center border border-solid border-transparent`)}
       style={{
         ...colorMerge(
           "secondry.background",
@@ -122,7 +122,7 @@ export const KeyboardView = () => {
   initNewFeilds(["keyboard-view"]);
   const value = fieldHooks.useOneFeild("keyboard-view", "value");
   const position = useCopyState<position>([0, innerHeight - 300]);
-  const keyboardViewVisibility = getSettingValue("visibility/keyboard.boolean");
+  const keyboardViewVisibility = useSettingValue("visibility/keyboard.boolean");
   return (
     <div
       hidden={!keyboardViewVisibility}
@@ -201,7 +201,7 @@ export const KeyboardView = () => {
       <Line />
       <div className="flex justify-center items-stretch h-full overflow-hidden">
         <div className="w-fit">
-          <div className="flex flex-col flex-1 justify-center items-center gap-1 p-2 w-[20px] h-full overflow-hidden">
+          <div className="flex flex-col flex-1 justify-center items-center gap-1 p-2 h-full overflow-hidden">
             {[
               {
                 name: "shift",
@@ -220,7 +220,6 @@ export const KeyboardView = () => {
                 <KeyboardButton
                   key={i}
                   isActive={state.get}
-                  className="w-full max-lg:w-full"
                   onPointerDown={() => {
                     state.set((s) => !s);
                   }}

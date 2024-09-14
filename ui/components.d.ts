@@ -21,6 +21,13 @@ export declare interface AsyncComponentProps {
     deps?: any[];
 }
 
+export declare const BallLoading: ({ balls, ballClassName }: BallLoadingProps) => JSX_2.Element;
+
+declare interface BallLoadingProps extends ReactElement {
+    balls?: number;
+    ballClassName?: string;
+}
+
 export declare function BlurOverlay({ className, animted, style, hidden, onLoadContent, children, onTransitionEnd, ...props }: OverlaysProps): JSX_2.Element;
 
 export declare function BooleanFeild({ state, config, id }: BooleanFeildProps): JSX_2.Element;
@@ -80,16 +87,6 @@ export declare interface CommandLine {
     sub?: string;
 }
 
-export declare interface ComponentVarFastListProps<T, D extends Record<string, any>> {
-    style: default_2.CSSProperties;
-    data: T;
-    index: number;
-    scrollToMe(margin?: number | "top" | "bottom"): void;
-    scrollByIndex(index: number): void;
-    scroll: number;
-    deps: D;
-}
-
 export declare const ContentOfImageView: () => JSX_2.Element;
 
 export declare const DarkLightIcon: () => JSX_2.Element;
@@ -119,7 +116,7 @@ export declare type DateFeildProps = FeildGeneralProps<SettingValueType["date"] 
 
 export declare const dateToStringForInput: (date: Date, to?: SettingConfig["date"]["format"]) => string;
 
-export declare const DialogBox: () => JSX_2.Element;
+export declare const DialogBoxLayout: () => JSX_2.Element;
 
 export declare function DownOverlay({ hidden, animted, className, style, children, onLoadContent, onTransitionEnd, ...props }: OverlaysProps): JSX_2.Element;
 
@@ -132,15 +129,6 @@ export declare interface EmptyComponentProps {
 export declare function EnumFeild({ config, id, state }: EnumFeildProps): JSX_2.Element;
 
 export declare type EnumFeildProps = FeildGeneralProps<string | undefined, SettingConfig["enum"]>;
-
-export declare const EnumList: default_2.MemoExoticComponent<({ list }: EnumListProps) => JSX_2.Element>;
-
-export declare interface EnumListProps {
-    list: {
-        isChoised: boolean;
-        item?: Required<SettingConfig["enum"]>["list"][number];
-    }[];
-}
 
 export declare function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, data, countLastItems, overflow: { top, bottom } }: FastListProps<T>): JSX_2.Element;
 
@@ -231,7 +219,16 @@ export declare interface FocusProps extends ReactElement {
 
 declare type FunctionComponentListItem<T> = (props: ListItemProps<T>) => JSX.Element;
 
-export declare const getText: (content: TextProps["content"]) => string;
+/**
+ * @description this function is used to translate the content to the choised lang
+ * @param content the content that you want to translate
+ * @returns the translated content and the loading state
+ * @example
+ * const [text, isLoading] = getText("hello world");
+ * console.log(text); // "hello world"
+ * console.log(isLoading); // false
+ */
+export declare const getText: (content: TextProps["content"], lang?: string) => [string, boolean];
 
 export declare function Hours(): JSX_2.Element;
 
@@ -260,6 +257,7 @@ export declare function InnerText({ component, text }: InnerTextProps): JSX_2.El
 export declare interface InnerTextProps {
     component: (props: {
         text: string;
+        isLoading: boolean;
     }) => JSX.Element;
     text: string;
 }
@@ -386,6 +384,10 @@ declare type PositionsIds = keyof typeof data;
  */
 export declare const PositionView: ({ positionId, ...props }: PositionProps) => JSX_2.Element;
 
+export declare function RangeFeild({ state, config, id }: RangeFeildProps): JSX_2.Element;
+
+export declare type RangeFeildProps = FeildGeneralProps<number, SettingConfig["range"]>;
+
 declare type ReactElement<T = HTMLDivElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
 
 export declare function RecorderFeild({ id, state }: RecorderFeildProps): JSX_2.Element;
@@ -432,8 +434,8 @@ export declare interface SeparatedViewsLineTitleProps {
 
 declare interface SettingConfig {
     date: Partial<{
-        format?: "date" | "time" | "month" | "datetime-local";
-        goToCurrent?: boolean;
+        format: "date" | "time" | "month" | "datetime-local";
+        goToCurrent: boolean;
     }>;
     pin: Partial<{
         length: number;
@@ -487,8 +489,14 @@ declare interface SettingConfig {
     audio: Partial<{}>;
     image: Partial<{
         filter: string[];
-        alt?: string;
-        rounded?: boolean;
+        alt: string;
+        rounded: boolean;
+    }>;
+    range: Partial<{
+        min: number;
+        max: number;
+        isFloat: boolean;
+        showValue: boolean;
     }>;
 }
 
@@ -507,6 +515,7 @@ declare interface SettingValueType extends Record<keyof SettingConfig, any> {
     audio: string | null;
     pin: number | null;
     image: string | null;
+    range: number;
 }
 
 export declare function SinglePanding({ content }: SinglePandingProps): JSX_2.Element;
@@ -545,7 +554,7 @@ export declare function StringFeild({ state, config, id }: StringFeildProps): JS
 
 export declare type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
 
-export declare const StyledButton: ({ className, ...props }: ClickProps<HTMLButtonElement>) => JSX_2.Element;
+export declare const StyledButton: ({ className, children, ...props }: ClickProps<HTMLButtonElement>) => JSX_2.Element;
 
 export declare interface SVGIconProps {
     color?: string;
@@ -673,15 +682,6 @@ export declare function useTextAnimation({ string, time }: {
     value: string;
     isLoading: boolean;
 };
-
-export declare function VarFastList<T, D extends Record<string, any>>({ data, deps, itemSize, Render }: VarFastListProps<T, D>): JSX_2.Element;
-
-export declare interface VarFastListProps<T, D extends Record<string, any>> {
-    data?: T[];
-    deps: D;
-    itemSize: (row: T, index: number) => number;
-    Render: (props: ComponentVarFastListProps<T, D>) => JSX.Element;
-}
 
 export declare function ViewPage({ views, viewId }: ViewPageProps): JSX_2.Element;
 

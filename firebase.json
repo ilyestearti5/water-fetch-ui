@@ -1,13 +1,10 @@
 {
   "hosting": {
-    "public": "./web",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "site": "water-fetch-ui",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+    "public": "web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
     ]
   }
 }

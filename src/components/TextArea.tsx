@@ -7,7 +7,7 @@ import { setTemp } from "@/reducers/Object/object.slice";
 import { useAction } from "@/data/system/actions.model";
 import { randomItem } from "@/utils/index";
 import { EmptyComponent } from "./EmptyComponent";
-import { getAllKeys, useCopyState } from "@/hooks";
+import { useAllKeys, useCopyState } from "@/hooks";
 export interface TextAreaProps extends React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> {
   propositions?: string[];
   selection?: {
@@ -60,7 +60,7 @@ export function TextArea({
   ...props
 }: TextAreaProps) {
   const elementRef = React.createRef<HTMLTextAreaElement>(),
-    allKeys = getAllKeys(),
+    allKeys = useAllKeys(),
     autoCompleteInput = React.useMemo(() => {
       return Db.join({ commandId: "input.completeWord" }, allKeys, "commandId->command");
     }, [allKeys]),

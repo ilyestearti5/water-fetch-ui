@@ -70,7 +70,7 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
         ...colorMerge("primary"),
         ...mergeObject(fullStyle),
       }}
-      className={tw("btn rounded-md cursor-pointer w-full px-3 py-2 relative lowercase overflow-hidden transition-[transform] active:scale-95", className)}
+      className={tw("btn rounded-md cursor-pointer w-full px-3 py-2 relative capitalize overflow-hidden transition-[transform] active:scale-95", className)}
       {...props}
     >
       <div className="flex justify-center items-center gap-2 btn-content">

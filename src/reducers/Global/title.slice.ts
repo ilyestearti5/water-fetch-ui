@@ -8,14 +8,14 @@ export interface TitleInitState {
   x: "left" | "right" | "center";
   y: "top" | "bottom" | "center";
 }
-export const initialState: TitleInitState = {
+export const titleInitialState: TitleInitState = {
   content: null,
   position: null,
   x: "left",
   y: "bottom",
 };
 export const titleSlice = createSlice({
-  initialState,
+  initialState: titleInitialState,
   name: "title",
   reducers: {
     // actions

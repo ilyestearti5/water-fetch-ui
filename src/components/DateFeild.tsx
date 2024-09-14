@@ -39,7 +39,7 @@ export function DateFeild({ state, config = {}, id }: DateFeildProps) {
         borderColor: "checkbox.true",
       },
   );
-  const noProvidedMessage = getText("no provided");
+  const [noProvidedMessage] = getText("no provided");
   const resetToDefault = React.useCallback(() => {
     const currentDate = new Date();
     state.set(dateToStringForInput(currentDate, config.format));

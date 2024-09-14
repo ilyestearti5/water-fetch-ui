@@ -1,8 +1,9 @@
-import { handelShadowColor, useColorMerge } from "@/hooks";
+import { useSettingValue, handelShadowColor, useColorMerge } from "@/hooks";
 import { ClickProps } from "@/types/global";
 import { tw } from "@/utils";
-export const StyledButton = ({ className, ...props }: ClickProps<HTMLButtonElement>) => {
+export const StyledButton = ({ className, children, ...props }: ClickProps<HTMLButtonElement>) => {
   const colorMerge = useColorMerge();
+  const isAnimated = useSettingValue("preferences/animation.boolean");
   return (
     <button
       {...props}
@@ -11,12 +12,12 @@ export const StyledButton = ({ className, ...props }: ClickProps<HTMLButtonEleme
           color: "primary",
         }),
       }}
-      className={tw("styled-btn", className)}
+      className={tw("styled-btn", isAnimated && "transition-transform", className)}
     >
-      <span className="styled-btn-content">
-        <span className="styled-btn-content-before" />
-        <span className="styled-btn-content-after" />
-        Hello
+      <span className={tw("styled-btn-content", isAnimated && "transition-all duration-[0.5s]")}>
+        <span className={tw("before", isAnimated && "transition-all duration-[0.5s]")} />
+        <span className={tw("after", isAnimated && "transition-all duration-[0.5s]")} />
+        {children}
       </span>
       <span
         style={{
@@ -29,10 +30,10 @@ export const StyledButton = ({ className, ...props }: ClickProps<HTMLButtonEleme
             ),
           }),
         }}
-        className="styled-btn-before"
+        className={tw("styled-btn-before", isAnimated && "transition-all duration-[0.5s]")}
       />
       <span
-        className="styled-btn-after"
+        className={tw("styled-btn-after", isAnimated && "transition-all duration-[0.5s]")}
         style={{
           ...colorMerge("secondry", {
             boxShadow: handelShadowColor(

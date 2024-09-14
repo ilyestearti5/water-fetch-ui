@@ -8,7 +8,7 @@ import { MarkDown } from "@/components/MarkDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckDouble, faInfoCircle, faWarning, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Tip } from "@/components/Tip";
-import { getSettingValue, handelShadowColor, useColorMerge, useCopyState } from "@/hooks";
+import { useSettingValue, handelShadowColor, useColorMerge, useCopyState } from "@/hooks";
 export interface ToastItemProps {
   item: ToastType;
   index: number;
@@ -20,8 +20,8 @@ export const ToastItem = ({ item, index }: ToastItemProps) => {
   const timeState = useCopyState(0);
   const { message } = item;
   const colorMerge = useColorMerge();
-  const toastTime = getSettingValue("preferences/toastTime.number");
-  const isAnimated = getSettingValue("preferences/animation.boolean");
+  const toastTime = useSettingValue("preferences/toastTime.number");
+  const isAnimated = useSettingValue("preferences/animation.boolean");
   const finishTime = React.useMemo(() => {
     return item.time || toastTime || 5;
   }, [toastTime, item.time]);
@@ -113,9 +113,9 @@ export const ToastItem = ({ item, index }: ToastItemProps) => {
 export const Toasts = () => {
   const list = toastHooks.getAll();
   const colorMerge = useColorMerge();
-  const isAnimated = getSettingValue("preferences/animation.boolean");
+  const isAnimated = useSettingValue("preferences/animation.boolean");
   const Component = React.useMemo(() => ToastItem, []);
-  const position = getSettingValue("toast/position.enum");
+  const position = useSettingValue("toast/position.enum");
   return (
     <div
       className={tw(

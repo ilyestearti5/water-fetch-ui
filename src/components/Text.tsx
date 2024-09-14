@@ -1,25 +1,31 @@
 import React from "react";
-import { cashLangs, langHooks } from "@/data/system/lang.model";
-import { getSettingValue } from "@/hooks";
-import { transformCase } from "@/utils/index";
-import { getModel } from "../hooks/api/googleApi";
-import { logHooks } from "@/data/system/logs.model";
-import { store } from "@/store";
+import { useSettingValue } from "@/hooks";
 import { getTemp } from "@/reducers/Object/object.slice";
+import { getModel } from "../hooks/api/googleApi";
 import { EmptyComponent } from "./EmptyComponent";
+import { delay, transformCase } from "@/utils/index";
+import { cashLangs, langHooks } from "@/data/system/lang.model";
 import { useAsyncEffect, useCopyState } from "@/hooks";
 export interface TextProps {
   content: string;
 }
-// Hook
-export const getText = (content: TextProps["content"]) => {
+/**
+ * @description this function is used to translate the content to the choised lang
+ * @param content the content that you want to translate
+ * @returns the translated content and the loading state
+ * @example
+ * const [text, isLoading] = getText("hello world");
+ * console.log(text); // "hello world"
+ * console.log(isLoading); // false
+ */
+export const getText = (content: TextProps["content"], lang?: string): [string, boolean] => {
   const allLangs = langHooks.getEntity();
-  //
   const cashing = useCopyState<boolean>(false);
   const systemBase = getTemp<string>("system.base");
   const genModelText = getModel({ model: "gemini-pro" });
   // get the choised lang from setting
-  const choisedLang = getSettingValue("window/lang.enum");
+  const settingLang = useSettingValue("window/lang.enum");
+  const choisedLang = React.useMemo(() => lang || settingLang, [lang, settingLang]);
   // cashing logic
   React.useEffect(() => {
     if (cashing.get) {
@@ -34,57 +40,28 @@ export const getText = (content: TextProps["content"]) => {
   // try getting result
   const result = React.useMemo(() => allLangs[langId]?.value, [allLangs, langId]);
   // generate AI if it is the content no used
-  useAsyncEffect(async () => {
+  const isLoading = useAsyncEffect(async () => {
+    await delay(300);
     if (!choisedLang || result || !genModelText || choisedLang == "en") {
       return;
     }
-    //
-    try {
-      logHooks.upsert([
-        {
-          title: `loading translations for langId=${choisedLang}`,
-          logId: choisedLang,
-          type: "INFO",
-        },
-      ]);
-      const { response } = await genModelText.generateContent(`translate this text to ${choisedLang} :\n\n${content}`);
-      //
-      logHooks.upsert([
-        {
-          title: `translations for langId=${choisedLang} content it is ${store.getState().logs.ids.length}`,
-          logId: choisedLang,
-          type: "SUCC",
-        },
-      ]);
-      cashing.set(true);
-      langHooks.upsert([{ langId, value: response.text() }]);
-    } catch (e: any) {
-      logHooks.upsert([
-        {
-          title: e.message,
-          logId: choisedLang,
-          type: "ERR",
-          category: "window",
-        },
-      ]);
-    }
-    //
+    const { response } = await genModelText.generateContent(`translate this text to ${choisedLang} :\n\n${content}`);
+    cashing.set(true);
+    langHooks.upsert([{ langId, value: response.text() }]);
   }, [result, langId, choisedLang, content, genModelText]);
-  //
   const correctResult = React.useMemo(() => result || content, [result, content]);
-  //
-  return correctResult;
+  return [correctResult, isLoading];
 };
 // Component
 export function Text({ content }: TextProps) {
-  const result = getText(content);
-  return <EmptyComponent>{result}</EmptyComponent>;
+  const [result, isLoading] = getText(content);
+  return <EmptyComponent>{isLoading ? "..." : result}</EmptyComponent>;
 }
 export interface InnerTextProps {
-  component: (props: { text: string }) => JSX.Element;
+  component: (props: { text: string; isLoading: boolean }) => JSX.Element;
   text: string;
 }
 export function InnerText({ component, text }: InnerTextProps) {
-  const result = getText(text);
-  return <EmptyComponent>{component({ text: result })}</EmptyComponent>;
+  const [result, isLoading] = getText(text);
+  return <EmptyComponent>{component({ text: result, isLoading })}</EmptyComponent>;
 }

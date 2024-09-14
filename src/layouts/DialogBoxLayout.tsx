@@ -1,26 +1,27 @@
 import dialogOpenSrc from "assets/audios/dialog-open.wav";
 import React from "react";
-import { BlurOverlay } from "./Overlays";
-import { SeparatedViewsLine } from "./SeparatedComponents";
-import { EmptyComponent } from "./EmptyComponent";
-import { useColorMerge } from "@/hooks";
+import { BlurOverlay } from "@/components/Overlays";
+import { SeparatedViewsLine } from "@/components/SeparatedComponents";
+import { EmptyComponent } from "@/components/EmptyComponent";
+import { useColorMerge, useSettingValue } from "@/hooks";
 import { faChevronDown, faChevronUp, faInfoCircle, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
-import { Image } from "./Image";
-import { BooleanFeild } from "./BooleanFeild";
+import { Image } from "@/components/Image";
+import { BooleanFeild } from "@/components/BooleanFeild";
 import { dialogTemps } from "@/reducers/Object/allTemps";
-import { Focus } from "./Focus";
+import { Focus } from "@/components/Focus";
 import { slotHooks } from "@/data/system/slot.slice";
 import { useAction } from "@/data/system/actions.model";
-import { MarkDown } from "./MarkDown";
-import { Scroll } from "./Scroll";
+import { MarkDown } from "@/components/MarkDown";
+import { Scroll } from "@/components/Scroll";
 import { useCopyState, useAsyncEffect } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
 import { DialogProps } from "@/types/global";
-import { List } from "./List";
-export const DialogBox = () => {
+import { List } from "@/components/List";
+import { tw } from "@/utils";
+export const DialogBoxLayout = () => {
   const config = dialogTemps.getTemp<DialogProps>("params");
   const confirmId = dialogTemps.getTemp<string>("id");
   const colorMerge = useColorMerge();
@@ -63,6 +64,8 @@ export const DialogBox = () => {
     await audio.play();
   }, [confirmId, config]);
 
+  const animated = useSettingValue("preferences/animation.boolean");
+
   return (
     <BlurOverlay hidden={!confirmId}>
       <SeparatedViewsLine
@@ -74,7 +77,7 @@ export const DialogBox = () => {
             </div>
           ),
           config && (
-            <div className="flex gap-5 p-2">
+            <div className="flex gap-5 p-2 w-full cursor-pointer">
               {!config.icon && (
                 <EmptyComponent>
                   {config.type == "question" && <FontAwesomeIcon icon={faQuestionCircle} className="text-4xl" />}
@@ -103,25 +106,26 @@ export const DialogBox = () => {
                 </EmptyComponent>
               )}
               {typeof config.icon == "string" && <Image src={config.icon} />}
-              <div className="inline-flex items-center w-full">
-                <span>{config.message}</span>
-                {config.detail && (
-                  <Tip
-                    className="ml-2"
-                    onClick={() => {
-                      showMore.set(!showMore.get);
-                    }}
-                    icon={showMore.get ? faChevronUp : faChevronDown}
-                  />
-                )}
+              <div
+                onClick={() => {
+                  showMore.set(!showMore.get);
+                }}
+                className="flex justify-between items-center w-full"
+              >
+                <div>
+                  <span>{config.message}</span>
+                </div>
+                {config.detail && <Tip className="ml-2" icon={showMore.get ? faChevronUp : faChevronDown} />}
               </div>
             </div>
           ),
-          showMore.get && config?.detail && (
-            <Scroll className="p-2 h-[30vh] overflow-y-auto">
-              <MarkDown value={config.detail} />
-            </Scroll>
-          ),
+          <Scroll className={tw("h-[0vh] overflow-y-auto", showMore.get && config?.detail && "h-[30vh]", animated && "transition-[height]")}>
+            {config?.detail && (
+              <div className="p-2">
+                <MarkDown value={config.detail} />
+              </div>
+            )}
+          </Scroll>,
           config && (
             <Focus focusId="dialog-list-focusable" className="flex justify-between items-center p-2">
               <div>
@@ -138,7 +142,7 @@ export const DialogBox = () => {
                 )}
               </div>
               {config.buttons && (
-                <div className="flex gap-1">
+                <div className="flex gap-1 p-2 overflow-x-auto">
                   <List
                     slotId="dialog-list"
                     data={config.buttons}
