@@ -10,4 +10,26 @@ export declare interface AuthRouteProps {
     }) => JSX.Element);
 }
 
+export declare type ChargeStatus = "pending" | "processing" | "paid" | "failed" | "expired" | "canceled";
+
+export declare interface PayoutResult {
+    payoutId: string;
+    amount: number;
+    createdAt: number;
+    payedAt?: number;
+    payer: string;
+    platform: "test" | "web" | "desktop" | "mobile";
+    projectId: string;
+    status: ChargeStatus;
+}
+
+export declare const PayoutRoute: ({ onPayoutSuccess, successComponent: Component }: PayoutRouteProps) => JSX_2.Element;
+
+export declare interface PayoutRouteProps {
+    onPayoutSuccess?: (payout: PayoutResult) => void;
+    successComponent?: JSX.Element | ((props: {
+        payout: PayoutResult;
+    }) => JSX.Element);
+}
+
 export { }

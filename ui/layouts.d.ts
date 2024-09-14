@@ -5,6 +5,8 @@ export declare function CameraView(): JSX_2.Element;
 
 export declare function Commands(): JSX_2.Element;
 
+export declare const CongratulationsView: default_2.MemoExoticComponent<() => JSX_2.Element>;
+
 export declare const dataKeyboard: {
     normal: string;
     shift: string;

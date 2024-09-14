@@ -1,9 +1,9 @@
-import { j as e, a as i, L as S, C as re, E as W, F as G, S as V, c as ot, b as rt, d as Vt, e as zt, J as at, I as Ut } from "./Loading-BpV9p4sz.mjs";
-import { g as Se, d as A, u as w, i as it, j as $t, k as lt, t as Bt, l as Ht, m as Z, a as I, n as Kt, s as M, o as ct, p as ae, e as Y, f as O, q as R, r as $, h as dt, v as ee, w as he, x as Wt, b as x, y as mt, z as _, c as J, A as ut, B as Yt, C as Gt, D as X, E as Xt, F as ue, G as Zt, H as K, I as ie, J as qt, K as pe, L as ft, M as Jt, N as Me, O as ht, P as He, Q as Le, S as C, R as L, T as pt, U as _t, V as Ke, W as We, X as Qt, Y as en, Z as Te, _ as gt, $ as yt, a0 as bt, a1 as tn, a2 as nn, a3 as sn, a4 as Ie, a5 as Ye, a6 as Ge, a7 as Xe, a8 as on, a9 as rn, aa as Ze, ab as an, ac as se } from "./index-a0LPp_Jl.mjs";
-import { w as H, h as ln, g as le, F as q, i as cn, T, a as j, J as dn, W as k, l as ye, K as be, C as B, H as ve, e as de, I as vt, z as mn, L as xe, M as we, d as U, Y as un, Z as xt, o as fn, f as hn, N as pn, v as gn, B as yn, b as bn, E as vn, O as xn, Q as wt, t as wn, m as Nn, n as Cn, x as kn, k as Sn, G as In, R as Fn, q as Mn, A as je, P as Ee, r as Ln, c as En, D as Pn, X as Tn } from "./ViewPage-TLnTRERG.mjs";
-import f from "react";
-import { h as ce, m as Q, i as me, s as F, t as y, j as Nt, k as Oe, l as Ae, e as z, n as De, g as Ct, D as jn, o as On, p as Re, q as An, u as kt, v as Dn, w as St, x as It, y as Rn, z as Ft, A as ge, B as Vn, C as Mt, E as Lt, F as zn, G as Et, H as Un, I as qe, J as $n, K as Ne, L as Bn, M as Hn, N as Kn, O as Wn, P as Yn, Q as Gn, R as Xn, T as Zn, U as qn, S as Jn, V as _n, W as Qn, X as es, Y as Pe, Z as ts, _ as ns, $ as ss, a0 as os, a1 as rs, a2 as as, r as is } from "./index-CxQCU1i7.mjs";
-function ls() {
+import { j as e, a as i, L as S, C as re, E as W, F as G, S as V, c as ot, b as rt, d as zt, e as Ut, J as at, I as $t } from "./Loading-BjTpGRTY.mjs";
+import { g as Se, d as A, u as w, i as it, j as Bt, k as lt, t as Ht, l as Kt, m as Z, a as I, n as Wt, s as M, o as ct, p as ae, e as Y, f as O, q as R, r as $, h as dt, v as ee, w as he, x as Yt, b as x, y as mt, z as _, c as J, A as ut, B as Gt, C as Xt, D as X, E as Zt, F as ue, G as qt, H as K, I as ie, J as Jt, K as pe, L as ft, M as _t, N as Me, O as ht, P as He, Q as Le, S as C, R as L, T as pt, U as Qt, V as Ke, W as We, X as en, Y as tn, Z as Te, _ as gt, $ as yt, a0 as bt, a1 as nn, a2 as sn, a3 as on, a4 as Ie, a5 as Ye, a6 as Ge, a7 as Xe, a8 as rn, a9 as an, aa as Ze, ab as ln, ac as se } from "./index-YGVQf1XJ.mjs";
+import { w as H, h as cn, g as le, F as q, i as dn, T, a as j, J as mn, W as k, l as ye, K as be, C as B, H as ve, e as de, I as vt, z as un, L as xe, M as we, d as U, Y as fn, Z as xt, o as hn, f as pn, N as gn, v as yn, B as bn, b as vn, E as xn, O as wn, Q as wt, t as Nn, m as Cn, n as kn, x as Sn, k as In, G as Fn, R as Mn, q as Ln, A as je, P as Ee, r as En, c as Pn, D as Tn, X as jn } from "./ViewPage-B7nrCA56.mjs";
+import m, { useState as On, useEffect as An } from "react";
+import { h as ce, m as Q, i as me, s as F, t as y, j as Nt, k as Oe, l as Ae, e as z, n as De, g as Ct, D as Dn, o as Rn, p as Re, q as Vn, u as kt, v as zn, w as St, x as It, y as Un, z as Ft, A as ge, B as $n, C as Mt, E as Lt, F as Bn, G as Et, H as Hn, I as qe, J as Kn, K as Ne, L as Wn, M as Yn, N as Gn, O as Xn, P as Zn, Q as qn, R as Jn, T as _n, U as Qn, S as es, V as ts, W as ns, X as ss, Y as Pe, Z as os, _ as rs, $ as as, a0 as is, a1 as ls, a2 as cs, r as Pt } from "./index-CxQCU1i7.mjs";
+function ds() {
   const n = Se.getTemp("type"), t = Se.getTemp("id");
   return A(
     "camera-take",
@@ -21,15 +21,15 @@ function ls() {
       }
     },
     [n, t]
-  ), /* @__PURE__ */ e(H, { hidden: !t, children: /* @__PURE__ */ e(ln, {}) });
+  ), /* @__PURE__ */ e(H, { hidden: !t, children: /* @__PURE__ */ e(cn, {}) });
 }
-function cs() {
+function ms() {
   const [n] = le("press ? for help");
   return /* @__PURE__ */ e(q, { "aria-multiline": !1, placeholder: `${n} 😊`, inputName: "findCommand" });
 }
-function ds() {
-  const n = w(), t = it(), o = $t(), r = f.useMemo(() => {
-    const u = lt.getState();
+function us() {
+  const n = w(), t = it(), o = Bt(), r = m.useMemo(() => {
+    const f = lt.getState();
     return o.map((v) => ({
       command: v,
       keys: ce.join(v, t, "commandId->command")
@@ -37,23 +37,23 @@ function ds() {
       if (!N.when)
         return !0;
       try {
-        return Bt(N.when)({
-          state: u,
+        return Ht(N.when)({
+          state: f,
           focused: null
         });
       } catch {
         return !1;
       }
     }).length || !v.keys.length);
-  }, [t, o]), s = Ht(), a = Z("commandId"), l = I("commands/enum/prefixes.object"), d = Z("commands.isLoading"), c = Kt.getAll(), h = f.useMemo(() => {
-    const u = Object.entries(l || {}).map(([m, N]) => ({
-      key: m,
+  }, [t, o]), s = Kt(), a = Z("commandId"), l = I("commands/enum/prefixes.object"), d = Z("commands.isLoading"), c = Wt.getAll(), h = m.useMemo(() => {
+    const f = Object.entries(l || {}).map(([u, N]) => ({
+      key: u,
       settingKey: `${N}.enum`,
       value: N
     })), v = {};
-    return ce.fullJoinOne(u, s, "settingKey->settingId").forEach(({ data: m, joinTo: N }) => {
+    return ce.fullJoinOne(f, s, "settingKey->settingId").forEach(({ data: u, joinTo: N }) => {
       var E, D;
-      v[m.key] = {
+      v[u.key] = {
         lines: (D = (E = N == null ? void 0 : N.config) == null ? void 0 : E.list) == null ? void 0 : D.map(({ value: P, content: te }) => ({
           id: P,
           content: te,
@@ -61,61 +61,61 @@ function ds() {
         })),
         // desc: "commands/enum/prefixes.object"
         onSubmit(P) {
-          M.setOneFeild(m.settingKey, "value", P.id);
+          M.setOneFeild(u.settingKey, "value", P.id);
         }
       };
     }), Q(
       {
         commands: {
-          lines: r.map(({ command: m, keys: N }) => ({
-            content: m.label || m.commandId,
+          lines: r.map(({ command: u, keys: N }) => ({
+            content: u.label || u.commandId,
             keyPanding: N.map(({ value: E }) => E),
-            id: m.commandId
+            id: u.commandId
           })),
-          onSubmit(m) {
-            ct(m.id);
+          onSubmit(u) {
+            ct(u.id);
           }
         },
         settings: {
-          lines: s.map(({ name: m, settingId: N, desc: E }) => ({
+          lines: s.map(({ name: u, settingId: N, desc: E }) => ({
             id: N,
             tools: [],
-            content: m || N,
+            content: u || N,
             sub: E
           })),
-          onSubmit(m) {
-            ae(m.id);
+          onSubmit(u) {
+            ae(u.id);
           }
         },
         actions: {
-          lines: c.map(({ actionId: m, status: N }) => ({
-            content: `${me(m.replaceAll(/[^a-z0-9A-Z]/gi, " ").replaceAll(/ +/gi, " "), void 0, "normal")} ${N == "loading" ? "[running...]" : ""}`,
-            id: m
+          lines: c.map(({ actionId: u, status: N }) => ({
+            content: `${me(u.replaceAll(/[^a-z0-9A-Z]/gi, " ").replaceAll(/ +/gi, " "), void 0, "normal")} ${N == "loading" ? "[running...]" : ""}`,
+            id: u
           })),
-          onSubmit(m) {
-            m.id && Y(m.id);
+          onSubmit(u) {
+            u.id && Y(u.id);
           }
         }
       },
       v
     );
-  }, [r, s, l, c]), g = O.getOneFeild("findCommand", "value"), p = f.useMemo(() => !!(g != null && g.match(/^ *\?/)), [g]), b = f.useMemo(() => Q(
+  }, [r, s, l, c]), g = O.getOneFeild("findCommand", "value"), p = m.useMemo(() => !!(g != null && g.match(/^ *\?/)), [g]), b = m.useMemo(() => Q(
     p && {
       help: {
-        lines: Object.entries(h).map(([u]) => ({
-          id: u,
-          content: u
+        lines: Object.entries(h).map(([f]) => ({
+          id: f,
+          content: f
         })),
-        onSubmit(u) {
-          R("commandId", u.id);
+        onSubmit(f) {
+          R("commandId", f.id);
         }
       }
     },
     !p && h
   ), [h, g, p]);
-  return f.useEffect(() => {
+  return m.useEffect(() => {
     a && p && R("commandId", "help");
-  }, [a, g, p]), f.useEffect(() => {
+  }, [a, g, p]), m.useEffect(() => {
     $.setOneFeild("cmds/list", "focused", 0);
   }, [g]), /* @__PURE__ */ e(
     H,
@@ -123,8 +123,8 @@ function ds() {
       onLoadContent: () => {
         F("findCommand");
       },
-      onPointerDown: (u) => {
-        u.currentTarget == u.target && R("commandId", null);
+      onPointerDown: (f) => {
+        f.currentTarget == f.target && R("commandId", null);
       },
       hidden: !a,
       children: /* @__PURE__ */ i(
@@ -175,20 +175,20 @@ function ds() {
                   F("findCommand");
                 },
                 children: [
-                  /* @__PURE__ */ e(cs, {}),
+                  /* @__PURE__ */ e(ms, {}),
                   d && /* @__PURE__ */ e(re, {})
                 ]
               }
             ),
             /* @__PURE__ */ e(S, {}),
-            /* @__PURE__ */ e(cn, { data: b })
+            /* @__PURE__ */ e(dn, { data: b })
           ]
         }
       )
     }
   );
 }
-function ms() {
+function fs() {
   const n = Z("dev.html.hoverPosition"), t = w();
   return /* @__PURE__ */ e(W, { children: n && /* @__PURE__ */ e(
     "div",
@@ -210,10 +210,10 @@ function ms() {
     }
   ) });
 }
-function us() {
+function hs() {
   const n = ee.getOneFeild("settings", "focused"), t = he.getTemp("config"), o = O.getOneFeild("findConfigurations", "value");
-  Wt("findConfigurations");
-  const r = w(), s = Z("configurations.found.length"), a = f.useMemo(() => me(n || "no settings focused", "camel", "normal"), [n]), [l] = le(`search ${a} in list`), [d] = le(a), c = x(!1), h = O.getOneFeild("findConfigurations-local", "value");
+  Yt("findConfigurations");
+  const r = w(), s = Z("configurations.found.length"), a = m.useMemo(() => me(n || "no settings focused", "camel", "normal"), [n]), [l] = le(`search ${a} in list`), [d] = le(a), c = x(!1), h = O.getOneFeild("findConfigurations-local", "value");
   return mt(
     () => {
       typeof h == "string" && O.setOneFeild("findConfigurations", "value", h);
@@ -284,16 +284,16 @@ function us() {
   );
 }
 const Je = "visibility/header.boolean";
-function _s({ children: n }) {
+function eo({ children: n }) {
   const t = I(Je), o = x(!1), r = _("Shift");
-  f.useEffect(() => {
+  m.useEffect(() => {
     const c = (h) => {
       const g = h.x * 100 / innerWidth;
       o.set(h.y <= 100 && Ae(25, g, 75));
     };
     return document.addEventListener("mousemove", c), () => document.removeEventListener("mousemove", c);
   }, []);
-  const s = w(), a = Z("window.isFocused"), l = I("preferences/animation.boolean"), d = f.useMemo(() => s(a ? "primary.background" : "secondry.background", {
+  const s = w(), a = Z("window.isFocused"), l = I("preferences/animation.boolean"), d = m.useMemo(() => s(a ? "primary.background" : "secondry.background", {
     borderColor: "borders",
     boxShadow: J([
       {
@@ -355,8 +355,8 @@ function _s({ children: n }) {
     )
   ] });
 }
-function fs() {
-  const n = ut("notification.header"), t = f.useMemo(() => (Array.isArray(n.get) ? n.get : []).slice(0, 3), [n.get]), o = w();
+function ps() {
+  const n = ut("notification.header"), t = m.useMemo(() => (Array.isArray(n.get) ? n.get : []).slice(0, 3), [n.get]), o = w();
   return /* @__PURE__ */ e(
     "div",
     {
@@ -369,7 +369,7 @@ function fs() {
         })
       },
       children: !!t.length && /* @__PURE__ */ e(
-        dn,
+        mn,
         {
           data: t,
           slotId: "header-notifications",
@@ -411,8 +411,8 @@ function fs() {
     }
   );
 }
-const hs = "visibility/configurations.boolean", ps = () => {
-  const n = ee.getOneFeild("settings", "focused"), t = f.useMemo(() => me(String(n), "camel", "normal"), [n]), [o] = le(t);
+const gs = "visibility/configurations.boolean", ys = () => {
+  const n = ee.getOneFeild("settings", "focused"), t = m.useMemo(() => me(String(n), "camel", "normal"), [n]), [o] = le(t);
   return /* @__PURE__ */ i("div", { className: "flex justify-between items-center p-2", children: [
     /* @__PURE__ */ e("h1", { className: "font-bold text-2xl capitalize", children: o }),
     /* @__PURE__ */ e("div", { className: "tools", children: /* @__PURE__ */ e(
@@ -427,7 +427,7 @@ const hs = "visibility/configurations.boolean", ps = () => {
           k,
           {
             onClick: () => {
-              M.setOneFeild(hs, "value", !1);
+              M.setOneFeild(gs, "value", !1);
             },
             icon: z
           }
@@ -436,8 +436,8 @@ const hs = "visibility/configurations.boolean", ps = () => {
     ) })
   ] });
 };
-function gs() {
-  const n = Yt(), t = $.getOneFeild("keyboardShortcuts", "focused");
+function bs() {
+  const n = Gt(), t = $.getOneFeild("keyboardShortcuts", "focused");
   return A(
     "keyboard/update",
     () => {
@@ -460,12 +460,12 @@ function gs() {
         bottom: 3
       },
       component: ({ data: o, index: r, status: s, handel: a, style: l }) => {
-        const { commandId: d, label: c = "" } = o, h = Gt(d), g = f.createRef(), p = w(), b = _("Control"), u = x(!1), v = f.useMemo(() => h.filter(({ value: m }) => m).map(({ value: m }) => m), [h]);
+        const { commandId: d, label: c = "" } = o, h = Xt(d), g = m.createRef(), p = w(), b = _("Control"), f = x(!1), v = m.useMemo(() => h.filter(({ value: u }) => u).map(({ value: u }) => u), [h]);
         return /* @__PURE__ */ i(
           "div",
           {
-            onMouseEnter: () => u.set(!0),
-            onMouseLeave: () => u.set(!1),
+            onMouseEnter: () => f.set(!0),
+            onMouseLeave: () => f.set(!1),
             onClick: () => {
               a.focus(), a.submit();
             },
@@ -474,7 +474,7 @@ function gs() {
             style: {
               ...p(
                 r % 2 && "primary.background",
-                u.get && "gray.opacity",
+                f.get && "gray.opacity",
                 s.isFocused && { borderColor: "primary" },
                 s.isSubmited && {
                   backgroundColor: "secondry",
@@ -493,13 +493,13 @@ function gs() {
                 justify-end
                 px-2
               `),
-                  children: (u.get || s.isFocused || s.isSubmited) && /* @__PURE__ */ i("div", { className: "flex justify-between items-center", children: [
+                  children: (f.get || s.isFocused || s.isSubmited) && /* @__PURE__ */ i("div", { className: "flex justify-between items-center", children: [
                     /* @__PURE__ */ e(
                       k,
                       {
                         onClick: async () => {
-                          const m = JSON.stringify(o);
-                          await navigator.clipboard.writeText(m);
+                          const u = JSON.stringify(o);
+                          await navigator.clipboard.writeText(u);
                         },
                         icon: De
                       }
@@ -508,7 +508,7 @@ function gs() {
                       k,
                       {
                         icon: Ct,
-                        onClick: (m) => {
+                        onClick: (u) => {
                           R("keyboard.commandId", d), F("edit-keyPanding");
                         }
                       }
@@ -519,7 +519,7 @@ function gs() {
                         tabIndex: -1,
                         icon: z,
                         onClick: () => {
-                          X.remove(h.map(({ keyId: m }) => m));
+                          X.remove(h.map(({ keyId: u }) => u));
                         }
                       }
                     )
@@ -531,7 +531,7 @@ function gs() {
                 {
                   className: y("capitalize col", b && "hover:underline cursor-pointer"),
                   onPointerDown: async () => {
-                    b && (O.setOneFeild("findConfigurations", "value", `@commandId: ${d}`), await new jn().start(100), F("findConfigurations"));
+                    b && (O.setOneFeild("findConfigurations", "value", `@commandId: ${d}`), await new Dn().start(100), F("findConfigurations"));
                   },
                   children: c || d
                 }
@@ -576,7 +576,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
       ...o
     }
   );
-}, ys = [
+}, vs = [
   [
     { normal: "1", shift: "&", alt: "!" },
     { normal: "2", shift: "é", alt: "~" },
@@ -621,13 +621,13 @@ const fe = ({ isActive: n, className: t, ...o }) => {
     { normal: "b", shift: "B", alt: ";" },
     { normal: "n", shift: "N", alt: "," }
   ]
-], _e = 200, bs = () => {
+], _e = 200, xs = () => {
   const n = w(), t = x(!1), o = x(!1), r = x(!1), s = _("Shift"), a = x(!1), l = _("Control"), d = _("AltGraph");
-  f.useEffect(() => {
+  m.useEffect(() => {
     o.set(l);
-  }, [l]), f.useEffect(() => {
+  }, [l]), m.useEffect(() => {
     t.set(s);
-  }, [s]), f.useEffect(() => {
+  }, [s]), m.useEffect(() => {
     r.set(d);
   }, [d]);
   const c = x([-100, -100]), h = x(!1);
@@ -637,7 +637,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
     },
     [h.get],
     _e
-  ), Xt(["keyboard-view"]);
+  ), Zt(["keyboard-view"]);
   const g = O.useOneFeild("keyboard-view", "value"), p = x([0, innerHeight - 300]), b = I("visibility/keyboard.boolean");
   return /* @__PURE__ */ i(
     "div",
@@ -670,16 +670,16 @@ const fe = ({ isActive: n, className: t, ...o }) => {
             k,
             {
               onPointerDown: () => {
-                const u = (m) => {
-                  p.set([m.pageX, m.pageY]);
+                const f = (u) => {
+                  p.set([u.pageX, u.pageY]);
                 };
-                document.addEventListener("mousemove", u);
+                document.addEventListener("mousemove", f);
                 const v = () => {
-                  document.removeEventListener("pointerup", v), document.removeEventListener("mousemove", u);
+                  document.removeEventListener("pointerup", v), document.removeEventListener("mousemove", f);
                 };
                 document.addEventListener("pointerup", v);
               },
-              icon: On,
+              icon: Rn,
               className: "cursor-grab"
             }
           ) }),
@@ -729,16 +729,16 @@ const fe = ({ isActive: n, className: t, ...o }) => {
               name: "control",
               state: o
             }
-          ].map(({ state: u, name: v }, m) => /* @__PURE__ */ e(
+          ].map(({ state: f, name: v }, u) => /* @__PURE__ */ e(
             fe,
             {
-              isActive: u.get,
+              isActive: f.get,
               onPointerDown: () => {
-                u.set((N) => !N);
+                f.set((N) => !N);
               },
               children: v
             },
-            m
+            u
           )) }) }),
           /* @__PURE__ */ i(
             "div",
@@ -749,9 +749,9 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                   borderColor: "borders"
                 })
               },
-              onClick: (u) => {
-                const v = u.pageX, m = u.pageY, { left: N, top: E } = u.currentTarget.getBoundingClientRect();
-                c.set([v - N, m - E]), h.set(!0);
+              onClick: (f) => {
+                const v = f.pageX, u = f.pageY, { left: N, top: E } = f.currentTarget.getBoundingClientRect();
+                c.set([v - N, u - E]), h.set(!0);
               },
               children: [
                 c.get && /* @__PURE__ */ e(
@@ -772,16 +772,16 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                     }
                   }
                 ),
-                /* @__PURE__ */ e("div", { className: "flex flex-col gap-3", children: ys.map((u, v) => /* @__PURE__ */ e("div", { className: "flex justify-center gap-3", children: u.map((m, N) => /* @__PURE__ */ i(
+                /* @__PURE__ */ e("div", { className: "flex flex-col gap-3", children: vs.map((f, v) => /* @__PURE__ */ e("div", { className: "flex justify-center gap-3", children: f.map((u, N) => /* @__PURE__ */ i(
                   fe,
                   {
                     onPointerDown: () => {
-                      const E = t.get ? m.shift : r.get ? m.alt : m.normal, D = document.activeElement;
+                      const E = t.get ? u.shift : r.get ? u.alt : u.normal, D = document.activeElement;
                       D && (D instanceof HTMLInputElement || D instanceof HTMLTextAreaElement) && (D.value = D.value.concat(E));
                     },
                     className: "relative",
                     children: [
-                      t.get ? m.shift : r.get ? m.alt : m.normal,
+                      t.get ? u.shift : r.get ? u.alt : u.normal,
                       !t.get && /* @__PURE__ */ e(
                         "span",
                         {
@@ -789,7 +789,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                           style: {
                             ...n({ color: "gray.opacity.2" })
                           },
-                          children: r.get ? m.normal : m.alt
+                          children: r.get ? u.normal : u.alt
                         }
                       )
                     ]
@@ -801,7 +801,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                   {
                     className: "w-full max-lg:w-full",
                     onPointerDown: () => {
-                      g.set((u) => u + " "), !a.get && t.get && t.set(!1);
+                      g.set((f) => f + " "), !a.get && t.get && t.set(!1);
                     },
                     children: "space"
                   }
@@ -813,7 +813,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
             {
               name: "backspace",
               onClick() {
-                g.set((u) => u == null ? void 0 : u.slice(0, -1));
+                g.set((f) => f == null ? void 0 : f.slice(0, -1));
               }
             },
             {
@@ -822,22 +822,22 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                 g.set("");
               }
             }
-          ].map(({ onClick: u, name: v }, m) => /* @__PURE__ */ e(
+          ].map(({ onClick: f, name: v }, u) => /* @__PURE__ */ e(
             fe,
             {
               className: "w-full max-lg:w-full",
               onPointerDown: () => {
-                u == null || u();
+                f == null || f();
               },
               children: v
             },
-            m
+            u
           )) }) })
         ] })
       ]
     }
   );
-}, Qe = "visibility/leftSide.boolean", Qs = ({ children: n }) => {
+}, Qe = "visibility/leftSide.boolean", to = ({ children: n }) => {
   const t = I(Qe), o = w();
   return /* @__PURE__ */ e(
     ve,
@@ -860,7 +860,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
       children: n
     }
   );
-}, eo = () => {
+}, no = () => {
   const n = w();
   return /* @__PURE__ */ i("div", { className: "w-full", children: [
     /* @__PURE__ */ e("div", { className: "p-2", children: /* @__PURE__ */ e(q, { placeholder: "Search Component Type", inputName: "search-component-type" }) }),
@@ -924,10 +924,10 @@ const fe = ({ isActive: n, className: t, ...o }) => {
       r
     )) })
   ] });
-}, vs = ({ item: n, status: t, handelFocus: o, handelSubmit: r }) => {
+}, ws = ({ item: n, status: t, handelFocus: o, handelSubmit: r }) => {
   if (n.type == "separator")
     return /* @__PURE__ */ e("div", { className: "my-1", children: /* @__PURE__ */ e(S, {}) });
-  const s = w(), a = f.createRef();
+  const s = w(), a = m.createRef();
   return /* @__PURE__ */ e("div", { className: "px-1", children: /* @__PURE__ */ i(
     "div",
     {
@@ -957,14 +957,14 @@ const fe = ({ isActive: n, className: t, ...o }) => {
       ]
     }
   ) });
-}, xs = () => {
-  const n = w(), t = ue.getTemp("list"), o = ue.getTemp("position"), r = ue.getTemp("id"), s = f.createRef(), a = $.getOneFeild("menu-list", "submited");
-  f.useEffect(() => {
+}, Ns = () => {
+  const n = w(), t = ue.getTemp("list"), o = ue.getTemp("position"), r = ue.getTemp("id"), s = m.createRef(), a = $.getOneFeild("menu-list", "submited");
+  m.useEffect(() => {
     r && typeof a == "number" && (ue.setTemp("result", a), $.setOneFeild("menu-list", "submited", null));
   }, [a, r]);
-  const l = Zt.getOne("menu-list");
+  const l = qt.getOne("menu-list");
   return /* @__PURE__ */ e(H, { hidden: !r, children: /* @__PURE__ */ e(
-    mn,
+    un,
     {
       positionId: "menu-list",
       ref: s,
@@ -995,10 +995,10 @@ const fe = ({ isActive: n, className: t, ...o }) => {
           })
         )
       },
-      children: /* @__PURE__ */ e(xe, { skipFn: ({ enabled: d = !0, type: c }) => c == "separator" || !d, slotId: "menu-list", component: vs, data: t || [] })
+      children: /* @__PURE__ */ e(xe, { skipFn: ({ enabled: d = !0, type: c }) => c == "separator" || !d, slotId: "menu-list", component: ws, data: t || [] })
     }
   ) });
-}, ws = () => {
+}, Cs = () => {
   const n = K.getAll();
   return /* @__PURE__ */ e(
     xe,
@@ -1007,8 +1007,8 @@ const fe = ({ isActive: n, className: t, ...o }) => {
       slotId: "notification",
       component: ({ item: t, index: o, id: r, handelFocus: s, handelSelect: a, handelSubmit: l, status: d }) => {
         const c = x(!1);
-        function h(b, u, v, m) {
-          return t.type == "warning" ? u : t.type == "error" ? v : t.type == "success" ? m : b;
+        function h(b, f, v, u) {
+          return t.type == "warning" ? f : t.type == "error" ? v : t.type == "success" ? u : b;
         }
         const g = w(), p = I("preferences/animation.boolean");
         return /* @__PURE__ */ i(
@@ -1054,7 +1054,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                   /* @__PURE__ */ e(
                     G,
                     {
-                      icon: h(It, St, Dn, kt),
+                      icon: h(It, St, zn, kt),
                       style: {
                         ...g({
                           color: h("notifay.info", "notifay.warning", "notifay.error", "notifay.success")
@@ -1108,7 +1108,7 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                           onClick: () => {
                             K.remove([t.id]);
                           },
-                          icon: An
+                          icon: Vn
                         }
                       )
                     ]
@@ -1116,14 +1116,14 @@ const fe = ({ isActive: n, className: t, ...o }) => {
                 )
               ] }),
               t.desc && /* @__PURE__ */ e("div", { className: y("h-[0px]", p && "transition-[height] duration-700", t.showDesc && "h-[170px]"), children: /* @__PURE__ */ e(V, { className: "p-6", children: /* @__PURE__ */ e(we, { value: t.desc }) }) }),
-              Array.isArray(t.buttons) && /* @__PURE__ */ e("div", { className: "flex justify-end p-5 overflow-x-auto", children: t.buttons.map(({ command: b, label: u }, v) => /* @__PURE__ */ e(
+              Array.isArray(t.buttons) && /* @__PURE__ */ e("div", { className: "flex justify-end p-5 overflow-x-auto", children: t.buttons.map(({ command: b, label: f }, v) => /* @__PURE__ */ e(
                 U,
                 {
                   className: "px-2 py-1 rounded-sm",
                   onClick: async () => {
                     typeof b == "object" ? Y(b.action, b.arg) : ct(b);
                   },
-                  children: u
+                  children: f
                 },
                 v
               )) }),
@@ -1135,8 +1135,8 @@ const fe = ({ isActive: n, className: t, ...o }) => {
     }
   );
 }, Fe = "visibility/notifays.boolean", et = "visibility/notifays/nots.boolean";
-function Ns() {
-  const n = I(Fe), t = I(et), o = K.getIds(), r = w(), s = $.getOneFeild("notification", "focused"), a = K.getAll(), l = f.useMemo(() => typeof s != "number" ? null : a[s] || null, [a, s]);
+function ks() {
+  const n = I(Fe), t = I(et), o = K.getIds(), r = w(), s = $.getOneFeild("notification", "focused"), a = K.getAll(), l = m.useMemo(() => typeof s != "number" ? null : a[s] || null, [a, s]);
   A(
     "toggleExpandNotifay",
     () => {
@@ -1232,11 +1232,11 @@ function Ns() {
                           checkboxLabel: "Don't Ask Me Again",
                           buttons: ["No", "Yes"]
                         });
-                        g.checkboxChecked && qt("notification/clearAllConfirmation.boolean", !1), h = g.response;
+                        g.checkboxChecked && Jt("notification/clearAllConfirmation.boolean", !1), h = g.response;
                       }
                       h && K.remove(a.filter(({ removable: g = !0 }) => g).map(({ id: g }) => g));
                     },
-                    icon: Rn
+                    icon: Un
                   }
                 ),
                 /* @__PURE__ */ e(
@@ -1259,22 +1259,22 @@ function Ns() {
             focusId: "notifications",
             ignoreOutline: !!l,
             className: y("flex flex-col overflow-hidden max-h-[80vh] rounded-ee-xl rounded-es-xl", d && "duration-300 transition-[max-height]", !t && "max-h-[0vh]"),
-            children: /* @__PURE__ */ e(V, { children: /* @__PURE__ */ e(ws, {}) })
+            children: /* @__PURE__ */ e(V, { children: /* @__PURE__ */ e(Cs, {}) })
           }
         )
       ]
     }
   );
 }
-const Cs = () => {
+const Ss = () => {
   const n = pe.getTemp("pdf");
   return /* @__PURE__ */ e(H, { hidden: !n, children: /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e(ve, { className: "h-[70vh]", position: "right", temp: "pdf", min: 400, max: () => innerWidth - 30, children: /* @__PURE__ */ e(
-    Vt,
+    zt,
     {
       className: "h-full overflow-hidden",
       list: [
         /* @__PURE__ */ e(
-          zt,
+          Ut,
           {
             title: "PDF..",
             rightSide: /* @__PURE__ */ e("div", { className: "flex tools", children: /* @__PURE__ */ e(T, { title: "close view", children: /* @__PURE__ */ e(
@@ -1292,7 +1292,7 @@ const Cs = () => {
       ]
     }
   ) }) }) });
-}, tt = "visibility/rightSide.boolean", to = ({ children: n }) => {
+}, tt = "visibility/rightSide.boolean", so = ({ children: n }) => {
   const t = I(tt), o = w();
   return /* @__PURE__ */ e(
     ve,
@@ -1329,7 +1329,7 @@ const Cs = () => {
     }
   );
 };
-function ks() {
+function Is() {
   const n = ft();
   return /* @__PURE__ */ e(
     ye,
@@ -1344,7 +1344,7 @@ function ks() {
       },
       countLastItems: -1,
       component: ({ data: t, index: o, style: r, status: s, handel: a, id: l }) => {
-        const d = _("Control"), c = x(!1), h = f.useMemo(() => !t.settingId.match(/\.password$/gi) && !ge(t.def, t.value), [t]), g = w();
+        const d = _("Control"), c = x(!1), h = m.useMemo(() => !t.settingId.match(/\.password$/gi) && !ge(t.def, t.value), [t]), g = w();
         A(
           "showSubmitSetting",
           () => {
@@ -1352,7 +1352,7 @@ function ks() {
           },
           [s]
         );
-        const p = f.useMemo(() => s.isFocused || s.isSubmited || c.get, [s, c.get]);
+        const p = m.useMemo(() => s.isFocused || s.isSubmited || c.get, [s, c.get]);
         return /* @__PURE__ */ i(
           "div",
           {
@@ -1456,7 +1456,7 @@ function ks() {
                       h && /* @__PURE__ */ e(T, { title: "reset", children: /* @__PURE__ */ e(
                         k,
                         {
-                          icon: Vn,
+                          icon: $n,
                           onClick: () => {
                             M.setOneFeild(t.settingId, "value", t.def);
                           }
@@ -1482,29 +1482,29 @@ function ks() {
     }
   );
 }
-function Pt(n = [], t = ".") {
+function Tt(n = [], t = ".") {
   const o = n.filter(Boolean).map((s) => s.split(t)).filter((s) => s.length);
   return Array.from(new Set(o.map(([s]) => s))).map((s) => ({
     data: s,
-    innerTree: Pt(
+    innerTree: Tt(
       o.filter(([a]) => a == s).map(([, ...a]) => a.join(t)),
       t
     )
   }));
 }
-function Ss() {
-  const n = ft(), t = f.useMemo(() => n.map(({ settingId: o }) => o), [n]);
+function Fs() {
+  const n = ft(), t = m.useMemo(() => n.map(({ settingId: o }) => o), [n]);
   return /* @__PURE__ */ e("div", { id: "settings.tree.view", className: "flex flex-col h-full overflow-hidden", tabIndex: 1, children: /* @__PURE__ */ e(V, { children: /* @__PURE__ */ e(
-    un,
+    fn,
     {
       treeId: "setting-tree-layout",
-      tree: Pt(t, "/"),
+      tree: Tt(t, "/"),
       component: ({ data: o, status: r, parent: s, isFins: a, innerTree: l, level: d, handels: c }) => {
-        const h = w(), [g, p] = o.split("."), b = x(!1), u = f.useMemo(() => {
+        const h = w(), [g, p] = o.split("."), b = x(!1), f = m.useMemo(() => {
           const v = [];
-          let m = s;
-          for (; m; )
-            v.push(m.data), m = m.parent;
+          let u = s;
+          for (; u; )
+            v.push(u.data), u = u.parent;
           return v.reverse().join("/");
         }, [a]);
         return /* @__PURE__ */ i(
@@ -1573,7 +1573,7 @@ function Ss() {
                     k,
                     {
                       onClick: () => {
-                        ae(u);
+                        ae(f);
                       },
                       icon: Mt,
                       hidden: !b.get
@@ -1588,8 +1588,8 @@ function Ss() {
     }
   ) }) });
 }
-function Is() {
-  const n = Jt(), t = f.useMemo(() => {
+function Ms() {
+  const n = _t(), t = m.useMemo(() => {
     const r = n.filter(({ settingId: s }) => !s.endsWith("password"));
     return Lt(
       r.length && {
@@ -1608,7 +1608,7 @@ function Is() {
             })
           );
         },
-        icon: Un,
+        icon: Hn,
         title: "reset all"
       },
       {
@@ -1623,11 +1623,11 @@ function Is() {
           ee.setOneFeild("settings.viewType", "focused", "tree");
         },
         title: "tree",
-        icon: zn
+        icon: Bn
       }
     );
   }, [n]), o = Me(t, "settings.layout.tools");
-  return f.useEffect(() => {
+  return m.useEffect(() => {
     o && (o.click(), $.setOneFeild("settings.layout.tools", "submited", null));
   }, [o]), /* @__PURE__ */ i("div", { className: "relative flex flex-col w-full h-full overflow-hidden", children: [
     /* @__PURE__ */ i(rt, { focusId: "settings.layouts", className: "flex justify-between items-center p-2", children: [
@@ -1674,37 +1674,37 @@ function Is() {
       xt,
       {
         views: {
-          list: ks,
-          tree: Ss
+          list: Is,
+          tree: Fs
         },
         viewId: "settings.viewType"
       }
     )
   ] });
 }
-function Fs() {
+function Ls() {
   const n = he.getTemp("config");
-  return f.useEffect(() => {
+  return m.useEffect(() => {
     n || ae(null);
   }, [n]), /* @__PURE__ */ i("div", { className: "flex flex-col w-full h-full overflow-hidden", children: [
-    /* @__PURE__ */ e(us, {}),
+    /* @__PURE__ */ e(hs, {}),
     /* @__PURE__ */ e(S, {}),
     n && /* @__PURE__ */ e(
       xt,
       {
         viewId: "settings",
         views: {
-          keyboardShortcuts: gs,
-          user: Is,
-          icons: fn,
-          colors: hn
+          keyboardShortcuts: bs,
+          user: Ms,
+          icons: hn,
+          colors: pn
         }
       }
     )
   ] });
 }
-function Ms() {
-  const n = ee.getOne("settings"), t = f.useMemo(() => Object.entries((n == null ? void 0 : n.tabs) || {}).map(([r, s]) => ({
+function Es() {
+  const n = ee.getOne("settings"), t = m.useMemo(() => Object.entries((n == null ? void 0 : n.tabs) || {}).map(([r, s]) => ({
     id: r,
     ...s,
     isFocused: (n == null ? void 0 : n.focused) == r
@@ -1724,7 +1724,7 @@ function Ms() {
           slotId: "configurations.side.list",
           data: t,
           component: ({ item: r }) => {
-            const { id: s, news: a, isFocused: l, icon: d } = r, c = f.useMemo(() => `settings.${s}.show`, [s]), h = it(), g = f.useMemo(() => ce.join({ cmdId: c }, h, "cmdId->command").map(({ value: v }) => v), [c, h]), [p] = le(me(s, "camel", "normal")), b = x(!1), u = w();
+            const { id: s, news: a, isFocused: l, icon: d } = r, c = m.useMemo(() => `settings.${s}.show`, [s]), h = it(), g = m.useMemo(() => ce.join({ cmdId: c }, h, "cmdId->command").map(({ value: v }) => v), [c, h]), [p] = le(me(s, "camel", "normal")), b = x(!1), f = w();
             return /* @__PURE__ */ i(
               T,
               {
@@ -1736,15 +1736,15 @@ function Ms() {
                   !l && ee.setOneFeild("settings", "focused", r.id);
                 },
                 style: {
-                  ...u((l || b.get) && "primary.background")
+                  ...f((l || b.get) && "primary.background")
                 },
                 className: "relative truncate cursor-pointer",
                 children: [
-                  l && /* @__PURE__ */ e("span", { className: "left-0 absolute inset-y-0 w-[2px]", style: { ...u("primary") } }),
+                  l && /* @__PURE__ */ e("span", { className: "left-0 absolute inset-y-0 w-[2px]", style: { ...f("primary") } }),
                   /* @__PURE__ */ i("div", { className: "flex items-center gap-2 p-2", children: [
                     (d == null ? void 0 : d.value) && /* @__PURE__ */ e(G, { icon: qe(d.type, d.value) }),
                     p,
-                    a && /* @__PURE__ */ e(pn, { children: /* @__PURE__ */ e(G, { icon: qe(a.type, a.value) }) })
+                    a && /* @__PURE__ */ e(gn, { children: /* @__PURE__ */ e(G, { icon: qe(a.type, a.value) }) })
                   ] })
                 ]
               },
@@ -1756,16 +1756,16 @@ function Ms() {
     }
   );
 }
-function Ls() {
-  return /* @__PURE__ */ e(ve, { position: "right", min: () => innerWidth / 7, max: () => innerWidth / 3, className: "h-full", children: /* @__PURE__ */ e(Ms, {}) });
+function Ps() {
+  return /* @__PURE__ */ e(ve, { position: "right", min: () => innerWidth / 7, max: () => innerWidth / 3, className: "h-full", children: /* @__PURE__ */ e(Es, {}) });
 }
 const nt = "visibility/configurations.boolean";
-function Es() {
+function Ts() {
   const n = I(nt), t = w();
-  return f.useEffect(() => {
+  return m.useEffect(() => {
     n && he.setTemp("config", !0);
   }, [n]), /* @__PURE__ */ e(
-    gn,
+    yn,
     {
       hidden: !n,
       onLoadContent: () => {
@@ -1798,11 +1798,11 @@ function Es() {
             })
           },
           children: [
-            /* @__PURE__ */ e(ps, {}),
+            /* @__PURE__ */ e(ys, {}),
             /* @__PURE__ */ e(S, {}),
             /* @__PURE__ */ i("div", { className: "flex w-[70vw] h-[70vh]", children: [
-              /* @__PURE__ */ e(Ls, {}),
-              /* @__PURE__ */ e(Fs, {})
+              /* @__PURE__ */ e(Ps, {}),
+              /* @__PURE__ */ e(Ls, {})
             ] })
           ]
         }
@@ -1810,14 +1810,14 @@ function Es() {
     }
   );
 }
-function Ps({ settingId: n }) {
-  const t = M.getOne(n), o = f.useMemo(() => t == null ? void 0 : t.value, [t]), r = f.useMemo(() => t == null ? void 0 : t.config, [t]), s = x(t == null ? void 0 : t.value);
-  f.useEffect(() => {
+function js({ settingId: n }) {
+  const t = M.getOne(n), o = m.useMemo(() => t == null ? void 0 : t.value, [t]), r = m.useMemo(() => t == null ? void 0 : t.config, [t]), s = x(t == null ? void 0 : t.value);
+  m.useEffect(() => {
     M.setOneFeild(n, "value", s.get);
-  }, [s.get]), f.useEffect(() => {
+  }, [s.get]), m.useEffect(() => {
     s.set(o);
   }, [t]);
-  const a = f.useMemo(() => `setting:${(t == null ? void 0 : t.settingId) || ""}`, [t]), l = f.useMemo(() => {
+  const a = m.useMemo(() => `setting:${(t == null ? void 0 : t.settingId) || ""}`, [t]), l = m.useMemo(() => {
     var h;
     const c = (h = a.match(/\.[a-zA-Z0-9]+$/gi)) == null ? void 0 : h[0].slice(1);
     return c || null;
@@ -1830,30 +1830,30 @@ function Ps({ settingId: n }) {
         ...d((t == null ? void 0 : t.readonly) && "primary.background")
       },
       children: /* @__PURE__ */ i("div", { className: y((t == null ? void 0 : t.readonly) && "pointer-events-none"), children: [
-        l == "boolean" && /* @__PURE__ */ e(yn, { id: a, state: s, config: r }),
-        l == "array" && /* @__PURE__ */ e(bn, { id: a, state: s, config: r }),
-        l == "enum" && /* @__PURE__ */ e(vn, { id: a, state: s, config: r }),
-        l == "object" && /* @__PURE__ */ e(xn, { id: a, state: s, config: r }),
+        l == "boolean" && /* @__PURE__ */ e(bn, { id: a, state: s, config: r }),
+        l == "array" && /* @__PURE__ */ e(vn, { id: a, state: s, config: r }),
+        l == "enum" && /* @__PURE__ */ e(xn, { id: a, state: s, config: r }),
+        l == "object" && /* @__PURE__ */ e(wn, { id: a, state: s, config: r }),
         l == "string" && /* @__PURE__ */ e(wt, { id: a, state: s, config: r }),
-        l == "number" && /* @__PURE__ */ e(wn, { id: a, state: s, config: r }),
-        l == "file" && /* @__PURE__ */ e(Nn, { id: a, state: s, config: r }),
-        l == "filter" && /* @__PURE__ */ e(Cn, { id: a, state: s, config: r }),
-        l == "password" && /* @__PURE__ */ e(kn, { id: a, state: s, config: r }),
-        l == "date" && /* @__PURE__ */ e(Sn, { id: a, state: s, config: r }),
-        l == "regexp" && /* @__PURE__ */ e(In, { id: a, state: s }),
-        l == "audio" && /* @__PURE__ */ e(Fn, { id: a, state: s, config: r }),
-        l == "image" && /* @__PURE__ */ e(Mn, { id: a, state: s, config: r })
+        l == "number" && /* @__PURE__ */ e(Nn, { id: a, state: s, config: r }),
+        l == "file" && /* @__PURE__ */ e(Cn, { id: a, state: s, config: r }),
+        l == "filter" && /* @__PURE__ */ e(kn, { id: a, state: s, config: r }),
+        l == "password" && /* @__PURE__ */ e(Sn, { id: a, state: s, config: r }),
+        l == "date" && /* @__PURE__ */ e(In, { id: a, state: s, config: r }),
+        l == "regexp" && /* @__PURE__ */ e(Fn, { id: a, state: s }),
+        l == "audio" && /* @__PURE__ */ e(Mn, { id: a, state: s, config: r }),
+        l == "image" && /* @__PURE__ */ e(Ln, { id: a, state: s, config: r })
       ] })
     }
   );
 }
-const Ts = () => {
-  const n = w(), t = ut("view.settings"), o = M.getOne(t.get || ""), r = f.useMemo(() => !o || o.settingId.match(/\.password$/gi) ? !1 : !ge(o.def, o.value), [o]), s = f.useMemo(() => {
+const Os = () => {
+  const n = w(), t = ut("view.settings"), o = M.getOne(t.get || ""), r = m.useMemo(() => !o || o.settingId.match(/\.password$/gi) ? !1 : !ge(o.def, o.value), [o]), s = m.useMemo(() => {
     try {
       const a = Function(`return (state)=> \`${(o == null ? void 0 : o.desc) || "**no description defined**"}\` `)(), l = lt.getState();
       return a(l);
     } catch (a) {
-      return $n.err(a), " - ";
+      return Kn.err(a), " - ";
     }
   }, [o == null ? void 0 : o.desc]);
   return /* @__PURE__ */ e(
@@ -1888,19 +1888,19 @@ const Ts = () => {
                           break;
                         }
                         case "password": {
-                          c = Zn;
+                          c = _n;
                           break;
                         }
                         case "number": {
-                          c = Xn;
+                          c = Jn;
                           break;
                         }
                         case "string": {
-                          c = Gn;
+                          c = qn;
                           break;
                         }
                         case "file": {
-                          c = Yn;
+                          c = Zn;
                           break;
                         }
                         case "enum": {
@@ -1908,15 +1908,15 @@ const Ts = () => {
                           break;
                         }
                         case "object": {
-                          c = Wn;
+                          c = Xn;
                           break;
                         }
                         case "array": {
-                          c = Kn;
+                          c = Gn;
                           break;
                         }
                         case "audio":
-                          c = Hn;
+                          c = Yn;
                       }
                       return /* @__PURE__ */ i(
                         "span",
@@ -1941,7 +1941,7 @@ const Ts = () => {
                 r && /* @__PURE__ */ e(
                   B,
                   {
-                    icon: Bn,
+                    icon: Wn,
                     onClick: async () => {
                       const { response: a } = await ie({
                         message: "are you sure about reset this setting",
@@ -1968,15 +1968,15 @@ const Ts = () => {
               /* @__PURE__ */ e(V, { className: "p-2 max-h-[150px]", children: /* @__PURE__ */ e(we, { value: s }) }),
               /* @__PURE__ */ e(S, {})
             ] }),
-            t.get && /* @__PURE__ */ e("div", { className: "p-3", children: /* @__PURE__ */ e(Ps, { settingId: t.get }) })
+            t.get && /* @__PURE__ */ e("div", { className: "p-3", children: /* @__PURE__ */ e(js, { settingId: t.get }) })
           ]
         }
       )
     }
   );
-}, js = ({ item: n, index: t }) => {
-  const o = x(!1), r = x(!1), s = x(!1), a = x(0), { message: l } = n, d = w(), c = I("preferences/toastTime.number"), h = I("preferences/animation.boolean"), g = f.useMemo(() => n.time || c || 5, [c, n.time]);
-  f.useEffect(() => {
+}, As = ({ item: n, index: t }) => {
+  const o = x(!1), r = x(!1), s = x(!1), a = x(0), { message: l } = n, d = w(), c = I("preferences/toastTime.number"), h = I("preferences/animation.boolean"), g = m.useMemo(() => n.time || c || 5, [c, n.time]);
+  m.useEffect(() => {
     if (s.get) {
       const b = setTimeout(() => {
         n.id && ht.remove([n.id]), s.set(!1);
@@ -1985,15 +1985,15 @@ const Ts = () => {
         clearTimeout(b);
       };
     }
-  }, [s.get, n]), f.useEffect(() => {
+  }, [s.get, n]), m.useEffect(() => {
     let b = 0;
-    const u = setInterval(() => {
-      a.set(++b), b >= g && (s.set(!0), clearInterval(u));
+    const f = setInterval(() => {
+      a.set(++b), b >= g && (s.set(!0), clearInterval(f));
     }, 1e3);
     return () => {
-      clearInterval(u);
+      clearInterval(f);
     };
-  }, [g]), f.useEffect(() => {
+  }, [g]), m.useEffect(() => {
     if (r.get) {
       const b = setTimeout(() => {
         r.set(!1);
@@ -2003,8 +2003,8 @@ const Ts = () => {
       };
     }
   }, [r.get]);
-  function p(b, u, v, m) {
-    return n.type == "warning" ? u : n.type == "error" ? v : n.type == "success" ? m : b;
+  function p(b, f, v, u) {
+    return n.type == "warning" ? f : n.type == "error" ? v : n.type == "success" ? u : b;
   }
   return /* @__PURE__ */ i(
     "div",
@@ -2020,7 +2020,7 @@ const Ts = () => {
           /* @__PURE__ */ e(
             G,
             {
-              icon: p(It, St, qn, kt),
+              icon: p(It, St, Qn, kt),
               style: {
                 ...d({
                   color: p("notifay.info", "notifay.warning", "notifay.error", "notifay.success")
@@ -2065,8 +2065,8 @@ const Ts = () => {
       ]
     }
   );
-}, Os = () => {
-  const n = ht.getAll(), t = w(), o = I("preferences/animation.boolean"), r = f.useMemo(() => js, []), s = I("toast/position.enum");
+}, Ds = () => {
+  const n = ht.getAll(), t = w(), o = I("preferences/animation.boolean"), r = m.useMemo(() => As, []), s = I("toast/position.enum");
   return /* @__PURE__ */ e(
     "div",
     {
@@ -2097,15 +2097,15 @@ const Ts = () => {
 }, oe = {
   commandId: "keyboard.commandId",
   position: "keyboard.editingPosition"
-}, st = "key.changeWhen", As = f.memo(({ commandId: n }) => /* @__PURE__ */ e(
+}, st = "key.changeWhen", Rs = m.memo(({ commandId: n }) => /* @__PURE__ */ e(
   at,
   {
     joinComponent: /* @__PURE__ */ e(G, { icon: Ne }),
     list: n.split(".").map((t, o) => /* @__PURE__ */ e("span", { className: "font-bold text-xl capitalize", children: me(t, "camel", "normal") }, o))
   }
-), ge), Ds = ({ keyPanding: n }) => {
+), ge), Vs = ({ keyPanding: n }) => {
   const { when: t, value: o, keyId: r } = n, s = x(!1), a = x(""), l = w(), d = x(!1);
-  return f.useEffect(() => {
+  return m.useEffect(() => {
     s.get && F(st);
   }, [s.get]), /* @__PURE__ */ i(
     "div",
@@ -2181,7 +2181,7 @@ const Ts = () => {
                   onClick: () => {
                     X.setOneFeild(r, "repeation", !n.repeation);
                   },
-                  icon: n.repeation ? _n : Ne
+                  icon: n.repeation ? ts : Ne
                 }
               ) }),
               /* @__PURE__ */ e(T, { title: n.type == "up" ? "switch to down press" : "switch to up press", children: /* @__PURE__ */ e(
@@ -2190,7 +2190,7 @@ const Ts = () => {
                   onClick: () => {
                     n.keyId && X.setOneFeild(n.keyId, "type", n.type == "up" ? "down" : "up");
                   },
-                  icon: n.type == "up" ? Qn : es
+                  icon: n.type == "up" ? ns : ss
                 }
               ) })
             ]
@@ -2200,7 +2200,7 @@ const Ts = () => {
         /* @__PURE__ */ i("div", { className: "text-xs col", children: [
           !s.get && (t || " - "),
           s.get && /* @__PURE__ */ e(
-            Ut,
+            $t,
             {
               style: {
                 backgroundColor: "transparent",
@@ -2227,12 +2227,12 @@ const Ts = () => {
     }
   );
 };
-function Rs() {
-  const n = Z(oe.commandId), t = x(""), o = He.getAll(), r = He.getEntity(), s = f.useMemo(() => n && r[n] || null, [r, n]), a = X.getAll(), l = f.useMemo(() => a.filter(({ value: p }) => p), [a]), d = f.useMemo(() => s ? ce.join(s, a, "commandId->command") : null, [s, a]), c = f.useMemo(() => o.map((p) => ({
+function zs() {
+  const n = Z(oe.commandId), t = x(""), o = He.getAll(), r = He.getEntity(), s = m.useMemo(() => n && r[n] || null, [r, n]), a = X.getAll(), l = m.useMemo(() => a.filter(({ value: p }) => p), [a]), d = m.useMemo(() => s ? ce.join(s, a, "commandId->command") : null, [s, a]), c = m.useMemo(() => o.map((p) => ({
     command: p,
     keys: ce.join(p, a, "commandId->command")
-  })), [l]), h = f.useMemo(() => c.filter(({ keys: p }) => p.some(({ value: b }) => b == t.get)), [c, t]), g = w();
-  return f.useEffect(() => {
+  })), [l]), h = m.useMemo(() => c.filter(({ keys: p }) => p.some(({ value: b }) => b == t.get)), [c, t]), g = w();
+  return m.useEffect(() => {
     t.set("");
   }, [s]), /* @__PURE__ */ e(
     H,
@@ -2284,12 +2284,12 @@ function Rs() {
               ]), t.set("");
               return;
             }
-            const u = Jn.fromEvent(p);
-            t.set(u);
+            const f = es.fromEvent(p);
+            t.set(f);
           },
           children: [
             /* @__PURE__ */ i("div", { className: "relative flex justify-center items-center gap-3 p-2", children: [
-              (s == null ? void 0 : s.commandId) && /* @__PURE__ */ e(As, { commandId: s.commandId }),
+              (s == null ? void 0 : s.commandId) && /* @__PURE__ */ e(Rs, { commandId: s.commandId }),
               /* @__PURE__ */ e(
                 k,
                 {
@@ -2309,7 +2309,7 @@ function Rs() {
             ] }),
             /* @__PURE__ */ e(S, {}),
             /* @__PURE__ */ i("div", { className: "flex flex-col flex-wrap items-center", children: [
-              d == null ? void 0 : d.map((p, b) => /* @__PURE__ */ e(Ds, { keyPanding: p }, b)),
+              d == null ? void 0 : d.map((p, b) => /* @__PURE__ */ e(Vs, { keyPanding: p }, b)),
               !(d != null && d.length) && /* @__PURE__ */ e("div", { className: "py-2", children: "no combinition defined" })
             ] }),
             /* @__PURE__ */ e(S, {}),
@@ -2329,14 +2329,14 @@ function Rs() {
     }
   );
 }
-function no({ children: n }) {
+function oo({ children: n }) {
   const t = I("visibility/header.boolean"), o = I("preferences/animation.boolean");
   return /* @__PURE__ */ i("div", { className: y("absolute bottom-0 inset-x-0 w-full border-solid border-transparent border-b top-0 flex flex-col", t && "top-[51px]", o && "transition-[top] duration-200"), children: [
-    /* @__PURE__ */ e(fs, {}),
+    /* @__PURE__ */ e(ps, {}),
     /* @__PURE__ */ e("div", { className: "flex items-stretch h-full overflow-hidden", children: n })
   ] });
 }
-const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
+const jt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Us = () => {
   const n = w(), t = O.getOneFeild("signupUseremail", "value"), o = x(""), r = x(""), s = A(
     "signup",
     async () => {
@@ -2361,7 +2361,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
         L("Password and confirm password must be the same!", "error"), F("user-password-confirm");
         return;
       }
-      await _t(C.server.auth, t, o.get);
+      await Qt(C.server.auth, t, o.get);
     },
     [t, o.get, r.get]
   );
@@ -2380,7 +2380,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
                 q,
                 {
                   controls: {
-                    [Tt]: {
+                    [jt]: {
                       err: "Invalid email",
                       succ: "Valid email"
                     }
@@ -2479,7 +2479,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
       ] })
     ] }) })
   ] });
-}, zs = () => {
+}, $s = () => {
   const n = w(), t = O.getOneFeild("loginUseremail", "value"), o = x("");
   A(
     "login",
@@ -2505,14 +2505,14 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     "sign-in-facebook",
     async () => {
       var a;
-      (a = C.server) != null && a.auth && await We(C.server.auth, new Qt());
+      (a = C.server) != null && a.auth && await We(C.server.auth, new en());
     },
     []
   ), s = A(
     "sign-in-google",
     async () => {
       var a;
-      (a = C.server) != null && a.auth && await We(C.server.auth, new en());
+      (a = C.server) != null && a.auth && await We(C.server.auth, new tn());
     },
     []
   );
@@ -2541,7 +2541,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
                 q,
                 {
                   controls: {
-                    [Tt]: {
+                    [jt]: {
                       err: "Invalid email",
                       succ: "Valid email"
                     }
@@ -2565,7 +2565,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
           B,
           {
             iconClassName: y((s == null ? void 0 : s.status) == "loading" && "animate-spin"),
-            icon: (s == null ? void 0 : s.status) == "loading" ? Pe : ts,
+            icon: (s == null ? void 0 : s.status) == "loading" ? Pe : os,
             onClick: async () => {
               await Y("sign-in-google");
             }
@@ -2575,7 +2575,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
           B,
           {
             iconClassName: y((r == null ? void 0 : r.status) == "loading" && "animate-spin"),
-            icon: (r == null ? void 0 : r.status) == "loading" ? Pe : ns,
+            icon: (r == null ? void 0 : r.status) == "loading" ? Pe : rs,
             onClick: async () => {
               await Y("sign-in-facebook");
             }
@@ -2658,10 +2658,10 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
       ] })
     ] }) })
   ] });
-}, Us = () => {
+}, Bs = () => {
   const n = Z("focusedLoginView");
-  return /* @__PURE__ */ e(Ln, { focused: n ?? 0, pages: [/* @__PURE__ */ e(zs, {}), /* @__PURE__ */ e(Vs, {})] });
-}, $s = ({ projectId: n }) => {
+  return /* @__PURE__ */ e(En, { focused: n ?? 0, pages: [/* @__PURE__ */ e($s, {}), /* @__PURE__ */ e(Us, {})] });
+}, Hs = ({ projectId: n }) => {
   var a, l;
   const t = Te(), { data: o, error: r, status: s } = gt(async () => {
     var d;
@@ -2673,9 +2673,9 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     } else
       return [];
   }, [n, t]);
-  return f.useEffect(() => {
+  return m.useEffect(() => {
     s.set("idle");
-  }, []), f.useEffect(() => {
+  }, []), m.useEffect(() => {
     s.get == "error" && r.get && L("Error When Loading The Payouts", "error");
   }, [s.get, r.get]), /* @__PURE__ */ i(W, { children: [
     s.get == "success" && /* @__PURE__ */ i(W, { children: [
@@ -2712,13 +2712,13 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     ] }),
     s.get == "loading" && /* @__PURE__ */ e(re, { className: "top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2" })
   ] });
-}, Bs = () => {
+}, Ks = () => {
   var N, E, D;
-  const n = w(), t = Te(), o = tn(), r = x(!1), s = x(void 0), a = I("preferences/animation.boolean"), l = A(
+  const n = w(), t = Te(), o = nn(), r = x(!1), s = x(void 0), a = I("preferences/animation.boolean"), l = A(
     "change-my-name",
     async () => {
-      C.server && s.get && t && await nn(
-        sn(C.server.db, "users", t.uid),
+      C.server && s.get && t && await sn(
+        on(C.server.db, "users", t.uid),
         {
           name: s.get
         },
@@ -2729,11 +2729,11 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     },
     [s.get, t]
   );
-  f.useEffect(() => {
+  m.useEffect(() => {
     Y("change-my-name");
-  }, [s.get, t]), f.useEffect(() => {
+  }, [s.get, t]), m.useEffect(() => {
     F("userLoginDisplayName");
-  }, [r.get]), f.useEffect(() => {
+  }, [r.get]), m.useEffect(() => {
     r.set(!1);
   }, [s.get]);
   const d = A(
@@ -2769,23 +2769,23 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
             const Ue = (Be = ne.files) == null ? void 0 : Be[0];
             if (!Ue)
               return;
-            let Dt = ["users", t.uid, "profile", Le()].filter(Boolean).join("/"), $e = Ye(C.server.storage, Dt);
+            let Rt = ["users", t.uid, "profile", Le()].filter(Boolean).join("/"), $e = Ye(C.server.storage, Rt);
             await Ge($e, Ue);
-            const Rt = await Xe($e);
+            const Vt = await Xe($e);
             return await Ie(t, {
-              photoURL: Rt
+              photoURL: Vt
             }), ke("Done");
           }, ne.click();
         });
-      const Ve = await on("take");
+      const Ve = await rn("take");
       if (!Ve || !C.server)
         return;
-      const jt = await fetch(Ve).then((ke) => ke.blob());
-      let Ot = ["users", t.uid, "profile", Le()].filter(Boolean).join("/"), ze = Ye(C.server.storage, Ot);
-      await Ge(ze, jt);
-      const At = await Xe(ze);
+      const Ot = await fetch(Ve).then((ke) => ke.blob());
+      let At = ["users", t.uid, "profile", Le()].filter(Boolean).join("/"), ze = Ye(C.server.storage, At);
+      await Ge(ze, Ot);
+      const Dt = await Xe(ze);
       await Ie(t, {
-        photoURL: At
+        photoURL: Dt
       });
     },
     [t]
@@ -2799,12 +2799,12 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     },
     [h, t]
   );
-  f.useEffect(() => {
+  m.useEffect(() => {
     c.get && F("newUserPhoneNumber");
   }, [c.get]);
   const {
     data: b,
-    status: u,
+    status: f,
     error: v
   } = gt(async () => {
     if (t && C.server) {
@@ -2813,12 +2813,12 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     } else
       return [];
   }, [t]);
-  f.useEffect(() => {
-    u.set("idle");
-  }, []), f.useEffect(() => {
-    u.get == "error" && v.get && L("Error Loading Your Projects", "error");
-  }, [v.get, u.get]);
-  const m = x(null);
+  m.useEffect(() => {
+    f.set("idle");
+  }, []), m.useEffect(() => {
+    f.get == "error" && v.get && L("Error Loading Your Projects", "error");
+  }, [v.get, f.get]);
+  const u = x(null);
   return /* @__PURE__ */ i("div", { className: "flex flex-col h-full overflow-hidden", children: [
     /* @__PURE__ */ e("div", { className: "p-2", children: /* @__PURE__ */ i("div", { className: "flex max-sm:flex-col items-center gap-3", children: [
       /* @__PURE__ */ i(
@@ -2838,7 +2838,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
           children: [
             (d == null ? void 0 : d.status) != "loading" && /* @__PURE__ */ e("img", { src: (N = t == null ? void 0 : t.photoURL) == null ? void 0 : N.toString(), className: "w-full h-full object-cover" }),
             " ",
-            !(t != null && t.photoURL) && /* @__PURE__ */ e(vt, { icon: ss }),
+            !(t != null && t.photoURL) && /* @__PURE__ */ e(vt, { icon: as }),
             (d == null ? void 0 : d.status) == "loading" && /* @__PURE__ */ e(
               re,
               {
@@ -2910,7 +2910,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
               U,
               {
                 className: "px-5 py-1",
-                icon: os,
+                icon: is,
                 iconClassName: y("animate-spin", (p == null ? void 0 : p.status) != "loading" && "hidden"),
                 onClick: async () => {
                   Y("send-verification-code");
@@ -2942,7 +2942,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
     ] }) }),
     /* @__PURE__ */ e(S, {}),
     /* @__PURE__ */ i(V, { className: "relative", children: [
-      u.get == "success" && /* @__PURE__ */ i(W, { children: [
+      f.get == "success" && /* @__PURE__ */ i(W, { children: [
         /* @__PURE__ */ e("div", { className: "flex flex-wrap", children: (E = b.get) == null ? void 0 : E.map((P, te) => /* @__PURE__ */ e("div", { className: "flex justify-between items-center p-3 w-1/3 max-sm:w-1/2", children: /* @__PURE__ */ i(de, { className: "w-full", children: [
           /* @__PURE__ */ e("div", { className: "p-3", children: /* @__PURE__ */ e("h1", { className: "font-bold text-lg", children: P.id }) }),
           /* @__PURE__ */ e(S, {}),
@@ -2952,7 +2952,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
               B,
               {
                 onClick: () => {
-                  m.set(P.id);
+                  u.set(P.id);
                 },
                 icon: Ne
               }
@@ -2961,29 +2961,29 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
         ] }) }, te)) }),
         !((D = b.get) != null && D.length) && /* @__PURE__ */ e("div", { className: "flex justify-center items-center w-full h-full capitalize", children: /* @__PURE__ */ e(j, { content: "no water fetch projects you sigin" }) })
       ] }),
-      u.get == "loading" && /* @__PURE__ */ e(re, { className: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" }),
+      f.get == "loading" && /* @__PURE__ */ e(re, { className: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" }),
       /* @__PURE__ */ i(
         "div",
         {
           style: {
             ...n("primary.background")
           },
-          className: y("right-0 absolute inset-y-0 left-full", m.get && "left-0", a && "transition-[left]"),
+          className: y("right-0 absolute inset-y-0 left-full", u.get && "left-0", a && "transition-[left]"),
           children: [
             /* @__PURE__ */ i("div", { className: "flex items-center gap-3 p-3", children: [
               /* @__PURE__ */ e(
                 B,
                 {
-                  icon: rs,
+                  icon: ls,
                   onClick: () => {
-                    m.set(null);
+                    u.set(null);
                   }
                 }
               ),
-              /* @__PURE__ */ e("h1", { className: "font-bold text-4xl", children: m.get })
+              /* @__PURE__ */ e("h1", { className: "font-bold text-4xl", children: u.get })
             ] }),
             /* @__PURE__ */ e(S, {}),
-            m.get && /* @__PURE__ */ e($s, { projectId: m.get })
+            u.get && /* @__PURE__ */ e(Hs, { projectId: u.get })
           ]
         }
       )
@@ -3005,25 +3005,25 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
             buttons: ["No", "Yes"],
             defaultId: 1
           });
-          P ? await rn(C.server.auth) : L("Ignore Logout", "error");
+          P ? await an(C.server.auth) : L("Ignore Logout", "error");
         },
         children: /* @__PURE__ */ e(j, { content: "logout" })
       }
     ) })
   ] });
-}, Hs = () => {
+}, Ws = () => {
   const n = Te();
   return /* @__PURE__ */ e("div", { className: "relative w-full h-full overflow-hidden", children: /* @__PURE__ */ e(
-    En,
+    Pn,
     {
-      render: async () => (await as(1e3), /* @__PURE__ */ i(W, { children: [
-        n && /* @__PURE__ */ e(Bs, {}),
-        !n && /* @__PURE__ */ e(Us, {})
+      render: async () => (await cs(1e3), /* @__PURE__ */ i(W, { children: [
+        n && /* @__PURE__ */ e(Ks, {}),
+        !n && /* @__PURE__ */ e(Bs, {})
       ] })),
       loading: /* @__PURE__ */ e(re, { className: "top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2" })
     }
   ) });
-}, Ks = () => {
+}, Ys = () => {
   const n = pe.getTemp("profile-view");
   return /* @__PURE__ */ e(H, { hidden: !n, children: /* @__PURE__ */ i(de, { className: "w-[80vw] h-[80vh]", children: [
     /* @__PURE__ */ i("div", { className: "flex justify-between items-center p-3", children: [
@@ -3039,16 +3039,16 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
       )
     ] }),
     /* @__PURE__ */ e(S, {}),
-    /* @__PURE__ */ e(V, { children: /* @__PURE__ */ e(Hs, {}) })
+    /* @__PURE__ */ e(V, { children: /* @__PURE__ */ e(Ws, {}) })
   ] }) });
-}, Ws = () => {
-  const n = Ze.getTemp("id"), t = Ze.getTemp("src"), o = f.createRef();
-  return f.useEffect(() => {
+}, Gs = () => {
+  const n = Ze.getTemp("id"), t = Ze.getTemp("src"), o = m.createRef();
+  return m.useEffect(() => {
     o.current && (o.current.onclose = () => {
-      an();
+      ln();
     });
   }, [o.current]), /* @__PURE__ */ e(H, { hidden: !n, children: t && n && /* @__PURE__ */ e(de, { className: "w-[70vw] h-[70vh] overflow-hidden", children: /* @__PURE__ */ e("iframe", { ref: o, className: "w-full h-full", id: n, src: t }) }) });
-}, so = () => {
+}, ro = () => {
   const n = x(null), t = w(), o = I("preferences/animation.boolean");
   return /* @__PURE__ */ e(H, { children: /* @__PURE__ */ i(de, { children: [
     /* @__PURE__ */ i("div", { className: "flex justify-between items-center gap-1 p-3", children: [
@@ -3080,7 +3080,7 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
           })
         },
         className: "relative border border-transparent border-solid rounded-full w-[300px] h-[300px] text-xl",
-        children: is(1, 12).map((r) => /* @__PURE__ */ e(
+        children: Pt(1, 12).map((r) => /* @__PURE__ */ e(
           "span",
           {
             onClick: () => {
@@ -3137,12 +3137,12 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
       )
     ] })
   ] }) });
-}, Ys = () => {
+}, Xs = () => {
   const n = w(), t = se.getTemp("id"), o = se.getTemp("list"), r = Me(o || [], "enum-list", "focused"), s = Me(o || [], "enum-list", "submited"), a = I("preferences/animation.boolean");
-  f.useEffect(() => {
+  m.useEffect(() => {
     t && s && (se.setTemp("result", s.value), $.setOneFeild("enum-list", "focused", null), $.setOneFeild("enum-list", "submited", null));
   }, [s, t]);
-  const l = f.createRef();
+  const l = m.createRef();
   return /* @__PURE__ */ e(
     H,
     {
@@ -3173,19 +3173,19 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
                 itemSize: 40,
                 countLastItems: -1,
                 component: ({ data: d, style: c, status: h, handel: g }) => {
-                  const p = w(), b = se.getTemp("choised"), u = x(!1);
+                  const p = w(), b = se.getTemp("choised"), f = x(!1);
                   return /* @__PURE__ */ e(
                     "div",
                     {
-                      onMouseEnter: (v) => u.set(!0),
-                      onMouseLeave: (v) => u.set(!1),
+                      onMouseEnter: (v) => f.set(!0),
+                      onMouseLeave: (v) => f.set(!1),
                       style: {
                         ...c,
                         ...p(
                           b == d.value && {
                             color: "primary"
                           },
-                          u.get && "gray.opacity",
+                          f.get && "gray.opacity",
                           h.isFocused && "primary",
                           h.isFocused && {
                             color: "primary.content"
@@ -3220,70 +3220,98 @@ const Tt = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$", Vs = () => {
       )
     }
   );
-}, oo = ({ children: n }) => /* @__PURE__ */ i(W, { children: [
+}, ao = ({ children: n }) => /* @__PURE__ */ i(W, { children: [
   n,
-  /* @__PURE__ */ e(bs, {}),
-  /* @__PURE__ */ e(Cs, {}),
-  /* @__PURE__ */ e(Ws, {}),
-  /* @__PURE__ */ e(Ks, {}),
-  /* @__PURE__ */ e(ds, {}),
-  /* @__PURE__ */ e(Es, {}),
-  /* @__PURE__ */ e(Ts, {}),
-  /* @__PURE__ */ e(Rs, {}),
-  /* @__PURE__ */ e(ls, {}),
-  /* @__PURE__ */ e(Ns, {}),
-  /* @__PURE__ */ e(Ys, {}),
   /* @__PURE__ */ e(xs, {}),
-  /* @__PURE__ */ e(Pn, {}),
+  /* @__PURE__ */ e(Ss, {}),
+  /* @__PURE__ */ e(Gs, {}),
+  /* @__PURE__ */ e(Ys, {}),
+  /* @__PURE__ */ e(us, {}),
+  /* @__PURE__ */ e(Ts, {}),
   /* @__PURE__ */ e(Os, {}),
+  /* @__PURE__ */ e(zs, {}),
+  /* @__PURE__ */ e(ds, {}),
+  /* @__PURE__ */ e(ks, {}),
+  /* @__PURE__ */ e(Xs, {}),
+  /* @__PURE__ */ e(Ns, {}),
   /* @__PURE__ */ e(Tn, {}),
-  /* @__PURE__ */ e(ms, {})
-] });
+  /* @__PURE__ */ e(Ds, {}),
+  /* @__PURE__ */ e(jn, {}),
+  /* @__PURE__ */ e(fs, {})
+] }), io = m.memo(
+  () => {
+    const [n, t] = On(!1), o = m.createRef(), r = () => {
+      const s = ["#FF5733", "#FFBD33", "#33FF57", "#3357FF", "#D133FF", "red", "blue", "yellow"];
+      return s[Math.floor(Math.random() * s.length)];
+    };
+    return An(() => {
+      const s = setTimeout(() => {
+        t(!0);
+      }, 8e3);
+      return () => clearTimeout(s);
+    }, []), /* @__PURE__ */ e("div", { className: "relative flex justify-center items-center w-screen h-screen", children: /* @__PURE__ */ e("div", { ref: o, className: y("absolute inset-0 pointer-events-none transition-opacity duration-[5000ms] ease-out", n && "opacity-0"), children: Pt(1, 30).map((s, a) => /* @__PURE__ */ e(
+      "div",
+      {
+        className: "absolute opacity-70 confetti-piece",
+        style: {
+          top: -30,
+          backgroundColor: r(),
+          left: Math.random() * 100 + "vw",
+          animationDuration: Math.random() * 3 + 2 + "s",
+          animationDelay: Math.random() * 2 + "s"
+        }
+      },
+      a
+    )) }) });
+  },
+  () => !0
+);
 export {
-  ls as CameraView,
-  ds as Commands,
-  so as DateLayout,
-  ms as DevReadingHTML,
-  Pn as DialogBoxLayout,
-  Ys as EnumLayout,
-  cs as FindCommandInput,
-  us as FindSettingFeild,
-  Ks as FixedProfileView,
-  _s as Header,
-  fs as HeaderNotification,
-  ps as HeaderSettings,
-  Ws as IframeLayout,
+  ds as CameraView,
+  us as Commands,
+  io as CongratulationsView,
+  ro as DateLayout,
+  fs as DevReadingHTML,
+  Tn as DialogBoxLayout,
+  Xs as EnumLayout,
+  ms as FindCommandInput,
+  hs as FindSettingFeild,
+  Ys as FixedProfileView,
+  eo as Header,
+  ps as HeaderNotification,
+  ys as HeaderSettings,
+  Gs as IframeLayout,
   fe as KeyboardButton,
-  gs as KeyboardShortcuts,
-  bs as KeyboardView,
-  oo as Layoutes,
-  Qs as LeftSide,
-  eo as LeftSideView,
-  Us as LoginContent,
-  zs as LoginPage,
-  xs as MenuList,
-  vs as MenuRecord,
-  ws as NotifaysSlot,
-  Ns as Notifications,
-  Cs as PDFView,
-  $s as Payouts,
-  Bs as ProfileContent,
-  Hs as ProfileView,
-  to as RightSide,
-  Ts as SettingUpdateView,
-  Ps as SettingUpdating,
-  Fs as Settings,
-  ks as SettingsList,
-  Ls as SettingsSide,
-  Ss as SettingsTree,
-  Es as SettingsView,
-  Vs as SignupPage,
-  js as ToastItem,
-  Os as Toasts,
-  Rs as UpdateKeyboardShortcut,
-  Is as UserSetting,
-  no as Window,
-  ys as dataKeyboard,
-  Pt as getTree,
+  bs as KeyboardShortcuts,
+  xs as KeyboardView,
+  ao as Layoutes,
+  to as LeftSide,
+  no as LeftSideView,
+  Bs as LoginContent,
+  $s as LoginPage,
+  Ns as MenuList,
+  ws as MenuRecord,
+  Cs as NotifaysSlot,
+  ks as Notifications,
+  Ss as PDFView,
+  Hs as Payouts,
+  Ks as ProfileContent,
+  Ws as ProfileView,
+  so as RightSide,
+  Os as SettingUpdateView,
+  js as SettingUpdating,
+  Ls as Settings,
+  Is as SettingsList,
+  Ps as SettingsSide,
+  Fs as SettingsTree,
+  Ts as SettingsView,
+  Us as SignupPage,
+  As as ToastItem,
+  Ds as Toasts,
+  zs as UpdateKeyboardShortcut,
+  Ms as UserSetting,
+  oo as Window,
+  vs as dataKeyboard,
+  Tt as getTree,
   Je as headerVisibility
 };
