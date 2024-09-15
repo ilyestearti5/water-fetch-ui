@@ -19,7 +19,7 @@ import { EntityId, nanoid } from "@reduxjs/toolkit";
 import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, valueFromString } from "@/utils/index";
 import { CommandIds, commandsHooks } from "@/data/system/command.model";
 import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
-import { collection, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
 export * from "@/reducers/Object/object.slice";
 export * from "@/reducers/Global/title.slice";
@@ -713,4 +713,10 @@ export const showFrame = (src: string | URL, id = nanoid()) => {
 export const closeFrame = () => {
   iframeTemp.setTemp("id", null);
   iframeTemp.setTemp("src", null);
+};
+export const showApplications = () => {
+  viewTemps.setTemp("applications", true);
+};
+export const closeApplications = () => {
+  viewTemps.setTemp("applications", false);
 };

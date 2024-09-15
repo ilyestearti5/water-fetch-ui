@@ -1,5 +1,5 @@
 import React from "react";
-import { mergeObject } from "@/utils";
+import { isSorted, mergeObject } from "@/utils";
 import { BlurOverlay } from "@/components/Overlays";
 import { Line } from "@/components/Line";
 import { KeyPanding } from "@/components/KeyPanding";
@@ -83,7 +83,12 @@ export const MenuList = () => {
   }, [submited, menuId]);
   const menuDim = positionsHooks.getOne("menu-list");
   return (
-    <BlurOverlay hidden={!menuId}>
+    <BlurOverlay
+      hidden={!menuId}
+      style={{
+        backgroundColor: "transparent",
+      }}
+    >
       <PositionView
         positionId="menu-list"
         ref={elementRef}

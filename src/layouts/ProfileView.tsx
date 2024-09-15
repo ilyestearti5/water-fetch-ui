@@ -20,7 +20,7 @@ import {
   Text,
 } from "@/components";
 import { execAction, useAction } from "@/data/system/actions.model";
-import { openDialog } from "@/functions/app/web/web-utils";
+import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { checkFormByFeilds, fieldHooks, useSettingValue, getUser, getUserFromDB, openCamera, showToast, useColorMerge, useCopyState, useIdleStatus } from "@/hooks";
 import { delay, mergeArray, setFocused, tw } from "@/utils";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -34,6 +34,7 @@ import { Password } from "@/components/PasswordFeild";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
 import { viewTemps } from "@/reducers/Object/allTemps";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { allIcons } from "@/apis";
 const emailRegExp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$";
 export const SignupPage = () => {
   const colorMerge = useColorMerge();
@@ -629,7 +630,7 @@ export const ProfileContent = () => {
                 )}
               </EmptyComponent>
             )}
-            {actionChangeMyName?.status == "loading" && <LineLoading />}
+            {actionChangeMyName?.status == "loading" && <CircleLoading />}
             <p>{userFromDb?.email}</p>
             {userFromDb && (
               <div className="flex items-center">
@@ -685,6 +686,46 @@ export const ProfileContent = () => {
                 )}
               </div>
             )}
+            <Button
+              onClick={({ clientX, clientY }) => {
+                openMenu({
+                  x: clientX,
+                  y: clientY,
+                  menu: [
+                    { label: "Profile", pathname: "personal" },
+                    {
+                      label: "Billing",
+                      pathname: "billing",
+                    },
+                    {
+                      label: "Security",
+                      pathname: "security",
+                    },
+                  ].map(({ label, pathname }) => {
+                    return {
+                      label,
+                      click() {
+                        const a = document.createElement("a");
+                        const url = (import.meta.env.DEV ? "http://localhost:2000" : "https://water-fetch-account.web.app") + "/profile/" + pathname;
+                        a.target = "_blank";
+                        a.href = url;
+                        a.click();
+                      },
+                    };
+                  }),
+                });
+              }}
+              className="mt-4 border border-transparent border-solid"
+              style={{
+                ...colorMerge("primary.background", {
+                  color: "text.color",
+                  borderColor: "borders",
+                }),
+              }}
+              icon={allIcons.solid.faGear}
+            >
+              <Text content="manage account" />
+            </Button>
           </div>
         </div>
       </div>
@@ -795,17 +836,19 @@ export const FixedProfileView = () => {
   const profileView = viewTemps.getTemp<boolean>("profile-view");
   return (
     <BlurOverlay hidden={!profileView}>
-      <Card className="w-[80vw] h-[80vh]">
+      <Card className="max-md:rounded-none w-5/6 max-md:w-full h-5/6 max-md:h-full">
         <div className="flex justify-between items-center p-3">
           <h1 className="text-3xl">
             <Text content="Your Profile" />
           </h1>
-          <CircleTip
-            icon={faXmark}
-            onClick={() => {
-              viewTemps.setTemp("profile-view", false);
-            }}
-          />
+          <div className="flex items-center">
+            <CircleTip
+              icon={faXmark}
+              onClick={() => {
+                viewTemps.setTemp("profile-view", false);
+              }}
+            />
+          </div>
         </div>
         <Line />
         <Scroll>

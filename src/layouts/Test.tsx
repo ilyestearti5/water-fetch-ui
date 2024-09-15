@@ -53,7 +53,21 @@ import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { NotificationType } from "@/data/system/notifications.model";
 import { KeyboardView } from "./KeyboardView";
 import { IframeLayout } from "./IframeLayout";
-import { getUser, getUserFromDB, langHooks, openCamera, setSettingValue, settingHooks, showNotification, showProfile, showSetting, showToast, useColorMerge, useCopyState } from "@/hooks";
+import {
+  getUser,
+  getUserFromDB,
+  langHooks,
+  openCamera,
+  setSettingValue,
+  settingHooks,
+  showApplications,
+  showNotification,
+  showProfile,
+  showSetting,
+  showToast,
+  useColorMerge,
+  useCopyState,
+} from "@/hooks";
 import { FixedProfileView } from "./ProfileView";
 import { faAdd, faHome, faLink } from "@fortawesome/free-solid-svg-icons";
 import { EnumLayout } from "./EnumLayout";
@@ -64,6 +78,7 @@ import React from "react";
 import { PayoutResult, PayoutRoute } from "@/routes";
 import { CongratulationsView } from "./Congratulations";
 import { Confettiful } from "./CongratulationsAnimation";
+import { ApplicationsLayout } from "./Application";
 const notificationsExmples: Omit<NotificationType, "id">[] = [
   {
     title: "Product Posted",
@@ -474,6 +489,18 @@ export function Test() {
                       jsxElement: (
                         <Button
                           onClick={() => {
+                            showApplications();
+                          }}
+                        >
+                          Show Application
+                        </Button>
+                      ),
+                      label: "Show Water Fetch Application",
+                    },
+                    {
+                      jsxElement: (
+                        <Button
+                          onClick={() => {
                             showProfile();
                           }}
                         >
@@ -752,6 +779,7 @@ export function Test() {
       <TitleProvider />
       <DialogBoxLayout />
       <IframeLayout />
+      <ApplicationsLayout />
       <EnumLayout />
     </EmptyComponent>
   );

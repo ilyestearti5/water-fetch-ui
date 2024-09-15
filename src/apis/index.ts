@@ -55,34 +55,18 @@ export interface ProjectConfig {
 export const generateAuthUrl = getFunction<GenerateAuthUrlResult, GenerateAuthUrlParams>("generate-auth-url");
 export const generatePayoutUrl = getFunction<GeneratePayoutUrlResult, GeneratePayoutUrlParams>("generate-payout-url");
 export interface SignInAccountProps extends GenerateAuthUrlParams {
-  place: "window" | "frame";
+  place: "window" | "frame" | "redirect";
 }
 export const signInAccount = async ({ place, ...props }: SignInAccountProps) => {
   const { url } = await generateAuthUrl(props);
-  return new Promise<void>(async (res, rej) => {
-    if (place == "frame") {
-      const id = showFrame(url);
-      await delay(1000);
-      const element = document.querySelector<HTMLIFrameElement>("#" + id);
-      if (element) {
-        const win = element.contentWindow;
-        const callback = () => {
-          res();
-          win?.removeEventListener("close", callback);
-        };
-        win?.addEventListener("close", callback);
-      } else {
-        rej("Cannot Access Frame");
-      }
-    } else {
-      const win = open(url, "_blank", "width=400,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no,x=30,y=30");
-      const callback = () => {
-        res();
-        win?.removeEventListener("close", callback);
-      };
-      win?.addEventListener("close", callback);
-    }
-  });
+  await delay(1000);
+  if (place == "frame") {
+    showFrame(url);
+  } else if (place == "window") {
+    open(url, "_blank", "width=400,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no,x=30,y=30");
+  } else {
+    location.href = url;
+  }
 };
 export const allIcons = {
   solid,
