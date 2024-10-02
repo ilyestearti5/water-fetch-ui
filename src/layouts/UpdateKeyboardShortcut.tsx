@@ -17,7 +17,7 @@ import { Db } from "@/utils";
 import { nanoid } from "@reduxjs/toolkit";
 import { faCopy, faHandPointDown, faHandPointUp } from "@fortawesome/free-regular-svg-icons";
 import { TitleView } from "@/components/TitleView";
-import { Text } from "@/components/Text";
+import { Translate } from "@/components/Translate";
 import { Anchor } from "@/components/Anchor";
 import { Tip } from "@/components/Tip";
 import { useCopyState } from "@/hooks";
@@ -315,7 +315,7 @@ export function UpdateKeyboardShortcut() {
             <Line />
             <div className="flex justify-center p-2">
               <Anchor>
-                <Text content="existe" /> ({commandsLike.length})
+                <Translate content="existe" /> ({commandsLike.length})
               </Anchor>
             </div>
           </div>

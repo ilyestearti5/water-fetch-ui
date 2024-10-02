@@ -20,7 +20,7 @@ export const KeyboardButton = ({ isActive, className, ...props }: KeyboardButton
       className={tw(`min-w-[100px] h-[35px] gap-2 rounded-md inline-flex items-center justify-center border border-solid border-transparent`)}
       style={{
         ...colorMerge(
-          "secondry.background",
+          "secondary.background",
           {
             borderColor: "borders",
           },
@@ -171,7 +171,7 @@ export const KeyboardView = () => {
             <pre
               className="px-2 py-1 border border-transparent border-solid rounded-md font-[inherit]"
               style={{
-                ...colorMerge("secondry.background", {
+                ...colorMerge("secondary.background", {
                   borderColor: "borders",
                 }),
               }}

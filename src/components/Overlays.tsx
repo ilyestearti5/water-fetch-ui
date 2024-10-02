@@ -70,9 +70,9 @@ export function BlurOverlay({ className, animted, style, hidden, onLoadContent, 
     <div
       ref={elementRf}
       className={tw(
-        `fixed inset-0 bg-opacity-40 flex justify-center items-center z-[100000000000000000]`,
+        `fixed inset-0 bg-opacity-40 flex justify-center scale-100 items-center z-[100000000000000000]`,
         isAnimation && "transition-[opacity,transform] duration-300",
-        hidden && `pointer-events-none opacity-0 transform scale-110`,
+        hidden && `pointer-events-none opacity-0 transform scale-0`,
         !hidden && `opacity-100`,
         className,
       )}
@@ -81,7 +81,6 @@ export function BlurOverlay({ className, animted, style, hidden, onLoadContent, 
         onTransitionEnd?.(e);
       }}
       style={{
-        ...colorMerge("black.opacity"),
         ...style,
       }}
       {...props}

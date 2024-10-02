@@ -17,7 +17,7 @@ export const SeparatedViewsLine = React.forwardRef<HTMLDivElement, SeparatedView
       ref={ref}
       className={tw(`border border-solid border-transparent rounded-lg flex flex-col`, className)}
       style={{
-        ...colorMerge("secondry.background", {
+        ...colorMerge("secondary.background", {
           borderColor: "borders",
         }),
         ...style,

@@ -49,7 +49,7 @@ export const SettingUpdateView = () => {
       <div
         hidden={!id.get}
         className={tw(`rounded-md border-solid border border-transparent w-1/2 max-md:w-5/6`)}
-        style={colorMerge("secondry.background", {
+        style={colorMerge("secondary.background", {
           borderColor: "borders",
         })}
       >

@@ -24,7 +24,7 @@ export const LeftSide = ({ children }: LeftSideProps) => {
       className={tw(`h-full flex-col flex overflow-hidden border-r border-solid border-transparent z-[10000000000000000]`, !visibility && "border-r-0")}
       hidden={!visibility}
       style={{
-        ...colorMerge("secondry.background", {
+        ...colorMerge("secondary.background", {
           borderColor: "borders",
         }),
       }}

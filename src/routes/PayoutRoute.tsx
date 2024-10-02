@@ -1,6 +1,6 @@
 import { getFunction } from "@/apis";
 import { CircleLoading, EmptyComponent } from "@/components";
-import { getUser, useAsyncEffect, useCopyState } from "@/hooks";
+import { useUser, useAsyncEffect, useCopyState } from "@/hooks";
 import { delay } from "@/utils";
 import React from "react";
 export interface PayoutRouteProps {
@@ -22,7 +22,7 @@ const getPayout = getFunction<PayoutResult, { payoutId: string; userToken: strin
 export const PayoutRoute = ({ onPayoutSuccess, successComponent: Component = <EmptyComponent /> }: PayoutRouteProps) => {
   const searchParams = new URLSearchParams(location.search);
   const payoutId = searchParams.get("payout_id");
-  const user = getUser();
+  const user = useUser();
   const payoutState = useCopyState<PayoutResult | null>(null);
   const isLoading = useAsyncEffect(async () => {
     await delay(1200);

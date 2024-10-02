@@ -1,39 +1,19 @@
 import React from "react";
-import { Server } from "@/apis/firebase";
-import {
-  Anchor,
-  AsyncComponent,
-  BlurOverlay,
-  Button,
-  Card,
-  CircleLoading,
-  CircleTip,
-  EmptyComponent,
-  FastList,
-  Feild,
-  Icon,
-  Line,
-  LineLoading,
-  MultiScreenPage,
-  Scroll,
-  StringFeild,
-  Text,
-} from "@/components";
-import { execAction, useAction } from "@/data/system/actions.model";
-import { openDialog, openMenu } from "@/functions/app/web/web-utils";
-import { checkFormByFeilds, fieldHooks, useSettingValue, getUser, getUserFromDB, openCamera, showToast, useColorMerge, useCopyState, useIdleStatus } from "@/hooks";
-import { delay, mergeArray, setFocused, tw } from "@/utils";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faArrowLeft, faArrowRight, faRefresh, faRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { nanoid } from "@reduxjs/toolkit";
-import { updateProfile, signOut, createUserWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { FacebookAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { Password } from "@/components/PasswordFeild";
-import { setTemp, getTemp } from "@/reducers/Object/object.slice";
 import { viewTemps } from "@/reducers/Object/allTemps";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { signOut, createUserWithEmailAndPassword, verifyBeforeUpdateEmail, sendEmailVerification } from "firebase/auth";
+import { setTemp, getTemp } from "@/reducers/Object/object.slice";
+import { Server } from "@/apis/firebase";
+import { Password } from "@/components/PasswordFeild";
+import { openDialog, openMenu } from "@/functions/app/web/web-utils";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { FacebookAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { faArrowLeft, faArrowRight, faRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { execAction, useAction } from "@/data/system/actions.model";
+import { delay, mergeArray, setFocused, tw } from "@/utils";
+import { collection, getDocs } from "firebase/firestore";
+import { checkFormByFeilds, fieldHooks, useSettingValue, useUser, useUserFromDB, showToast, useColorMerge, useCopyState, useIdleStatus } from "@/hooks";
+import { Anchor, AsyncComponent, BlurOverlay, Button, Card, CircleLoading, CircleTip, EmptyComponent, FastList, Feild, Icon, Line, MultiScreenPage, Scroll, Translate } from "@/components";
 import { allIcons } from "@/apis";
 const emailRegExp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$";
 export const SignupPage = () => {
@@ -140,7 +120,7 @@ export const SignupPage = () => {
             Sigin Into Water Fetch
           </h2>
           <p className="mb-4 capitalize">
-            <Text content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
+            <Translate content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
           </p>
           <div className="flex items-center space-x-4">
             <div className="flex justify-center items-center bg-white shadow-md rounded-full w-12 h-12">
@@ -240,11 +220,15 @@ export const LoginPage = () => {
               } catch {
                 showToast("Password Or Email Is Incorrect 😴", "error");
               }
+            } else if (!email) {
+              showToast("Email Required!", "warning");
+            } else {
+              showToast("Password Required!", "warning");
             }
           }}
         >
           <div className="mb-4">
-            <label className="block mb-2">Username or email</label>
+            <label className="block mb-2">email : </label>
             <Feild
               controls={{
                 [emailRegExp]: {
@@ -316,7 +300,7 @@ export const LoginPage = () => {
             Login Into Water Fetch
           </h2>
           <p className="mb-4 capitalize">
-            <Text content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
+            <Translate content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
           </p>
           <div className="flex items-center space-x-4">
             <div className="flex justify-center items-center bg-white shadow-md rounded-full w-12 h-12">
@@ -367,7 +351,7 @@ export interface PayoutsProps {
   projectId: string;
 }
 export const Payouts = ({ projectId }: PayoutsProps) => {
-  const user = getUser();
+  const user = useUser();
   const { data, error, status } = useIdleStatus(async () => {
     if (!Server.server?.db) {
       return [];
@@ -408,7 +392,7 @@ export const Payouts = ({ projectId }: PayoutsProps) => {
                   >
                     <span>{info.price}DA</span>
                     <Button onClick={async () => {}}>
-                      <Text content="Prepare" />
+                      <Translate content="Prepare" />
                     </Button>
                   </div>
                 );
@@ -428,133 +412,9 @@ export const Payouts = ({ projectId }: PayoutsProps) => {
 };
 export const ProfileContent = () => {
   const colorMerge = useColorMerge();
-  const user = getUser();
-  const userFromDb = getUserFromDB();
-  const editName = useCopyState<boolean>(false);
-  const state = useCopyState<string | undefined>(undefined);
+  const user = useUser();
+  const userFromDb = useUserFromDB();
   const isAnimation = useSettingValue("preferences/animation.boolean");
-  const actionChangeMyName = useAction(
-    "change-my-name",
-    async () => {
-      if (Server.server && state.get && user) {
-        await setDoc(
-          doc(Server.server.db, "users", user.uid),
-          {
-            name: state.get,
-          },
-          {
-            merge: true,
-          },
-        );
-      }
-    },
-    [state.get, user],
-  );
-  React.useEffect(() => {
-    execAction("change-my-name");
-  }, [state.get, user]);
-  React.useEffect(() => {
-    setFocused("userLoginDisplayName");
-  }, [editName.get]);
-  React.useEffect(() => {
-    editName.set(false);
-  }, [state.get]);
-  const action = useAction(
-    "profile-change-image",
-    async () => {
-      if (!Server.server) {
-        showToast("Error When Loading The Server", "error");
-        return;
-      }
-      if (!user) {
-        return;
-      }
-      const buttons = mergeArray(user.photoURL && "Delete", "Cancel", "Upload", "Open Camera");
-      const { response } = await openDialog({
-        title: "Profile Picture",
-        message: "Change your profile picture",
-        buttons,
-        defaultId: 2,
-      });
-      const choised = buttons[response];
-      if (choised == "Delete") {
-        await updateProfile(user, {
-          photoURL: null,
-        });
-        return;
-      }
-      if (choised == "Cancel") {
-        return;
-      }
-      if (choised == "Upload") {
-        return new Promise((res) => {
-          const input = document.createElement("input");
-          input.type = "file";
-          input.accept = "image/*";
-          input.onchange = async () => {
-            if (!Server.server) {
-              return;
-            }
-            const file = input.files?.[0];
-            if (!file) {
-              return;
-            }
-            // upload a file to firestore
-            let p = ["users", user.uid, "profile", nanoid()].filter(Boolean).join("/");
-            let refStore = ref(Server.server.storage, p);
-            await uploadBytes(refStore, file);
-            const photoURL = await getDownloadURL(refStore);
-            await updateProfile(user, {
-              photoURL,
-            });
-            return res("Done");
-          };
-          input.click();
-        });
-      }
-      const cameraBaseUrl64 = await openCamera("take");
-      if (!cameraBaseUrl64) {
-        return;
-      }
-      if (!Server.server) {
-        return;
-      }
-      // upload a baseUrl image to firestore
-      const imageBlob = await fetch(cameraBaseUrl64).then((response) => response.blob());
-      let p = ["users", user.uid, "profile", nanoid()].filter(Boolean).join("/");
-      let refStore = ref(Server.server.storage, p);
-      await uploadBytes(refStore, imageBlob);
-      const photoURL = await getDownloadURL(refStore);
-      await updateProfile(user, {
-        photoURL,
-      });
-    },
-    [user],
-  );
-  const editPhoneNumber = useCopyState(false);
-  const newUserPhoneNumber = fieldHooks.getOneFeild("newUserPhoneNumber", "value");
-  const verificationId = useCopyState<string | null>(null);
-  const act = useAction(
-    "send-verification-code",
-    async () => {
-      if (!newUserPhoneNumber) {
-        return;
-      }
-      if (!checkFormByFeilds(["newUserPhoneNumber"]).isValide) {
-        showToast("Invalid Phone Number", "error");
-        return;
-      }
-      if (!user) {
-        return;
-      }
-    },
-    [newUserPhoneNumber, user],
-  );
-  React.useEffect(() => {
-    if (editPhoneNumber.get) {
-      setFocused("newUserPhoneNumber");
-    }
-  }, [editPhoneNumber.get]);
   const {
     data: userProjects,
     status,
@@ -589,101 +449,16 @@ export const ProfileContent = () => {
               ),
             }}
             className={tw("relative rounded-full w-[100px] h-[100px] max-sm:w-[60px] max-sm:h-[60px] overflow-hidden", user?.emailVerified && "outline-1 outline-offset-1")}
-            onClick={async () => {
-              execAction("profile-change-image");
-            }}
           >
-            {action?.status != "loading" && <img src={user?.photoURL?.toString()} className="w-full h-full object-cover" />} {!user?.photoURL && <Icon icon={faUser} />}
-            {action?.status == "loading" && (
-              <CircleLoading
-                className="top-1/2 left-1/2 absolute w-3/4 h-3/4 transform -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  ...colorMerge({
-                    borderColor: "success.text",
-                  }),
-                }}
-              />
-            )}
+            {user?.photoURL && <img src={user?.photoURL?.toString()} className="w-full h-full object-cover" />}
+            {!user?.photoURL && <Icon icon={faUser} />}
           </div>
           <div className="max-sm:flex max-sm:flex-col max-sm:justify-cente">
-            {actionChangeMyName?.status != "loading" && (
-              <EmptyComponent>
-                {!editName.get && (
-                  <h1
-                    className="text-2xl"
-                    onClick={() => {
-                      editName.set(true);
-                    }}
-                  >
-                    {userFromDb?.name || "No Name"}
-                  </h1>
-                )}
-                {editName.get && (
-                  <StringFeild
-                    id="userLoginDisplayName"
-                    state={state}
-                    config={{
-                      hint: "Enter Your Name",
-                      uncancable: true,
-                    }}
-                  />
-                )}
-              </EmptyComponent>
-            )}
-            {actionChangeMyName?.status == "loading" && <CircleLoading />}
+            <h1 className="text-2xl">{userFromDb?.nickname || "No Name"}</h1>
             <p>{userFromDb?.email}</p>
             {userFromDb && (
               <div className="flex items-center">
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    // editPhoneNumber.set(true);
-                  }}
-                >
-                  Phone Number
-                </span>{" "}
-                : {!editPhoneNumber.get && (user?.phoneNumber || " - ")}
-                {editPhoneNumber.get && !verificationId.get && (
-                  <div className="flex items-center gap-1 p-2">
-                    <Feild
-                      controls={{
-                        "(0|\\+[0-9]+)[0-9]{9}": {
-                          succ: "valide phone number",
-                          err: "invalid phone number",
-                        },
-                      }}
-                      inputName="newUserPhoneNumber"
-                      placeholder="Enter Phone Number"
-                    />
-                    <Button
-                      className="px-5 py-1"
-                      icon={faRefresh}
-                      iconClassName={tw("animate-spin", act?.status != "loading" && "hidden")}
-                      onClick={async () => {
-                        execAction("send-verification-code");
-                      }}
-                    >
-                      Verifie
-                    </Button>
-                    <Button
-                      style={{
-                        ...colorMerge("gray.opacity"),
-                      }}
-                      className="px-5 py-1"
-                      onClick={() => {
-                        editPhoneNumber.set(false);
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                )}
-                {editPhoneNumber.get && verificationId.get && (
-                  <div className="flex items-center gap-1 p-2">
-                    <Feild inputName="verificationCode" />
-                    <Button onClick={async () => {}}>Ok</Button>
-                  </div>
-                )}
+                <span>Phone Number</span> : {user?.phoneNumber || " - "}
               </div>
             )}
             <Button
@@ -691,28 +466,39 @@ export const ProfileContent = () => {
                 openMenu({
                   x: clientX,
                   y: clientY,
-                  menu: [
-                    { label: "Profile", pathname: "personal" },
-                    {
-                      label: "Billing",
-                      pathname: "billing",
-                    },
-                    {
-                      label: "Security",
-                      pathname: "security",
-                    },
-                  ].map(({ label, pathname }) => {
-                    return {
-                      label,
-                      click() {
-                        const a = document.createElement("a");
-                        const url = (import.meta.env.DEV ? "http://localhost:2000" : "https://water-fetch-account.web.app") + "/profile/" + pathname;
-                        a.target = "_blank";
-                        a.href = url;
-                        a.click();
+                  menu: mergeArray<Partial<Electron.MenuItem>>(
+                    ...[
+                      { label: "Profile", pathname: "personal" },
+                      {
+                        label: "Billing",
+                        pathname: "billing",
                       },
-                    };
-                  }),
+                      {
+                        label: "Security",
+                        pathname: "security",
+                      },
+                    ].map(({ label, pathname }) => {
+                      return {
+                        label,
+                        click() {
+                          const a = document.createElement("a");
+                          const url = (import.meta.env.DEV ? "http://localhost:2000" : "https://water-fetch-account.web.app") + "/profile/" + pathname;
+                          a.target = "_blank";
+                          a.href = url;
+                          a.click();
+                        },
+                      };
+                    }),
+                    {
+                      type: "separator",
+                    },
+                    {
+                      async click() {
+                        setTemp("menu.id", null);
+                      },
+                      label: "Close",
+                    },
+                  ),
                 });
               }}
               className="mt-4 border border-transparent border-solid"
@@ -724,7 +510,7 @@ export const ProfileContent = () => {
               }}
               icon={allIcons.solid.faGear}
             >
-              <Text content="manage account" />
+              <Translate content="manage account" />
             </Button>
           </div>
         </div>
@@ -758,7 +544,7 @@ export const ProfileContent = () => {
             </div>
             {!userProjects.get?.length && (
               <div className="flex justify-center items-center w-full h-full capitalize">
-                <Text content="no water fetch projects you sigin" />
+                <Translate content="no water fetch projects you sigin" />
               </div>
             )}
           </EmptyComponent>
@@ -807,16 +593,16 @@ export const ProfileContent = () => {
             }
           }}
         >
-          <Text content="logout" />
+          <Translate content="logout" />
         </Button>
       </div>
     </div>
   );
 };
 export const ProfileView = () => {
-  const user = getUser();
+  const user = useUser();
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative flex flex-col w-full h-full overflow-hidden">
       <AsyncComponent
         render={async () => {
           await delay(1000);
@@ -839,7 +625,7 @@ export const FixedProfileView = () => {
       <Card className="max-md:rounded-none w-5/6 max-md:w-full h-5/6 max-md:h-full">
         <div className="flex justify-between items-center p-3">
           <h1 className="text-3xl">
-            <Text content="Your Profile" />
+            <Translate content="Your Profile" />
           </h1>
           <div className="flex items-center">
             <CircleTip

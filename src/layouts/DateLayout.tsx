@@ -1,4 +1,4 @@
-import { BlurOverlay, Card, CircleTip, Line, Button, Text } from "@/components";
+import { BlurOverlay, Card, CircleTip, Line, Button, Translate } from "@/components";
 import { useCopyState, useColorMerge, useSettingValue, handelShadowColor } from "@/hooks";
 import { range, tw } from "@/utils";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -79,7 +79,7 @@ export const DateLayout = () => {
               }}
               className="capitalize"
             >
-              <Text content="Clear" />
+              <Translate content="Clear" />
             </Button>
           )}
           <Button
@@ -88,7 +88,7 @@ export const DateLayout = () => {
             }}
             className="capitalize"
           >
-            <Text content="Set" />
+            <Translate content="Set" />
           </Button>
         </div>
       </Card>

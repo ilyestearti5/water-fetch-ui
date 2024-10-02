@@ -32,8 +32,8 @@ const FilterListItem = ({ isSelected, item, toggle }: FilterListItemProps) => {
             background: "gray.opacity.2",
           },
           isSelected && {
-            background: handelGradientColor("to right", "secondry", "primary"),
-            color: "secondry.content",
+            background: handelGradientColor("to right", "secondary", "primary"),
+            color: "secondary.content",
           },
         ),
       }}

@@ -13,6 +13,7 @@ import { RecaptchaVerifier } from 'firebase/auth';
 import { SetStateAction } from 'react';
 import { Slice } from '@reduxjs/toolkit';
 import { SliceSelectors } from '@reduxjs/toolkit';
+import { StorageReference } from '@firebase/storage';
 import { StoreEnhancer } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Tuple } from '@reduxjs/toolkit';
@@ -231,6 +232,10 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
+export declare const addNewWord: (text: string, langs: Record<string, string>) => void;
+
+export declare type AllLangs = "ar" | "fr" | "en" | "es" | "de" | "it" | "ja" | "ko" | "pt" | "ru" | "zh";
+
 export declare function back(slotId: SlotType["slotId"]): {
     type: string;
     payload: string | undefined;
@@ -261,11 +266,17 @@ export declare function checkFormByFeilds(fields: string[], state?: FullStateMan
     isValide: boolean;
 };
 
+export declare const closeApplications: () => void;
+
 export declare const closeFrame: () => void;
 
 export declare function closeNotifays(): void;
 
 export declare const closeProfile: () => void;
+
+declare interface Cmd extends Command {
+    keys: Omit<Key, "command">[];
+}
 
 export declare interface Color {
     colorId: string;
@@ -1448,15 +1459,15 @@ declare const data_3: {
     "qrCode.detection.secuess.content": {
         default: string;
     };
-    secondry: {
+    secondary: {
         dark: string;
         light: string;
     };
-    "secondry.background": {
+    "secondary.background": {
         dark: string;
         light: string;
     };
-    "secondry.content": {
+    "secondary.content": {
         default: string;
     };
     selectedTextBackgroundBlured: {
@@ -1716,525 +1727,6 @@ declare const data_6: {
 };
 
 declare const data_7: {};
-
-declare const data_8: {
-    "ar->add": {
-        value: string;
-    };
-    "ar->calculate-zakat": {
-        value: string;
-    };
-    "ar->change": {
-        value: string;
-    };
-    "ar->Choise-Image": {
-        value: string;
-    };
-    "ar->clear": {
-        value: string;
-    };
-    "ar->clear-all": {
-        value: string;
-    };
-    "ar->close-session": {
-        value: string;
-    };
-    "ar->codes": {
-        value: string;
-    };
-    "ar->colors": {
-        value: string;
-    };
-    "ar->commands": {
-        value: string;
-    };
-    "ar->count": {
-        value: string;
-    };
-    "ar->create-at": {
-        value: string;
-    };
-    "ar->created-at": {
-        value: string;
-    };
-    "ar->Data-Base": {
-        value: string;
-    };
-    "ar->desc": {
-        value: string;
-    };
-    "ar->description": {
-        value: string;
-    };
-    "ar->deshboard": {
-        value: string;
-    };
-    "ar->done": {
-        value: string;
-    };
-    "ar->done-at": {
-        value: string;
-    };
-    "ar->email": {
-        value: string;
-    };
-    "ar->facebook-not-defined": {
-        value: string;
-    };
-    "ar->feedbacks-and-about": {
-        value: string;
-    };
-    "ar->for-create-one": {
-        value: string;
-    };
-    "ar->found": {
-        value: string;
-    };
-    "ar->fuateurs": {
-        value: string;
-    };
-    "ar->full-name": {
-        value: string;
-    };
-    "ar->get-start": {
-        value: string;
-    };
-    "ar->home": {
-        value: string;
-    };
-    "ar->i'm-give-the-author": {
-        value: string;
-    };
-    "ar->icons": {
-        value: string;
-    };
-    "ar->id": {
-        value: string;
-    };
-    "ar->keyboard-shortcuts": {
-        value: string;
-    };
-    "ar->keyboardShortcuts": {
-        value: string;
-    };
-    "ar->load-extra-files": {
-        value: string;
-    };
-    "ar->loading": {
-        value: string;
-    };
-    "ar->log-out": {
-        value: string;
-    };
-    "ar->name": {
-        value: string;
-    };
-    "ar->no-base-url-choised": {
-        value: string;
-    };
-    "ar->no-image": {
-        value: string;
-    };
-    "ar->no-markdown-content": {
-        value: string;
-    };
-    "ar->no-name-defined": {
-        value: string;
-    };
-    "ar->no-result": {
-        value: string;
-    };
-    "ar->no-suggestions": {
-        value: string;
-    };
-    "ar->notifications": {
-        value: string;
-    };
-    "ar->open-exsiting-store": {
-        value: string;
-    };
-    "ar->open-new-store": {
-        value: string;
-    };
-    "ar->open-notifications-view": {
-        value: string;
-    };
-    "ar->or-press": {
-        value: string;
-    };
-    "ar->pannel-save-view": {
-        value: string;
-    };
-    "ar->partage-store": {
-        value: string;
-    };
-    "ar->pay": {
-        value: string;
-    };
-    "ar->payment": {
-        value: string;
-    };
-    "ar->payment-": {
-        value: string;
-    };
-    "ar->payments": {
-        value: string;
-    };
-    "ar->press-?-for-help": {
-        value: string;
-    };
-    "ar->print": {
-        value: string;
-    };
-    "ar->privacy": {
-        value: string;
-    };
-    "ar->private": {
-        value: string;
-    };
-    "ar->public": {
-        value: string;
-    };
-    "ar->reload-window": {
-        value: string;
-    };
-    "ar->reset": {
-        value: string;
-    };
-    "ar->reset-base-url": {
-        value: string;
-    };
-    "ar->save-changes": {
-        value: string;
-    };
-    "ar->save-pannel": {
-        value: string;
-    };
-    "ar->search-user-in-list": {
-        value: string;
-    };
-    "ar->see-your-store": {
-        value: string;
-    };
-    "ar->sigin": {
-        value: string;
-    };
-    "ar->static": {
-        value: string;
-    };
-    "ar->status": {
-        value: string;
-    };
-    "ar->submit": {
-        value: string;
-    };
-    "ar->system Configurations": {
-        value: string;
-    };
-    "ar->System-Configurations": {
-        value: string;
-    };
-    "ar->test": {
-        value: string;
-    };
-    "ar->the-return": {
-        value: string;
-    };
-    "ar->toggle-camera": {
-        value: string;
-    };
-    "ar->toggle-fullscreen": {
-        value: string;
-    };
-    "ar->toggle-to-dark": {
-        value: string;
-    };
-    "ar->toggle-to-light": {
-        value: string;
-    };
-    "ar->un-payments": {
-        value: string;
-    };
-    "ar->update": {
-        value: string;
-    };
-    "ar->upload": {
-        value: string;
-    };
-    "ar->user": {
-        value: string;
-    };
-    "ar->view-profile": {
-        value: string;
-    };
-    "ar->view-settings": {
-        value: string;
-    };
-    "ar->visited": {
-        value: string;
-    };
-    "ar->welcome": {
-        value: string;
-    };
-    "ar->win-detection": {
-        value: string;
-    };
-    "ar->write-code-and-start-your-app": {
-        value: string;
-    };
-    "ar->your-starts": {
-        value: string;
-    };
-    "ar->\u0645\u0633\u062A\u062E\u062F\u0645": {
-        value: string;
-    };
-    "fr->add": {
-        value: string;
-    };
-    "fr->calculate-zakat": {
-        value: string;
-    };
-    "fr->clear": {
-        value: string;
-    };
-    "fr->clear-all": {
-        value: string;
-    };
-    "fr->close-session": {
-        value: string;
-    };
-    "fr->codes": {
-        value: string;
-    };
-    "fr->colors": {
-        value: string;
-    };
-    "fr->count": {
-        value: string;
-    };
-    "fr->create-at": {
-        value: string;
-    };
-    "fr->created-at": {
-        value: string;
-    };
-    "fr->ctrl": {
-        value: string;
-    };
-    "fr->desc": {
-        value: string;
-    };
-    "fr->deshboard": {
-        value: string;
-    };
-    "fr->done-at": {
-        value: string;
-    };
-    "fr->email": {
-        value: string;
-    };
-    "fr->facebook-not-defined": {
-        value: string;
-    };
-    "fr->feedbacks-and-about": {
-        value: string;
-    };
-    "fr->for-create-one": {
-        value: string;
-    };
-    "fr->found": {
-        value: string;
-    };
-    "fr->fuateurs": {
-        value: string;
-    };
-    "fr->full-name": {
-        value: string;
-    };
-    "fr->get-start": {
-        value: string;
-    };
-    "fr->home": {
-        value: string;
-    };
-    "fr->i'm-give-the-author": {
-        value: string;
-    };
-    "fr->icons": {
-        value: string;
-    };
-    "fr->id": {
-        value: string;
-    };
-    "fr->keyboard-shortcuts": {
-        value: string;
-    };
-    "fr->keyboardShortcuts": {
-        value: string;
-    };
-    "fr->load-extra-files": {
-        value: string;
-    };
-    "fr->loading": {
-        value: string;
-    };
-    "fr->log-out": {
-        value: string;
-    };
-    "fr->name": {
-        value: string;
-    };
-    "fr->no-base-url-choised": {
-        value: string;
-    };
-    "fr->no-image": {
-        value: string;
-    };
-    "fr->no-image-selected": {
-        value: string;
-    };
-    "fr->no-markdown-content": {
-        value: string;
-    };
-    "fr->no-name-defined": {
-        value: string;
-    };
-    "fr->no-result": {
-        value: string;
-    };
-    "fr->no-suggestions": {
-        value: string;
-    };
-    "fr->notifications": {
-        value: string;
-    };
-    "fr->open-exsiting-store": {
-        value: string;
-    };
-    "fr->open-new-store": {
-        value: string;
-    };
-    "fr->open-notifications-view": {
-        value: string;
-    };
-    "fr->or-press": {
-        value: string;
-    };
-    "fr->pannel-save-view": {
-        value: string;
-    };
-    "fr->partage-store": {
-        value: string;
-    };
-    "fr->pay": {
-        value: string;
-    };
-    "fr->payment": {
-        value: string;
-    };
-    "fr->payment-": {
-        value: string;
-    };
-    "fr->payments": {
-        value: string;
-    };
-    "fr->permession-for-access-the Cash Stock Management (capabilit\u00E9ToAccessAllStoreForAuthor)": {
-        value: string;
-    };
-    "fr->permession-for-access-the-Cash-Stock-Management-(capabilit\u00E9-to-access-all-store-for-author)": {
-        value: string;
-    };
-    "fr->press-?-for-help": {
-        value: string;
-    };
-    "fr->privacy": {
-        value: string;
-    };
-    "fr->private": {
-        value: string;
-    };
-    "fr->public": {
-        value: string;
-    };
-    "fr->reload-window": {
-        value: string;
-    };
-    "fr->reset": {
-        value: string;
-    };
-    "fr->reset-base-url": {
-        value: string;
-    };
-    "fr->save-changes": {
-        value: string;
-    };
-    "fr->search-keyboard-shortcuts-in-list": {
-        value: string;
-    };
-    "fr->search-user-in-list": {
-        value: string;
-    };
-    "fr->see-your-store": {
-        value: string;
-    };
-    "fr->shift": {
-        value: string;
-    };
-    "fr->static": {
-        value: string;
-    };
-    "fr->status": {
-        value: string;
-    };
-    "fr->submit": {
-        value: string;
-    };
-    "fr->test": {
-        value: string;
-    };
-    "fr->the-return": {
-        value: string;
-    };
-    "fr->toggle-fullscreen": {
-        value: string;
-    };
-    "fr->toggle-to-dark": {
-        value: string;
-    };
-    "fr->toggle-to-light": {
-        value: string;
-    };
-    "fr->un-payments": {
-        value: string;
-    };
-    "fr->update": {
-        value: string;
-    };
-    "fr->user": {
-        value: string;
-    };
-    "fr->utilisateur": {
-        value: string;
-    };
-    "fr->view-settings": {
-        value: string;
-    };
-    "fr->visited": {
-        value: string;
-    };
-    "fr->welcome": {
-        value: string;
-    };
-    "fr->win-detection": {
-        value: string;
-    };
-    "fr->write-code-and-start-your-app": {
-        value: string;
-    };
-    "fr->your-starts": {
-        value: string;
-    };
-};
 
 declare const _default: {
     data: {};
@@ -2522,12 +2014,6 @@ export declare const getImageFileType: (filePath: string) => string;
 
 export declare function getLocalAdressIp(): Promise<string | null>;
 
-export declare const getModel: ({ model }: GetModelProps) => GenerativeModel | null;
-
-export declare interface GetModelProps {
-    model?: "gemini-pro" | "gemini-pro-vision";
-}
-
 declare type GetOptinal<T extends object> = Partial<{
     [key in OptinalKeys<T>]: T[key];
 }>;
@@ -2546,17 +2032,12 @@ export declare function getTemp<T>(direction: string): T | null;
 
 export declare function getTempFromStore<T>(direction: string, s?: ReturnType<typeof store.getState>): T | null;
 
+export declare const getTheme: (themeId: string) => Promise<{
+    url: string;
+    storeRef: StorageReference;
+}>;
+
 export declare function getTitle(): string | number | null | undefined;
-
-export declare const getUser: () => User | null;
-
-export declare const getUserFromDB: () => Partial<{
-    name: string | null;
-    email: string | null;
-    phone: string | null;
-    photo: string | null;
-    uid: string;
-}> | null;
 
 export declare const getWatch: () => boolean;
 
@@ -2613,7 +2094,7 @@ export declare const initCommands: () => {
 
 export declare const initCommandsConfig: TableDefConfig<Command, "commandId", "commands">;
 
-export declare const initConfig: TableDefConfig<Lang, "langId", "langs">;
+export declare const initConfig: TableDefConfig<Lang, "word", "langs">;
 
 export declare const initFeilds: () => {
     id: "fieldId";
@@ -2625,7 +2106,7 @@ export declare const initFeilds: () => {
 export declare function initKeys(): void;
 
 export declare const initLangs: () => {
-    id: "langId";
+    id: "word";
     saved: "ready" | QueryStatus;
     status: QueryStatus;
     timeLoading: number;
@@ -2963,49 +2444,48 @@ declare interface KeyState extends Record<Parameters<default_2.KeyboardEvent<HTM
     Key?: string;
 }
 
-export declare interface Lang {
-    langId: string;
-    value: string;
+export declare interface Lang extends Record<string, string> {
+    word: string;
 }
 
 export declare const langEntity: EntityAdapter<Lang, EntityId>;
 
 export declare const langHooks: {
-    getFull(): InitState<any, "langId">;
+    getFull(): InitState<any, "word">;
     getIds(): EntityId[];
-    getId(): "langId";
+    getId(): "word";
     remove(ids: EntityId[]): void;
     add(data: Lang[]): void;
     upsert(data: Lang[]): void;
     getOne(id: EntityId): {
-        langId: string;
-        value: string;
+        [x: string]: string;
+        word: string;
     } | undefined;
     setOne(id: EntityId, changes: Partial<Lang>): void;
-    setWriteStatus(status?: InitState<Lang, "langId">["writeStatus"]): void;
+    setWriteStatus(status?: InitState<Lang, "word">["writeStatus"]): void;
     useOne(id: EntityId): {
         get: {
-            langId: string;
-            value: string;
+            [x: string]: string;
+            word: string;
         } | undefined;
         set: Dispatch<SetStateAction<    {
-        langId: string;
-        value: string;
+        [x: string]: string;
+        word: string;
         } | undefined>>;
     };
     getOneFeild<F extends keyof Lang>(recordId: EntityId, field: F): {
-        langId: string;
-        value: string;
+        [x: string]: string;
+        word: string;
     }[F] | undefined;
     setOneFeild<F extends keyof Lang>(id: EntityId, field: F, value: Lang[F]): void;
     useOneFeild<F extends keyof Lang>(recordeId: EntityId, field: F): {
         get: {
-            langId: string;
-            value: string;
+            [x: string]: string;
+            word: string;
         }[F] | undefined;
         set: Dispatch<SetStateAction<    {
-        langId: string;
-        value: string;
+        [x: string]: string;
+        word: string;
         }[F] | undefined>>;
     };
     getOneFeilds<F extends keyof Lang>(id: EntityId, fields: F[]): (F extends infer T extends keyof Lang ? { [key in T]: Lang[F]; } : never) | undefined;
@@ -3035,13 +2515,11 @@ export declare const langHooks: {
     useChanged(): void;
 };
 
-export declare type LangIds = keyof typeof data_8;
-
 export declare const langsSlice: Slice<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3050,7 +2528,7 @@ set(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3062,7 +2540,7 @@ add(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3074,7 +2552,7 @@ remove(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3083,7 +2561,7 @@ update(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3095,7 +2573,7 @@ reset(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3104,7 +2582,7 @@ upsert(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3116,16 +2594,16 @@ changeStatus(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
-}>, { payload }: PayloadAction<InitState<Lang, "langId">["status"]>): void;
+}>, { payload }: PayloadAction<InitState<Lang, "word">["status"]>): void;
 setLoadingTime(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3134,7 +2612,7 @@ setChanged(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3143,16 +2621,16 @@ changeWriteStatus(state: WritableDraft<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
-}>, { payload }: PayloadAction<InitState<Lang, "langId">["writeStatus"]>): void;
+}>, { payload }: PayloadAction<InitState<Lang, "word">["writeStatus"]>): void;
 }, "langs", "langs", SliceSelectors<EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -3387,6 +2865,8 @@ name: "logs";
 loadingTime: number;
 changed: boolean;
 }>>;
+
+declare type MebePromise<T> = T | Promise<T>;
 
 export declare const menuTemp: Temp;
 
@@ -4034,6 +3514,14 @@ declare interface SendTelProps {
     tel: string;
 }
 
+export declare const setColorFor: (colorId: ColorIds | string, value: string, theme?: "default" | "dark" | "light") => void;
+
+export declare const setDarkColor: (colorId: ColorIds | string, value: string) => void;
+
+export declare const setDefaultColor: (colorId: ColorIds | string, value: string) => void;
+
+export declare const setLightColor: (colorId: ColorIds | string, value: string) => void;
+
 export declare function setPosition(position: TitleInitState["position"]): void;
 
 export declare const setProgress: ({ options, value }: SetProgressProps) => Promise<void>;
@@ -4048,6 +3536,13 @@ export declare function setSettingConfig<ID extends keyof SettingValueType>(sett
 export declare function setSettingValue<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`, value: SettingValueType[ID]): void;
 
 export declare function setTemp<T>(direction: string, value: T): void;
+
+export declare const setTheme: (themeId: string) => Promise<{
+    json: Color[];
+    response: Response;
+    url: string;
+    storeRef: StorageReference;
+}>;
 
 export declare interface Setting<T extends keyof SettingConfig> {
     settingId: `${string}.${T}`;
@@ -4120,12 +3615,14 @@ export declare interface SettingConfig {
         filter: string[];
         alt: string;
         rounded: boolean;
+        size: number;
     }>;
     range: Partial<{
         min: number;
         max: number;
         isFloat: boolean;
         showValue: boolean;
+        marked: Record<number, string>;
     }>;
 }
 
@@ -4171,6 +3668,7 @@ export declare const settingHooks: {
             filter: string[];
             alt: string;
             rounded: boolean;
+            size: number;
         }> | Partial<FileProps> | Partial<{
             format: "date" | "time" | "month" | "datetime-local";
             goToCurrent: boolean;
@@ -4194,6 +3692,7 @@ export declare const settingHooks: {
             max: number;
             isFloat: boolean;
             showValue: boolean;
+            marked: Record<number, string>;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4235,6 +3734,7 @@ export declare const settingHooks: {
                 filter: string[];
                 alt: string;
                 rounded: boolean;
+                size: number;
             }> | Partial<FileProps> | Partial<{
                 format: "date" | "time" | "month" | "datetime-local";
                 goToCurrent: boolean;
@@ -4258,6 +3758,7 @@ export declare const settingHooks: {
                 max: number;
                 isFloat: boolean;
                 showValue: boolean;
+                marked: Record<number, string>;
             }> | undefined;
             deperacted?: boolean;
             def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4296,6 +3797,7 @@ export declare const settingHooks: {
         filter: string[];
         alt: string;
         rounded: boolean;
+        size: number;
         }> | Partial<FileProps> | Partial<{
         format: "date" | "time" | "month" | "datetime-local";
         goToCurrent: boolean;
@@ -4319,6 +3821,7 @@ export declare const settingHooks: {
         max: number;
         isFloat: boolean;
         showValue: boolean;
+        marked: Record<number, string>;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4358,6 +3861,7 @@ export declare const settingHooks: {
             filter: string[];
             alt: string;
             rounded: boolean;
+            size: number;
         }> | Partial<FileProps> | Partial<{
             format: "date" | "time" | "month" | "datetime-local";
             goToCurrent: boolean;
@@ -4381,6 +3885,7 @@ export declare const settingHooks: {
             max: number;
             isFloat: boolean;
             showValue: boolean;
+            marked: Record<number, string>;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4421,6 +3926,7 @@ export declare const settingHooks: {
                 filter: string[];
                 alt: string;
                 rounded: boolean;
+                size: number;
             }> | Partial<FileProps> | Partial<{
                 format: "date" | "time" | "month" | "datetime-local";
                 goToCurrent: boolean;
@@ -4444,6 +3950,7 @@ export declare const settingHooks: {
                 max: number;
                 isFloat: boolean;
                 showValue: boolean;
+                marked: Record<number, string>;
             }> | undefined;
             deperacted?: boolean;
             def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4482,6 +3989,7 @@ export declare const settingHooks: {
         filter: string[];
         alt: string;
         rounded: boolean;
+        size: number;
         }> | Partial<FileProps> | Partial<{
         format: "date" | "time" | "month" | "datetime-local";
         goToCurrent: boolean;
@@ -4505,6 +4013,7 @@ export declare const settingHooks: {
         max: number;
         isFloat: boolean;
         showValue: boolean;
+        marked: Record<number, string>;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4684,6 +4193,8 @@ export declare function setTitle(title: TitleInitState["content"]): void;
 export declare function setX(origin?: TitleInitState["x"]): void;
 
 export declare function setY(origin?: TitleInitState["y"]): void;
+
+export declare const showApplications: () => void;
 
 export declare const showFrame: (src: string | URL, id?: string) => string;
 
@@ -4962,6 +4473,19 @@ export declare interface SlotType {
     redirect?: boolean;
 }
 
+declare interface StartApplicationProps {
+    app: JSX.Element | (() => JSX.Element);
+    loading?: JSX.Element | (() => JSX.Element);
+    onPrepare?: () => MebePromise<undefined | void | {
+        colors?: Color[];
+        settings?: Setting<keyof SettingValueType>[];
+        commands?: Cmd[];
+        translations?: Lang[];
+    }>;
+    timeLoading?: number;
+    isDev?: boolean;
+}
+
 export declare const startReloadTemps: () => void;
 
 export declare const startSaveTemps: () => void;
@@ -5082,7 +4606,7 @@ langs: EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -5222,7 +4746,7 @@ langs: EntityState<Lang, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
-id: "langId";
+id: "word";
 name: "langs";
 loadingTime: number;
 changed: boolean;
@@ -5812,6 +5336,12 @@ export declare function useFocusedTab(id: EntityId): {
     label?: string;
 } | null;
 
+export declare const useGeminiModel: ({ model }: UseGeminiModelProps) => GenerativeModel | null;
+
+export declare interface UseGeminiModelProps {
+    model?: "gemini-pro" | "gemini-pro-vision";
+}
+
 export declare const useIdleStatus: <T>(fn: () => Promise<T>, deps?: any[]) => {
     status: {
         get: "ready" | QueryStatus;
@@ -5851,11 +5381,15 @@ export declare function usePublicSettings(): Setting<keyof SettingConfig>[];
 export declare function usePublicSettingsFilter(): Setting<keyof SettingConfig>[];
 
 export declare type UserDB = Partial<{
-    name: string | null;
+    nickname: string | null;
+    firstname: string | null;
+    lastname: string | null;
     email: string | null;
     phone: string | null;
     photo: string | null;
     uid: string;
+    birthDay: number | null;
+    extraData: Record<string, any>;
 }>;
 
 export declare function useSelected(value: string | undefined, selection: TextAreaProps["selection"]): string;
@@ -5874,6 +5408,22 @@ export declare function useTemp<T>(direction: string): {
     get: T | null;
     set: default_2.Dispatch<default_2.SetStateAction<T | null>>;
 };
+
+export declare const useTemplateInfo: () => StartApplicationProps | null;
+
+export declare const useUser: () => User | null;
+
+export declare const useUserFromDB: () => Partial<{
+    nickname: string | null;
+    firstname: string | null;
+    lastname: string | null;
+    email: string | null;
+    phone: string | null;
+    photo: string | null;
+    uid: string;
+    birthDay: number | null;
+    extraData: Record<string, any>;
+}> | null;
 
 export declare const verifieCapatcha: () => Promise<RecaptchaVerifier>;
 

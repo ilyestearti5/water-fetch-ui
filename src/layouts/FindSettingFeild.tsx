@@ -3,7 +3,7 @@ import { viewHooks } from "@/data/system/views.model";
 import { Feild } from "../components/Feild";
 import { transformCase } from "@/utils/index";
 import { getTemp } from "@/reducers/Object/object.slice";
-import { Text, getText } from "@/components/Text";
+import { Translate, useTranslate } from "@/components/Translate";
 import { fieldHooks, initNewFeild } from "@/hooks";
 import { setFocused } from "@/utils";
 import { useColorMerge } from "@/hooks";
@@ -18,8 +18,8 @@ export function FindSettingFeild() {
   const colorMerge = useColorMerge();
   const lengthOfConfigsFound = getTemp<number>("configurations.found.length");
   const s = React.useMemo(() => transformCase(focused || "no settings focused", "camel", "normal"), [focused]);
-  const [placeholder] = getText(`search ${s} in list`);
-  const [focusedConfig] = getText(s);
+  const [placeholder] = useTranslate(`search ${s} in list`);
+  const [focusedConfig] = useTranslate(s);
   const hover = useCopyState(false);
   const findConfigurationsLocal = fieldHooks.getOneFeild("findConfigurations-local", "value");
   useEffectDelay(
@@ -69,12 +69,12 @@ export function FindSettingFeild() {
                 }}
               >
                 <span>
-                  <Text content="found" /> {lengthOfConfigsFound} <Text content={focusedConfig} />
+                  <Translate content="found" /> {lengthOfConfigsFound} <Translate content={focusedConfig} />
                 </span>
                 {hover.get && (
                   <span>
                     {" "}
-                    (<Text content="Delete" />)
+                    (<Translate content="Delete" />)
                   </span>
                 )}
               </div>

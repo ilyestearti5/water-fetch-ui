@@ -58,12 +58,14 @@ export interface SettingConfig {
     filter: string[];
     alt: string;
     rounded: boolean;
+    size: number;
   }>;
   range: Partial<{
     min: number;
     max: number;
     isFloat: boolean;
     showValue: boolean;
+    marked: Record<number, string>;
   }>;
 }
 // nesisary values

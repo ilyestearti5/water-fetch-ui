@@ -4,20 +4,16 @@
     "name": "Water Fetch Team",
     "url": "https://github.com/ilyestearti5/"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "ui/index.js",
+  "types": "ui/index.d.ts",
   "keywords": [],
-  "debug": {
-    "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
-    }
-  },
   "dependencies": {
     "@capacitor/android": "^6.1.2",
     "@capacitor/app": "^6.0.1",
     "@capacitor/browser": "^6.0.2",
     "@capacitor/cli": "^6.1.2",
     "@capacitor/core": "^6.1.2",
+    "@capacitor/device": "^6.0.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
@@ -31,6 +27,7 @@
     "firebase": "^10.12.5",
     "js-cookie": "^3.0.5",
     "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "pouchdb": "^9.0.0",
     "pouchdb-upsert": "^2.2.0",
     "qrcode": "^1.5.3",

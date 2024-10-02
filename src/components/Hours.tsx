@@ -1,9 +1,9 @@
+import React from "react";
+import { useCopyState } from "@/hooks";
 import { useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
-import { useCopyState } from "@/hooks";
+import { Translate } from "./Translate";
 import { settingHooks, useSettingValue } from "@/hooks";
-import React from "react";
-import { Text } from "./Text";
 import { EmptyComponent } from "./EmptyComponent";
 const Time = ({ time }: { time: number }) => {
   return <span className={"font-mono"}>{time >= 10 ? time : `0${time}`}</span>;
@@ -24,7 +24,7 @@ export function Hours() {
   const isAnimation = useSettingValue("preferences/animation.boolean");
   const colorMerge = useColorMerge();
   const styles = {
-    ...colorMerge("secondry.background", {
+    ...colorMerge("secondary.background", {
       borderColor: "borders",
       color: "focus.text",
     }),
@@ -73,7 +73,7 @@ export function Hours() {
           <Time time={date.get.getSeconds()} />
         </EmptyComponent>
       )}
-      {!date.get && <Text content="loading" />}
+      {!date.get && <Translate content="loading" />}
     </div>
   );
 }

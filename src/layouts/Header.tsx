@@ -33,7 +33,7 @@ export function Header({ children }: HeaderProps) {
   const animation = useSettingValue("preferences/animation.boolean");
   // desc: header bar style
   const styles = React.useMemo(() => {
-    return colorMerge(windowFocused ? "primary.background" : "secondry.background", {
+    return colorMerge(windowFocused ? "primary.background" : "secondary.background", {
       borderColor: "borders",
       boxShadow: handelShadowColor([
         {

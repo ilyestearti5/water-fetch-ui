@@ -16,6 +16,7 @@ import { RegexpFeild } from "../components/RegexpFeild";
 import { RecorderFeild } from "../components/RecorderFeild";
 import { ImageFeild } from "../components/ImageFeild";
 import { useColorMerge } from "@/hooks";
+import { PinField } from "@/components";
 export interface SettingUpdatingProps {
   settingId: string;
 }
@@ -64,6 +65,7 @@ export function SettingUpdating({ settingId }: SettingUpdatingProps) {
         {type == "regexp" && <RegexpFeild id={id} state={state} />}
         {type == "audio" && <RecorderFeild id={id} state={state} config={config} />}
         {type == "image" && <ImageFeild id={id} state={state} config={config} />}
+        {type == "pin" && <PinField id={id} state={state} config={config} />}
       </div>
     </div>
   );

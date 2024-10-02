@@ -9,7 +9,7 @@ import { NotifaysSlot } from "./NotifaysSlot";
 import { useAction } from "@/data/system/actions.model";
 import { slotHooks } from "@/data/system/slot.slice";
 import React from "react";
-import { Text } from "@/components/Text";
+import { Translate } from "@/components/Translate";
 import { useSettingValue, handelShadowColor, openDialog, setSettingValue, settingHooks, useColorMerge } from "@/hooks";
 const notificationVisibility = "visibility/notifays.boolean";
 const notsVisibility = "visibility/notifays/nots.boolean";
@@ -74,7 +74,7 @@ export function Notifications() {
       )}
       style={{
         ...colorMerge({
-          backgroundColor: "secondry.background",
+          backgroundColor: "secondary.background",
           borderColor: "borders",
           boxShadow: handelShadowColor([
             {
@@ -110,7 +110,7 @@ export function Notifications() {
           >
             {!notes && `(${notifaysIds.length})`}
           </span>
-          <Text content="notifications" />
+          <Translate content="notifications" />
         </h3>
         <div className="flex gap-3 text-xl">
           {!!notifaysIds.length && (

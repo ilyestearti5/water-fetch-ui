@@ -1,14 +1,14 @@
 import React from "react";
+import { useTranslate } from "./Translate";
+import { useCopyState } from "@/hooks";
 import { useColorMerge } from "@/hooks";
+import { Tip } from "@/components/Tip";
 import { Shortcut, tw } from "@/utils";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
-import { getText } from "./Text";
+import { Input } from "./Input";
 import { format } from "date-fns";
 import { FeildGeneralProps } from "@/types/global";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
-import { useCopyState } from "@/hooks";
-import { Tip } from "@/components/Tip";
-import { Input } from "./Input";
 export const dateToStringForInput = (date: Date, to: SettingConfig["date"]["format"] = "datetime-local") => {
   if (to == "time") {
     return format(date, "HH:mm");
@@ -25,7 +25,7 @@ export type DateFeildProps = FeildGeneralProps<SettingValueType["date"] | undefi
 export function DateFeild({ state, config = {}, id }: DateFeildProps) {
   const colorMerge = useColorMerge();
   const focused = useCopyState(false);
-  const styleView = colorMerge("secondry.background", {
+  const styleView = colorMerge("secondary.background", {
     borderColor: "borders",
   });
   const error = useCopyState(true);
@@ -39,7 +39,7 @@ export function DateFeild({ state, config = {}, id }: DateFeildProps) {
         borderColor: "checkbox.true",
       },
   );
-  const [noProvidedMessage] = getText("no provided");
+  const [noProvidedMessage] = useTranslate("no provided");
   const resetToDefault = React.useCallback(() => {
     const currentDate = new Date();
     state.set(dateToStringForInput(currentDate, config.format));

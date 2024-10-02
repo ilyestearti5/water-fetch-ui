@@ -65,14 +65,14 @@ export function SettingsList() {
             style={{
               ...colorMerge(
                 index % 2 && "primary.background",
-                index % 2 == 0 && "secondry.background",
+                index % 2 == 0 && "secondary.background",
                 hover.get && "gray.opacity",
                 status.isFocused && {
                   borderColor: "primary",
                 },
                 status.isSubmited && {
-                  backgroundColor: "secondry",
-                  color: "secondry.content",
+                  backgroundColor: "secondary",
+                  color: "secondary.content",
                 },
               ),
               ...style,

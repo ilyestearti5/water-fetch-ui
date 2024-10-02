@@ -1,6 +1,6 @@
-import { randomizeArray } from "@/utils/index";
-import { useCopyState } from "@/hooks";
 import React from "react";
+import { useCopyState } from "@/hooks";
+import { randomizeArray } from "@/utils/index";
 import { EmptyComponent } from "./EmptyComponent";
 export function useTextAnimation({ string = "expmle", time = 10 }: { string?: string; time?: number }) {
   const state = useCopyState(string);

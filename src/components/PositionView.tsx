@@ -24,7 +24,9 @@ export const ChangableComponent = ({ onContentChange, ...props }: ChangableCompo
         const rect = element.getBoundingClientRect();
         state.set(rect);
       };
-      callback();
+      const timer = setTimeout(() => {
+        callback();
+      }, 300);
       const rObs = new ResizeObserver(callback);
       const mObs = new MutationObserver(callback);
       const iObs = new IntersectionObserver(callback);
@@ -39,6 +41,7 @@ export const ChangableComponent = ({ onContentChange, ...props }: ChangableCompo
         mObs.disconnect();
         iObs.disconnect();
         removeEventListener("resize", callback);
+        clearTimeout(timer);
       };
     }
   }, [elementRef.current]);

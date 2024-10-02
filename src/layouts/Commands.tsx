@@ -167,7 +167,7 @@ export function Commands() {
       <div
         style={{
           ...colorMerge({
-            backgroundColor: "secondry.background",
+            backgroundColor: "secondary.background",
             borderColor: "borders",
           }),
         }}

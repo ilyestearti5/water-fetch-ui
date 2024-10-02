@@ -23,7 +23,7 @@ export const RightSide = ({ children }: RightSideProps) => {
       hidden={!visibility}
       style={{
         ...colorMerge({
-          backgroundColor: "secondry.background",
+          backgroundColor: "secondary.background",
           borderColor: "borders",
         }),
       }}

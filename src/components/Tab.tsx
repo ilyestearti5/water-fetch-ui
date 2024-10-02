@@ -25,7 +25,7 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
       }}
       style={{
         ...colorMerge(
-          "secondry.background",
+          "secondary.background",
           isActive && "primary",
           isActive && {
             color: "primary.content",

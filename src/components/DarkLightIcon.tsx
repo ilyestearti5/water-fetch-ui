@@ -3,13 +3,13 @@ import { settingHooks } from "@/reducers/Settings/settings.model";
 import { tw } from "@/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useColorMerge } from "@/hooks";
-import { getText } from "@/components/Text";
+import { useTranslate } from "@/components/Translate";
 import { TitleView } from "@/components/TitleView";
 export const DarkLightIcon = () => {
   const isDark = settingHooks.useOneFeild("window/dark.boolean", "value");
   const colorMerge = useColorMerge();
-  const [toLight] = getText("toggle to light");
-  const [toDark] = getText("toggle to dark");
+  const [toLight] = useTranslate("toggle to light");
+  const [toDark] = useTranslate("toggle to dark");
   return (
     <TitleView
       title={(isDark.get ? toLight : toDark) ?? undefined}

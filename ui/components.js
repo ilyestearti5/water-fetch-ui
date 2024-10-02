@@ -1,19 +1,22 @@
-import { g as T, T as O, a as H, I as R, F as Z, C as K } from "./ViewPage-B7nrCA56.mjs";
-import { A as ke, b as Se, c as Le, w as Ae, B as Te, d as De, e as je, y as ze, f as Be, h as Ee, i as Re, k as Ve, D as $e, v as Pe, E as Oe, l as He, m as Ze, n as Ke, o as We, p as _e, q as Je, U as Xe, K as qe, L as Ge, M as Qe, r as Ue, N as Ye, t as et, O as tt, P as rt, x as st, z as nt, R as at, G as ot, H as lt, S as it, J as ct, Q as dt, V as ut, W as mt, X as ft, Y as pt, Z as gt, j as ht, u as yt, s as bt } from "./ViewPage-B7nrCA56.mjs";
-import { j as t, F as V, a as w, E as M, J as D } from "./Loading-BjTpGRTY.mjs";
-import { B as wt, C as vt, b as Nt, I as Ct, L as It, c as Mt, S as Ft, d as kt, e as St } from "./Loading-BjTpGRTY.mjs";
-import { t as f, f as W, a as _, s as L, r as $, S as j, b as J, c as X, d as q, D as G, e as Q, g as U } from "./index-CxQCU1i7.mjs";
-import { s as P, u as v, a as I, b as x, h as Y, c as F, d as z, f as B, e as k } from "./index-YGVQf1XJ.mjs";
-import N from "react";
-function oe({ children: e }) {
+import { j as t, u as $, F as H, a as b, E as T, T as G, I as K, J as Z, b as U, P as Q, L as Y } from "./PinFeild-d2tlp-XL.mjs";
+import { A as st, B as ot, C as at, c as lt, h as it, d as ct, e as dt, S as ut, f as ft, g as mt, k as gt, i as pt } from "./PinFeild-d2tlp-XL.mjs";
+import { T as ee, F as te, C as j, B as ne, A as re, E as se, O as oe, S as ae, N as le, a as ie, P as ce, D as de, R as ue, b as fe, I as me } from "./ViewPage-8PHHW31w.mjs";
+import { c as bt, p as wt, r as vt, d as yt, e as xt, f as Ct, n as Nt, h as kt, i as Ft, j as It, K as Lt, L as Mt, M as St, l as Et, m as Tt, q as At, t as Dt, u as jt, k as zt, v as $t, w as Vt, x as Bt, y as Ot, z as Pt, V as Rt, g as Xt, o as Ht, s as Kt } from "./ViewPage-8PHHW31w.mjs";
+import { B as ge } from "./Card-IzIbVky-.mjs";
+import { C as Wt } from "./Card-IzIbVky-.mjs";
+import { t as p, f as pe, a as he, S as V, r as be, b as we, c as ve, d as ye, D as xe, s as B, e as Ce, g as Ne } from "./index-CYYSxI_0.mjs";
+import { s as W, u as F, a as M, b as k, h as ke, c as E, d as O, f as P, e as A } from "./index-B28S0mrD.mjs";
+import L, { useRef as Fe, useState as Ie, useMemo as S, useCallback as I, useEffect as Le } from "react";
+import { allIcons as R } from "./apis.js";
+function Ve({ children: e }) {
   return /* @__PURE__ */ t("div", { className: "flex justify-center items-center px-3 w-full window-dragged h-full text-center capitalize overflow-hidden", children: e });
 }
-const le = () => {
-  const e = P.useOneFeild("window/dark.boolean", "value"), r = v(), [n] = T("toggle to light"), [o] = T("toggle to dark");
+const Be = () => {
+  const e = W.useOneFeild("window/dark.boolean", "value"), a = F(), [s] = $("toggle to light"), [i] = $("toggle to dark");
   return /* @__PURE__ */ t(
-    O,
+    ee,
     {
-      title: (e.get ? n : o) ?? void 0,
+      title: (e.get ? s : i) ?? void 0,
       position: {
         x: "left",
         y: "bottom"
@@ -23,7 +26,7 @@ const le = () => {
         "button",
         {
           tabIndex: -1,
-          className: f(`
+          className: p(`
             relative
             inline-block
             h-[20px]
@@ -37,7 +40,7 @@ const le = () => {
             e.set(!e.get);
           },
           style: {
-            ...r({
+            ...a({
               backgroundColor: "primary.background",
               borderColor: "borders"
             })
@@ -45,7 +48,7 @@ const le = () => {
           children: /* @__PURE__ */ t(
             "span",
             {
-              className: f(
+              className: p(
                 `
                 transition-[left]
                 duration-200
@@ -68,39 +71,39 @@ const le = () => {
                 e.get && "left-1/2"
               ),
               style: {
-                ...r("primary.background", {
+                ...a("primary.background", {
                   borderColor: "borders"
                 })
               },
-              children: /* @__PURE__ */ t(V, { icon: e.get ? W : _ })
+              children: /* @__PURE__ */ t(H, { icon: e.get ? pe : he })
             }
           )
         }
       )
     }
   );
-}, S = ({ time: e }) => /* @__PURE__ */ t("span", { className: "font-mono", children: e >= 10 ? e : `0${e}` }), E = "visibility/timer.boolean";
-function ie() {
-  const e = I(E), r = x(null);
-  N.useEffect(() => {
-    const l = setInterval(() => {
-      const i = /* @__PURE__ */ new Date();
-      r.set(i);
+}, D = ({ time: e }) => /* @__PURE__ */ t("span", { className: "font-mono", children: e >= 10 ? e : `0${e}` }), X = "visibility/timer.boolean";
+function Oe() {
+  const e = M(X), a = k(null);
+  L.useEffect(() => {
+    const o = setInterval(() => {
+      const r = /* @__PURE__ */ new Date();
+      a.set(r);
     }, 1e3);
     return () => {
-      clearInterval(l);
+      clearInterval(o);
     };
   }, []);
-  const n = I("preferences/animation.boolean"), s = {
-    ...v()("secondry.background", {
+  const s = M("preferences/animation.boolean"), n = {
+    ...F()("secondary.background", {
       borderColor: "borders",
       color: "focus.text"
     })
   };
-  return /* @__PURE__ */ w(
+  return /* @__PURE__ */ b(
     "div",
     {
-      className: f(
+      className: p(
         `
         absolute
         cursor-pointer
@@ -124,77 +127,77 @@ function ie() {
         px-4
       `,
         !e && "-translate-x-[92%]",
-        n && `
+        s && `
           transition-[transform]
           duration-200
         `
       ),
       onClick: () => {
-        P.setOneFeild(E, "value", !e);
+        W.setOneFeild(X, "value", !e);
       },
-      style: s,
+      style: n,
       children: [
-        r.get && /* @__PURE__ */ w(M, { children: [
-          /* @__PURE__ */ t(S, { time: r.get.getHours() }),
+        a.get && /* @__PURE__ */ b(T, { children: [
+          /* @__PURE__ */ t(D, { time: a.get.getHours() }),
           ":",
-          /* @__PURE__ */ t(S, { time: r.get.getMinutes() }),
+          /* @__PURE__ */ t(D, { time: a.get.getMinutes() }),
           ":",
-          /* @__PURE__ */ t(S, { time: r.get.getSeconds() })
+          /* @__PURE__ */ t(D, { time: a.get.getSeconds() })
         ] }),
-        !r.get && /* @__PURE__ */ t(H, { content: "loading" })
+        !a.get && /* @__PURE__ */ t(G, { content: "loading" })
       ]
     }
   );
 }
-function ce({
+function Pe({
   "aria-selected": e,
-  children: r,
-  className: n,
-  icon: o,
-  iconClassName: s,
-  onBlur: l,
-  onFocus: i,
-  onMouseEnter: c,
-  onMouseLeave: y,
-  onPointerDown: u,
-  onPointerUp: d,
-  style: p,
-  ...h
+  children: a,
+  className: s,
+  icon: i,
+  iconClassName: n,
+  onBlur: o,
+  onFocus: r,
+  onMouseEnter: l,
+  onMouseLeave: h,
+  onPointerDown: c,
+  onPointerUp: w,
+  style: f,
+  ...y
 }) {
-  const a = x(!1), m = v(), C = x(!1), b = x(!1);
-  return /* @__PURE__ */ w(
+  const d = k(!1), C = F(), m = k(!1), v = k(!1);
+  return /* @__PURE__ */ b(
     "button",
     {
       onMouseEnter: (g) => {
-        c == null || c(g), a.set(!0);
+        l == null || l(g), d.set(!0);
       },
       onMouseLeave: (g) => {
-        y == null || y(g), a.set(!1), b.set(!1);
+        h == null || h(g), d.set(!1), v.set(!1);
       },
       onFocus: (g) => {
-        i == null || i(g), C.set(!0);
+        r == null || r(g), m.set(!0);
       },
       onBlur: (g) => {
-        l == null || l(g), C.set(!1);
+        o == null || o(g), m.set(!1);
       },
       onPointerDown: (g) => {
-        u == null || u(g), b.set(!0);
+        c == null || c(g), v.set(!0);
       },
       onPointerUp: (g) => {
-        d == null || d(g), b.get && b.set(!1);
+        w == null || w(g), v.get && v.set(!1);
       },
-      ...h,
+      ...y,
       style: {
-        ...m(
-          b.get && "gray.opacity.2",
-          a.get && "gray.opacity",
-          C.get && {
+        ...C(
+          v.get && "gray.opacity.2",
+          d.get && "gray.opacity",
+          m.get && {
             outlineColor: "primary"
           }
         ),
-        ...p
+        ...f
       },
-      className: f(
+      className: p(
         `
         outline-transparent
         -outline-offset-1
@@ -207,15 +210,15 @@ function ce({
         relative
         overflow-hidden
       `,
-        n
+        s
       ),
       children: [
-        /* @__PURE__ */ t(R, { iconClassName: s, icon: o }),
-        r,
+        /* @__PURE__ */ t(K, { iconClassName: n, icon: i }),
+        a,
         /* @__PURE__ */ t(
           "div",
           {
-            className: f(
+            className: p(
               `
           absolute
           -top-[100px]
@@ -228,11 +231,11 @@ function ce({
           transform
           -rotate-45
         `,
-              a.get && "left-full"
+              d.get && "left-full"
             ),
             style: {
-              ...m({
-                background: Y("to right", "transparent", "gray.opacity", "transparent")
+              ...C({
+                background: ke("to right", "transparent", "gray.opacity", "transparent")
               })
             }
           }
@@ -241,8 +244,8 @@ function ce({
     }
   );
 }
-function de({ position: e, style: r, className: n, children: o, ...s }) {
-  const l = v();
+function Re({ position: e, style: a, className: s, children: i, ...n }) {
+  const o = F();
   return /* @__PURE__ */ t(
     "div",
     {
@@ -250,7 +253,7 @@ function de({ position: e, style: r, className: n, children: o, ...s }) {
         left: e ? `${e[0]}px` : "",
         top: e ? `${e[1]}px` : ""
       },
-      className: f(
+      className: p(
         `
           transition-all
           duration-300
@@ -261,12 +264,12 @@ function de({ position: e, style: r, className: n, children: o, ...s }) {
         `,
         !e && "hidden"
       ),
-      children: /* @__PURE__ */ w(
+      children: /* @__PURE__ */ b(
         "div",
         {
-          ...s,
+          ...n,
           tabIndex: 1,
-          className: f(
+          className: p(
             `
             ml-[-3px]
             rounded-lg
@@ -275,13 +278,13 @@ function de({ position: e, style: r, className: n, children: o, ...s }) {
             border-transparent
             relative
           `,
-            n
+            s
           ),
           style: {
-            ...l({
+            ...o({
               borderColor: "borders",
-              backgroundColor: "secondry.background",
-              boxShadow: F([
+              backgroundColor: "secondary.background",
+              boxShadow: E([
                 {
                   colorId: "shadow.color",
                   blur: 5,
@@ -293,11 +296,11 @@ function de({ position: e, style: r, className: n, children: o, ...s }) {
             })
           },
           children: [
-            o,
+            i,
             /* @__PURE__ */ t(
               "span",
               {
-                className: f(`
+                className: p(`
             absolute
             top-1/2
             right-full
@@ -311,8 +314,8 @@ function de({ position: e, style: r, className: n, children: o, ...s }) {
             border-y-transparent
           `),
                 style: {
-                  ...l({
-                    borderRightColor: "secondry.background"
+                  ...o({
+                    borderRightColor: "secondary.background"
                   })
                 }
               }
@@ -323,280 +326,167 @@ function de({ position: e, style: r, className: n, children: o, ...s }) {
     }
   );
 }
-function ue({ id: e, config: r, state: n }) {
-  const o = v(), s = ((r == null ? void 0 : r.match) || ".").split("-"), l = (u, d) => s.slice(0, u).reduce((h, a) => h + a.length, 0) + d, i = N.useMemo(() => {
-    if (n.get)
-      return n.get.toString();
-  }, [n.get]), c = x(!1), y = I("preferences/animation.boolean");
-  return /* @__PURE__ */ w(
+const Xe = ({ state: e, config: a = {}, id: s }) => {
+  const i = Fe(null), [n, o] = Ie(!1), r = a.min || 0, l = a.max || 100, h = a.isFloat || !1, c = S(() => {
+    var u;
+    return (u = i.current) == null ? void 0 : u.getBoundingClientRect();
+  }, [n]), w = I(
+    (u) => {
+      if (c) {
+        const N = Math.max(0, Math.min(1, u / c.width));
+        let x = r + N * (l - r);
+        x = h ? +x.toFixed(2) : Math.round(x), e.set(x);
+      }
+    },
+    [r, l, h, c, e]
+  ), f = I(
+    (u) => {
+      if (!n) return;
+      const N = u.touches[0].clientX - ((c == null ? void 0 : c.left) || 0);
+      w(N);
+    },
+    [n, w, c]
+  ), y = I(
+    (u) => {
+      if (!n) return;
+      const N = u.clientX - ((c == null ? void 0 : c.left) || 0);
+      w(N);
+    },
+    [n, w, c]
+  ), d = I(
+    (u) => {
+      o(!0), f(u.nativeEvent);
+    },
+    [f]
+  ), C = I(
+    (u) => {
+      o(!0), y(u.nativeEvent);
+    },
+    [y]
+  ), m = I(() => o(!1), []), v = I(() => o(!1), []);
+  Le(() => (n ? (window.addEventListener("touchmove", f), window.addEventListener("mousemove", y), window.addEventListener("touchend", m), window.addEventListener("mouseup", v), document.body.style.cursor = "grabbing") : (window.removeEventListener("touchmove", f), window.removeEventListener("mousemove", y), window.removeEventListener("touchend", m), window.removeEventListener("mouseup", v), document.body.style.cursor = "auto"), () => {
+    window.removeEventListener("touchmove", f), window.removeEventListener("mousemove", y), window.removeEventListener("touchend", m), window.removeEventListener("mouseup", v), document.body.style.cursor = "auto";
+  }), [n, f, y, m, v]);
+  const g = F(), _ = S(() => e.get.toString(), [e.get]), z = S(() => (e.get - r) / (l - r) * 100, [e.get, r, l]), J = S(() => {
+    const u = a.marked || {};
+    return Object.keys(u).map(Number).sort((x, q) => x - q).map((x) => ({
+      key: x,
+      value: u[x],
+      left: (x - r) / (l - r) * 100
+    }));
+  }, [a.marked, r, l]);
+  return L.useEffect(() => {
+    e.get < r ? e.set(r) : e.get > l && e.set(l);
+  }, [r, l, e.get]), /* @__PURE__ */ b(
     "div",
     {
       tabIndex: 1,
-      onFocus: () => {
-        L(e);
+      onKeyDown: (u) => {
+        const N = new V("arrowright"), x = new V("arrowleft");
+        N.test(u) && e.get < l ? e.set(e.get + 1) : x.test(u) && e.get > r && e.set(e.get - 1);
       },
+      className: "flex flex-col items-center w-full min-w-[150px] select-none",
       children: [
-        /* @__PURE__ */ t(
-          "input",
+        /* @__PURE__ */ b(
+          "div",
           {
-            onFocus: () => {
-              c.set(!0);
-            },
-            onBlur: () => {
-              c.set(!1);
-            },
-            type: "number",
-            onInput: (u) => {
-              const d = u.currentTarget.value;
-              if (console.log(d.includes("e")), ["e", "."].some((a) => d.includes(a)))
-                return;
-              const p = +d;
-              if (isNaN(p))
-                return;
-              if (!p) {
-                n.set(void 0);
-                return;
-              }
-              let h = s.reduce((a, m) => a + m.length, 0);
-              d.length <= h && n.set(+parseInt(d));
-            },
-            onPaste: async () => {
-              const d = +navigator.clipboard.readText();
-              if (isNaN(d))
-                return;
-              if (!d) {
-                n.set(void 0);
-                return;
-              }
-              const p = d.toString();
-              if (["e", "."].some((a) => p.includes(a)))
-                return;
-              let h = s.reduce((a, m) => a + m.length, 0);
-              p.length <= h && n.set(+parseInt(p));
-            },
-            id: e,
-            value: n.get,
-            className: "w-[0px] h-[0px]"
-          }
-        ),
-        /* @__PURE__ */ t("div", { className: "flex items-center gap-2 rounded-lg w-fit", children: /* @__PURE__ */ t(
-          D,
-          {
-            list: s.map((u, d) => {
-              const p = u.split(""), h = p.length;
-              return /* @__PURE__ */ t(
+            ref: i,
+            id: s,
+            style: { ...g("gray.opacity") },
+            className: `relative rounded-lg w-full h-[2px] cursor-${n ? "grabbing" : "grab"}`,
+            onTouchStart: d,
+            onMouseDown: C,
+            children: [
+              /* @__PURE__ */ t("div", { className: "absolute rounded-lg h-[2px]", style: { ...g("primary"), width: `${z}%` } }),
+              /* @__PURE__ */ t(
                 "div",
                 {
-                  style: {
-                    ...o({
-                      boxShadow: F([
-                        {
-                          colorId: "shadow.color",
-                          blur: 4,
-                          size: 0,
-                          x: 0,
-                          y: 5
-                        }
-                      ])
-                    })
-                  },
-                  className: f("flex gap-0", y && "transition-[gap,border-radius]", c.get && "gap-1"),
-                  children: /* @__PURE__ */ t(
-                    D,
-                    {
-                      list: p.map((a, m) => /* @__PURE__ */ t(
-                        "div",
-                        {
-                          className: f(
-                            `
-                          w-[40px]
-                          h-[40px]
-                          border-solid
-                          border-transparent
-                          text-lg
-                          border-y
-                          border-r
-                          flex items-center justify-center
-                        `,
-                            m == 0 && "rounded-ss-lg rounded-es-lg border-l",
-                            c.get && "border-x rounded-lg",
-                            m + 1 == h && "rounded-se-lg rounded-ee-lg"
-                          ),
-                          style: {
-                            ...o(
-                              {
-                                borderColor: "borders"
-                              },
-                              c.get && {
-                                borderColor: "primary"
-                              }
-                            )
-                          },
-                          children: (i == null ? void 0 : i[l(d, m)]) || "."
-                        },
-                        m
-                      )),
-                      joinComponent: /* @__PURE__ */ t(M, {})
-                    },
-                    d
-                  )
+                  className: "top-1/2 absolute rounded-full w-4 h-4 transform -translate-y-1/2",
+                  style: { ...g("primary"), left: `calc(${Math.max(z, 0)}% - 8px)` }
                 }
-              );
-            }),
-            joinComponent: /* @__PURE__ */ t(M, { children: "-" })
+              ),
+              J.map((u, N) => /* @__PURE__ */ t(
+                "div",
+                {
+                  className: "top-1/2 absolute rounded-full w-[3px] h-4 transform -translate-x-1/2 -translate-y-1/2",
+                  style: {
+                    backgroundColor: u.value,
+                    left: u.left + "%"
+                  }
+                },
+                N
+              ))
+            ]
           }
-        ) })
+        ),
+        a.showValue && /* @__PURE__ */ t("div", { className: "mt-2", children: _ })
       ]
     }
   );
-}
-function me({ state: e, config: r = {}, id: n }) {
-  const [o, s] = N.useMemo(() => {
-    let a = r.min || 0, m = 10;
-    return typeof r.max == "number" && (m = r.max), [a, m];
-  }, [r]);
-  N.useEffect(() => {
-    typeof e.get == "number" && (r.max && r.max < e.get ? e.set(r.max) : r.min && r.min > e.get && e.set(r.min));
-  }, [r.max, r.min, e.get]);
-  const l = N.useRef(null), i = v(), c = N.useMemo(() => $(o, s), [o, s]), y = I("preferences/animation.boolean"), u = (a) => {
-    if (!l.current) return;
-    const { left: m, width: C } = l.current.getBoundingClientRect(), b = a.clientX - m, g = Math.max(0, Math.min(b / C, 1)), A = o + g * (s - o);
-    e.set(r.isFloat ? A : Math.round(A));
-  }, d = () => {
-    document.removeEventListener("mousemove", u), document.removeEventListener("mouseup", d);
-  }, p = (a) => {
-    u(a.nativeEvent), document.addEventListener("mousemove", u), document.addEventListener("mouseup", d);
-  }, h = x(!1);
-  return /* @__PURE__ */ t(
-    "div",
-    {
-      id: n,
-      tabIndex: 1,
-      onKeyDown: (a) => {
-        new j("arrowleft").test(a) && e.set((b) => {
-          const g = b - (r.isFloat ? 0.5 : 1);
-          return g <= o ? 0 : g;
-        }), new j("arrowright").test(a) && e.set((b) => {
-          const g = b + (r.isFloat ? 0.5 : 1);
-          return g >= s ? s : g;
-        });
-      },
-      className: f("relative rounded-md flex items-center justify-center gap-1 w-full"),
-      style: {
-        ...i(h.get && "primary")
-      },
-      onFocus: () => {
-        h.set(!0);
-      },
-      onBlur: () => {
-        h.set(!1);
-      },
-      children: /* @__PURE__ */ w("div", { className: "relative flex items-center rounded-full w-[300px] h-[2px]", style: i("gray.opacity"), ref: l, onMouseDown: p, children: [
-        /* @__PURE__ */ t("span", { className: "top-full left-0 absolute text-center translate-y-1/2", children: o }),
-        c.map((a, m) => /* @__PURE__ */ t(
-          "span",
-          {
-            style: {
-              left: `${a / c.length * 100}%`,
-              width: `${1 / c.length * 100}%`
-            },
-            className: "flex justify-center h-[10px]",
-            children: /* @__PURE__ */ t("span", { className: "inline-block w-[1px] h-full", style: i("gray.opacity", h.get && "primary") })
-          },
-          m
-        )),
-        /* @__PURE__ */ t("span", { className: "top-full right-0 absolute text-center translate-y-1/2", children: s }),
-        /* @__PURE__ */ t(
-          "span",
-          {
-            style: {
-              left: `${(e.get - o) / c.length * 100}%`,
-              width: `${1 / c.length * 100}%`
-            },
-            className: f("absolute flex justify-center h-[20px]", y && "transition-[left]"),
-            children: /* @__PURE__ */ t(
-              "span",
-              {
-                className: f("inline-flex items-center justify-center rounded-full h-full", r.showValue && "px-3 w-fit", !r.showValue && "w-[20px]"),
-                style: i(
-                  "gray.opacity",
-                  h.get && "primary",
-                  h.get && {
-                    color: "primary.content"
-                  }
-                ),
-                children: r.showValue && e.get.toFixed(1)
-              }
-            )
-          }
-        )
-      ] })
-    }
-  );
-}
-function fe({ length: e = 4, starts: r = e, onSubmit: n }) {
-  const o = v();
-  return /* @__PURE__ */ t(M, { children: $(e).map((s, l) => /* @__PURE__ */ t(
-    V,
+};
+function He({ length: e = 4, starts: a = e, onSubmit: s }) {
+  const i = F();
+  return /* @__PURE__ */ t(T, { children: be(e).map((n, o) => /* @__PURE__ */ t(
+    H,
     {
       style: {
-        ...o({
+        ...i({
           color: "starts.color"
         })
       },
-      onClick: (i) => {
-        n == null || n(l);
+      onClick: (r) => {
+        s == null || s(o);
       },
       className: "transform hover:scale-150 transition-tansform duration-200",
-      icon: r < s ? J : X
+      icon: a < n ? we : ve
     },
-    s
+    n
   )) });
 }
-const pe = ({ className: e, children: r, ...n }) => {
-  const o = v(), s = I("preferences/animation.boolean");
-  return /* @__PURE__ */ w(
+const Ke = ({ className: e, children: a, ...s }) => {
+  const i = F(), n = M("preferences/animation.boolean");
+  return /* @__PURE__ */ b(
     "button",
     {
-      ...n,
+      ...s,
       style: {
-        ...o({
+        ...i({
           color: "primary"
         })
       },
-      className: f("styled-btn", s && "transition-transform", e),
+      className: p("styled-btn", n && "transition-transform", e),
       children: [
-        /* @__PURE__ */ w("span", { className: f("styled-btn-content", s && "transition-all duration-[0.5s]"), children: [
-          /* @__PURE__ */ t("span", { className: f("before", s && "transition-all duration-[0.5s]") }),
-          /* @__PURE__ */ t("span", { className: f("after", s && "transition-all duration-[0.5s]") }),
-          r
+        /* @__PURE__ */ b("span", { className: p("styled-btn-content", n && "transition-all duration-[0.5s]"), children: [
+          /* @__PURE__ */ t("span", { className: p("before", n && "transition-all duration-[0.5s]") }),
+          /* @__PURE__ */ t("span", { className: p("after", n && "transition-all duration-[0.5s]") }),
+          a
         ] }),
         /* @__PURE__ */ t(
           "span",
           {
             style: {
-              ...o("primary", {
-                boxShadow: F(
-                  [5, 15, 30, 60].map((l) => ({
+              ...i("primary", {
+                boxShadow: E(
+                  [5, 15, 30, 60].map((o) => ({
                     colorId: "primary",
-                    blur: l
+                    blur: o
                   }))
                 )
               })
             },
-            className: f("styled-btn-before", s && "transition-all duration-[0.5s]")
+            className: p("styled-btn-before", n && "transition-all duration-[0.5s]")
           }
         ),
         /* @__PURE__ */ t(
           "span",
           {
-            className: f("styled-btn-after", s && "transition-all duration-[0.5s]"),
+            className: p("styled-btn-after", n && "transition-all duration-[0.5s]"),
             style: {
-              ...o("secondry", {
-                boxShadow: F(
-                  [5, 15, 30, 60].map((l) => ({
-                    colorId: "secondry",
-                    blur: l
+              ...i("secondary", {
+                boxShadow: E(
+                  [5, 15, 30, 60].map((o) => ({
+                    colorId: "secondary",
+                    blur: o
                   }))
                 )
               })
@@ -607,251 +497,354 @@ const pe = ({ className: e, children: r, ...n }) => {
     }
   );
 };
-function ge({ children: e, icon: r, className: n, iconClassName: o, isActive: s, style: l, ...i }) {
-  const c = x(!1);
-  N.useEffect(() => () => {
-    c.set(!1);
-  }, []);
-  const y = v(), u = I("preferences/animation.boolean");
-  return /* @__PURE__ */ w(
-    "span",
-    {
-      onMouseEnter: () => {
-        c.set(!0);
-      },
-      onMouseLeave: () => {
-        c.set(!1);
-      },
-      style: {
-        ...y(
-          "secondry.background",
-          s && "primary",
-          s && {
-            color: "primary.content"
-          },
-          {
-            borderColor: "borders"
-          },
-          {
-            boxShadow: F([
-              {
-                colorId: "shadow.color",
-                blur: 20,
-                size: 3,
-                x: 0,
-                y: 4
-              }
-            ])
-          }
-        ),
-        ...l
-      },
-      className: f("flex items-center justify-center p-2 rounded-[15%] cursor-pointer border border-solid active:scale-95", u && "transition-[background,color,transform]", n),
-      ...i,
-      children: [
-        /* @__PURE__ */ t(R, { iconClassName: o, icon: r }),
-        e
-      ]
-    }
-  );
-}
-function ee({ string: e = "expmle", time: r = 10 }) {
-  const n = x(e), o = x(""), s = x(!0);
-  return N.useEffect(() => {
-    const l = n.get, i = q(l.split("").filter(Boolean));
-    s.set(!0);
-    let c = 0, y = 0;
-    const u = setInterval(function() {
-      if (c >= l.length) {
-        s.set(!1), clearInterval(u);
+function Me({ string: e = "expmle", time: a = 10 }) {
+  const s = k(e), i = k(""), n = k(!0);
+  return L.useEffect(() => {
+    const o = s.get, r = ye(o.split("").filter(Boolean));
+    n.set(!0);
+    let l = 0, h = 0;
+    const c = setInterval(function() {
+      if (l >= o.length) {
+        n.set(!1), clearInterval(c);
         return;
       }
-      o.set(`${l.slice(0, c)}${i[y]}`), i[y] == l[c] ? (c++, y = 0) : y++;
-    }, r);
+      i.set(`${o.slice(0, l)}${r[h]}`), r[h] == o[l] ? (l++, h = 0) : h++;
+    }, a);
     return function() {
-      s.set(!1), clearInterval(u);
+      n.set(!1), clearInterval(c);
     };
-  }, [n.get]), {
-    state: n,
-    value: o.get,
-    isLoading: s.get
+  }, [s.get]), {
+    state: s,
+    value: i.get,
+    isLoading: n.get
   };
 }
-const he = ({ content: e, time: r }) => {
-  const { state: n, value: o } = ee({
-    time: r,
+const Ze = ({ content: e, time: a }) => {
+  const { state: s, value: i } = Me({
+    time: a,
     string: e
   });
-  return N.useEffect(() => {
-    n.set(e || "");
-  }, [e]), /* @__PURE__ */ t(M, { children: o });
+  return L.useEffect(() => {
+    s.set(e || "");
+  }, [e]), /* @__PURE__ */ t(T, { children: i });
 };
-function ye({ inputName: e, defaultContent: r, value: n, setValue: o, visibility: s, setVisibility: l, controls: i, placeholder: c }) {
-  const y = x(!1), u = `focus-input-update-${e}`, d = `escape-input-update-${e}`;
-  z(
-    u,
+function We({ inputName: e, defaultContent: a, value: s, setValue: i, visibility: n, setVisibility: o, controls: r, placeholder: l }) {
+  const h = k(!1), c = `focus-input-update-${e}`, w = `escape-input-update-${e}`;
+  O(
+    c,
     async () => {
-      var a;
-      l(!0), B.setOneFeild(e, "value", n || ""), await new G().start(100), L(e), (a = document.getElementById(e)) == null || a.select();
+      var d;
+      o(!0), P.setOneFeild(e, "value", s || ""), await new xe().start(100), B(e), (d = document.getElementById(e)) == null || d.select();
     },
-    [n, l]
+    [s, o]
   );
-  const p = B.getOneFeild(e, "value");
-  z(
-    d,
+  const f = P.getOneFeild(e, "value");
+  O(
+    w,
     () => {
-      if (p == null)
+      if (f == null)
         return;
-      if (!Object.keys(i || {}).every((m) => {
+      if (!Object.keys(r || {}).every((C) => {
         try {
-          const C = new RegExp(m);
-          return !!p.match(C);
+          const m = new RegExp(C);
+          return !!f.match(m);
         } catch {
           return !0;
         }
       })) {
-        L(e);
+        B(e);
         return;
       }
-      l(!1), o(p);
+      o(!1), i(f);
     },
-    [p, i]
+    [f, r]
   );
-  const h = v();
-  return /* @__PURE__ */ t("div", { className: "p-2 group", children: /* @__PURE__ */ w("div", { className: "flex items-center gap-1", children: [
-    /* @__PURE__ */ t("h1", { className: "truncate", hidden: !!s, children: n || r }),
-    s && /* @__PURE__ */ t(
-      Z,
+  const y = F();
+  return /* @__PURE__ */ t("div", { className: "p-2 group", children: /* @__PURE__ */ b("div", { className: "flex items-center gap-1", children: [
+    /* @__PURE__ */ t("h1", { className: "truncate", hidden: !!n, children: s || a }),
+    n && /* @__PURE__ */ t(
+      te,
       {
-        placeholder: c,
-        controls: i,
+        placeholder: l,
+        controls: r,
         className: "p-1",
         inputName: e,
         onBlur: () => {
-          k(d);
+          A(w);
         },
         style: {
-          ...h(y.get && { borderColor: "error" })
+          ...y(h.get && { borderColor: "error" })
         },
-        onKeyDown: (a) => {
-          a.key = a.key.toLowerCase(), ["enter", "tab"].includes(a.key) && (a.stopPropagation(), a.preventDefault(), a.currentTarget.blur());
+        onKeyDown: (d) => {
+          d.key = d.key.toLowerCase(), ["enter", "tab"].includes(d.key) && (d.stopPropagation(), d.preventDefault(), d.currentTarget.blur());
         }
       }
     ),
     /* @__PURE__ */ t("span", { children: /* @__PURE__ */ t(
-      K,
+      j,
       {
         className: "group-hover:visible invisible",
-        icon: s ? Q : U,
+        icon: n ? Ce : Ne,
         onPointerDown: () => {
-          s ? k(d) : k(u);
+          n ? A(w) : A(c);
         }
       }
     ) })
   ] }) });
 }
-function be({ ref: e, position: [r, n] = [0, 0], children: o, style: s, className: l, ...i }) {
+function _e({ ref: e, position: [a, s] = [0, 0], children: i, style: n, className: o, ...r }) {
   return /* @__PURE__ */ t(
     "div",
     {
       ref: e,
-      ...i,
+      ...r,
       style: {
-        ...s,
-        left: r,
-        top: n
+        ...n,
+        left: a,
+        top: s
       },
-      className: f("transition-[left,top] duration-300", l, "fixed"),
-      children: o
+      className: p("transition-[left,top] duration-300", o, "fixed"),
+      children: i
     }
   );
 }
-function xe() {
+function Je() {
   return /* @__PURE__ */ t("div", { "aria-label": "window-controls", className: "flex text-md" });
 }
-const we = ({ ...e }) => /* @__PURE__ */ t("span", { className: "w-[40px] h-full inline-flex items-center justify-center transition-[background]", ...e, tabIndex: -1 }), ve = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "M 0,5 10,5 10,6 0,6 Z" }) }), Ne = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "m 2,1e-5 0,2 -2,0 0,8 8,0 0,-2 2,0 0,-8 z m 1,1 6,0 0,6 -1,0 0,-5 -5,0 z m -2,2 6,0 0,6 -6,0 z" }) }), Ce = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "M 0,0 0,0.7 4.3,5 0,9.3 0,10 0.7,10 5,5.7 9.3,10 10,10 10,9.3 5.7,5 10,0.7 10,0 9.3,0 5,4.3 0.7,0 Z" }) }), Ie = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "M 0,0 0,10 10,10 10,0 Z M 1,1 9,1 9,9 1,9 Z" }) });
+const qe = ({ ...e }) => /* @__PURE__ */ t("span", { className: "w-[40px] h-full inline-flex items-center justify-center transition-[background]", ...e, tabIndex: -1 }), Ge = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "M 0,5 10,5 10,6 0,6 Z" }) }), Ue = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "m 2,1e-5 0,2 -2,0 0,8 8,0 0,-2 2,0 0,-8 z m 1,1 6,0 0,6 -1,0 0,-5 -5,0 z m -2,2 6,0 0,6 -6,0 z" }) }), Qe = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "M 0,0 0,0.7 4.3,5 0,9.3 0,10 0.7,10 5,5.7 9.3,10 10,10 10,9.3 5.7,5 10,0.7 10,0 9.3,0 5,4.3 0.7,0 Z" }) }), Ye = ({ color: e }) => /* @__PURE__ */ t("svg", { version: "1.1", width: "10", height: "10", children: /* @__PURE__ */ t("path", { className: "transition-[fill]", fill: e, d: "M 0,0 0,10 10,10 10,0 Z M 1,1 9,1 9,9 1,9 Z" }) }), et = ({ state: e, tabs: a }) => {
+  const s = F();
+  L.useMemo(() => a.map(({ value: n }) => n).indexOf(e.get), [e.get, a]);
+  const i = M("preferences/animation.boolean");
+  return /* @__PURE__ */ t(
+    "div",
+    {
+      className: "flex items-stretch gap-2 p-2 border border-transparent border-solid rounded-2xl w-full overflow-hidden",
+      style: {
+        ...s("secondary.background", {
+          borderColor: "borders",
+          boxShadow: E([
+            {
+              blur: 5,
+              size: 0,
+              colorId: "shadow.color",
+              x: 0,
+              y: 4
+            }
+          ])
+        })
+      },
+      children: /* @__PURE__ */ t(
+        Z,
+        {
+          list: a.map(({ label: n, icon: o, value: r }) => {
+            const l = e.get == r;
+            return /* @__PURE__ */ t(
+              ge,
+              {
+                className: p("rounded-xl px-7 py-4", l && "font-bold", i && "transition-all duration-300"),
+                style: {
+                  ...s(
+                    !l && "transparent",
+                    !l && {
+                      color: "text.color"
+                    }
+                  )
+                },
+                icon: o,
+                onClick: () => {
+                  e.set(r);
+                },
+                children: n
+              },
+              r
+            );
+          }),
+          joinComponent: /* @__PURE__ */ t(T, {})
+        }
+      )
+    }
+  );
+};
+function Se({ value: e, onChange: a, type: s, config: i, id: n }) {
+  const o = i, r = {
+    get: e,
+    set: a
+  };
+  return /* @__PURE__ */ b("div", { className: "p-2", children: [
+    s == "boolean" && /* @__PURE__ */ t(ne, { id: n, state: r, config: o }),
+    s == "array" && /* @__PURE__ */ t(re, { id: n, state: r, config: o }),
+    s == "enum" && /* @__PURE__ */ t(se, { id: n, state: r, config: o }),
+    s == "object" && /* @__PURE__ */ t(oe, { id: n, state: r, config: o }),
+    s == "string" && /* @__PURE__ */ t(ae, { id: n, state: r, config: o }),
+    s == "number" && /* @__PURE__ */ t(le, { id: n, state: r, config: o }),
+    s == "file" && /* @__PURE__ */ t(U, { id: n, state: r, config: o }),
+    s == "filter" && /* @__PURE__ */ t(ie, { id: n, state: r, config: o }),
+    s == "password" && /* @__PURE__ */ t(ce, { id: n, state: r, config: o }),
+    s == "date" && /* @__PURE__ */ t(de, { id: n, state: r, config: o }),
+    s == "regexp" && /* @__PURE__ */ t(ue, { id: n, state: r }),
+    s == "audio" && /* @__PURE__ */ t(fe, { id: n, state: r, config: o }),
+    s == "image" && /* @__PURE__ */ t(me, { id: n, state: r, config: o }),
+    s == "pin" && /* @__PURE__ */ t(Q, { id: n, state: r, config: o })
+  ] });
+}
+const tt = ({ list: e, id: a, state: s }) => {
+  const i = Object.entries(e).map(([r, l]) => ({ id: r, ...l })), n = k(0);
+  L.useEffect(() => {
+    n.set(0);
+  }, []);
+  const o = M("preferences/animation.boolean");
+  return /* @__PURE__ */ t("div", { className: "flex flex-col items-center gap-2 w-full", children: /* @__PURE__ */ t(
+    Z,
+    {
+      list: i.map((r, l) => {
+        const { label: h, icon: c, type: w, id: f, config: y, onNext: d } = r, C = s.get[f];
+        return /* @__PURE__ */ b("div", { className: "w-full", children: [
+          /* @__PURE__ */ b("div", { className: "flex justify-between items-center p-2", children: [
+            /* @__PURE__ */ b("div", { className: "flex items-center gap-1", children: [
+              c && /* @__PURE__ */ t(K, { icon: c }),
+              /* @__PURE__ */ b("label", { htmlFor: `${f}-${l}`, className: "capitalize", children: [
+                h,
+                " :"
+              ] })
+            ] }),
+            n.get == l && /* @__PURE__ */ b("div", { className: "flex items-center gap-1", children: [
+              l > 0 && /* @__PURE__ */ t(
+                j,
+                {
+                  onClick: () => {
+                    n.set(l - 1);
+                  },
+                  icon: R.solid.faChevronUp
+                }
+              ),
+              l + 1 < i.length && /* @__PURE__ */ t(
+                j,
+                {
+                  onClick: () => {
+                    let m = !1;
+                    const v = {
+                      currentIndex: n.get,
+                      state: s.get,
+                      stop() {
+                        m = !0;
+                      },
+                      currentValue: C
+                    };
+                    d == null || d(v), !m && n.set(l + 1);
+                  },
+                  icon: R.solid.faChevronDown
+                }
+              )
+            ] })
+          ] }),
+          /* @__PURE__ */ t("div", { className: p("h-[0px] flex justify-center overflow-hidden", o && "transition-[height]", l == n.get && "h-[150px]"), children: /* @__PURE__ */ t(
+            Se,
+            {
+              type: w,
+              onChange: (m) => {
+                let v = typeof m == "function" ? m(C) : m;
+                s.set((g) => ({
+                  ...g,
+                  [f]: v
+                }));
+              },
+              id: `list-${a}-${f}`,
+              config: y,
+              value: C
+            },
+            l
+          ) })
+        ] }, f);
+      }),
+      joinComponent: /* @__PURE__ */ t(Y, {})
+    }
+  ) });
+};
 export {
-  ke as Anchor,
-  Se as ArrayFeild,
-  Le as AsyncComponent,
-  wt as BallLoading,
-  Ae as BlurOverlay,
-  Te as BooleanFeild,
-  De as Button,
-  je as Card,
-  oe as CenterWindowDrag,
-  ze as ChangableComponent,
-  vt as CircleLoading,
-  K as CircleTip,
-  Ce as CloseActionIcon,
-  Be as ColorsList,
-  Ee as ContentOfImageView,
-  le as DarkLightIcon,
-  Re as DataBaseManagmentList,
-  Ve as DateFeild,
-  $e as DialogBoxLayout,
-  Pe as DownOverlay,
-  M as EmptyComponent,
-  Oe as EnumFeild,
-  He as FastList,
-  Z as Feild,
-  Ze as FileFeild,
-  Ke as FilterFeild,
-  Nt as Focus,
-  ie as Hours,
-  R as Icon,
-  We as Icons,
-  _e as Image,
-  Je as ImageFeild,
-  Xe as InnerText,
-  Ct as Input,
-  D as JoinComponentBy,
-  qe as KeyPanding,
-  ce as LargeButton,
-  It as Line,
-  Mt as LineLoading,
-  Ge as List,
-  Qe as MarkDown,
-  Ie as MaximizeActionIcon,
-  ve as MinimizeActionIcon,
-  Ue as MultiScreenPage,
-  Ye as Note,
-  et as NumberFeild,
-  tt as ObjectFeild,
-  de as PanelSide,
-  rt as Password,
-  st as PasswordFeild,
-  ue as PinFeild,
-  nt as PositionView,
-  me as RangeFeild,
-  at as RecorderFeild,
-  ot as RegexpFeild,
-  lt as ResizeView,
-  Ft as Scroll,
-  kt as SeparatedViewsLine,
-  St as SeparatedViewsLineTitle,
-  it as SinglePanding,
-  ct as Slot,
-  fe as Starts,
-  dt as StringFeild,
-  pe as StyledButton,
-  ge as Tab,
-  H as Text,
-  he as TextAnimation,
-  ut as TextArea,
-  mt as Tip,
-  ft as TitleProvider,
-  O as TitleView,
-  pt as Tree,
-  Ne as UnMaximizeActionIcon,
-  ye as UpdateData,
-  gt as ViewPage,
-  be as ViewPanel,
-  xe as WindowControls,
-  we as WindowsButton,
-  ht as dateToStringForInput,
-  T as getText,
-  yt as objectIfPrefix,
-  bt as slotId,
-  ee as useTextAnimation
+  st as Anchor,
+  re as ArrayFeild,
+  bt as AsyncComponent,
+  ot as BallLoading,
+  wt as BlurOverlay,
+  ne as BooleanFeild,
+  ge as Button,
+  Wt as Card,
+  Ve as CenterWindowDrag,
+  vt as ChangableComponent,
+  at as CircleLoading,
+  j as CircleTip,
+  Qe as CloseActionIcon,
+  yt as ColorsList,
+  xt as ContentOfImageView,
+  Be as DarkLightIcon,
+  Ct as DataBaseManagmentList,
+  de as DateFeild,
+  Nt as DownOverlay,
+  T as EmptyComponent,
+  se as EnumFeild,
+  kt as FastList,
+  te as Feild,
+  U as FileFeild,
+  ie as FilterFeild,
+  lt as Focus,
+  tt as FullField,
+  Se as FullFieldRecord,
+  Oe as Hours,
+  K as Icon,
+  Ft as Icons,
+  It as Image,
+  me as ImageFeild,
+  it as InnerTranslate,
+  ct as Input,
+  Z as JoinComponentBy,
+  Lt as KeyPanding,
+  Pe as LargeButton,
+  Y as Line,
+  dt as LineLoading,
+  Mt as List,
+  St as MarkDown,
+  Ye as MaximizeActionIcon,
+  Ge as MinimizeActionIcon,
+  Et as MultiScreenPage,
+  Tt as Note,
+  le as NumberFeild,
+  oe as ObjectFeild,
+  Re as PanelSide,
+  At as Password,
+  ce as PasswordFeild,
+  Q as PinField,
+  Dt as PositionView,
+  Xe as RangeFeild,
+  fe as RecorderFeild,
+  ue as RegexpFeild,
+  jt as ResizeView,
+  ut as Scroll,
+  ft as SeparatedViewsLine,
+  mt as SeparatedViewsLineTitle,
+  zt as SinglePanding,
+  $t as Slot,
+  He as Starts,
+  ae as StringFeild,
+  Ke as StyledButton,
+  Vt as Tab,
+  et as Tabs,
+  Ze as TextAnimation,
+  Bt as TextArea,
+  gt as Tip,
+  Ot as TitleProvider,
+  ee as TitleView,
+  G as Translate,
+  Pt as Tree,
+  Ue as UnMaximizeActionIcon,
+  We as UpdateData,
+  Rt as ViewPage,
+  _e as ViewPanel,
+  Je as WindowControls,
+  qe as WindowsButton,
+  Xt as dateToStringForInput,
+  pt as iconsFileFeild,
+  Ht as objectIfPrefix,
+  Kt as slotId,
+  Me as useTextAnimation,
+  $ as useTranslate
 };

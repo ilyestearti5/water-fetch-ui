@@ -9,7 +9,7 @@ import { faExchange, faEye, faLowVision } from "@fortawesome/free-solid-svg-icon
 import { execAction, useAction } from "@/data/system/actions.model";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { Text } from "./Text";
+import { Translate } from "./Translate";
 export type PasswordFeildProps = FeildGeneralProps<string | undefined, SettingConfig["password"]>;
 export interface PasswordProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   state: State<string | undefined>;
@@ -102,7 +102,7 @@ export function PasswordFeild({ state, config = {}, id }: PasswordFeildProps) {
       <Password placeholder="confirm password" state={confirmPassword} />
       {!newPassword.get && !config.canEmpty && (
         <span className="p-1">
-          <Text content="password cannot be empty" />
+          <Translate content="password cannot be empty" />
         </span>
       )}
       <div className="flex justify-end items-center gap-1">
@@ -114,7 +114,7 @@ export function PasswordFeild({ state, config = {}, id }: PasswordFeildProps) {
             icon={faExchange}
             className="px-2 py-1"
           >
-            <Text content="change" />
+            <Translate content="change" />
           </Button>
         )}
       </div>

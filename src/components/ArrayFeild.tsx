@@ -10,7 +10,7 @@ import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { useColorMerge } from "@/hooks";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { keyHooks } from "@/data/system/keys.model";
-import { Text } from "./Text";
+import { Translate } from "./Translate";
 import { useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
@@ -97,7 +97,7 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
         </div>
         {inputValue.get && (
           <Button onClick={add} className="w-fit">
-            <Text content="add" />
+            <Translate content="add" />
           </Button>
         )}
       </div>

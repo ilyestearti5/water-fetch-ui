@@ -4,7 +4,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { viewHooks } from "@/data/system/views.model";
 import { settingHooks } from "@/reducers/Settings/settings.model";
 import { transformCase } from "@/utils/index";
-import { getText } from "@/components/Text";
+import { useTranslate } from "@/components/Translate";
 import { TitleView } from "@/components/TitleView";
 // desc: this var is the path to the visibility of the settings
 const settingsVisibility = "visibility/configurations.boolean";
@@ -14,7 +14,7 @@ export const HeaderSettings = () => {
   const transformedString = React.useMemo(() => {
     return transformCase(String(focusTabSetting), "camel", "normal");
   }, [focusTabSetting]);
-  const [title] = getText(transformedString);
+  const [title] = useTranslate(transformedString);
   return (
     <div className="flex justify-between items-center p-2">
       <h1 className="font-bold text-2xl capitalize">{title}</h1>

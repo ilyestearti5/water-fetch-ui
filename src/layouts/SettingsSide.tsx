@@ -9,7 +9,7 @@ import { ResizeView } from "@/components/ResizeView";
 import { useColorMerge } from "@/hooks";
 import { Db } from "@/utils";
 import { TitleView } from "@/components/TitleView";
-import { getText } from "@/components/Text";
+import { useTranslate } from "@/components/Translate";
 import { Note } from "../components/Note";
 function SettingSideList() {
   const view = viewHooks.getOne("settings");
@@ -45,7 +45,7 @@ function SettingSideList() {
             return Db.join({ cmdId }, allKeys, "cmdId->command").map(({ value }) => value!);
           }, [cmdId, allKeys]);
           //
-          const [label] = getText(transformCase(id, "camel", "normal"));
+          const [label] = useTranslate(transformCase(id, "camel", "normal"));
           //
           const hover = useCopyState(false);
           //

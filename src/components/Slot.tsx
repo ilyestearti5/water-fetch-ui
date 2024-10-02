@@ -36,14 +36,14 @@ export function Slot<T>({ data, slotId, focusId = slotId, component: compo, chil
               onPointerDown={handelFocus(handelSelect())}
               style={{
                 ...colorMerge(
-                  isOdd && "secondry.background",
+                  isOdd && "secondary.background",
                   hover.get && "gray.opacity",
                   (status.isFocused || status.isSubmited) && {
                     borderColor: "primary",
                   },
                   (status.isSelected || status.isSubmited) && {
-                    backgroundColor: "secondry",
-                    color: "secondry.content",
+                    backgroundColor: "secondary",
+                    color: "secondary.content",
                   },
                 ),
               }}

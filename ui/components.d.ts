@@ -1,8 +1,10 @@
 import { default as default_2 } from 'react';
+import { FC } from 'react';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { OpenDialogOptions } from 'electron';
+import { QueryStatus } from 'react-query';
 
 export declare function Anchor({ className, style, ...props }: AnchorProps): JSX_2.Element;
 
@@ -116,8 +118,6 @@ export declare type DateFeildProps = FeildGeneralProps<SettingValueType["date"] 
 
 export declare const dateToStringForInput: (date: Date, to?: SettingConfig["date"]["format"]) => string;
 
-export declare const DialogBoxLayout: () => JSX_2.Element;
-
 export declare function DownOverlay({ hidden, animted, className, style, children, onLoadContent, onTransitionEnd, ...props }: OverlaysProps): JSX_2.Element;
 
 export declare const EmptyComponent: ({ children }: EmptyComponentProps) => JSX_2.Element;
@@ -217,18 +217,38 @@ export declare interface FocusProps extends ReactElement {
     ignoreOutline?: boolean;
 }
 
-declare type FunctionComponentListItem<T> = (props: ListItemProps<T>) => JSX.Element;
+export declare const FullField: ({ list, id: parentId, state }: FullFieldProps) => JSX_2.Element;
 
-/**
- * @description this function is used to translate the content to the choised lang
- * @param content the content that you want to translate
- * @returns the translated content and the loading state
- * @example
- * const [text, isLoading] = getText("hello world");
- * console.log(text); // "hello world"
- * console.log(isLoading); // false
- */
-export declare const getText: (content: TextProps["content"], lang?: string) => [string, boolean];
+export declare interface FullFieldProps {
+    list: Record<string, {
+        label: string;
+        type: keyof SettingValueType;
+        config: SettingConfig[keyof SettingValueType];
+        onNext?(prop: FullFieldRecordNextCallbackParams): any;
+        icon?: IconProps["icon"];
+    }>;
+    state: State<Record<string, Setting<keyof SettingValueType>["value"]>>;
+    id: string;
+}
+
+export declare function FullFieldRecord<T extends keyof SettingValueType>({ value, onChange, type, config: aConfig, id }: FullFieldRecordProps<T>): JSX_2.Element;
+
+export declare interface FullFieldRecordNextCallbackParams {
+    stop(): void;
+    currentIndex: number;
+    state: FullFieldProps["state"]["get"];
+    currentValue: FullFieldRecordNextCallbackParams["state"][string];
+}
+
+export declare interface FullFieldRecordProps<T extends keyof SettingValueType> {
+    onChange: default_2.Dispatch<default_2.SetStateAction<Setting<T>["value"]>>;
+    value: Setting<T>["value"];
+    id: string;
+    config: SettingConfig[T];
+    type: T;
+}
+
+declare type FunctionComponentListItem<T> = (props: ListItemProps<T>) => JSX.Element;
 
 export declare function Hours(): JSX_2.Element;
 
@@ -241,6 +261,8 @@ export declare interface IconProps {
 
 export declare function Icons(): JSX_2.Element;
 
+export declare const iconsFileFeild: Record<QueryStatus | "ready", IconProps["icon"]>;
+
 declare function Image_2({ className, alt, src, children, style, ...props }: ImageProps): JSX_2.Element;
 export { Image_2 as Image }
 
@@ -252,15 +274,14 @@ declare interface ImageProps extends Omit<default_2.DetailedHTMLProps<default_2.
     alt?: any;
 }
 
-export declare function InnerText({ component, text }: InnerTextProps): JSX_2.Element;
-
-export declare interface InnerTextProps {
+export declare interface InnerTextProps extends TranslateProps {
     component: (props: {
-        text: string;
+        result: string;
         isLoading: boolean;
     }) => JSX.Element;
-    text: string;
 }
+
+export declare function InnerTranslate({ component, content, lang }: InnerTextProps): JSX_2.Element;
 
 export declare const Input: default_2.ForwardRefExoticComponent<Omit<InputProps, "ref"> & default_2.RefAttributes<HTMLInputElement>>;
 
@@ -366,9 +387,9 @@ export declare interface PasswordProps extends default_2.DetailedHTMLProps<defau
     eays?: boolean;
 }
 
-export declare function PinFeild({ id, config, state }: PinFeildProps): JSX_2.Element;
+export declare const PinField: FC<PinFieldProps>;
 
-export declare type PinFeildProps = FeildGeneralProps<number | undefined, SettingConfig["pin"]>;
+export declare type PinFieldProps = FeildGeneralProps<string | undefined, SettingConfig["pin"]>;
 
 declare type position = [number, number] | undefined;
 
@@ -384,7 +405,7 @@ declare type PositionsIds = keyof typeof data;
  */
 export declare const PositionView: ({ positionId, ...props }: PositionProps) => JSX_2.Element;
 
-export declare function RangeFeild({ state, config, id }: RangeFeildProps): JSX_2.Element;
+export declare const RangeFeild: default_2.FC<RangeFeildProps>;
 
 export declare type RangeFeildProps = FeildGeneralProps<number, SettingConfig["range"]>;
 
@@ -430,6 +451,18 @@ export declare const SeparatedViewsLineTitle: ({ title, rightSide }: SeparatedVi
 export declare interface SeparatedViewsLineTitleProps {
     title: string;
     rightSide?: ReactElement["children"];
+}
+
+declare interface Setting<T extends keyof SettingConfig> {
+    settingId: `${string}.${T}`;
+    name?: string;
+    desc?: string;
+    private?: boolean;
+    value: SettingValueType[T];
+    config?: SettingConfig[T];
+    deperacted?: boolean;
+    def?: SettingValueType[T];
+    readonly?: boolean;
 }
 
 declare interface SettingConfig {
@@ -491,12 +524,14 @@ declare interface SettingConfig {
         filter: string[];
         alt: string;
         rounded: boolean;
+        size: number;
     }>;
     range: Partial<{
         min: number;
         max: number;
         isFloat: boolean;
         showValue: boolean;
+        marked: Record<number, string>;
     }>;
 }
 
@@ -566,8 +601,16 @@ export declare interface TabProps extends ClickProps<HTMLSpanElement> {
     isActive?: boolean;
 }
 
-declare function Text_2({ content }: TextProps): JSX_2.Element;
-export { Text_2 as Text }
+export declare const Tabs: ({ state, tabs }: TabsProps) => JSX_2.Element;
+
+export declare interface TabsProps {
+    state: State<string>;
+    tabs: {
+        label: string;
+        value: string;
+        icon: IconProps["icon"];
+    }[];
+}
 
 export declare const TextAnimation: ({ content, time }: TextAnimationProps) => JSX_2.Element;
 
@@ -594,10 +637,6 @@ export declare interface TextAreaProps extends default_2.DetailedHTMLProps<defau
     pattern?: string | RegExp;
 }
 
-export declare interface TextProps {
-    content: string;
-}
-
 export declare function Tip({ icon, className, children, "aria-checked": checked, iconClassName, onFocus, onBlur, onMouseEnter, onMouseLeave, onPointerDown, onPointerUp, onPointerLeave, style, ...props }: TipProps): JSX_2.Element;
 
 export declare type TipProps = ClickProps<HTMLSpanElement>;
@@ -619,6 +658,13 @@ export declare interface TitleViewProps extends default_2.DetailedHTMLProps<defa
         y?: TitleInitState["y"];
     };
     canMouseOn?: boolean;
+}
+
+export declare function Translate({ content, lang }: TranslateProps): JSX_2.Element;
+
+export declare interface TranslateProps {
+    content: string;
+    lang?: string;
 }
 
 export declare function Tree<T>({ treeId, tree, component, level, position, parent }: TreeProps<T>): JSX_2.Element;
@@ -682,6 +728,8 @@ export declare function useTextAnimation({ string, time }: {
     value: string;
     isLoading: boolean;
 };
+
+export declare const useTranslate: (content: TranslateProps["content"], lang?: string) => [string, boolean];
 
 export declare function ViewPage({ views, viewId }: ViewPageProps): JSX_2.Element;
 

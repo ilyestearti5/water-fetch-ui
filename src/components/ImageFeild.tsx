@@ -1,102 +1,103 @@
 import React from "react";
-import { FeildGeneralProps } from "@/types/global";
+import { useColorMerge, useSettingValue, useCopyState, openCamera, showToast } from "@/hooks";
+import { mergeObject, tw } from "@/utils";
+import { Tip } from "./Tip";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
 import { openDialog } from "@/functions/app/web/web-utils";
-import { useColorMerge, useSettingValue, useCopyState, handelShadowColor, openCamera, showToast } from "@/hooks";
-import { tw } from "@/utils";
-import { faXmark, faFileUpload, faCamera } from "@fortawesome/free-solid-svg-icons";
-import { Tip } from "./Tip";
 import { Image } from "./Image";
+import { FeildGeneralProps } from "@/types/global";
+import { faXmark, faFileUpload, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "./Icon";
+import { allIcons } from "@/apis";
+import { EmptyComponent } from "./EmptyComponent";
+import { BlurOverlay } from "./Overlays";
+import { Tab } from "./Tab";
+import { Card } from "./Card";
+import { Line } from "./Line";
+import { Button } from "./Button";
+import { Translate } from "./Translate";
+import { CircleTip } from "./CircleTip";
 type ImageFeildProps = FeildGeneralProps<SettingValueType["image"], SettingConfig["image"]>;
 // term of use is when you have state contain array and you want to update the state from
 export function ImageFeild({ state, config }: ImageFeildProps) {
   // render ArrayFeild element component
   const colorMerge = useColorMerge();
   const isAnimation = useSettingValue("preferences/animation.boolean");
-  const hoverState = useCopyState(false);
+  const clicked = useCopyState(false);
   const src = state.get;
   const callback = React.useCallback(
     async (dataURL: string | null) => {
       if (!state.set) {
         return;
       }
-      if (!dataURL) {
-        return state.set(null);
-      }
-      try {
-        state.set(dataURL);
-      } catch {
-        state.set(null);
-      }
+      state.set(dataURL);
+      clicked.set(false);
     },
     [state.set],
   );
+
+  const elementRef = React.createRef<HTMLDivElement>();
   return (
     <div className="flex justify-center">
-      <Image
-        onMouseEnter={() => {
-          hoverState.set(true);
-        }}
-        onMouseLeave={() => {
-          hoverState.set(false);
-        }}
-        className={tw("mb-1 border border-transparent border-solid rounded-2xl text-center text-xl italic", config?.rounded && "rounded-full")}
-        style={{
-          ...colorMerge({
-            borderColor: "borders",
-            boxShadow: handelShadowColor([
-              {
-                colorId: "shadow.color",
-                blur: 26,
-                size: 1,
-                x: 0,
-                y: 2,
-              },
-            ]),
-          }),
-        }}
-        alt={config?.alt}
-        src={src ?? undefined}
-      >
+      <div className="relative">
         <div
-          className={tw(
-            `
-            flex
-            opacity-100
-            absolute
-            left-1/2
-            transform
-            -translate-x-1/2
-            bottom-0
-            items-center
-          `,
-          )}
+          onClick={() => {
+            clicked.set(true);
+          }}
+          className={tw("cursor-pointer overflow-hidden border border-transparent border-solid rounded-2xl text-center text-xl italic", config?.rounded && "rounded-full")}
+          style={{
+            ...colorMerge("gray.opacity", {
+              borderColor: "borders",
+            }),
+            ...mergeObject(
+              {
+                width: 100,
+                height: 100,
+              },
+              config?.size && {
+                width: config.size,
+                height: config.size,
+              },
+            ),
+          }}
         >
-          <div
-            className={tw(
-              `
-            inline-flex
-            items-center
-            rounded-ss-xl
-            rounded-se-xl
-            p-1
-            text-xs
-            border-solid
-            border-t
-            border-x            
-            border-transparent
-          `,
-              !hoverState.get && `translate-y-full pointer-events-none`,
-              isAnimation && `transition-transform`,
-            )}
-            style={{
-              ...colorMerge("secondry.background", {
-                borderColor: "borders",
-              }),
-            }}
-          >
+          {src && (
+            <EmptyComponent>
+              <img src={src} className="w-full h-full object-cover" />
+            </EmptyComponent>
+          )}
+          {!src && (
+            <div className="flex flex-col justify-center items-center gap-1 w-full h-full">
+              <Icon icon={allIcons.solid.faCamera} />
+              {config?.alt && <span className="w-1/2 text-xs truncate">{config.alt}</span>}
+            </div>
+          )}
+        </div>
+      </div>
+      <div
+        ref={elementRef}
+        className={tw("top-1/2 left-1/2 z-[100000000000000000] fixed transform -translate-x-1/2 -translate-y-1/2 scale-0", isAnimation && "transition-transform", clicked.get && "scale-100")}
+      >
+        <Card className="w-fit">
+          <div className="flex justify-between items-center p-3">
+            <h1 className="text-xl">
+              <Translate content="Upload Image" />
+            </h1>
+            <span>
+              <CircleTip
+                icon={allIcons.solid.faXmark}
+                onClick={() => {
+                  clicked.set(false);
+                }}
+              />
+            </span>
+          </div>
+          <Line />
+          <div className="flex gap-3 p-3">
             {src && (
-              <Tip
+              <Tab
+                className="w-[80px] h-[80px]"
+                iconClassName="w-[40px] h-[40px]"
                 onClick={async () => {
                   const { response } = await openDialog({
                     message: "do you want to recenlty this image",
@@ -109,15 +110,12 @@ export function ImageFeild({ state, config }: ImageFeildProps) {
                     callback(null);
                   }
                 }}
-                style={{
-                  ...colorMerge({
-                    color: "error",
-                  }),
-                }}
                 icon={faXmark}
               />
             )}
-            <Tip
+            <Tab
+              className="w-[80px] h-[80px]"
+              iconClassName="w-[40px] h-[40px]"
               onClick={async () => {
                 if (src) {
                   const { response } = await openDialog({
@@ -146,29 +144,11 @@ export function ImageFeild({ state, config }: ImageFeildProps) {
                 };
                 fileElement.click();
               }}
-              style={{
-                ...colorMerge(
-                  src && {
-                    color: "notifay.warning",
-                  },
-                  !src && {
-                    color: "primary",
-                  },
-                ),
-              }}
               icon={faFileUpload}
             />
-            <Tip
-              style={{
-                ...colorMerge(
-                  src && {
-                    color: "notifay.warning",
-                  },
-                  !src && {
-                    color: "primary",
-                  },
-                ),
-              }}
+            <Tab
+              className="w-[80px] h-[80px]"
+              iconClassName="w-[40px] h-[40px]"
               onClick={async () => {
                 if (src) {
                   const { response } = await openDialog({
@@ -184,7 +164,7 @@ export function ImageFeild({ state, config }: ImageFeildProps) {
                 }
                 try {
                   const result = await openCamera("take");
-                  state.set?.(result);
+                  callback(result);
                 } catch (e: any) {
                   showToast(e, "error");
                 }
@@ -192,8 +172,8 @@ export function ImageFeild({ state, config }: ImageFeildProps) {
               icon={faCamera}
             />
           </div>
-        </div>
-      </Image>
+        </Card>
+      </div>
     </div>
   );
 }

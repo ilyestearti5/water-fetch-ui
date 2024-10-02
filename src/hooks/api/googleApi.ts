@@ -1,10 +1,10 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import React from "react";
-export interface GetModelProps {
+import { GoogleGenerativeAI } from "@google/generative-ai";
+export interface UseGeminiModelProps {
   model?: "gemini-pro" | "gemini-pro-vision";
 }
-export const getModel = ({ model = "gemini-pro" }: GetModelProps) => {
-  const s = React.useMemo(() => {
+export const useGeminiModel = ({ model = "gemini-pro" }: UseGeminiModelProps) => {
+  const result = React.useMemo(() => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     if (!apiKey) {
       return null;
@@ -12,5 +12,5 @@ export const getModel = ({ model = "gemini-pro" }: GetModelProps) => {
     const ai = new GoogleGenerativeAI(apiKey);
     return ai.getGenerativeModel({ model });
   }, [model]);
-  return s;
+  return result;
 };

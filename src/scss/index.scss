@@ -73,7 +73,7 @@ input[type="number"] {
 }
 body {
   font-family: system-ui, sans-serif;
-  @apply text-sm select-none;
+  @apply text-sm;
 }
 input,
 textarea {
@@ -210,24 +210,22 @@ a:focus {
     z-index: 2;
   }
   &__bg {
-    @apply absolute left-1/2 top-1/2 w-full h-[0] block rounded-[50%];
+    @apply absolute left-1/2 top-1/2 w-full h-[0] block rounded-[50%] pt-[100%];
     margin: -50% 0 0 -50%;
-    padding-top: 100%;
     transform: scale(0);
     transform-origin: 50% 50%;
-    transition: transform 0.175s cubic-bezier(0.5, 1, 0.89, 1);
-    z-index: 1;
-    @for $i from 1 through 4 {
+    transition: transform 0.21s cubic-bezier(0.5, 1, 0.89, 1);
+    @for $i from 1 through 3 {
       &:nth-of-type(#{$i}) {
-        transition-delay: 0.4s * (4 - $i);
+        transition-delay: 0.21s * (4 - $i);
       }
     }
     .btn:focus & {
       transform: scale(1.5);
-      transition: transform 0.35s cubic-bezier(0.11, 0, 0.5, 0);
-      @for $i from 1 through 4 {
+      transition: transform 0.4s cubic-bezier(0.11, 0, 0.5, 0);
+      @for $i from 1 through 3 {
         &:nth-of-type(#{$i}) {
-          transition-delay: 0.115s * $i;
+          transition-delay: 0.1s * $i;
         }
       }
     }
@@ -348,4 +346,7 @@ a:focus {
     width: 37.5px;
     opacity: 1;
   }
+}
+a {
+  @apply cursor-pointer;
 }

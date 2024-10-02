@@ -77,7 +77,7 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
         <Icon iconClassName={iconClassName} icon={icon} />
         {children}
       </div>
-      {range(1, 4).map((index) => {
+      {range(1, 3).map((index) => {
         return (
           <i
             key={index}

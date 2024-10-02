@@ -35,10 +35,10 @@ export const StyledButton = ({ className, children, ...props }: ClickProps<HTMLB
       <span
         className={tw("styled-btn-after", isAnimated && "transition-all duration-[0.5s]")}
         style={{
-          ...colorMerge("secondry", {
+          ...colorMerge("secondary", {
             boxShadow: handelShadowColor(
               [5, 15, 30, 60].map((blur) => ({
-                colorId: "secondry",
+                colorId: "secondary",
                 blur,
               })),
             ),

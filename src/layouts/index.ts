@@ -9,7 +9,6 @@ export * from "./HeaderSettings";
 export * from "./KeyboardShortcuts";
 export * from "./KeyboardView";
 export * from "./LeftSide";
-export * from "./LeftSideView";
 export * from "./MenuList";
 export * from "./NotifaysSlot";
 export * from "./Notifications";

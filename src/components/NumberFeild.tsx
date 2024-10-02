@@ -4,7 +4,7 @@ import { execAction, useAction } from "@/data/system/actions.model";
 import { setFocused, tw } from "@/utils";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { Text } from "./Text";
+import { Translate } from "./Translate";
 import { useColorMerge, useCopyState } from "@/hooks";
 import { Input } from "./Input";
 export type NumberFeildProps = FeildGeneralProps<number | undefined | null, SettingConfig["number"]>;
@@ -120,7 +120,7 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
               }),
             }}
           >
-            <Text content="cancel" />
+            <Translate content="cancel" />
           </Button>
           <Button
             className="py-1"
@@ -128,7 +128,7 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
               execAction("number.changeState", id);
             }}
           >
-            <Text content="change" />
+            <Translate content="change" />
           </Button>
         </div>
       )}

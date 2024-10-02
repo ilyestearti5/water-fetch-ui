@@ -30,7 +30,7 @@ export const ContentOfImageView = () => {
           <div
             className="border border-transparent border-solid rounded-[10px] w-full h-full overflow-hidden"
             style={{
-              ...colorMerge("secondry.background", {
+              ...colorMerge("secondary.background", {
                 borderColor: "borders",
               }),
             }}

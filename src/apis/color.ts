@@ -116,15 +116,15 @@ export default {
     "qrCode.detection.secuess.content": {
       default: "white",
     },
-    secondry: {
+    secondary: {
       dark: "#043853",
       light: "#0d8c9c",
     },
-    "secondry.background": {
+    "secondary.background": {
       dark: "#171717",
       light: "#e1e1e1",
     },
-    "secondry.content": {
+    "secondary.content": {
       default: "#fff",
     },
     selectedTextBackgroundBlured: {

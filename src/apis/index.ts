@@ -2,13 +2,14 @@ import PouchDB from "pouchdb";
 import * as solid from "@fortawesome/free-solid-svg-icons";
 import * as regular from "@fortawesome/free-regular-svg-icons";
 import * as brands from "@fortawesome/free-brands-svg-icons";
+import { Command, getTempFromStore, Key, showFrame } from "@/hooks";
 import { Server } from "./firebase";
 import { getDoc, collection } from "firebase/firestore";
 import { doc } from "firebase/firestore";
-import { showFrame } from "@/hooks";
 import { delay } from "@/utils";
 export * from "./firebase";
-export const getFunction = <R = any, P = any>(name: string, isDev = false) => {
+export const getFunction = <R = any, P = any>(name: string, isDev = getTempFromStore<boolean>("env.isDev")) => {
+  isDev = isDev ?? false;
   const url = new URL(isDev ? "http://localhost:8888" : "https://water-fetch-account.netlify.app");
   url.pathname = "/.netlify/functions/" + name;
   return async (data: P) => {
@@ -45,6 +46,11 @@ export interface GeneratePayoutUrlParams {
   amount: number;
   isDev?: boolean;
 }
+
+export interface Cmd extends Command {
+  keys: Omit<Key, "command">[];
+}
+
 export interface ProjectConfig {
   label: string;
   id: string;

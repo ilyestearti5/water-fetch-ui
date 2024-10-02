@@ -1,20 +1,48 @@
-import { useSettingValue, useColorMerge, useCopyState } from "@/hooks";
+import { useSettingValue, useColorMerge, useCopyState, useAction, useIdleStatus, useAsyncEffect } from "@/hooks";
 import { faFileUpload, faXmark, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
 import { Anchor } from "./Anchor";
 import { Tip } from "./Tip";
 import { openPath } from "@/functions/app/web/web-utils";
-import { Text } from "./Text";
-import { tw } from "@/utils";
+import { Translate } from "./Translate";
+import { tw, delay } from "@/utils";
+import { QueryStatus } from "react-query";
+import { IconProps } from "./Icon";
+import { allIcons } from "@/apis";
 export type FileFeildProps = FeildGeneralProps<SettingValueType["file"], SettingConfig["file"]>;
+export const iconsFileFeild: Record<QueryStatus | "ready", IconProps["icon"]> = {
+  loading: allIcons.solid.faRotate,
+  error: allIcons.solid.faXmark,
+  success: allIcons.solid.faCheck,
+  ready: allIcons.solid.faFileUpload,
+  idle: undefined,
+};
 export function FileFeild({ state, config = {}, id }: FileFeildProps) {
   const colorMerge = useColorMerge();
   const hover = useCopyState(false);
   const isAnimation = useSettingValue("preferences/animation.boolean");
+  const { status } = useIdleStatus(async () => {
+    const data = await openPath(config);
+    state.set((prev) => {
+      if (prev) {
+        return [...new Set([...prev, ...data])];
+      } else {
+        return data;
+      }
+    });
+  }, [config]);
+
+  useAsyncEffect(async () => {
+    if (["success", "error"].includes(status.get)) {
+      await delay(1000);
+      status.set("ready");
+    }
+  }, [status.get]);
+
   return (
     <div
-      className={tw("relative border border-solid border-transparent flex items-center gap-1 w-full px-3 py-1 rounded-md", isAnimation && "transition-[background-color] duration-200")}
+      className={tw("relative border border-solid border-transparent flex items-center gap-1 w-full p-2 rounded-md", isAnimation && "transition-[background-color] duration-200")}
       onMouseEnter={() => hover.set(true)}
       onMouseLeave={() => hover.set(false)}
       style={{
@@ -47,7 +75,7 @@ export function FileFeild({ state, config = {}, id }: FileFeildProps) {
         })}
         {!state.get?.length && (
           <span className="capitalize">
-            <Text content="no files choised" />
+            <Translate content="no files choised" />
           </span>
         )}
       </div>
@@ -61,18 +89,15 @@ export function FileFeild({ state, config = {}, id }: FileFeildProps) {
           />
         )}
         <Tip
-          id={`${id}:select`}
-          icon={faFileUpload}
           onClick={async () => {
-            const data = await openPath(config);
-            state.set((prev) => {
-              if (prev) {
-                return [...new Set([...prev, ...data])];
-              } else {
-                return data;
-              }
-            });
+            if (status.get == "loading") {
+              return;
+            }
+            status.set("idle");
           }}
+          id={id}
+          iconClassName={tw(status.get == "loading" && "animate-spin")}
+          icon={iconsFileFeild[status.get]}
         />
       </div>
     </div>

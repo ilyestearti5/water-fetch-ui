@@ -1,230 +1,244 @@
-import { j as d, C as R, a as A, E as I } from "./Loading-BjTpGRTY.mjs";
+import { j as a, C as j, a as L, E as O, T as k } from "./PinFeild-d2tlp-XL.mjs";
+import { ax as I, ay as H, az as M, aA as F, aB as V, aC as $, aD as q, aE as G, aF as K, aG as W, aH as z, aI as J, aJ as Y, aK as Q, aL as X, aM as Z, a as N, al as m, am as y, q as x, k as T, aN as ee, s as te, m as ne, _ as ie, aO as se, P as oe, D as ae, aP as re, e as ce, o as le } from "./index-B28S0mrD.mjs";
 import * as b from "react";
-import f from "react";
-import { aC as U, aD as M, aE as T, aF as F, aG as P, aH as $, aI as j, aJ as B, aK as H, aL as V, aM as W, aN as q, aO as K, aP as G, aQ as J, aR as Q, a as w, ap as m, aq as g, q as Y, k as z, aS as X, M as Z, _ as ee, s as h, ag as te, ad as ne, aT as se } from "./index-YGVQf1XJ.mjs";
-import ie from "react-dom";
-import { a2 as C, ar as x } from "./index-CxQCU1i7.mjs";
-import { getLocalDB as oe } from "./apis.js";
-function ae() {
-  const e = U();
-  let o = null, a = null;
+import l from "react";
+import { aq as ue, a1 as f, ar as g } from "./index-CYYSxI_0.mjs";
+import de from "react-dom";
+import { getLocalDB as fe } from "./apis.js";
+import { C as me, B as be } from "./Card-IzIbVky-.mjs";
+function ye() {
+  const e = I();
+  let s = null, i = null;
   return {
     clear() {
-      o = null, a = null;
+      s = null, i = null;
     },
     notify() {
       e(() => {
-        let t = o;
+        let t = s;
         for (; t; )
           t.callback(), t = t.next;
       });
     },
     get() {
-      let t = [], i = o;
-      for (; i; )
-        t.push(i), i = i.next;
+      let t = [], o = s;
+      for (; o; )
+        t.push(o), o = o.next;
       return t;
     },
     subscribe(t) {
-      let i = !0, n = a = {
+      let o = !0, n = i = {
         callback: t,
         next: null,
-        prev: a
+        prev: i
       };
-      return n.prev ? n.prev.next = n : o = n, function() {
-        !i || o === null || (i = !1, n.next ? n.next.prev = n.prev : a = n.prev, n.prev ? n.prev.next = n.next : o = n.next);
+      return n.prev ? n.prev.next = n : s = n, function() {
+        !o || s === null || (o = !1, n.next ? n.next.prev = n.prev : i = n.prev, n.prev ? n.prev.next = n.next : s = n.next);
       };
     }
   };
 }
-const L = {
+const A = {
   notify() {
   },
   get: () => []
 };
-function re(e, o) {
-  let a, t = L, i = 0, n = !1;
-  function r(D) {
-    u();
-    const N = t.subscribe(D);
-    let E = !1;
+function ge(e, s) {
+  let i, t = A, o = 0, n = !1;
+  function r(B) {
+    C();
+    const U = t.subscribe(B);
+    let h = !1;
     return () => {
-      E || (E = !0, N(), S());
+      h || (h = !0, U(), E());
     };
   }
-  function c() {
+  function u() {
     t.notify();
   }
-  function l() {
-    y.onStateChange && y.onStateChange();
+  function d() {
+    v.onStateChange && v.onStateChange();
   }
-  function s() {
+  function c() {
     return n;
   }
-  function u() {
-    i++, a || (a = e.subscribe(l), t = ae());
+  function C() {
+    o++, i || (i = e.subscribe(d), t = ye());
   }
-  function S() {
-    i--, a && i === 0 && (a(), a = void 0, t.clear(), t = L);
+  function E() {
+    o--, i && o === 0 && (i(), i = void 0, t.clear(), t = A);
   }
-  function O() {
-    n || (n = !0, u());
+  function P() {
+    n || (n = !0, C());
   }
-  function k() {
-    n && (n = !1, S());
+  function R() {
+    n && (n = !1, E());
   }
-  const y = {
+  const v = {
     addNestedSub: r,
-    notifyNestedSubs: c,
-    handleChangeWrapper: l,
-    isSubscribed: s,
-    trySubscribe: O,
-    tryUnsubscribe: k,
+    notifyNestedSubs: u,
+    handleChangeWrapper: d,
+    isSubscribed: c,
+    trySubscribe: P,
+    tryUnsubscribe: R,
     getListeners: () => t
   };
-  return y;
+  return v;
 }
-const ce = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u", le = ce ? b.useLayoutEffect : b.useEffect;
-function ue({
+const we = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u", pe = we ? b.useLayoutEffect : b.useEffect;
+function ve({
   store: e,
-  context: o,
-  children: a,
+  context: s,
+  children: i,
   serverState: t,
-  stabilityCheck: i = "once",
+  stabilityCheck: o = "once",
   noopCheck: n = "once"
 }) {
   const r = b.useMemo(() => {
-    const s = re(e);
+    const c = ge(e);
     return {
       store: e,
-      subscription: s,
+      subscription: c,
       getServerState: t ? () => t : void 0,
-      stabilityCheck: i,
+      stabilityCheck: o,
       noopCheck: n
     };
-  }, [e, t, i, n]), c = b.useMemo(() => e.getState(), [e]);
-  le(() => {
+  }, [e, t, o, n]), u = b.useMemo(() => e.getState(), [e]);
+  pe(() => {
     const {
-      subscription: s
+      subscription: c
     } = r;
-    return s.onStateChange = s.notifyNestedSubs, s.trySubscribe(), c !== e.getState() && s.notifyNestedSubs(), () => {
-      s.tryUnsubscribe(), s.onStateChange = void 0;
+    return c.onStateChange = c.notifyNestedSubs, c.trySubscribe(), u !== e.getState() && c.notifyNestedSubs(), () => {
+      c.tryUnsubscribe(), c.onStateChange = void 0;
     };
-  }, [r, c]);
-  const l = o || M;
-  return /* @__PURE__ */ b.createElement(l.Provider, {
+  }, [r, u]);
+  const d = s || H;
+  return /* @__PURE__ */ b.createElement(d.Provider, {
     value: r
-  }, a);
+  }, i);
 }
-var v, p = ie;
-if (process.env.NODE_ENV === "production")
-  v = p.createRoot, p.hydrateRoot;
-else {
-  var _ = p.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-  v = function(e, o) {
-    _.usingClientEntryPoint = !0;
-    try {
-      return p.createRoot(e, o);
-    } finally {
-      _.usingClientEntryPoint = !1;
-    }
-  };
+function xe() {
+  M(), F(), V(), $(), q(), G(), K(), W(), z(), J(), Y(), Q(), X(), Z();
 }
-function fe() {
-  T(), F(), P(), $(), j(), B(), H(), V(), W(), q(), K(), G(), J(), Q();
-}
-function de() {
-  const e = w("window/dark.boolean"), o = m.getOne("primary.background"), a = m.getOne("text.color"), t = m.getOne("bg.selection"), i = m.getOne("text.selection");
-  f.useEffect(() => {
+function Se() {
+  const e = N("window/dark.boolean"), s = m.getOne("primary.background"), i = m.getOne("text.color"), t = m.getOne("bg.selection"), o = m.getOne("text.selection");
+  l.useEffect(() => {
     if (e != null)
       return document.body.setAttribute("data-dark", e ? "true" : "false"), () => {
         document.body.removeAttribute("data-dark");
       };
-  }, [e]), f.useEffect(() => {
-    e != null && (o && (document.body.style.backgroundColor = g(e, o)), a && (document.body.style.color = g(e, a)));
-  }, [o, a, e]);
-  const n = w("preferences/font.enum");
-  f.useEffect(() => {
-    if (n && (document.body.style.fontFamily = n), t && i) {
+  }, [e]), l.useEffect(() => {
+    e != null && (s && (document.body.style.backgroundColor = y(e, s)), i && (document.body.style.color = y(e, i)));
+  }, [s, i, e]);
+  const n = N("preferences/font.enum");
+  l.useEffect(() => {
+    if (n && (document.body.style.fontFamily = n), t && o) {
       const r = document.createElement("style");
       r.textContent = `
         ::selection {
-          background: ${g(!!e, t)};
-          color: ${g(!!e, i)};
+          background: ${y(!!e, t)};
+          color: ${y(!!e, o)};
         }
       `, document.head.append(r);
     }
     return () => {
     };
-  }, [e, t, i, n]);
+  }, [e, t, o, n]);
 }
-function be() {
-  f.useEffect(() => {
+function Ce() {
+  l.useEffect(() => {
     function e() {
-      Y("local.isOnLine", navigator.onLine);
+      x("local.isOnLine", navigator.onLine);
     }
     return e(), window.addEventListener("online", e), window.addEventListener("offline", e), () => {
       window.removeEventListener("online", e), window.removeEventListener("offline", e);
     };
   }, []);
 }
-function me(e) {
-  de(), be();
+function Ee(e) {
+  Se(), Ce();
 }
-const { data: ge } = se, pe = ({ element: e, loading: o, timeLoading: a = 500 }) => {
-  me(), fe(), X();
-  const t = f.useMemo(() => oe(), []), i = Z(), { status: n } = ee(async () => {
-    await C(a);
-    let r = [], c = [];
-    const l = await t.allDocs({
-      include_docs: !0
-    });
-    l.rows.filter(({ id: s }) => s.startsWith("settings-")).forEach(({ doc: s, id: u }) => {
-      s && r.push([u.replace("settings-", ""), s.value]);
-    }), l.rows.filter(({ id: s }) => s.startsWith("langs-")).forEach(({ doc: s, id: u }) => {
-      s && typeof s.value == "string" && c.push([u.replace("langs-", ""), s.value]);
-    }), r.forEach(([s, u]) => {
-      h.setOneFeild(s, "value", u);
-    }), c.forEach(([s, u]) => {
-      te.setOneFeild(s, "value", u);
-    });
-  }, [t, a]);
-  return f.useEffect(() => {
-    n.get != "success" && n.set("idle");
-  }, [n.get, t]), ne(async () => {
-    if (n.get == "success") {
-      await C(1e3);
-      const r = await t.allDocs();
-      await x(r.rows, async (c) => {
-        await t.remove(c.id, c.value.rev);
-      }), await x(i, async (c) => {
-        const l = `settings-${c.settingId}`;
-        await t.upsert(l, () => ({
-          value: c.value
-        }));
-      });
+var S, w = de;
+if (process.env.NODE_ENV === "production")
+  S = w.createRoot, w.hydrateRoot;
+else {
+  var D = w.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+  S = function(e, s) {
+    D.usingClientEntryPoint = !0;
+    try {
+      return w.createRoot(e, s);
+    } finally {
+      D.usingClientEntryPoint = !1;
     }
-  }, [i, t, n.get]), f.useEffect(() => {
-    h.setAll(
-      Object.entries(ge).map(([r, { def: c, ...l }]) => ({
-        ...l,
-        settingId: r,
-        def: c,
-        value: c
+  };
+}
+const { data: he } = re, p = (e, s) => {
+  window[e] = s;
+}, _ = ({ render: e = /* @__PURE__ */ a(O, {}) }) => typeof e == "function" ? /* @__PURE__ */ a(e, {}) : e, Le = ({ props: e }) => {
+  Ee(), xe(), ee(), l.useEffect(() => {
+    te.setAll(
+      Object.entries(he).map(([t, o]) => ({
+        ...o,
+        settingId: t,
+        value: o.def
       }))
     );
-  }, []), /* @__PURE__ */ A(I, { children: [
-    ["ready", "idle", "loading"].includes(n.get) && o,
-    n.get == "success" && e
+  }, []);
+  const s = ne("env.isDev");
+  l.useEffect(() => {
+    if (s)
+      return p("store", T), p("execAction", ce), p("execCommand", le), p("localDB", fe()), () => {
+        delete window.store, delete window.execAction, delete window.execCommand, delete window.localDB;
+      };
+  }, [s]);
+  const { status: i } = ie(async () => {
+    var o;
+    await f(e.timeLoading), x("env.isDev", e.isDev);
+    let t = (o = e.onPrepare) == null ? void 0 : o.call(e);
+    t instanceof Promise && (t = await t), t && (t.colors && await g(t.colors, async (n) => {
+      await f(30), m.upsert([n]);
+    }), t.translations && await g(t.translations, async (n) => {
+      await f(20), se.upsert([n]);
+    }), t.commands && await g(t.commands, async ({ commandId: n, keys: r, ...u }) => {
+      await f(30), oe.upsert([
+        {
+          ...u,
+          commandId: n
+        }
+      ]), await g(r, async (d) => {
+        await f(10), ae.upsert([d]);
+      });
+    }), x("project", t));
+  }, [e]);
+  return l.useEffect(() => {
+    i.set("idle");
+  }, []), /* @__PURE__ */ L(O, { children: [
+    ["ready", "idle", "loading"].includes(i.get) && /* @__PURE__ */ a(_, { render: e.loading }),
+    i.get == "success" && /* @__PURE__ */ a(_, { render: e.app }),
+    i.get == "error" && /* @__PURE__ */ a("div", { className: "flex justify-center items-center w-full h-full", children: /* @__PURE__ */ L(me, { className: "flex flex-col items-center gap-2", children: [
+      /* @__PURE__ */ a("h1", { className: "p-2 text-2xl text-center", children: /* @__PURE__ */ a(k, { content: "Found Problem , Try After Moment!" }) }),
+      /* @__PURE__ */ a("div", { className: "p-2", children: /* @__PURE__ */ a(
+        be,
+        {
+          onClick: () => {
+            i.set("idle");
+          },
+          children: /* @__PURE__ */ a(k, { content: "Try Again" })
+        }
+      ) })
+    ] }) })
   ] });
-}, Ce = async (e, o = /* @__PURE__ */ d("div", { className: "top-1/2 left-1/2 fixed transform -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ d(R, { circleClassName: "w-[50px] h-[50px] border-4 " }) }), a = 500) => {
-  const t = document.createElement("div");
-  t.classList.add("window"), document.body.appendChild(t);
-  const i = v(t);
+}, Pe = async (e) => {
+  const s = document.createElement("div");
+  s.classList.add("window"), e = ue(e, {
+    loading: /* @__PURE__ */ a("div", { className: "top-1/2 left-1/2 fixed transform -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ a(j, { circleClassName: "w-[50px] h-[50px] border-4 " }) }),
+    timeLoading: 500
+  }), document.body.appendChild(s);
+  const i = S(s);
   return i.render(
-    /* @__PURE__ */ d(f.StrictMode, { children: /* @__PURE__ */ d(ue, { store: z, children: /* @__PURE__ */ d(pe, { timeLoading: a, element: typeof e == "function" ? /* @__PURE__ */ d(e, {}) : e, loading: typeof o == "function" ? /* @__PURE__ */ d(o, {}) : o }) }) })
+    /* @__PURE__ */ a(l.StrictMode, { children: /* @__PURE__ */ a(ve, { store: T, children: /* @__PURE__ */ a(Le, { props: e }) }) })
   ), i;
 };
 export {
-  Ce as startApplication
+  Pe as startApplication
 };

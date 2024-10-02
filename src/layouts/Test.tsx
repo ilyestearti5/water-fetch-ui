@@ -26,7 +26,7 @@ import {
   Tip,
   FileFeild,
   FilterFeild,
-  PinFeild,
+  PinField,
   ArrayFeild,
   DateFeild,
   ImageFeild,
@@ -45,7 +45,7 @@ import {
   RangeFeild,
   EnumFeild,
   FastList,
-  Text,
+  Translate,
 } from "@/components";
 import { randomItem, range } from "@/utils";
 import { PDFView } from "./PDFView";
@@ -54,8 +54,8 @@ import { NotificationType } from "@/data/system/notifications.model";
 import { KeyboardView } from "./KeyboardView";
 import { IframeLayout } from "./IframeLayout";
 import {
-  getUser,
-  getUserFromDB,
+  useUser,
+  useUserFromDB,
   langHooks,
   openCamera,
   setSettingValue,
@@ -76,9 +76,10 @@ import { AuthRoute } from "@/routes/AuthRoute";
 import { allIcons, generatePayoutUrl, getFunction, signInAccount } from "@/apis";
 import React from "react";
 import { PayoutResult, PayoutRoute } from "@/routes";
-import { CongratulationsView } from "./Congratulations";
 import { Confettiful } from "./CongratulationsAnimation";
 import { ApplicationsLayout } from "./Application";
+import { Tabs } from "@/components/Tabs";
+import { FullField } from "@/components/FullFields";
 const notificationsExmples: Omit<NotificationType, "id">[] = [
   {
     title: "Product Posted",
@@ -107,28 +108,41 @@ const notificationsExmples: Omit<NotificationType, "id">[] = [
   },
 ];
 export function Test() {
-  const userFromDb = getUserFromDB();
+  const userFromDb = useUserFromDB();
   const booleanFieldState = useCopyState<null | boolean>(null);
   const stringFieldState = useCopyState<string | undefined>(undefined);
   const fileFieldState = useCopyState<string[] | null>(null);
   const filterFieldState = useCopyState<string[] | undefined>(undefined);
   const arrayFieldState = useCopyState<string[] | undefined>(undefined);
-  const pinFieldState = useCopyState<number | undefined>(undefined);
+  const pinFieldState = useCopyState<string | undefined>(undefined);
   const dateFieldState = useCopyState<null | string | undefined>(null);
   const imageFieldState = useCopyState<string | null>(null);
   const recorderFieldState = useCopyState<string | null>(null);
   const passwordFieldState = useCopyState<string | undefined>(undefined);
   const enumFieldState = useCopyState<string | undefined>(undefined);
   const numberFieldState = useCopyState<number | undefined | null>(3);
+  const priceState = useCopyState<number | undefined | null>(3);
   const rangeFieldState = useCopyState<number>(2);
   const homePageIsActive = useCopyState(false);
   const allSettings = settingHooks.getAll();
   const colorMerge = useColorMerge();
-  const user = getUser();
+  const user = useUser();
   const langsTranslations = langHooks.getAll();
+  const fullObjectState = useCopyState<Record<string, any>>({});
   const words = React.useMemo(() => {
-    return langsTranslations.map(({ value }) => value.split(/ +/gi)).flat();
+    return langsTranslations
+      .map(({ word, ...allTranlations }) =>
+        Object.values(allTranlations)
+          .map((w) => w.split(/ +/gi))
+          .flat(),
+      )
+      .flat();
   }, [langsTranslations]);
+
+  React.useEffect(() => {
+    console.log(pinFieldState.get);
+  }, [pinFieldState.get]);
+
   const chargeIcons: Partial<Record<PayoutResult["status"], typeof allIcons.solid.faHome>> = {
     failed: allIcons.solid.faWarning,
     pending: allIcons.solid.faClock,
@@ -145,6 +159,7 @@ export function Test() {
     paid: "#2ecc71", // Vibrant green for paid status,
     expired: "#8e44ad", // Deep purple for expired status,
   };
+  const activeTab = useCopyState("home");
   return (
     <EmptyComponent>
       <Switch>
@@ -182,29 +197,19 @@ export function Test() {
                             <Confettiful />
                           </div>
                           <h1 className="text-4xl capitalize">
-                            <Text content="your charge success" />
+                            <Translate content="your charge success" />
                           </h1>
                         </EmptyComponent>
                       )}
                       {status && status != "paid" && (
                         <div className="flex justify-center items-center gap-2 text-4xl">
                           <h1 className="text-center capitalize">
-                            <Text content={`your charge is ${status}`} />
+                            <Translate content={`your charge is ${status}`} />
                           </h1>
                         </div>
                       )}
                     </EmptyComponent>
                   </div>
-                  {/* { status == "pending" && url && (
-                    <EmptyComponent>
-                      <Line />
-                      <div className="p-2">
-                        <Anchor href={url}>
-                          Complete Payment <Icon iconClassName="ml-2" icon={allIcons.solid.faExternalLink} />
-                        </Anchor>
-                      </div>
-                    </EmptyComponent>
-                  )} */}
                   <Line />
                   <div className="flex justify-end items-center gap-1 p-2">
                     <Button
@@ -224,7 +229,7 @@ export function Test() {
         <Route path="/">
           <Header>
             <h1 className="w-full text-center capitalize">
-              <Text content="click in the link to see your account" /> {userFromDb && "(" + userFromDb.name + ")"}
+              <Translate content="click in the link to see your account" /> {userFromDb && "(" + userFromDb.nickname + ")"}
               <Anchor
                 onClick={(e) => {
                   e.preventDefault();
@@ -232,7 +237,7 @@ export function Test() {
                 }}
               >
                 <Icon icon={faLink} iconClassName="mr-1 ml-2" />
-                <Text content="here" />
+                <Translate content="here" />
               </Anchor>
             </h1>
           </Header>
@@ -254,6 +259,36 @@ export function Test() {
                         </StyledButton>
                       ),
                       label: "Styled Button",
+                    },
+                    {
+                      label: "Tabs",
+                      jsxElement: (
+                        <Tabs
+                          state={activeTab}
+                          tabs={[
+                            {
+                              value: "home",
+                              label: "Home",
+                              icon: allIcons.solid.faHome,
+                            },
+                            {
+                              value: "about",
+                              label: "About",
+                              icon: allIcons.solid.faInfo,
+                            },
+                            {
+                              value: "contact",
+                              label: "Contact",
+                              icon: allIcons.solid.faPhone,
+                            },
+                            {
+                              value: "settings",
+                              label: "Settings",
+                              icon: allIcons.solid.faCog,
+                            },
+                          ]}
+                        />
+                      ),
                     },
                     {
                       jsxElement: <LargeButton>Large Button</LargeButton>,
@@ -328,6 +363,9 @@ export function Test() {
                             config={{
                               min: 5,
                               max: 10,
+                              marked: {
+                                8: "orange",
+                              },
                             }}
                             id="range-field"
                           />
@@ -389,9 +427,9 @@ export function Test() {
                     },
                     {
                       jsxElement: (
-                        <PinFeild
+                        <PinField
                           config={{
-                            match: "..-..",
+                            match: "..-..-..-..-..",
                           }}
                           state={pinFieldState}
                           id="pin-field"
@@ -626,7 +664,7 @@ export function Test() {
                             });
                           }}
                         >
-                          <Text content="Authicate" />
+                          <Translate content="Authicate" />
                         </Button>
                       ),
                       label: "Authicate",
@@ -655,26 +693,33 @@ export function Test() {
                     {
                       label: "Test Payment",
                       jsxElement: (
-                        <Button
-                          onClick={async () => {
-                            if (!user) {
-                              showToast("You need to login first", "error");
-                              return;
-                            }
-                            const { VITE_PROJECT_ID: projectId, DEV: isDev } = import.meta.env;
-                            const userToken = await user.getIdToken(true);
-                            const { url } = await generatePayoutUrl({
-                              projectId,
-                              amount: 4000,
-                              isDev,
-                              platform: isDev ? "test" : "web",
-                              userToken,
-                            });
-                            open(url);
-                          }}
-                        >
-                          Pay Somthing
-                        </Button>
+                        <div className="flex flex-col gap-y-2">
+                          <NumberFeild state={priceState} config={{}} id="price" />
+                          <Button
+                            onClick={async () => {
+                              if (!user) {
+                                showToast("You need to login first", "error");
+                                return;
+                              }
+                              if (typeof priceState.get == "number" && 100 < priceState.get && priceState.get <= 100000) {
+                                const { VITE_PROJECT_ID: projectId, DEV: isDev } = import.meta.env;
+                                const userToken = await user.getIdToken(true);
+                                const { url } = await generatePayoutUrl({
+                                  projectId,
+                                  amount: priceState.get,
+                                  isDev,
+                                  platform: isDev ? "test" : "web",
+                                  userToken,
+                                });
+                                open(url);
+                              } else {
+                                showToast("Problem In Price", "error");
+                              }
+                            }}
+                          >
+                            Pay Somthing
+                          </Button>
+                        </div>
                       ),
                     },
                     {
@@ -721,6 +766,79 @@ export function Test() {
                       ),
                       label: "Fast List",
                     },
+                    {
+                      label: "Somthing Buty",
+                      jsxElement: (
+                        <EmptyComponent>
+                          <FullField
+                            id="somthing"
+                            list={{
+                              name: {
+                                label: "your name",
+                                config: {
+                                  proposition: ["Ilyes", "Ahmed"],
+                                  noConfirm: true,
+                                },
+                                type: "string",
+                                icon: allIcons.solid.faUser,
+                              },
+                              age: {
+                                label: "your age",
+                                config: {
+                                  noConfirm: true,
+                                },
+                                type: "number",
+                                onNext({ state, stop }) {
+                                  const num = state["age"];
+                                  if (typeof num == "number" && num < 50) {
+                                    showToast("your small");
+                                    stop();
+                                  }
+                                },
+                                icon: allIcons.solid.faListNumeric,
+                              },
+                              "phone-number": {
+                                label: "Your Phone Number",
+                                config: {},
+                                type: "number",
+                                onNext({ stop, currentValue }) {
+                                  if (currentValue?.toString().match(/[0-9]/gi)) {
+                                  } else {
+                                    showToast("Number Is Not Correct!", "warning");
+                                    stop();
+                                  }
+                                },
+                                icon: allIcons.solid.faPhone,
+                              },
+                              photo: {
+                                config: {
+                                  alt: "Upload Your Picture",
+                                  rounded: true,
+                                },
+                                label: "Your Picture",
+                                icon: allIcons.solid.faImage,
+                                type: "image",
+                                onNext({ stop, currentValue }) {
+                                  if (typeof currentValue != "string") {
+                                    stop();
+                                    showToast("Upload Your Picture First", "error");
+                                  }
+                                },
+                              },
+                              "my-code": {
+                                label: "Your Pin Sm",
+                                config: {
+                                  match: "..-..",
+                                },
+                                type: "pin",
+                                icon: allIcons.solid.faAmbulance,
+                              },
+                            }}
+                            state={fullObjectState}
+                          />
+                        </EmptyComponent>
+                      ),
+                    },
                   ],
                 },
               ].map(({ label, elements }, i) => {
@@ -728,7 +846,7 @@ export function Test() {
                   <EmptyComponent key={i}>
                     <div className="p-3 max-md:w-full">
                       <h1 className="font-bold text-4xl max-md:text-center">
-                        <Text content={label} />
+                        <Translate content={label} />
                       </h1>
                     </div>
                     <Line />
@@ -740,7 +858,7 @@ export function Test() {
                             <Card className="w-fit max-md:w-full min-w-[200px] max-w-[500px] h-fit min-h-[200px]" key={j}>
                               <div className="p-2">
                                 <h1 className="text-2xl">
-                                  <Text content={label} />
+                                  <Translate content={label} />
                                 </h1>
                               </div>
                               <Line />
@@ -761,6 +879,9 @@ export function Test() {
                   </EmptyComponent>
                 );
               })}
+              <div>
+                <div className="h-[500px]" />
+              </div>
             </Scroll>
             <RightSide />
           </Window>

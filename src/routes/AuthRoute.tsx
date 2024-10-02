@@ -1,6 +1,6 @@
 import { Server } from "@/apis/firebase";
 import { CircleLoading, EmptyComponent } from "@/components";
-import { getUser, useAsyncEffect, useCopyState } from "@/hooks";
+import { useUser, useAsyncEffect, useCopyState } from "@/hooks";
 import { delay } from "@/utils";
 import { signInWithCustomToken, User } from "firebase/auth";
 import React from "react";
@@ -11,7 +11,7 @@ export interface AuthRouteProps {
 export const AuthRoute = ({ onAuthSuccess, successComponent: Component = <EmptyComponent /> }: AuthRouteProps) => {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
-  const user = getUser();
+  const user = useUser();
   const isLoading = useAsyncEffect(async () => {
     await delay(1200);
     if (token && Server.server) {

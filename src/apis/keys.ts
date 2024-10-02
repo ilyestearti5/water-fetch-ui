@@ -357,13 +357,13 @@ export default {
       repeation: false,
       command: "enum/submit",
       value: "space",
-      when: "state.object.data.enum.id",
+      when: "!state.object.data.enumIsLoading && state.object.data.enum.id",
     },
     {
       repeation: false,
       command: "enum/submit",
       value: "enter",
-      when: "state.object.data.enum.id",
+      when: "!state.object.data.enumIsLoading && state.object.data.enum.id",
     },
     {
       repeation: false,

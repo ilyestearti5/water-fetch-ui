@@ -11,16 +11,20 @@ import { Setting, settingHooks, SettingIds } from "@/reducers/Settings/settings.
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
 import { Server } from "@/apis/firebase";
 import { QueryStatus } from "react-query";
-import { onAuthStateChanged, onIdTokenChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
+import { onAuthStateChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
 import { NotificationType, notifayHooks } from "@/data/system/notifications.model";
 import { keyHooks } from "@/data/system/keys.model";
 import { fieldHooks, FeildRecord, FeildIds } from "@/data/system/field.model";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
-import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, valueFromString } from "@/utils/index";
+import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, transformCase, valueFromString } from "@/utils/index";
 import { CommandIds, commandsHooks } from "@/data/system/command.model";
 import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
+import { ProjectConfig } from "@/apis";
+import { langHooks } from "@/data/system/lang.model";
+import { StartApplicationProps } from "@/app/application";
+import { getDownloadURL, ref } from "firebase/storage";
 export * from "@/reducers/Object/object.slice";
 export * from "@/reducers/Global/title.slice";
 export * from "@/functions/app/web/web-utils";
@@ -43,11 +47,15 @@ export * from "@/data/system/actions.model";
 export * from "./api/googleApi";
 PouchDB.plugin(pouchdbUpsert);
 export type UserDB = Partial<{
-  name: string | null;
+  nickname: string | null;
+  firstname: string | null;
+  lastname: string | null;
   email: string | null;
   phone: string | null;
   photo: string | null;
   uid: string;
+  birthDay: number | null;
+  extraData: Record<string, any>;
 }>;
 export function useAsyncMemo<T>(callback: () => Promise<T>, deps: any[] = [], cleanUp?: (deps: any[]) => void): T | null {
   const state = useCopyState<T | null>(null);
@@ -603,9 +611,10 @@ export const onState = <T extends object | string | number | boolean | null>(sta
   return store.subscribe(callback);
 };
 export { store };
-export const getUserFromDB = () => getTemp<UserDB>("userInfo");
+export const useUserFromDB = () => getTemp<UserDB>("userInfo");
 export const initUser = () => {
-  const user = getUser();
+  const user = useUser();
+  const userDb = useUserFromDB();
   useAsyncEffect(async () => {
     if (user?.uid && Server.server) {
       const col = collection(Server.server.db, "users");
@@ -613,7 +622,7 @@ export const initUser = () => {
       const userInfo: Partial<UserDB> = {
         photo: user.photoURL,
         phone: user.phoneNumber,
-        name: user.displayName,
+        nickname: user.displayName,
         email: user.email,
       };
       const userControlledInfo = { ...userInfo, uid: user.uid };
@@ -623,12 +632,11 @@ export const initUser = () => {
       setTemp("userInfo", null);
     }
   }, [user]);
-  const userDb = getUserFromDB();
   useAsyncEffect(async () => {
     if (user && userDb) {
       let updatedData: Partial<{ displayName: string | null; photoURL: string | null }> = {};
-      if (user.displayName != userDb.name) {
-        updatedData.displayName = userDb.name;
+      if (user.displayName != userDb.nickname) {
+        updatedData.displayName = userDb.nickname;
       }
       if (user.photoURL != userDb.photo) {
         updatedData.photoURL = userDb.photo;
@@ -641,24 +649,24 @@ export const initUser = () => {
     if (user && server) {
       return onSnapshot(doc(collection(server.db, "users"), user.uid), (doc) => {
         if (doc.exists()) {
-          setTemp("userInfo", doc.data());
+          setTemp("userInfo", {
+            uid: doc.id,
+            ...doc.data(),
+          });
+        } else {
+          setTemp("userInfo", null);
         }
       });
     }
   }, [user]);
 };
-export const getUser = () => {
+export const useUser = () => {
   const user = useCopyState<User | null>(Server.server?.auth.currentUser || null);
   // on user change
   React.useEffect(() => {
     if (Server.server?.auth) {
       user.set(Server.server.auth.currentUser);
-      const unAuth = onAuthStateChanged(Server.server.auth, user.set);
-      const unIdToken = onIdTokenChanged(Server.server.auth, user.set);
-      return () => {
-        unAuth();
-        unIdToken();
-      };
+      return onAuthStateChanged(Server.server.auth, user.set);
     }
   }, []);
   return user.get;
@@ -719,4 +727,52 @@ export const showApplications = () => {
 };
 export const closeApplications = () => {
   viewTemps.setTemp("applications", false);
+};
+export const setColorFor = (colorId: ColorIds | string, value: string, theme: "default" | "dark" | "light" = "dark") => {
+  colorHooks.setOneFeild(colorId, theme, value);
+};
+export const setDarkColor = (colorId: ColorIds | string, value: string) => {
+  setColorFor(colorId, value, "dark");
+};
+export const setLightColor = (colorId: ColorIds | string, value: string) => {
+  setColorFor(colorId, value, "light");
+};
+export const setDefaultColor = (colorId: ColorIds | string, value: string) => {
+  setColorFor(colorId, value, "default");
+};
+export const addNewWord = (text: string, langs: Record<string, string>) => {
+  const word = transformCase(text, "normal", "cabab").toLowerCase();
+  langHooks.upsert([
+    {
+      word,
+      ...langs,
+    },
+  ]);
+};
+export const useTemplateInfo = () => getTemp<StartApplicationProps>("project");
+
+export const getTheme = async (themeId: string) => {
+  if (!Server.server) {
+    throw Error("Server Need To Be Inited");
+  }
+  const store = Server.server.storage;
+  const storeRef = ref(store, ["global", "themes", themeId.concat(".json")].join("/"));
+  const url = await getDownloadURL(storeRef);
+  return {
+    url,
+    storeRef,
+  };
+};
+
+export const setTheme = async (themeId: string) => {
+  const { storeRef, url } = await getTheme(themeId);
+  const response = await fetch(url);
+  const json: Color[] = await response.json();
+  colorHooks.upsert(json);
+  return {
+    json,
+    response,
+    url,
+    storeRef,
+  };
 };

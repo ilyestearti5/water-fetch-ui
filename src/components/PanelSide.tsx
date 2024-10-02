@@ -1,6 +1,6 @@
-import { handelShadowColor, useColorMerge } from "@/hooks";
 import { tw } from "@/utils";
 import { ReactElement, position } from "@/types/global";
+import { handelShadowColor, useColorMerge } from "@/hooks";
 export interface PanelSideProps extends ReactElement {
   position: position;
 }
@@ -41,7 +41,7 @@ export function PanelSide({ position, style, className, children, ...props }: Pa
         style={{
           ...colorMerge({
             borderColor: "borders",
-            backgroundColor: "secondry.background",
+            backgroundColor: "secondary.background",
             boxShadow: handelShadowColor([
               {
                 colorId: "shadow.color",
@@ -71,7 +71,7 @@ export function PanelSide({ position, style, className, children, ...props }: Pa
           `)}
           style={{
             ...colorMerge({
-              borderRightColor: "secondry.background",
+              borderRightColor: "secondary.background",
             }),
           }}
         />

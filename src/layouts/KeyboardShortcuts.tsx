@@ -70,8 +70,8 @@ export function KeyboardShortcuts() {
                 hover.get && "gray.opacity",
                 status.isFocused && { borderColor: "primary" },
                 status.isSubmited && {
-                  backgroundColor: "secondry",
-                  color: "secondry.content",
+                  backgroundColor: "secondary",
+                  color: "secondary.content",
                 },
               ),
               ...style,

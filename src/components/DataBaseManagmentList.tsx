@@ -7,7 +7,7 @@ import { getSlotData, slotHooks } from "@/data/system/slot.slice";
 import { getTemp, setTemp } from "../reducers/Object/object.slice";
 import { KeyPanding } from "@/components/KeyPanding";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { Text } from "@/components/Text";
+import { Translate } from "@/components/Translate";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { MarkDown } from "@/components/MarkDown";
 import { FastList } from "@/components/FastList";
@@ -84,7 +84,7 @@ export function DataBaseManagmentList({ data }: DataBaseManagmentListProps) {
           }}
           className="top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2"
         >
-          <Text content="no result" />
+          <Translate content="no result" />
         </div>
       )}
       <FastList
@@ -109,7 +109,7 @@ export function DataBaseManagmentList({ data }: DataBaseManagmentListProps) {
               }}
               style={{
                 ...style,
-                ...colorMerge(hover.get && "gray.opacity", status.isFocused && "secondry", status.isFocused && { color: "secondry.content" }),
+                ...colorMerge(hover.get && "gray.opacity", status.isFocused && "secondary", status.isFocused && { color: "secondary.content" }),
               }}
               onClick={(e) => {
                 !elementRef.current?.contains(e.target as HTMLElement) && handel.submit();

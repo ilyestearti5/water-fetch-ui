@@ -18,7 +18,7 @@ export function HeaderNotification() {
       className="h-fit"
       style={{
         ...colorMerge({
-          background: handelGradientColor("right", "secondry", "primary"),
+          background: handelGradientColor("right", "secondary", "primary"),
           borderColor: "borders",
           color: "primary.content",
         }),

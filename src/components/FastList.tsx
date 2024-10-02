@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Focus } from "@/components/Focus";
 import { mergeObject, tw, isSorted } from "@/utils";
 import { ReactElement } from "@/types/global";
@@ -59,23 +59,6 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
     }
   }, [focused, data]);
   // calculate height of the view element every 600 ms
-  React.useEffect(() => {
-    let ele: HTMLElement | null = null;
-    const callback = () => {
-      ele = ele || document.getElementById(slotId);
-      if (!ele) {
-        return;
-      }
-      const h = ele.getBoundingClientRect().height;
-      height.set(h);
-    };
-    callback();
-    const time = setInterval(callback, 1000);
-    return () => {
-      clearInterval(time);
-    };
-  }, []);
-  // temp for scrolling without using scrol bar
   const scrollingUsingBar = useCopyState(false);
   // when focused changed the scrolling is not by bar
   React.useEffect(() => {
@@ -147,25 +130,14 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
     return heightPercantage <= 100;
   }, [heightPercantage]);
   const elementRef = React.createRef<HTMLDivElement>();
-  const handleMouseMove = (e: MouseEvent) => {};
-  const handleMouseUp = () => {
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  };
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    handleMouseMove(e.nativeEvent); // Update immediately
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
   return (
-    <Focus focusId={focusId} className="relative w-full h-full" ignoreOutline={typeof focused == "number"} id={slotId}>
+    <Focus focusId={focusId} className="relative w-full h-full select-none" ignoreOutline={typeof focused == "number"} id={slotId}>
       <ChangableComponent
         onContentChange={(props) => {
           height.set(props.height);
           changableComponentViewConfig.set(props);
         }}
         className="relative h-full overflow-hidden"
-        onPointerDown={handleMouseDown}
         onWheel={(e) => {
           if (heightPercantage < 100) {
             let speed = false;

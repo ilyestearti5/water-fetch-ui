@@ -94,7 +94,7 @@ export const MenuList = () => {
         ref={elementRef}
         className="absolute py-1 border border-transparent border-solid rounded-md w-[350px] max-md:w-[150px]"
         style={{
-          ...colorMerge("secondry.background", {
+          ...colorMerge("secondary.background", {
             borderColor: "borders",
             boxShadow: handelShadowColor([
               {

@@ -36,15 +36,15 @@ export const NotifaysSlot = () => {
             }}
             style={{
               ...colorMerge(
-                "secondry.background",
+                "secondary.background",
                 index % 2 && "primary.background",
                 hover.get && "gray.opacity",
                 status.isFocused && {
-                  borderColor: "secondry",
+                  borderColor: "secondary",
                 },
                 status.isSubmited && {
-                  backgroundColor: "secondry",
-                  color: "secondry.content",
+                  backgroundColor: "secondary",
+                  color: "secondary.content",
                 },
               ),
             }}

@@ -1,6 +1,8 @@
 import { default as default_2 } from 'react';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 
+export declare const ApplicationsLayout: () => JSX_2.Element;
+
 export declare function CameraView(): JSX_2.Element;
 
 export declare function Commands(): JSX_2.Element;
@@ -64,8 +66,6 @@ export declare const LeftSide: ({ children }: LeftSideProps) => JSX_2.Element;
 export declare interface LeftSideProps {
     children?: default_2.ReactNode;
 }
-
-export declare const LeftSideView: () => JSX_2.Element;
 
 declare interface ListItemProps<T> extends ReactElement {
     handelSubmit: (fn?: Function) => (e?: any) => void;

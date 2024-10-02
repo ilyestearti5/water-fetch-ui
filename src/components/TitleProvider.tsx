@@ -56,7 +56,7 @@ export function TitleProvider() {
             px-2
           `)}
         style={{
-          ...colorMerge("secondry.background", {
+          ...colorMerge("secondary.background", {
             borderColor: "borders",
             boxShadow: handelShadowColor([{ colorId: "shadow.color", blur: 30, size: 1, x: 0, y: 10 }]),
           }),

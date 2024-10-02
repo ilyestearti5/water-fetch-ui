@@ -51,7 +51,7 @@ export function SettingsView() {
           border-solid
         `)}
         style={{
-          ...colorMerge("secondry.background", {
+          ...colorMerge("secondary.background", {
             borderColor: "borders",
           }),
         }}
