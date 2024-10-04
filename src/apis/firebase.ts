@@ -1,11 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { FirebaseApp, initializeApp, FirebaseOptions } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { doc, getFirestore, setDoc, getDoc, onSnapshot, collection, DocumentData, query, QueryConstraint, QuerySnapshot } from "firebase/firestore";
+import { doc, getFirestore, setDoc, getDoc, onSnapshot, collection, DocumentData, query, QueryConstraint, QuerySnapshot, Firestore } from "firebase/firestore";
 import { FirebaseStorage, getDownloadURL, getStorage, ref, uploadBytes, UploadResult, uploadString } from "firebase/storage";
-import { Analytics, getAnalytics } from "firebase/analytics";
 import { Auth } from "firebase/auth";
-import { Firestore } from "firebase/firestore";
 export const firebaseConfig = {
   apiKey: "AIzaSyBmcnHP80KXpBXltHrVnP1MZPsiSbVbWqQ",
   authDomain: "water-fetch.firebaseapp.com",
@@ -24,15 +22,12 @@ export class Server {
   public auth: Auth;
   public db: Firestore;
   public storage: FirebaseStorage;
-  public analytics: Analytics;
   private lockConfig: FirebaseOptions;
   constructor(public props: ServerProps) {
     if (Server.server) {
       throw new Error("Server already initialized");
     }
-
     const { projectId, ...restConfig } = props;
-
     this.lockConfig = {
       ...firebaseConfig,
       ...restConfig,
@@ -41,7 +36,6 @@ export class Server {
     this.auth = getAuth(this.app);
     this.db = getFirestore(this.app);
     this.storage = getStorage(this.app);
-    this.analytics = getAnalytics(this.app);
     Server.server = this;
   }
   get config() {
@@ -54,7 +48,7 @@ export class Server {
     return ref(this.storage, ["projects", this.props.projectId].join("/"));
   }
   async setDoc<T extends object>(paths: string[], data: T) {
-    await setDoc(doc(this.ref(), paths.join("/")), data, { merge: true });
+    return await setDoc(doc(this.ref(), paths.join("/")), data, { merge: true });
   }
   async getDoc(paths: string[]) {
     const docRef = doc(this.ref(), paths.join("/"));

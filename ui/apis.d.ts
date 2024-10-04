@@ -1,4 +1,3 @@
-import { Analytics } from 'firebase/analytics';
 import { Auth } from 'firebase/auth';
 import * as brands from '@fortawesome/free-brands-svg-icons';
 import { CollectionReference } from '@firebase/firestore';
@@ -8,14 +7,17 @@ import { FirebaseApp } from 'firebase/app';
 import { FirebaseOptions } from 'firebase/app';
 import { FirebaseStorage } from 'firebase/storage';
 import { Firestore } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { Query } from 'firebase/firestore';
 import { QueryConstraint } from 'firebase/firestore';
 import { QuerySnapshot } from 'firebase/firestore';
 import { QueryStatus } from 'react-query';
 import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as solid from '@fortawesome/free-solid-svg-icons';
 import { StorageReference } from '@firebase/storage';
-import { Unsubscribe } from '@firebase/firestore';
+import { Unsubscribe } from 'firebase/firestore';
+import { Unsubscribe as Unsubscribe_2 } from '@firebase/firestore';
 import { UploadResult } from 'firebase/storage';
 
 declare interface Action {
@@ -63,10 +65,7 @@ export declare interface GenerateAuthUrlResult {
     url: string;
 }
 
-export declare const generatePayoutUrl: (data: GeneratePayoutUrlParams) => Promise<GeneratePayoutUrlResult>;
-
 export declare interface GeneratePayoutUrlParams {
-    userToken?: string;
     projectId: string;
     platform: Platform;
     amount: number;
@@ -77,11 +76,21 @@ export declare interface GeneratePayoutUrlResult {
     url: string;
 }
 
-export declare const getFunction: <R = any, P = any>(name: string, isDev?: boolean | null) => (data: P) => Promise<R>;
+export declare const getFunction: <R = any, P = any>(name: string, isDev?: boolean | null) => {
+    callback: (data: P) => Promise<R>;
+    signal: AbortSignal;
+    controller: AbortController;
+};
 
 export declare const getLocalDB: () => PouchDB.Database<{}>;
 
 export declare const getProjectConfig: (projectId: string) => Promise<ProjectConfig>;
+
+export declare const getUserFunction: <T = any, P = any>(name: string, isDev?: boolean | null) => {
+    signal: AbortSignal;
+    controller: AbortController;
+    callback: (data: P) => Promise<T>;
+};
 
 declare interface Key {
     value?: string;
@@ -95,6 +104,8 @@ declare interface Key {
     private?: boolean;
     action?: Action["actionId"];
 }
+
+export declare function onManySnaping<T extends string>(firestoreOnSnapshot: typeof onSnapshot, props: Record<T, Query<DocumentData, DocumentData>>, callback: (executed: T) => void, skip?: number): Record<T, Unsubscribe>;
 
 export declare type Platform = "test" | "web" | "mobile" | "desktop";
 
@@ -113,7 +124,6 @@ export declare class Server {
     auth: Auth;
     db: Firestore;
     storage: FirebaseStorage;
-    analytics: Analytics;
     private lockConfig;
     constructor(props: ServerProps);
     get config(): FirebaseOptions;
@@ -121,7 +131,7 @@ export declare class Server {
     storageRef(): StorageReference;
     setDoc<T extends object>(paths: string[], data: T): Promise<void>;
     getDoc(paths: string[]): Promise<DocumentSnapshot<DocumentData, DocumentData>>;
-    onSnapshot(paths: string[], q: QueryConstraint[], callback: (snapshot: QuerySnapshot<DocumentData, DocumentData>) => void): Promise<Unsubscribe>;
+    onSnapshot(paths: string[], q: QueryConstraint[], callback: (snapshot: QuerySnapshot<DocumentData, DocumentData>) => void): Promise<Unsubscribe_2>;
     getFile(url: string): Promise<{
         blob: Blob;
         downloadUrl: string;

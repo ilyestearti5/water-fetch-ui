@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { Icon } from "./Icon";
 
 export interface CircleTipProps extends ClickProps<HTMLButtonElement> {}
-export function CircleTip({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: CircleTipProps) {
+export function CircleTip({ children, className, icon, style = {}, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: CircleTipProps) {
   const colorMerge = useColorMerge();
   const active = useCopyState(false);
   const hover = useCopyState(false);
@@ -59,6 +59,7 @@ export function CircleTip({ children, className, icon, style, iconClassName, onP
       type="button"
       style={{
         ...colorMerge(hover.get && "gray.opacity", active.get && "gray.opacity.2"),
+        ...style,
       }}
       {...props}
     >

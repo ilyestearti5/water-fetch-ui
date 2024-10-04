@@ -327,6 +327,40 @@ export declare function ori(list: (string | number)[], as: (string | number)[]):
 export declare const prefixId: (a: string | number, b: number | string) => string;
 
 /**
+ * Repeatedly executes an asynchronous callback function at intervals until stopped.
+ *
+ * @param callback - The asynchronous function to be executed. It receives an object with a `stop` function to halt further iterations.
+ * @param onError - Optional. A function to handle any errors thrown by the callback.
+ * @param iterations - Optional. The number of times the callback has been executed. Defaults to 1.
+ * @returns An object containing the number of iterations executed if the loop is stopped.
+ *
+ * @example
+ * ```typescript
+ * const callback = async ({ stop }) => {
+ *   // Your async code here
+ *   if (someCondition) {
+ *     stop();
+ *   }
+ * };
+ *
+ * const onError = (error: Error) => {
+ *   console.error('Error occurred:', error);
+ * };
+ *
+ * promiseInterval(callback, onError).then(result => {
+ *   console.log('Iterations:', result.iterations);
+ * });
+ * ```
+ */
+export declare const promiseInterval: (callback: (props: PromiseIntervalProps) => Promise<any>, onError?: (error: Error) => void, iterations?: number) => Promise<{
+    iterations: number;
+} | undefined>;
+
+export declare interface PromiseIntervalProps {
+    stop(): void;
+}
+
+/**
  * Returns a random item from an array.
  * @param array - The array to get the random item from.
  * @returns An object containing the index and value of the random item.

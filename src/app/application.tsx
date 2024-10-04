@@ -11,7 +11,7 @@ import { defaultObject, delay, mapAsync } from "@/utils";
 import { createRoot } from "react-dom/client";
 import { commandsHooks, execCommand } from "@/data/system/command.model";
 import { Color, colorHooks, getTemp, initUser, keyHooks, Lang, langHooks, setTemp, SettingValueType, useIdleStatus } from "@/hooks";
-import { Cmd, getLocalDB } from "@/apis";
+import { Cmd, getLocalDB, Server } from "@/apis";
 import { Button, Card, CircleLoading, Translate } from "@/components";
 import "@/scss/index.scss";
 const { data } = settings;
@@ -44,7 +44,6 @@ export interface CallableComponentProps {
 export const CallableComponent = ({ render: Render = <EmptyComponent /> }: CallableComponentProps) => {
   return typeof Render == "function" ? <Render /> : Render;
 };
-
 export const Application = ({ props }: ApplicationProps) => {
   initConfigurations();
   initSystem();
@@ -60,24 +59,23 @@ export const Application = ({ props }: ApplicationProps) => {
       }),
     );
   }, []);
-
   const isDev = getTemp<boolean>("env.isDev");
-
   React.useEffect(() => {
     if (isDev) {
-      defineGlobal("store", store);
-      defineGlobal("execAction", execAction);
-      defineGlobal("execCommand", execCommand);
-      defineGlobal("localDB", getLocalDB());
+      window.store = store;
+      window.execAction = execAction;
+      window.localDB = getLocalDB();
+      window.execCommand = execCommand;
+      window.auth = Server.server?.auth;
       return () => {
         delete window.store;
         delete window.execAction;
         delete window.execCommand;
         delete window.localDB;
+        delete window.auth;
       };
     }
   }, [isDev]);
-
   const { status } = useIdleStatus(async () => {
     await delay(props.timeLoading);
     setTemp("env.isDev", props.isDev);

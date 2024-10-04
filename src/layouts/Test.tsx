@@ -68,18 +68,18 @@ import {
   useColorMerge,
   useCopyState,
 } from "@/hooks";
+import React from "react";
+import { Tabs } from "@/components/Tabs";
+import { Route, Switch } from "react-router-dom";
+import { PayoutResult, PayoutRoute } from "@/routes";
+import { FullField } from "@/components/FullFields";
 import { FixedProfileView } from "./ProfileView";
 import { faAdd, faHome, faLink } from "@fortawesome/free-solid-svg-icons";
 import { EnumLayout } from "./EnumLayout";
-import { Route, Switch } from "react-router-dom";
-import { AuthRoute } from "@/routes/AuthRoute";
-import { allIcons, generatePayoutUrl, getFunction, signInAccount } from "@/apis";
-import React from "react";
-import { PayoutResult, PayoutRoute } from "@/routes";
 import { Confettiful } from "./CongratulationsAnimation";
+import { AuthRoute } from "@/routes/AuthRoute";
 import { ApplicationsLayout } from "./Application";
-import { Tabs } from "@/components/Tabs";
-import { FullField } from "@/components/FullFields";
+import { allIcons, getFunction, signInAccount } from "@/apis";
 const notificationsExmples: Omit<NotificationType, "id">[] = [
   {
     title: "Product Posted",
@@ -138,26 +138,17 @@ export function Test() {
       )
       .flat();
   }, [langsTranslations]);
-
-  React.useEffect(() => {
-    console.log(pinFieldState.get);
-  }, [pinFieldState.get]);
-
   const chargeIcons: Partial<Record<PayoutResult["status"], typeof allIcons.solid.faHome>> = {
     failed: allIcons.solid.faWarning,
     pending: allIcons.solid.faClock,
     canceled: allIcons.solid.faXmarkCircle,
-    processing: allIcons.solid.faProcedures,
     paid: allIcons.solid.faCheckCircle, // Added icon for 'paid' status,
-    expired: allIcons.solid.faHourglassEnd, // Added icon for 'expired' status,
   };
   const chargeColors: Partial<Record<PayoutResult["status"], string>> = {
     failed: "#e74c3c", // Beautiful red for failed status
     pending: "#f39c12", // Warm orange for pending status
     canceled: "#95a5a6", // Soft gray for canceled status
-    processing: "#3498db", // Cool blue for processing status
     paid: "#2ecc71", // Vibrant green for paid status,
-    expired: "#8e44ad", // Deep purple for expired status,
   };
   const activeTab = useCopyState("home");
   return (
@@ -344,7 +335,15 @@ export function Test() {
                       label: "Boolean Field",
                     },
                     {
-                      jsxElement: <StringFeild state={stringFieldState} id="string-field" />,
+                      jsxElement: (
+                        <StringFeild
+                          state={stringFieldState}
+                          config={{
+                            autoChange: true,
+                          }}
+                          id="string-field"
+                        />
+                      ),
                       label: "String Field",
                     },
                     {
@@ -417,7 +416,16 @@ export function Test() {
                       jsxElement: (
                         <FilterFeild
                           config={{
-                            list: ["Dog", "Cat"],
+                            list: [
+                              {
+                                content: "Dog",
+                                value: "dog",
+                              },
+                              {
+                                content: "Cat",
+                                value: "cat",
+                              },
+                            ],
                           }}
                           state={filterFieldState}
                           id="filter-field"
@@ -430,6 +438,7 @@ export function Test() {
                         <PinField
                           config={{
                             match: "..-..-..-..-..",
+                            size: 30,
                           }}
                           state={pinFieldState}
                           id="pin-field"
@@ -691,45 +700,15 @@ export function Test() {
                       label: "Ball Loading",
                     },
                     {
-                      label: "Test Payment",
-                      jsxElement: (
-                        <div className="flex flex-col gap-y-2">
-                          <NumberFeild state={priceState} config={{}} id="price" />
-                          <Button
-                            onClick={async () => {
-                              if (!user) {
-                                showToast("You need to login first", "error");
-                                return;
-                              }
-                              if (typeof priceState.get == "number" && 100 < priceState.get && priceState.get <= 100000) {
-                                const { VITE_PROJECT_ID: projectId, DEV: isDev } = import.meta.env;
-                                const userToken = await user.getIdToken(true);
-                                const { url } = await generatePayoutUrl({
-                                  projectId,
-                                  amount: priceState.get,
-                                  isDev,
-                                  platform: isDev ? "test" : "web",
-                                  userToken,
-                                });
-                                open(url);
-                              } else {
-                                showToast("Problem In Price", "error");
-                              }
-                            }}
-                          >
-                            Pay Somthing
-                          </Button>
-                        </div>
-                      ),
-                    },
-                    {
                       label: "Somthing",
                       jsxElement: (
                         <Button
                           onClick={async () => {
-                            const fn = getFunction<any, undefined>("hello", true);
-                            const result = await fn(undefined);
-                            console.log(result);
+                            const { callback } = getFunction<any, Record<string, string>>("hello", import.meta.env.DEV);
+                            const result = await callback({});
+                            console.log({
+                              result,
+                            });
                           }}
                         >
                           Somthing
@@ -777,7 +756,7 @@ export function Test() {
                                 label: "your name",
                                 config: {
                                   proposition: ["Ilyes", "Ahmed"],
-                                  noConfirm: true,
+                                  authChange: true,
                                 },
                                 type: "string",
                                 icon: allIcons.solid.faUser,
@@ -785,7 +764,7 @@ export function Test() {
                               age: {
                                 label: "your age",
                                 config: {
-                                  noConfirm: true,
+                                  authChange: true,
                                 },
                                 type: "number",
                                 onNext({ state, stop }) {
@@ -855,7 +834,7 @@ export function Test() {
                         .sort((a, b) => (a.label > b.label ? 1 : -1))
                         .map(({ definition, jsxElement, label }, j) => {
                           return (
-                            <Card className="w-fit max-md:w-full min-w-[200px] max-w-[500px] h-fit min-h-[200px]" key={j}>
+                            <Card className="w-fit max-md:w-full min-w-[200px] h-fit min-h-[200px]" key={j}>
                               <div className="p-2">
                                 <h1 className="text-2xl">
                                   <Translate content={label} />

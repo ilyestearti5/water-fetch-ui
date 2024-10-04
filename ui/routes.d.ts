@@ -10,7 +10,7 @@ export declare interface AuthRouteProps {
     }) => JSX.Element);
 }
 
-export declare type ChargeStatus = "pending" | "processing" | "paid" | "failed" | "expired" | "canceled";
+export declare type ChargeStatus = "pending" | "paid" | "failed" | "canceled";
 
 export declare interface PayoutResult {
     payoutId: string;
@@ -21,6 +21,14 @@ export declare interface PayoutResult {
     platform: "test" | "web" | "desktop" | "mobile";
     projectId: string;
     status: ChargeStatus;
+    type: "subscription" | "transaction" | "payment";
+    subscription?: {
+        label: string;
+        duration: number;
+    };
+    transaction?: {
+        saller?: string;
+    };
 }
 
 export declare const PayoutRoute: ({ onPayoutSuccess, successComponent: Component }: PayoutRouteProps) => JSX_2.Element;

@@ -21,7 +21,6 @@ import { CommandIds, commandsHooks } from "@/data/system/command.model";
 import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
-import { ProjectConfig } from "@/apis";
 import { langHooks } from "@/data/system/lang.model";
 import { StartApplicationProps } from "@/app/application";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -646,8 +645,8 @@ export const initUser = () => {
   }, [userDb, user]);
   React.useEffect(() => {
     const server = Server.server;
-    if (user && server) {
-      return onSnapshot(doc(collection(server.db, "users"), user.uid), (doc) => {
+    if (user?.uid && server?.db) {
+      return onSnapshot(doc(server.db, "users", user.uid), (doc) => {
         if (doc.exists()) {
           setTemp("userInfo", {
             uid: doc.id,
@@ -661,7 +660,7 @@ export const initUser = () => {
   }, [user]);
 };
 export const useUser = () => {
-  const user = useCopyState<User | null>(Server.server?.auth.currentUser || null);
+  const user = useCopyState<User | null>(null);
   // on user change
   React.useEffect(() => {
     if (Server.server?.auth) {

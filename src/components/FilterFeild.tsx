@@ -8,9 +8,9 @@ import { slotHooks } from "@/data/system/slot.slice";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Icon } from "./Icon";
 
-interface FilterListItemProps {
+export interface FilterListItemProps {
   isSelected: boolean;
-  item: string;
+  item: Required<SettingConfig["filter"]>["list"][number];
   toggle: Function;
 }
 
@@ -53,7 +53,7 @@ const FilterListItem = ({ isSelected, item, toggle }: FilterListItemProps) => {
           isSelected && `scale-100`,
         )}
       />
-      {item}
+      {item.content}
     </button>
   );
 };
@@ -65,7 +65,7 @@ export function FilterFeild({ id, config = {}, state }: FilterFeildProps) {
   return (
     <div id={id} className="flex flex-wrap gap-1 p-1 overflow-x-auto" tabIndex={1}>
       {config.list?.map((item, index) => {
-        const isSelected = !!state.get?.includes(item);
+        const isSelected = !!state.get?.includes(item.value);
         return (
           <FilterListItem
             item={item}
@@ -73,9 +73,9 @@ export function FilterFeild({ id, config = {}, state }: FilterFeildProps) {
             isSelected={isSelected}
             toggle={() => {
               if (isSelected) {
-                state.set(state.get?.filter((i) => i != item));
+                state.set(state.get?.filter((i) => i != item.value));
               } else {
-                state.set([...(state.get || []), item]);
+                state.set([...(state.get || []), item.value]);
               }
             }}
           />

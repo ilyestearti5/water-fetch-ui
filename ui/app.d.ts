@@ -76,8 +76,8 @@ declare interface SettingConfig {
     }>;
     pin: Partial<{
         length: number;
-        nullable: boolean;
         match: string;
+        size: number;
     }>;
     enum: Partial<{
         position: "bottom" | "left" | "top" | "right";
@@ -95,7 +95,7 @@ declare interface SettingConfig {
         help: string[];
         locked: boolean;
         hint: string;
-        uncancable: boolean;
+        autoChange: boolean;
     }>;
     boolean: Partial<{
         onActive: string;
@@ -106,15 +106,19 @@ declare interface SettingConfig {
         max: number;
         min: number;
         placeholder: string;
-        noConfirm: boolean;
+        autoChange: boolean;
         center: boolean;
         size: "small" | "large";
+        selectOnFocus: boolean;
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps>;
     array: Partial<{}>;
     filter: Partial<{
-        list: string[];
+        list: {
+            content: string;
+            value: string;
+        }[];
         extra: string[][];
     }>;
     password: Partial<{
@@ -146,8 +150,8 @@ declare interface SettingConfig_2 {
     }>;
     pin: Partial<{
         length: number;
-        nullable: boolean;
         match: string;
+        size: number;
     }>;
     enum: Partial<{
         position: "bottom" | "left" | "top" | "right";
@@ -165,7 +169,7 @@ declare interface SettingConfig_2 {
         help: string[];
         locked: boolean;
         hint: string;
-        uncancable: boolean;
+        autoChange: boolean;
     }>;
     boolean: Partial<{
         onActive: string;
@@ -176,15 +180,19 @@ declare interface SettingConfig_2 {
         max: number;
         min: number;
         placeholder: string;
-        noConfirm: boolean;
+        autoChange: boolean;
         center: boolean;
         size: "small" | "large";
+        selectOnFocus: boolean;
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps_2>;
     array: Partial<{}>;
     filter: Partial<{
-        list: string[];
+        list: {
+            content: string;
+            value: string;
+        }[];
         extra: string[][];
     }>;
     password: Partial<{

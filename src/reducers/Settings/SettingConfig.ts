@@ -10,8 +10,8 @@ export interface SettingConfig {
   }>;
   pin: Partial<{
     length: number;
-    nullable: boolean;
     match: string;
+    size: number;
   }>;
   enum: Partial<{
     position: "bottom" | "left" | "top" | "right";
@@ -25,7 +25,7 @@ export interface SettingConfig {
     help: string[];
     locked: boolean;
     hint: string;
-    uncancable: boolean;
+    autoChange: boolean;
   }>;
   boolean: Partial<{
     onActive: string;
@@ -36,15 +36,16 @@ export interface SettingConfig {
     max: number;
     min: number;
     placeholder: string;
-    noConfirm: boolean;
+    autoChange: boolean;
     center: boolean;
     size: "small" | "large";
+    selectOnFocus: boolean;
   }>;
   regexp: Partial<{}>;
   file: Partial<FileProps>;
   array: Partial<{}>;
   filter: Partial<{
-    list: string[];
+    list: { content: string; value: string }[];
     extra: string[][];
   }>;
   password: Partial<{

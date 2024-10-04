@@ -3563,8 +3563,8 @@ export declare interface SettingConfig {
     }>;
     pin: Partial<{
         length: number;
-        nullable: boolean;
         match: string;
+        size: number;
     }>;
     enum: Partial<{
         position: "bottom" | "left" | "top" | "right";
@@ -3582,7 +3582,7 @@ export declare interface SettingConfig {
         help: string[];
         locked: boolean;
         hint: string;
-        uncancable: boolean;
+        autoChange: boolean;
     }>;
     boolean: Partial<{
         onActive: string;
@@ -3593,15 +3593,19 @@ export declare interface SettingConfig {
         max: number;
         min: number;
         placeholder: string;
-        noConfirm: boolean;
+        autoChange: boolean;
         center: boolean;
         size: "small" | "large";
+        selectOnFocus: boolean;
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps>;
     array: Partial<{}>;
     filter: Partial<{
-        list: string[];
+        list: {
+            content: string;
+            value: string;
+        }[];
         extra: string[][];
     }>;
     password: Partial<{
@@ -3647,14 +3651,15 @@ export declare const settingHooks: {
             help: string[];
             locked: boolean;
             hint: string;
-            uncancable: boolean;
+            autoChange: boolean;
         }> | Partial<{
             max: number;
             min: number;
             placeholder: string;
-            noConfirm: boolean;
+            autoChange: boolean;
             center: boolean;
             size: "small" | "large";
+            selectOnFocus: boolean;
         }> | Partial<{
             onActive: string;
             onDisactive: string;
@@ -3662,7 +3667,10 @@ export declare const settingHooks: {
         }> | Partial<{
             proposition: "path";
         }> | Partial<{
-            list: string[];
+            list: {
+                content: string;
+                value: string;
+            }[];
             extra: string[][];
         }> | Partial<{
             filter: string[];
@@ -3674,8 +3682,8 @@ export declare const settingHooks: {
             goToCurrent: boolean;
         }> | Partial<{
             length: number;
-            nullable: boolean;
             match: string;
+            size: number;
         }> | Partial<{
             position: "bottom" | "left" | "top" | "right";
             list: {
@@ -3713,14 +3721,15 @@ export declare const settingHooks: {
                 help: string[];
                 locked: boolean;
                 hint: string;
-                uncancable: boolean;
+                autoChange: boolean;
             }> | Partial<{
                 max: number;
                 min: number;
                 placeholder: string;
-                noConfirm: boolean;
+                autoChange: boolean;
                 center: boolean;
                 size: "small" | "large";
+                selectOnFocus: boolean;
             }> | Partial<{
                 onActive: string;
                 onDisactive: string;
@@ -3728,7 +3737,10 @@ export declare const settingHooks: {
             }> | Partial<{
                 proposition: "path";
             }> | Partial<{
-                list: string[];
+                list: {
+                    content: string;
+                    value: string;
+                }[];
                 extra: string[][];
             }> | Partial<{
                 filter: string[];
@@ -3740,8 +3752,8 @@ export declare const settingHooks: {
                 goToCurrent: boolean;
             }> | Partial<{
                 length: number;
-                nullable: boolean;
                 match: string;
+                size: number;
             }> | Partial<{
                 position: "bottom" | "left" | "top" | "right";
                 list: {
@@ -3776,14 +3788,15 @@ export declare const settingHooks: {
         help: string[];
         locked: boolean;
         hint: string;
-        uncancable: boolean;
+        autoChange: boolean;
         }> | Partial<{
         max: number;
         min: number;
         placeholder: string;
-        noConfirm: boolean;
+        autoChange: boolean;
         center: boolean;
         size: "small" | "large";
+        selectOnFocus: boolean;
         }> | Partial<{
         onActive: string;
         onDisactive: string;
@@ -3791,7 +3804,10 @@ export declare const settingHooks: {
         }> | Partial<{
         proposition: "path";
         }> | Partial<{
-        list: string[];
+        list: {
+        content: string;
+        value: string;
+        }[];
         extra: string[][];
         }> | Partial<{
         filter: string[];
@@ -3803,8 +3819,8 @@ export declare const settingHooks: {
         goToCurrent: boolean;
         }> | Partial<{
         length: number;
-        nullable: boolean;
         match: string;
+        size: number;
         }> | Partial<{
         position: "bottom" | "left" | "top" | "right";
         list: {
@@ -3840,14 +3856,15 @@ export declare const settingHooks: {
             help: string[];
             locked: boolean;
             hint: string;
-            uncancable: boolean;
+            autoChange: boolean;
         }> | Partial<{
             max: number;
             min: number;
             placeholder: string;
-            noConfirm: boolean;
+            autoChange: boolean;
             center: boolean;
             size: "small" | "large";
+            selectOnFocus: boolean;
         }> | Partial<{
             onActive: string;
             onDisactive: string;
@@ -3855,7 +3872,10 @@ export declare const settingHooks: {
         }> | Partial<{
             proposition: "path";
         }> | Partial<{
-            list: string[];
+            list: {
+                content: string;
+                value: string;
+            }[];
             extra: string[][];
         }> | Partial<{
             filter: string[];
@@ -3867,8 +3887,8 @@ export declare const settingHooks: {
             goToCurrent: boolean;
         }> | Partial<{
             length: number;
-            nullable: boolean;
             match: string;
+            size: number;
         }> | Partial<{
             position: "bottom" | "left" | "top" | "right";
             list: {
@@ -3905,14 +3925,15 @@ export declare const settingHooks: {
                 help: string[];
                 locked: boolean;
                 hint: string;
-                uncancable: boolean;
+                autoChange: boolean;
             }> | Partial<{
                 max: number;
                 min: number;
                 placeholder: string;
-                noConfirm: boolean;
+                autoChange: boolean;
                 center: boolean;
                 size: "small" | "large";
+                selectOnFocus: boolean;
             }> | Partial<{
                 onActive: string;
                 onDisactive: string;
@@ -3920,7 +3941,10 @@ export declare const settingHooks: {
             }> | Partial<{
                 proposition: "path";
             }> | Partial<{
-                list: string[];
+                list: {
+                    content: string;
+                    value: string;
+                }[];
                 extra: string[][];
             }> | Partial<{
                 filter: string[];
@@ -3932,8 +3956,8 @@ export declare const settingHooks: {
                 goToCurrent: boolean;
             }> | Partial<{
                 length: number;
-                nullable: boolean;
                 match: string;
+                size: number;
             }> | Partial<{
                 position: "bottom" | "left" | "top" | "right";
                 list: {
@@ -3968,14 +3992,15 @@ export declare const settingHooks: {
         help: string[];
         locked: boolean;
         hint: string;
-        uncancable: boolean;
+        autoChange: boolean;
         }> | Partial<{
         max: number;
         min: number;
         placeholder: string;
-        noConfirm: boolean;
+        autoChange: boolean;
         center: boolean;
         size: "small" | "large";
+        selectOnFocus: boolean;
         }> | Partial<{
         onActive: string;
         onDisactive: string;
@@ -3983,7 +4008,10 @@ export declare const settingHooks: {
         }> | Partial<{
         proposition: "path";
         }> | Partial<{
-        list: string[];
+        list: {
+        content: string;
+        value: string;
+        }[];
         extra: string[][];
         }> | Partial<{
         filter: string[];
@@ -3995,8 +4023,8 @@ export declare const settingHooks: {
         goToCurrent: boolean;
         }> | Partial<{
         length: number;
-        nullable: boolean;
         match: string;
+        size: number;
         }> | Partial<{
         position: "bottom" | "left" | "top" | "right";
         list: {
@@ -5292,7 +5320,7 @@ export declare interface TreeType {
     separator?: string;
 }
 
-export declare function useAction<T extends string, ARGS, S>(actionId: T, fn: (args: ARGS) => S | Promise<S>, deps?: any[], complete?: (output: S) => void): {
+export declare function useAction<T extends string, ARGS = any, S = any>(actionId: T, fn: (args: ARGS) => S | Promise<S>, deps?: any[]): {
     actionId: string;
     status: QueryStatus | "ready";
     args?: any;

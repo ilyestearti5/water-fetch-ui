@@ -1,6 +1,5 @@
-import React from "react";
 import { viewTemps } from "@/reducers/Object/allTemps";
-import { signOut, createUserWithEmailAndPassword, verifyBeforeUpdateEmail, sendEmailVerification } from "firebase/auth";
+import { signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
 import { Server } from "@/apis/firebase";
 import { Password } from "@/components/PasswordFeild";
@@ -8,14 +7,18 @@ import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FacebookAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { faArrowLeft, faArrowRight, faRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { delay, mergeArray, setFocused, tw } from "@/utils";
-import { collection, getDocs } from "firebase/firestore";
-import { checkFormByFeilds, fieldHooks, useSettingValue, useUser, useUserFromDB, showToast, useColorMerge, useCopyState, useIdleStatus } from "@/hooks";
-import { Anchor, AsyncComponent, BlurOverlay, Button, Card, CircleLoading, CircleTip, EmptyComponent, FastList, Feild, Icon, Line, MultiScreenPage, Scroll, Translate } from "@/components";
+import { checkFormByFeilds, fieldHooks, useUser, useUserFromDB, showToast, useColorMerge, useCopyState } from "@/hooks";
+import { Anchor, AsyncComponent, BlurOverlay, Button, Card, CircleLoading, CircleTip, EmptyComponent, Feild, Icon, Line, MultiScreenPage, Scroll, Translate } from "@/components";
 import { allIcons } from "@/apis";
-const emailRegExp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$";
+export const emailRegExp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$";
+export interface ProfileContentProps {
+  children?: any;
+}
+export interface ProfileViewProps extends ProfileContentProps {}
+export interface FixedProfileViewProps extends ProfileViewProps {}
 export const SignupPage = () => {
   const colorMerge = useColorMerge();
   const email = fieldHooks.getOneFeild("signupUseremail", "value");
@@ -347,95 +350,13 @@ export const LoginContent = () => {
   const focusedView = getTemp<number>("focusedLoginView");
   return <MultiScreenPage focused={focusedView ?? 0} pages={[<LoginPage />, <SignupPage />]} />;
 };
-export interface PayoutsProps {
-  projectId: string;
-}
-export const Payouts = ({ projectId }: PayoutsProps) => {
-  const user = useUser();
-  const { data, error, status } = useIdleStatus(async () => {
-    if (!Server.server?.db) {
-      return [];
-    }
-    if (!user?.uid) {
-      return [];
-    } else {
-      const { docs } = await getDocs(collection(Server.server.db, "users", user.uid, "projects", projectId, "payouts"));
-      return docs;
-    }
-  }, [projectId, user]);
-  React.useEffect(() => {
-    status.set("idle");
-  }, []);
-  React.useEffect(() => {
-    if (status.get == "error" && error.get) {
-      showToast("Error When Loading The Payouts", "error");
-    }
-  }, [status.get, error.get]);
-  return (
-    <EmptyComponent>
-      {status.get == "success" && (
-        <EmptyComponent>
-          {!!data.get?.length && (
-            <FastList
-              data={data.get}
-              focusId="payouts-list"
-              itemSize={50}
-              slotId="payouts-list"
-              component={({ style, data }) => {
-                const info = data.data();
-                return (
-                  <div
-                    style={{
-                      ...style,
-                    }}
-                    className="flex justify-between items-center gap-1 p-3"
-                  >
-                    <span>{info.price}DA</span>
-                    <Button onClick={async () => {}}>
-                      <Translate content="Prepare" />
-                    </Button>
-                  </div>
-                );
-              }}
-            />
-          )}
-          {!data.get?.length && (
-            <div className="top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2">
-              <h1>No Payouts In Your Account 😔</h1>
-            </div>
-          )}
-        </EmptyComponent>
-      )}
-      {status.get == "loading" && <CircleLoading className="top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2" />}
-    </EmptyComponent>
-  );
-};
-export const ProfileContent = () => {
+export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
   const colorMerge = useColorMerge();
   const user = useUser();
   const userFromDb = useUserFromDB();
-  const isAnimation = useSettingValue("preferences/animation.boolean");
-  const {
-    data: userProjects,
-    status,
-    error,
-  } = useIdleStatus(async () => {
-    if (user && Server.server) {
-      const { docs } = await getDocs(collection(Server.server.db, "users", user.uid, "projects"));
-      return docs;
-    } else {
-      return [];
-    }
-  }, [user]);
-  React.useEffect(() => {
-    status.set("idle");
-  }, []);
-  React.useEffect(() => {
-    if (status.get == "error" && error.get) {
-      showToast("Error Loading Your Projects", "error");
-    }
-  }, [error.get, status.get]);
-  const selectedProjectId = useCopyState<null | string>(null);
+
+  const isDev = getTemp<boolean>("env.isDev");
+
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="p-2">
@@ -482,7 +403,7 @@ export const ProfileContent = () => {
                         label,
                         click() {
                           const a = document.createElement("a");
-                          const url = (import.meta.env.DEV ? "http://localhost:2000" : "https://water-fetch-account.web.app") + "/profile/" + pathname;
+                          const url = (isDev ? "http://localhost:2000" : "https://water-fetch-account.web.app") + "/profile/" + pathname;
                           a.target = "_blank";
                           a.href = url;
                           a.click();
@@ -501,7 +422,7 @@ export const ProfileContent = () => {
                   ),
                 });
               }}
-              className="mt-4 border border-transparent border-solid"
+              className="md:mt-4 max-md:mt-2 border border-transparent border-solid max-md:text-md"
               style={{
                 ...colorMerge("primary.background", {
                   color: "text.color",
@@ -516,59 +437,7 @@ export const ProfileContent = () => {
         </div>
       </div>
       <Line />
-      <Scroll className="relative">
-        {status.get == "success" && (
-          <EmptyComponent>
-            <div className="flex flex-wrap">
-              {userProjects.get?.map((project, index) => {
-                return (
-                  <div className="flex justify-between items-center p-3 w-1/3 max-sm:w-1/2" key={index}>
-                    <Card className="w-full">
-                      <div className="p-3">
-                        <h1 className="font-bold text-lg">{project.id}</h1>
-                      </div>
-                      <Line />
-                      <div className="flex justify-between items-center p-2">
-                        <span />
-                        <CircleTip
-                          onClick={() => {
-                            selectedProjectId.set(project.id);
-                          }}
-                          icon={faArrowRight}
-                        />
-                      </div>
-                    </Card>
-                  </div>
-                );
-              })}
-            </div>
-            {!userProjects.get?.length && (
-              <div className="flex justify-center items-center w-full h-full capitalize">
-                <Translate content="no water fetch projects you sigin" />
-              </div>
-            )}
-          </EmptyComponent>
-        )}
-        {status.get == "loading" && <CircleLoading className="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
-        <div
-          style={{
-            ...colorMerge("primary.background"),
-          }}
-          className={tw("right-0 absolute inset-y-0 left-full", selectedProjectId.get && "left-0", isAnimation && "transition-[left]")}
-        >
-          <div className="flex items-center gap-3 p-3">
-            <CircleTip
-              icon={faArrowLeft}
-              onClick={() => {
-                selectedProjectId.set(null);
-              }}
-            />
-            <h1 className="font-bold text-4xl">{selectedProjectId.get}</h1>
-          </div>
-          <Line />
-          {selectedProjectId.get && <Payouts projectId={selectedProjectId.get} />}
-        </div>
-      </Scroll>
+      <Scroll className="relative">{children}</Scroll>
       <Line />
       <div className="flex justify-end gap-2 p-2">
         <Button
@@ -599,7 +468,7 @@ export const ProfileContent = () => {
     </div>
   );
 };
-export const ProfileView = () => {
+export const ProfileView = ({ children }: ProfileViewProps) => {
   const user = useUser();
   return (
     <div className="relative flex flex-col w-full h-full overflow-hidden">
@@ -608,7 +477,7 @@ export const ProfileView = () => {
           await delay(1000);
           return (
             <EmptyComponent>
-              {user && <ProfileContent />}
+              {user && <ProfileContent children={children} />}
               {!user && <LoginContent />}
             </EmptyComponent>
           );
@@ -618,7 +487,7 @@ export const ProfileView = () => {
     </div>
   );
 };
-export const FixedProfileView = () => {
+export const FixedProfileView = ({ children }: FixedProfileViewProps) => {
   const profileView = viewTemps.getTemp<boolean>("profile-view");
   return (
     <BlurOverlay hidden={!profileView}>
@@ -638,7 +507,7 @@ export const FixedProfileView = () => {
         </div>
         <Line />
         <Scroll>
-          <ProfileView />
+          <ProfileView children={children} />
         </Scroll>
       </Card>
     </BlurOverlay>

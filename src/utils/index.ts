@@ -24,7 +24,6 @@ export const getWordsOnly = (string: string) =>
     .replace(/[^a-zA-Z0-9:]+/gi, "")
     .replaceAll(/ +/gi, " ")
     .trim();
-
 /**
  * Returns if the string includes the find string.
  * @param string - The string to search.
@@ -37,7 +36,6 @@ export const getWordsOnly = (string: string) =>
  * console.log(result); // true
  * ```
  */
-
 export const include = (string?: IncludeParam, find?: IncludeParam) => {
   const stringOnly = getWordsOnly(String(string));
   const findOnly = getWordsOnly(String(find)).toLowerCase();
@@ -611,7 +609,6 @@ export const someArray = (...array: (Nothing | number)[]) => {
 export function ori(list: (string | number)[], as: (string | number)[]) {
   return as.filter((value) => list.includes(value));
 }
-
 export function mergeObject<T extends object | undefined = React.CSSProperties>(...args: (Nothing | T)[]) {
   let result = {} as T;
   args.forEach((arg) => {
@@ -878,3 +875,49 @@ export function toTree<T>(_linearTree: ReturnType<typeof toLinear<T>>) {
   const result: TreeProps<T>["tree"] = [];
   return result;
 }
+export interface PromiseIntervalProps {
+  stop(): void;
+}
+/**
+ * Repeatedly executes an asynchronous callback function at intervals until stopped.
+ *
+ * @param callback - The asynchronous function to be executed. It receives an object with a `stop` function to halt further iterations.
+ * @param onError - Optional. A function to handle any errors thrown by the callback.
+ * @param iterations - Optional. The number of times the callback has been executed. Defaults to 1.
+ * @returns An object containing the number of iterations executed if the loop is stopped.
+ *
+ * @example
+ * ```typescript
+ * const callback = async ({ stop }) => {
+ *   // Your async code here
+ *   if (someCondition) {
+ *     stop();
+ *   }
+ * };
+ *
+ * const onError = (error: Error) => {
+ *   console.error('Error occurred:', error);
+ * };
+ *
+ * promiseInterval(callback, onError).then(result => {
+ *   console.log('Iterations:', result.iterations);
+ * });
+ * ```
+ */
+export const promiseInterval = async (callback: (props: PromiseIntervalProps) => Promise<any>, onError?: (error: Error) => void, iterations = 1) => {
+  let stopPromise = false;
+  const stop = () => {
+    stopPromise = true;
+  };
+  try {
+    await callback({ stop });
+  } catch (e: any) {
+    onError?.(e);
+  }
+  if (stopPromise) {
+    return {
+      iterations,
+    };
+  }
+  await promiseInterval(callback, onError, iterations + 1);
+};

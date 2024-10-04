@@ -17178,10 +17178,10 @@ function V$(c, a) {
   const e = x(c), r = x(a);
   return +e < +r;
 }
-const xa = (c) => c.replace(/[^a-zA-Z0-9:]+/gi, "").replaceAll(/ +/gi, " ").trim(), N$ = (c, a) => {
+const xa = (c) => c.replace(/[^a-zA-Z0-9:]+/gi, "").replaceAll(/ +/gi, " ").trim(), S$ = (c, a) => {
   const e = xa(String(c)), r = xa(String(a)).toLowerCase();
   return g$(r, e);
-}, S$ = (c = 0, a = 1, e = 1) => {
+}, w$ = (c = 0, a = 1, e = 1) => {
   if (!e)
     throw Error("cannot be give steps value 0 (infinite loop hapens)");
   (c > a && e > 0 || c <= a && e < 0) && ([a, c] = [c, a]);
@@ -17189,7 +17189,7 @@ const xa = (c) => c.replace(/[^a-zA-Z0-9:]+/gi, "").replaceAll(/ +/gi, " ").trim
   for (let s = c; s <= a; s += e)
     r.push(s);
   return r;
-}, M$ = (c = 0, a = 10) => Math.random() * (a - c) + c, C$ = (c = 0, a = 10) => Math.floor(M$(c, a)), w$ = (...c) => {
+}, M$ = (c = 0, a = 10) => Math.random() * (a - c) + c, C$ = (c = 0, a = 10) => Math.floor(M$(c, a)), k$ = (...c) => {
   let a = c[0];
   for (let e = 1; e < c.length; e++) {
     if (a > c[e])
@@ -17198,7 +17198,7 @@ const xa = (c) => c.replace(/[^a-zA-Z0-9:]+/gi, "").replaceAll(/ +/gi, " ").trim
   }
   return !0;
 };
-function k$(...c) {
+function A$(...c) {
   return c.join(" ").replaceAll(/ +[a-zA-Z]/g, (a) => {
     var e;
     return `${(e = a.match(/[a-z]/gi)) == null ? void 0 : e[0].toUpperCase()}`;
@@ -17222,10 +17222,10 @@ function ba(c, a) {
   else
     return c === a;
 }
-function A$(c, a) {
+function y$(c, a) {
   return JSON.stringify(c) == JSON.stringify(a);
 }
-function y$(c, a) {
+function P$(c, a) {
   let e = c;
   const r = a.split(/ *\. */gi).filter(Boolean);
   for (const s in r) {
@@ -17273,7 +17273,7 @@ class p$ {
   }
 }
 q = new WeakMap();
-async function P$(c = 0) {
+async function F$(c = 0) {
   return await new p$().start(c);
 }
 const L$ = (c) => {
@@ -17282,7 +17282,7 @@ const L$ = (c) => {
     index: a,
     value: c.at(a)
   };
-}, F$ = (c) => {
+}, B$ = (c) => {
   const a = [...c], e = [];
   for (; a.length; ) {
     const r = L$(a);
@@ -17304,16 +17304,16 @@ function d$(c, a) {
   }
   return e;
 }
-function B$(c, a = "camel", e = "normal") {
+function T$(c, a = "camel", e = "normal") {
   if (typeof c != "string" || a == e)
     return c;
   let r;
   return a == "camel" ? r = c.replaceAll(/[A-Z]+/g, (s) => ` ${s.toLowerCase()}`).trim() : a == "cabab" ? r = c.replaceAll(/-+/g, " ") : r = c, e == "cabab" ? r = r.replaceAll(/ +/g, "-") : e == "camel" && (r = r.replaceAll(/ +[a-z]/g, (s) => s.trimStart().toUpperCase()).trim()), r;
 }
-function T$(c) {
+function q$(c) {
   return Object.values(c);
 }
-async function q$(c, a) {
+async function D$(c, a) {
   const e = [];
   for (let r = 0; r < c.length; r++) {
     let s = a(c[r], r);
@@ -17321,14 +17321,14 @@ async function q$(c, a) {
   }
   return e;
 }
-const D$ = (c, a) => {
+const R$ = (c, a) => {
   const e = {};
   for (const r in c) {
     const s = c[r];
     e[r] = a(s, r);
   }
   return e;
-}, R$ = {
+}, G$ = {
   inf(...c) {
   },
   err(...c) {
@@ -17338,7 +17338,7 @@ const D$ = (c, a) => {
   warn(...c) {
   }
 };
-function G$(c, a = "@") {
+function W$(c, a = "@") {
   const e = c.split(a), r = {
     "default value": String(e[0]).split(/ +/gi)
   };
@@ -17347,7 +17347,7 @@ function G$(c, a = "@") {
     r[f] = i;
   }), r;
 }
-const W$ = (c = /* @__PURE__ */ new Date()) => v$(c, "MM/dd/yyyy HH:mm:ss", {}), U$ = (c, a = "K=V", e = ",") => Object.entries(c).map(([r, s]) => a.replaceAll("K", r).replaceAll("V", s)).join(e), g$ = function(c, a) {
+const U$ = (c = /* @__PURE__ */ new Date()) => v$(c, "MM/dd/yyyy HH:mm:ss", {}), E$ = (c, a = "K=V", e = ",") => Object.entries(c).map(([r, s]) => a.replaceAll("K", r).replaceAll("V", s)).join(e), g$ = function(c, a) {
   const e = a.toLowerCase();
   let r = 0, s = -1, f;
   for (c = c.toLowerCase(); f = c[r++]; )
@@ -17355,17 +17355,17 @@ const W$ = (c = /* @__PURE__ */ new Date()) => v$(c, "MM/dd/yyyy HH:mm:ss", {}),
       return !1;
   return !0;
 };
-function E$(c) {
+function $$(c) {
   for (let a = 1; a < c.length; a++)
     if (V$(c[a], c[a - 1]))
       return !1;
   return !0;
 }
-const $$ = (...c) => c.reduce((a, e) => a + (typeof e == "number" ? e : 0), 0);
-function O$(c, a) {
+const O$ = (...c) => c.reduce((a, e) => a + (typeof e == "number" ? e : 0), 0);
+function Z$(c, a) {
   return a.filter((e) => c.includes(e));
 }
-function Z$(...c) {
+function I$(...c) {
   let a = {};
   return c.forEach((e) => {
     e && (a = {
@@ -17374,13 +17374,13 @@ function Z$(...c) {
     });
   }), a;
 }
-function I$(...c) {
+function j$(...c) {
   let a = [];
   return c.forEach((e) => {
     e && (a = [...a, e]);
   }), a;
 }
-function j$(c, a = 0) {
+function K$(c, a = 0) {
   if (!c) return;
   const { parentElement: e } = c;
   if (!e) return;
@@ -17390,10 +17390,10 @@ function j$(c, a = 0) {
     left: V - (a >= 0 ? 0 : t)
   });
 }
-function K$(c = "solid", a) {
+function X$(c = "solid", a) {
   return (c == "brad" ? rE : c == "normal" ? iE : nE)[a];
 }
-function X$(c) {
+function Y$(c) {
   if (c == null) {
     const e = document.activeElement;
     return e == null || e.blur(), e;
@@ -17403,17 +17403,17 @@ function X$(c) {
     preventScroll: !0
   }), a;
 }
-function Y$() {
+function Q$() {
   const c = document.activeElement;
   return (c == null ? void 0 : c.id) || null;
 }
-const Q$ = (c) => {
+const J$ = (c) => {
   if (!c) return !1;
   const { parentElement: a } = c;
   if (!a) return !0;
   const { left: e, right: r, top: s, bottom: f } = c.getBoundingClientRect(), { left: i, right: l, top: o, bottom: n } = a.getBoundingClientRect();
   return o <= s && f <= n && i <= e && r <= l;
-}, J$ = (...c) => cE(...c).replaceAll(`
+}, _$ = (...c) => cE(...c).replaceAll(`
 `, " ").replaceAll("	", " ").replaceAll(/ {2,}/gi, " "), T = class T {
   constructor(a) {
     L2(this, "propertys", {});
@@ -17484,7 +17484,7 @@ L2(T, "overreadProps", {
   mediatracknext: "video next"
 });
 let Na = T;
-class _$ {
+class cO {
   static join(a, e, r) {
     const [s, f] = r.split("->");
     return e.filter((i) => String(a[s]) === String(i[f]));
@@ -17527,28 +17527,44 @@ class _$ {
     });
   }
 }
-const cO = (c, a) => `slot_${c}_${a}`;
+const aO = (c, a) => `slot_${c}_${a}`;
 function x$(c, a = 0) {
   const e = [];
   return c == null || c.map(({ data: r, innerTree: s }) => {
     e.push({ data: r, level: a }, ...x$(s, a + 1));
   }), e;
 }
-function aO(c) {
+function eO(c) {
   return [];
 }
+const b$ = async (c, a, e = 1) => {
+  let r = !1;
+  const s = () => {
+    r = !0;
+  };
+  try {
+    await c({ stop: s });
+  } catch (f) {
+    a == null || a(f);
+  }
+  if (r)
+    return {
+      iterations: e
+    };
+  await b$(c, a, e + 1);
+};
 export {
   Nz as $,
   ba as A,
   Y9 as B,
   M7 as C,
   p$ as D,
-  I$ as E,
+  j$ as E,
   QL as F,
   D6 as G,
   nd as H,
-  K$ as I,
-  R$ as J,
+  X$ as I,
+  G$ as J,
   Kb as K,
   Tg as L,
   fl as M,
@@ -17567,71 +17583,71 @@ export {
   Ye as Z,
   Zl as _,
   nF as a,
-  Kw as a0,
-  P$ as a1,
-  bm as a2,
-  N$ as a3,
-  cE as a4,
-  r7 as a5,
-  Us as a6,
-  Wq as a7,
-  v$ as a8,
-  _9 as a9,
-  T$ as aA,
-  D$ as aB,
-  W$ as aC,
-  U$ as aD,
-  g$ as aE,
-  E$ as aF,
-  $$ as aG,
-  O$ as aH,
-  x$ as aI,
-  aO as aJ,
-  uF as aa,
-  L$ as ab,
-  nE as ac,
-  iE as ad,
-  rE as ae,
-  cO as af,
-  Q$ as ag,
-  j$ as ah,
-  Zu as ai,
-  kS as aj,
-  wP as ak,
-  mg as al,
-  IB as am,
-  GP as an,
-  cd as ao,
-  Y$ as ap,
-  d$ as aq,
-  q$ as ar,
-  y$ as as,
-  G$ as at,
-  xa as au,
-  M$ as av,
-  C$ as aw,
-  k$ as ax,
-  A$ as ay,
-  u$ as az,
+  F$ as a0,
+  bm as a1,
+  S$ as a2,
+  cE as a3,
+  r7 as a4,
+  Us as a5,
+  Wq as a6,
+  v$ as a7,
+  _9 as a8,
+  uF as a9,
+  R$ as aA,
+  U$ as aB,
+  E$ as aC,
+  g$ as aD,
+  $$ as aE,
+  O$ as aF,
+  Z$ as aG,
+  x$ as aH,
+  eO as aI,
+  b$ as aJ,
+  L$ as aa,
+  nE as ab,
+  iE as ac,
+  rE as ad,
+  aO as ae,
+  J$ as af,
+  K$ as ag,
+  Zu as ah,
+  kS as ai,
+  wP as aj,
+  mg as ak,
+  IB as al,
+  GP as am,
+  cd as an,
+  Q$ as ao,
+  d$ as ap,
+  D$ as aq,
+  P$ as ar,
+  W$ as as,
+  xa as at,
+  M$ as au,
+  C$ as av,
+  A$ as aw,
+  y$ as ax,
+  u$ as ay,
+  q$ as az,
   wz as b,
   Kp as c,
-  F$ as d,
+  B$ as d,
   G as e,
   _D as f,
   TS as g,
-  _$ as h,
-  B$ as i,
+  cO as h,
+  T$ as i,
   sC as j,
   tT as k,
-  w$ as l,
-  Z$ as m,
+  k$ as l,
+  I$ as m,
   CH as n,
   ry as o,
   tG as p,
   rq as q,
-  S$ as r,
-  X$ as s,
-  J$ as t,
+  w$ as r,
+  Y$ as s,
+  _$ as t,
   nA as u,
   tW as v,
   BG as w,

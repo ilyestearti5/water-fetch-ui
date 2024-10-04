@@ -1,4 +1,4 @@
-import { getFunction } from "@/apis";
+import { getUserFunction } from "@/apis";
 import { CircleLoading, EmptyComponent } from "@/components";
 import { useUser, useAsyncEffect, useCopyState } from "@/hooks";
 import { delay } from "@/utils";
@@ -7,7 +7,7 @@ export interface PayoutRouteProps {
   onPayoutSuccess?: (payout: PayoutResult) => void;
   successComponent?: JSX.Element | ((props: { payout: PayoutResult }) => JSX.Element);
 }
-export type ChargeStatus = "pending" | "processing" | "paid" | "failed" | "expired" | "canceled";
+export type ChargeStatus = "pending" | "paid" | "failed" | "canceled";
 export interface PayoutResult {
   payoutId: string;
   amount: number;
@@ -17,8 +17,15 @@ export interface PayoutResult {
   platform: "test" | "web" | "desktop" | "mobile";
   projectId: string;
   status: ChargeStatus;
+  type: "subscription" | "transaction" | "payment";
+  subscription?: {
+    label: string;
+    duration: number;
+  };
+  transaction?: {
+    saller?: string;
+  };
 }
-const getPayout = getFunction<PayoutResult, { payoutId: string; userToken: string }>("payout-get");
 export const PayoutRoute = ({ onPayoutSuccess, successComponent: Component = <EmptyComponent /> }: PayoutRouteProps) => {
   const searchParams = new URLSearchParams(location.search);
   const payoutId = searchParams.get("payout_id");
@@ -27,10 +34,9 @@ export const PayoutRoute = ({ onPayoutSuccess, successComponent: Component = <Em
   const isLoading = useAsyncEffect(async () => {
     await delay(1200);
     if (payoutId && user) {
-      const userToken = await user.getIdToken(true);
+      const { callback: getPayout } = getUserFunction<PayoutResult, { payoutId: string }>("payout-get");
       const payout = await getPayout({
         payoutId,
-        userToken,
       });
       payoutState.set(payout);
     }

@@ -1,40 +1,75 @@
-import { aq as s, aW as c, aX as i, S as o, aY as l, aZ as u, a0 as f } from "./index-B28S0mrD.mjs";
-import { a_ as T } from "./index-B28S0mrD.mjs";
-import { a1 as d, ac as h, ad as g, ae as p } from "./index-CYYSxI_0.mjs";
-const n = (t, a = s("env.isDev")) => {
-  a = a ?? !1;
-  const e = new URL(a ? "http://localhost:8888" : "https://water-fetch-account.netlify.app");
-  return e.pathname = "/.netlify/functions/" + t, async (r) => await (await fetch(e.toString(), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(r)
-  })).json();
-}, v = () => new c("water-fetch-60a1af33-8997-5586-b817-f943d9b22d30"), b = n("generate-auth-url"), I = n("generate-payout-url"), P = async ({ place: t, ...a }) => {
-  const { url: e } = await b(a);
-  await d(1e3), t == "frame" ? i(e) : t == "window" ? open(e, "_blank", "width=400,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no,x=30,y=30") : location.href = e;
-}, j = {
-  solid: h,
-  regular: g,
-  brands: p
-}, x = async (t) => {
-  var e;
-  if (!((e = o.server) != null && e.db))
-    throw Error("Server is not initialized");
+import { ao as b, S as i, aV as d, aW as g, aX as h, aY as w, a9 as p } from "./index-D4efwQAm.mjs";
+import { aZ as B } from "./index-D4efwQAm.mjs";
+import { a0 as m, ab as y, ac as k, ad as S } from "./index-BclG5w1X.mjs";
+const f = (e, n = b("env.isDev")) => {
+  n = n ?? !1;
+  const t = new AbortController(), r = t.signal, o = new URL(n ? "http://localhost:8888" : "https://water-fetch-account.netlify.app");
+  return o.pathname = "/.netlify/functions/" + e, {
+    callback: async (a) => await (await fetch(o.toString(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(a),
+      signal: r
+    })).json(),
+    signal: r,
+    controller: t
+  };
+}, C = (e, n) => {
+  const { callback: t, signal: r, controller: o } = f(e, n);
   return {
-    ...(await l(u(f(o.server.db, "projects"), t))).data(),
-    id: t
+    signal: r,
+    controller: o,
+    callback: async (s) => {
+      var l, u;
+      const a = (u = (l = i.server) == null ? void 0 : l.auth.currentUser) == null ? void 0 : u.getIdToken();
+      let c = null;
+      return a instanceof Promise && (c = await a), await t({
+        data: s,
+        token: c
+      });
+    }
+  };
+}, F = () => new d("water-fetch-60a1af33-8997-5586-b817-f943d9b22d30"), { callback: v } = f("generate-auth-url"), T = async ({ place: e, ...n }) => {
+  const { url: t } = await v(n);
+  await m(1e3), e == "frame" ? g(t) : e == "window" ? open(t, "_blank", "width=400,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no,x=30,y=30") : location.href = t;
+}, U = {
+  solid: y,
+  regular: k,
+  brands: S
+}, j = async (e) => {
+  var t;
+  if (!((t = i.server) != null && t.db))
+    throw "Server is not initialized";
+  return {
+    ...(await h(w(p(i.server.db, "projects"), e))).data(),
+    id: e
   };
 };
+function x(e, n, t, r = 0) {
+  let o = {};
+  for (let s in n) {
+    let a = r;
+    o[s] = e(n[s], () => {
+      if (a) {
+        a--;
+        return;
+      }
+      t(s);
+    });
+  }
+  return o;
+}
 export {
-  o as Server,
-  j as allIcons,
-  T as firebaseConfig,
-  b as generateAuthUrl,
-  I as generatePayoutUrl,
-  n as getFunction,
-  v as getLocalDB,
-  x as getProjectConfig,
-  P as signInAccount
+  i as Server,
+  U as allIcons,
+  B as firebaseConfig,
+  v as generateAuthUrl,
+  f as getFunction,
+  F as getLocalDB,
+  j as getProjectConfig,
+  C as getUserFunction,
+  x as onManySnaping,
+  T as signInAccount
 };

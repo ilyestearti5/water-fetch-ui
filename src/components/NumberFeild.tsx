@@ -61,14 +61,14 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
     [state.get, elementRef, id],
   );
   React.useEffect(() => {
-    if (config.noConfirm) {
+    if (config.autoChange) {
       execAction("number.changeState", id);
     }
-  }, [value.get, config.noConfirm]);
+  }, [value.get, config.autoChange]);
   const focused = useCopyState(false);
   const showButton = React.useMemo(() => {
-    return !config.noConfirm && state.get != +value.get;
-  }, [config.noConfirm, state.get, value.get]);
+    return !config.autoChange && state.get != +value.get;
+  }, [config.autoChange, state.get, value.get]);
   const colorMerge = useColorMerge();
   return (
     <div
@@ -86,7 +86,9 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
           ref={elementRef}
           onFocus={(e) => {
             focused.set(true);
-            e.currentTarget.select();
+            if (config.selectOnFocus) {
+              e.currentTarget.select();
+            }
           }}
           onBlur={() => {
             focused.set(false);

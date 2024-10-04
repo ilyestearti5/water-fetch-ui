@@ -1,5 +1,4 @@
 import { default as default_2 } from 'react';
-import { FC } from 'react';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
@@ -210,6 +209,12 @@ export declare function FilterFeild({ id, config, state }: FilterFeildProps): JS
 
 declare type FilterFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["filter"]>;
 
+export declare interface FilterListItemProps {
+    isSelected: boolean;
+    item: Required<SettingConfig["filter"]>["list"][number];
+    toggle: Function;
+}
+
 export declare let Focus: default_2.ForwardRefExoticComponent<Omit<FocusProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface FocusProps extends ReactElement {
@@ -387,7 +392,7 @@ export declare interface PasswordProps extends default_2.DetailedHTMLProps<defau
     eays?: boolean;
 }
 
-export declare const PinField: FC<PinFieldProps>;
+export declare const PinField: default_2.MemoExoticComponent<({ id, config, state }: PinFieldProps) => JSX_2.Element>;
 
 export declare type PinFieldProps = FeildGeneralProps<string | undefined, SettingConfig["pin"]>;
 
@@ -472,8 +477,8 @@ declare interface SettingConfig {
     }>;
     pin: Partial<{
         length: number;
-        nullable: boolean;
         match: string;
+        size: number;
     }>;
     enum: Partial<{
         position: "bottom" | "left" | "top" | "right";
@@ -491,7 +496,7 @@ declare interface SettingConfig {
         help: string[];
         locked: boolean;
         hint: string;
-        uncancable: boolean;
+        autoChange: boolean;
     }>;
     boolean: Partial<{
         onActive: string;
@@ -502,15 +507,19 @@ declare interface SettingConfig {
         max: number;
         min: number;
         placeholder: string;
-        noConfirm: boolean;
+        autoChange: boolean;
         center: boolean;
         size: "small" | "large";
+        selectOnFocus: boolean;
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps>;
     array: Partial<{}>;
     filter: Partial<{
-        list: string[];
+        list: {
+            content: string;
+            value: string;
+        }[];
         extra: string[][];
     }>;
     password: Partial<{
@@ -608,7 +617,7 @@ export declare interface TabsProps {
     tabs: {
         label: string;
         value: string;
-        icon: IconProps["icon"];
+        icon?: IconProps["icon"];
     }[];
 }
 

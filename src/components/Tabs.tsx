@@ -8,7 +8,7 @@ import React from "react";
 import { tw } from "@/utils";
 export interface TabsProps {
   state: State<string>;
-  tabs: { label: string; value: string; icon: IconProps["icon"] }[];
+  tabs: { label: string; value: string; icon?: IconProps["icon"] }[];
 }
 export const Tabs = ({ state, tabs }: TabsProps) => {
   const colorMerge = useColorMerge();

@@ -69,7 +69,6 @@ export function initAdress() {
   }, []);
   // desc: for get local ip adress
 }
-//
 export function initConfigurations(more?: () => void) {
   initDarkSystem();
   initAdress();

@@ -21,13 +21,18 @@ export declare function DevReadingHTML(): JSX_2.Element;
 
 export declare const DialogBoxLayout: () => JSX_2.Element;
 
+export declare const emailRegExp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$";
+
 export declare const EnumLayout: () => JSX_2.Element;
 
 export declare function FindCommandInput(): JSX_2.Element;
 
 export declare function FindSettingFeild(): JSX_2.Element;
 
-export declare const FixedProfileView: () => JSX_2.Element;
+export declare const FixedProfileView: ({ children }: FixedProfileViewProps) => JSX_2.Element;
+
+export declare interface FixedProfileViewProps extends ProfileViewProps {
+}
 
 export declare function getTree(inputs?: string[], sep?: string): TreeReturn[];
 
@@ -93,17 +98,18 @@ export declare const NotifaysSlot: () => JSX_2.Element;
 
 export declare function Notifications(): JSX_2.Element;
 
-export declare const Payouts: ({ projectId }: PayoutsProps) => JSX_2.Element;
-
-export declare interface PayoutsProps {
-    projectId: string;
-}
-
 export declare const PDFView: () => JSX_2.Element;
 
-export declare const ProfileContent: () => JSX_2.Element;
+export declare const ProfileContent: ({ children }: ProfileContentProps) => JSX_2.Element;
 
-export declare const ProfileView: () => JSX_2.Element;
+export declare interface ProfileContentProps {
+    children?: any;
+}
+
+export declare const ProfileView: ({ children }: ProfileViewProps) => JSX_2.Element;
+
+export declare interface ProfileViewProps extends ProfileContentProps {
+}
 
 declare type ReactElement<T = HTMLDivElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
 

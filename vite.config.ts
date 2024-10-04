@@ -35,6 +35,11 @@ export default defineConfig(({ command }) => {
       resolve: {
         alias,
       },
+      server: {
+        // make it can access from any device in the same network
+        host: true,
+        port: 4545,
+      },
     };
   }
   if (platform == "lib") {
@@ -64,12 +69,8 @@ export default defineConfig(({ command }) => {
         outDir: "./ui",
         rollupOptions: {
           // Ensure external dependencies are not bundled into your library
-          external: ["react", "react-dom", "firebase"],
+          external: ["react", "react-dom"],
           output: {
-            globals: {
-              react: "React",
-              "react-dom": "ReactDOM",
-            },
             format: "esm", // Universal Module Definition
           },
         },
@@ -90,5 +91,5 @@ export default defineConfig(({ command }) => {
       },
     };
   }
-  throw Error("Invalid platform");
+  throw "Invalid platform";
 });

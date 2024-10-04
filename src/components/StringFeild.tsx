@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { fieldHooks, initNewFeild } from "@/hooks";
+import { fieldHooks, initNewFeild, useEffectDelay, useMemoDelay } from "@/hooks";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
@@ -26,9 +26,6 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
   useAction(
     "string.cancel",
     () => {
-      if (config.uncancable) {
-        return;
-      }
       const focused = getFocus();
       if (focused && [id, `${id}:cancel`].includes(focused)) {
         const val = state.get || "";
@@ -58,6 +55,12 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
   const currentValue = React.useMemo(() => {
     return value.get || "";
   }, [value.get]);
+  const diffValue = React.useDeferredValue(currentValue);
+  React.useEffect(() => {
+    if (config.autoChange) {
+      state.set(diffValue);
+    }
+  }, [config.autoChange, diffValue]);
   return (
     <div className="flex justify-between items-center gap-3">
       <Input
@@ -70,22 +73,20 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
         placeholder={config.hint || `provide value for ${id}`}
         onValueChange={value.set}
       />
-      {(state.get || "") != (value.get || "") && (
+      {!config?.autoChange && (state.get || "") != (value.get || "") && (
         <div className="flex items-cente gap-x-2">
-          {!config.uncancable && (
-            <Button
-              className="w-fit"
-              id={`${id}:cancel`}
-              onClick={() => {
-                execAction("string.cancel");
-              }}
-              style={{
-                ...colorMerge("gray.opacity.2"),
-              }}
-            >
-              cancel
-            </Button>
-          )}
+          <Button
+            className="w-fit"
+            id={`${id}:cancel`}
+            onClick={() => {
+              execAction("string.cancel");
+            }}
+            style={{
+              ...colorMerge("gray.opacity.2"),
+            }}
+          >
+            cancel
+          </Button>
           <Button
             className="w-fit"
             id={`${id}:change`}

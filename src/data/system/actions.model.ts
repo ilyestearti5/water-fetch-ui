@@ -6,6 +6,7 @@ import { store } from "@/store";
 import { QueryStatus } from "react-query";
 import { onceState } from "@/hooks";
 import { useAsyncEffect } from "@/hooks";
+import { con } from "@/utils";
 export interface Action {
   actionId: string;
   status: QueryStatus | "ready";
@@ -50,7 +51,7 @@ export function initAction(actionId: string) {
   }, [act]);
 }
 // init all actions
-export function useAction<T extends string, ARGS, S>(actionId: T, fn: (args: ARGS) => S | Promise<S>, deps: any[] = [], complete: (output: S) => void = () => {}) {
+export function useAction<T extends string, ARGS = any, S = any>(actionId: T, fn: (args: ARGS) => S | Promise<S>, deps: any[] = []) {
   React.useEffect(() => {
     return () => {
       actionHooks.remove([actionId]);
@@ -77,10 +78,8 @@ export function useAction<T extends string, ARGS, S>(actionId: T, fn: (args: ARG
         }
         actionHooks.setOneFeild(actionId, "output", s);
         actionHooks.setOneFeild(actionId, "status", "success");
-        if (s) {
-          complete(s);
-        }
-      } catch {
+      } catch (e) {
+        con.err(e);
         actionHooks.setOneFeild(actionId, "output", null);
         actionHooks.setOneFeild(actionId, "status", "error");
       }
