@@ -1,13 +1,19 @@
-import { handelShadowColor, useColorMerge } from "@/hooks";
-import React from "react";
-import Component from "markdown-to-jsx";
+import "highlight.js/styles/xcode.css";
+import { BooleanFeild } from "./Fields/BooleanField";
+import { handelShadowColor, useColorMerge, useSettingValue } from "@/hooks";
 import { Line } from "./Line";
+import { nanoid } from "@reduxjs/toolkit";
 import { tw } from "@/utils";
 import { useCopyState } from "@/hooks";
-import { BooleanFeild } from "./BooleanFeild";
-import { nanoid } from "@reduxjs/toolkit";
-export function MarkDown({ value }: { value: string }) {
+import Component from "markdown-to-jsx";
+import highlight from "highlight.js/lib/common";
+import React from "react";
+export interface MarkDownProps {
+  value?: string;
+}
+export function MarkDown({ value = "" }: MarkDownProps) {
   const colorMerge = useColorMerge();
+  // const isDark = useSettingValue("window/dark.boolean");
   return (
     <div>
       <Component
@@ -21,35 +27,41 @@ export function MarkDown({ value }: { value: string }) {
               );
             },
             h1(content) {
-              return <h1 className="text-6xl">{content?.children}</h1>;
+              return <h1 className="md:text-5xl max-md:text-4xl">{content?.children}</h1>;
             },
             h2(content) {
-              return <h1 className="text-5xl">{content?.children}</h1>;
+              return <h1 className="md:text-4xl max-md:text-3xl">{content?.children}</h1>;
             },
             h3(content) {
-              return <h1 className="text-4xl">{content?.children}</h1>;
+              return <h1 className="md:text-3xl max-md:text-2xl">{content?.children}</h1>;
             },
             h4(content) {
-              return <h1 className="text-3xl">{content?.children}</h1>;
+              return <h1 className="md:text-2xl max-md:text-xl">{content?.children}</h1>;
             },
             h5(content) {
-              return <h1 className="text-2xl">{content?.children}</h1>;
+              return <h1 className="md:text-xl max-md:text-lg">{content?.children}</h1>;
             },
             h6(content) {
-              return <h1 className="text-xl">{content?.children}</h1>;
+              return <h1 className="md:text-lg max-md:text-md">{content?.children}</h1>;
             },
             code(content) {
+              let __html: string = content.children;
+              const isSpecified = content.className?.includes("lang-");
+              if (isSpecified) {
+                __html = highlight.highlightAuto(String(content.children)).value;
+              }
               return (
-                <code
-                  className="px-2 py-1 border border-transparent border-solid rounded-md leading-[26px]"
+                <div
+                  className={tw("m-1 px-2 py-1 border border-transparent border-solid rounded-md leading-[26px]", !isSpecified && "inline-block")}
                   style={{
                     ...colorMerge("gray.opacity", {
                       borderColor: "borders",
                     }),
                   }}
-                >
-                  {content?.children}
-                </code>
+                  dangerouslySetInnerHTML={{
+                    __html,
+                  }}
+                />
               );
             },
             input(content) {

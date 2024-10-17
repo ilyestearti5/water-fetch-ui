@@ -1,17 +1,17 @@
 import React from "react";
-import { isSorted, mergeObject } from "@/utils";
-import { BlurOverlay } from "@/components/Overlays";
+import { getIcon, mergeObject, tw } from "@/utils";
 import { Line } from "@/components/Line";
 import { KeyPanding } from "@/components/KeyPanding";
 import { menuTemp } from "@/reducers/Object/allTemps";
 import { ListItemProps, position } from "@/types/global";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { slotHooks } from "@/data/system/slot.slice";
 import { PositionView } from "../components/PositionView";
 import { positionsHooks } from "@/data/system/positions.model";
 import { Icon } from "@/components/Icon";
 import { List } from "@/components/List";
 import { handelShadowColor, useColorMerge } from "@/hooks";
+import { allIcons } from "@/apis";
+import { BlurOverlay, DownOverlay } from "@/components";
 export const MenuRecord = ({ item: props, status, handelFocus, handelSubmit }: ListItemProps<Partial<Electron.MenuItem>>) => {
   if (props.type == "separator") {
     return (
@@ -40,14 +40,17 @@ export const MenuRecord = ({ item: props, status, handelFocus, handelSubmit }: L
           slotHooks.setOneFeild("menu-list", "focused", null);
         }}
         onClick={handelSubmit()}
-        className={"cursor-pointer flex items-center rounded-md px-4 py-1 w-full"}
+        className={"cursor-pointer flex items-center rounded-md px-4 py-2 w-full"}
       >
-        <div className="w-[30px]">{props.checked && <Icon icon={faCheck} />}</div>
+        <div className="inline-flex flex-end items-center gap-1 w-[60px]">
+          {props.checked && <Icon icon={allIcons.solid.faCheck} />}
+          {/* {menuIcon && <Icon icon={menuIcon} />} */}
+        </div>
         <div className="flex justify-between items-center gap-1 w-full">
           {props.label && <span>{props.label}</span>}
           {props.accelerator && <KeyPanding shortcut={props.accelerator} />}
         </div>
-        <div className="w-[30px]" />
+        <div className="w-[60px]" />
       </div>
     </div>
   );
@@ -83,53 +86,50 @@ export const MenuList = () => {
   }, [submited, menuId]);
   const menuDim = positionsHooks.getOne("menu-list");
   return (
-    <BlurOverlay
-      hidden={!menuId}
-      style={{
-        backgroundColor: "transparent",
-      }}
-    >
-      <PositionView
-        positionId="menu-list"
-        ref={elementRef}
-        className="absolute py-1 border border-transparent border-solid rounded-md w-[350px] max-md:w-[150px]"
-        style={{
-          ...colorMerge("secondary.background", {
-            borderColor: "borders",
-            boxShadow: handelShadowColor([
-              {
-                colorId: "shadow.color",
-                blur: 10,
-                size: 1,
-                x: 0,
-                y: 5,
-              },
-            ]),
-          }),
-          ...mergeObject<React.CSSProperties>(
-            menuPosition &&
-              menuDim?.width &&
-              (innerWidth > menuPosition[0] + menuDim.width
-                ? {
-                    left: menuPosition[0],
-                  }
-                : {
-                    right: innerWidth - menuPosition[0],
-                  }),
-            menuPosition &&
-              menuDim?.height &&
-              (innerHeight > menuPosition[1] + menuDim.height
-                ? {
-                    top: menuPosition[1],
-                  }
-                : {
-                    bottom: innerHeight - menuPosition[1],
-                  }),
-          ),
-        }}
-      >
-        <List skipFn={({ enabled = true, type }) => type == "separator" || !enabled} slotId="menu-list" component={MenuRecord} data={menuList || []} />
-      </PositionView>
+    <BlurOverlay className="select-none scale-100" hidden={!menuId}>
+      {menuId && (
+        <PositionView
+          positionId="menu-list"
+          ref={elementRef}
+          className="absolute py-1 border border-transparent border-solid rounded-md w-[350px] max-md:w-[150px]"
+          style={{
+            ...colorMerge("secondary.background", {
+              borderColor: "borders",
+              boxShadow: handelShadowColor([
+                {
+                  colorId: "shadow.color",
+                  blur: 10,
+                  size: 1,
+                  x: 0,
+                  y: 5,
+                },
+              ]),
+            }),
+            ...mergeObject<React.CSSProperties>(
+              menuPosition &&
+                menuDim?.width &&
+                (innerWidth > menuPosition[0] + menuDim.width
+                  ? {
+                      left: menuPosition[0],
+                    }
+                  : {
+                      right: innerWidth - menuPosition[0],
+                    }),
+              menuPosition &&
+                menuDim?.height &&
+                (innerHeight > menuPosition[1] + menuDim.height
+                  ? {
+                      top: menuPosition[1],
+                    }
+                  : {
+                      bottom: innerHeight - menuPosition[1],
+                    }),
+            ),
+          }}
+        >
+          <List skipFn={({ enabled = true, type }) => type == "separator" || !enabled} slotId="menu-list" component={MenuRecord} data={menuList || []} />
+        </PositionView>
+      )}
     </BlurOverlay>
   );
 };

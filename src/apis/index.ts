@@ -80,7 +80,10 @@ export interface ProjectConfig {
   auth?: Partial<Record<Platform, string | null>>;
   payout?: Partial<Record<Platform, string | null>>;
 }
-export const { callback: generateAuthUrl } = getFunction<GenerateAuthUrlResult, GenerateAuthUrlParams>("generate-auth-url");
+export const generateAuthUrl = async (params: GenerateAuthUrlParams) => {
+  const { callback } = getFunction<GenerateAuthUrlResult, GenerateAuthUrlParams>("generate-auth-url", params.isDev);
+  return await callback(params);
+};
 export interface SignInAccountProps extends GenerateAuthUrlParams {
   place: "window" | "frame" | "redirect";
 }
@@ -110,7 +113,6 @@ export const getProjectConfig = async (projectId: string): Promise<ProjectConfig
     id: projectId,
   } as ProjectConfig;
 };
-
 export function onManySnaping<T extends string>(
   firestoreOnSnapshot: typeof onSnapshot,
   props: Record<T, Query<DocumentData, DocumentData>>,

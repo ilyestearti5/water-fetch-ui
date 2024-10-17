@@ -48,9 +48,10 @@ export function CircleTip({ children, className, icon, style = {}, iconClassName
         flex
         items-center
         justify-center
-        outline-2
-        outline-offset-1
-        outline-transparent
+        outline-0
+        md:outline-offset-1
+        md:outline-transparent
+        md:focus:outline-2
         truncate
       `,
         className,
@@ -58,7 +59,9 @@ export function CircleTip({ children, className, icon, style = {}, iconClassName
       )}
       type="button"
       style={{
-        ...colorMerge(hover.get && "gray.opacity", active.get && "gray.opacity.2"),
+        ...colorMerge(hover.get && "gray.opacity", active.get && "gray.opacity.2", {
+          outlineColor: "primary",
+        }),
         ...style,
       }}
       {...props}

@@ -13,73 +13,65 @@ import { DialogBoxLayout } from "@/layouts/DialogBoxLayout";
 import { Commands } from "@/layouts/Commands";
 import { Card } from "@/components/Card";
 import { CameraView } from "@/layouts/CameraView";
-import {
-  Anchor,
-  BooleanFeild,
-  Button,
-  CircleTip,
-  Icon,
-  Line,
-  MarkDown,
-  Scroll,
-  StringFeild,
-  Tip,
-  FileFeild,
-  FilterFeild,
-  PinField,
-  ArrayFeild,
-  DateFeild,
-  ImageFeild,
-  CircleLoading,
-  LineLoading,
-  BallLoading,
-  RecorderFeild,
-  Feild,
-  PasswordFeild,
-  NumberFeild,
-  Starts,
-  LargeButton,
-  Tab,
-  DarkLightIcon,
-  StyledButton,
-  RangeFeild,
-  EnumFeild,
-  FastList,
-  Translate,
-} from "@/components";
+import { Anchor, Button, CircleTip, Icon, Line, MarkDown, Scroll, Tip, CircleLoading, LineLoading, BallLoading, Starts, LargeButton, DarkLightIcon, StyledButton, Translate } from "@/components";
 import { randomItem, range } from "@/utils";
 import { PDFView } from "./PDFView";
 import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { NotificationType } from "@/data/system/notifications.model";
 import { KeyboardView } from "./KeyboardView";
 import { IframeLayout } from "./IframeLayout";
-import {
-  useUser,
-  useUserFromDB,
-  langHooks,
-  openCamera,
-  setSettingValue,
-  settingHooks,
-  showApplications,
-  showNotification,
-  showProfile,
-  showSetting,
-  showToast,
-  useColorMerge,
-  useCopyState,
-} from "@/hooks";
-import React from "react";
-import { Tabs } from "@/components/Tabs";
+import { useUserFromDB, openCamera, setSettingValue, settingHooks, showApplications, showNotification, showProfile, showSetting, showToast, useColorMerge, viewTemps } from "@/hooks";
 import { Route, Switch } from "react-router-dom";
 import { PayoutResult, PayoutRoute } from "@/routes";
-import { FullField } from "@/components/FullFields";
 import { FixedProfileView } from "./ProfileView";
-import { faAdd, faHome, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faLink } from "@fortawesome/free-solid-svg-icons";
 import { EnumLayout } from "./EnumLayout";
 import { Confettiful } from "./CongratulationsAnimation";
 import { AuthRoute } from "@/routes/AuthRoute";
 import { ApplicationsLayout } from "./Application";
 import { allIcons, getFunction, signInAccount } from "@/apis";
+import { BottomSheetLayout } from "@/layouts/BottomSheetLayout";
+import { DateLayout } from "./DateLayout";
+import { ColorLayout } from "./ColorLayout";
+import { ClickedView } from "@/components/ClickedView";
+import {
+  ArrayFieldCode,
+  BooleanFieldCode,
+  DateFieldCode,
+  EnumFieldCode,
+  FastListCode,
+  FieldCode,
+  FileFieldCode,
+  FilterFieldCode,
+  FullFieldCode,
+  ImageFieldCode,
+  InfinityScrollCode,
+  NumberFieldCode,
+  PasswordFieldCode,
+  PinFieldCode,
+  RangeFieldCode,
+  RecorderFieldCode,
+  StringFieldCode,
+  TabCode,
+  TabsCode,
+} from "@/test-components/Components";
+import React from "react";
+const markDownArrayContent = [
+  "# First Section",
+  "## Second Section",
+  "```js",
+  "console.log('Hello World')",
+  "```",
+  "```ts",
+  "const a : number = 3",
+  "```",
+  "```html",
+  "<div>",
+  "  <h1>Hello World</h1>",
+  "</div>",
+  "```",
+  "End",
+];
 const notificationsExmples: Omit<NotificationType, "id">[] = [
   {
     title: "Product Posted",
@@ -109,48 +101,26 @@ const notificationsExmples: Omit<NotificationType, "id">[] = [
 ];
 export function Test() {
   const userFromDb = useUserFromDB();
-  const booleanFieldState = useCopyState<null | boolean>(null);
-  const stringFieldState = useCopyState<string | undefined>(undefined);
-  const fileFieldState = useCopyState<string[] | null>(null);
-  const filterFieldState = useCopyState<string[] | undefined>(undefined);
-  const arrayFieldState = useCopyState<string[] | undefined>(undefined);
-  const pinFieldState = useCopyState<string | undefined>(undefined);
-  const dateFieldState = useCopyState<null | string | undefined>(null);
-  const imageFieldState = useCopyState<string | null>(null);
-  const recorderFieldState = useCopyState<string | null>(null);
-  const passwordFieldState = useCopyState<string | undefined>(undefined);
-  const enumFieldState = useCopyState<string | undefined>(undefined);
-  const numberFieldState = useCopyState<number | undefined | null>(3);
-  const priceState = useCopyState<number | undefined | null>(3);
-  const rangeFieldState = useCopyState<number>(2);
-  const homePageIsActive = useCopyState(false);
   const allSettings = settingHooks.getAll();
   const colorMerge = useColorMerge();
-  const user = useUser();
-  const langsTranslations = langHooks.getAll();
-  const fullObjectState = useCopyState<Record<string, any>>({});
-  const words = React.useMemo(() => {
-    return langsTranslations
-      .map(({ word, ...allTranlations }) =>
-        Object.values(allTranlations)
-          .map((w) => w.split(/ +/gi))
-          .flat(),
-      )
-      .flat();
-  }, [langsTranslations]);
-  const chargeIcons: Partial<Record<PayoutResult["status"], typeof allIcons.solid.faHome>> = {
-    failed: allIcons.solid.faWarning,
-    pending: allIcons.solid.faClock,
-    canceled: allIcons.solid.faXmarkCircle,
-    paid: allIcons.solid.faCheckCircle, // Added icon for 'paid' status,
-  };
-  const chargeColors: Partial<Record<PayoutResult["status"], string>> = {
-    failed: "#e74c3c", // Beautiful red for failed status
-    pending: "#f39c12", // Warm orange for pending status
-    canceled: "#95a5a6", // Soft gray for canceled status
-    paid: "#2ecc71", // Vibrant green for paid status,
-  };
-  const activeTab = useCopyState("home");
+  const chargeIcons = React.useMemo(() => {
+    const chargeIcons: Partial<Record<PayoutResult["status"], typeof allIcons.solid.faHome>> = {
+      failed: allIcons.solid.faWarning,
+      pending: allIcons.solid.faClock,
+      canceled: allIcons.solid.faXmarkCircle,
+      paid: allIcons.solid.faCheckCircle, // Added icon for 'paid' status,
+    };
+    return chargeIcons;
+  }, []);
+  const chargeColors = React.useMemo(() => {
+    const result: Partial<Record<PayoutResult["status"], string>> = {
+      failed: "#e74c3c", // Beautiful red for failed status
+      pending: "#f39c12", // Warm orange for pending status
+      canceled: "#95a5a6", // Soft gray for canceled status
+      paid: "#2ecc71", // Vibrant green for paid status,
+    };
+    return result;
+  }, []);
   return (
     <EmptyComponent>
       <Switch>
@@ -233,7 +203,7 @@ export function Test() {
             </h1>
           </Header>
           <Window>
-            <LeftSide>Somthing in the primary Side</LeftSide>
+            <LeftSide />
             <Scroll>
               {[
                 {
@@ -253,33 +223,7 @@ export function Test() {
                     },
                     {
                       label: "Tabs",
-                      jsxElement: (
-                        <Tabs
-                          state={activeTab}
-                          tabs={[
-                            {
-                              value: "home",
-                              label: "Home",
-                              icon: allIcons.solid.faHome,
-                            },
-                            {
-                              value: "about",
-                              label: "About",
-                              icon: allIcons.solid.faInfo,
-                            },
-                            {
-                              value: "contact",
-                              label: "Contact",
-                              icon: allIcons.solid.faPhone,
-                            },
-                            {
-                              value: "settings",
-                              label: "Settings",
-                              icon: allIcons.solid.faCog,
-                            },
-                          ]}
-                        />
-                      ),
+                      jsxElement: <TabsCode />,
                     },
                     {
                       jsxElement: <LargeButton>Large Button</LargeButton>,
@@ -299,16 +243,7 @@ export function Test() {
                       label: "Tip",
                     },
                     {
-                      jsxElement: (
-                        <Tab
-                          className="text-4xl"
-                          isActive={homePageIsActive.get}
-                          onClick={() => {
-                            homePageIsActive.set(!homePageIsActive.get);
-                          }}
-                          icon={faHome}
-                        />
-                      ),
+                      jsxElement: <TabCode />,
                       label: "Tab",
                     },
                     {
@@ -322,7 +257,7 @@ export function Test() {
                   label: "Inputs",
                   elements: [
                     {
-                      jsxElement: <Feild className="h-[200px]" multiLines inputName="exmple" propositions={words} placeholder="Input Exmple" />,
+                      jsxElement: <FieldCode />,
                       label: "Feild",
                     },
                   ],
@@ -331,143 +266,55 @@ export function Test() {
                   label: "Fields",
                   elements: [
                     {
-                      jsxElement: <BooleanFeild state={booleanFieldState} id="boolean-field" />,
+                      jsxElement: <BooleanFieldCode />,
                       label: "Boolean Field",
                     },
                     {
-                      jsxElement: (
-                        <StringFeild
-                          state={stringFieldState}
-                          config={{
-                            autoChange: true,
-                          }}
-                          id="string-field"
-                        />
-                      ),
+                      jsxElement: <StringFieldCode />,
                       label: "String Field",
                     },
                     {
-                      jsxElement: <PasswordFeild state={passwordFieldState} id="password-field" />,
+                      jsxElement: <PasswordFieldCode />,
                       label: "Password Field",
                     },
                     {
-                      jsxElement: <NumberFeild state={numberFieldState} id="number-field" />,
+                      jsxElement: <NumberFieldCode />,
                       label: "Number Field",
                     },
                     {
-                      jsxElement: (
-                        <div className="flex flex-col gap-20">
-                          <RangeFeild
-                            state={rangeFieldState}
-                            config={{
-                              min: 5,
-                              max: 10,
-                              marked: {
-                                8: "orange",
-                              },
-                            }}
-                            id="range-field"
-                          />
-                          <RangeFeild
-                            state={rangeFieldState}
-                            config={{
-                              min: 5,
-                              max: 10,
-                              isFloat: true,
-                              showValue: true,
-                            }}
-                            id="range-field-float"
-                          />
-                        </div>
-                      ),
+                      jsxElement: <RangeFieldCode />,
                       label: "Range Field",
                     },
                     {
-                      jsxElement: (
-                        <FileFeild
-                          config={{
-                            properties: ["multiSelections"],
-                          }}
-                          state={fileFieldState}
-                          id="file-field"
-                        />
-                      ),
+                      jsxElement: <FileFieldCode />,
                       label: "File Field",
                     },
                     {
-                      jsxElement: (
-                        <EnumFeild
-                          config={{
-                            list: range(0, 10).map((num) => {
-                              return {
-                                value: num.toString(),
-                                content: "Number " + num,
-                                desc: "Choise `Number` " + num,
-                              };
-                            }),
-                          }}
-                          id="enum-field"
-                          state={enumFieldState}
-                        />
-                      ),
+                      jsxElement: <EnumFieldCode />,
                       label: "Enum Field",
                     },
                     {
-                      jsxElement: (
-                        <FilterFeild
-                          config={{
-                            list: [
-                              {
-                                content: "Dog",
-                                value: "dog",
-                              },
-                              {
-                                content: "Cat",
-                                value: "cat",
-                              },
-                            ],
-                          }}
-                          state={filterFieldState}
-                          id="filter-field"
-                        />
-                      ),
+                      jsxElement: <FilterFieldCode />,
                       label: "Filter Field",
                     },
                     {
-                      jsxElement: (
-                        <PinField
-                          config={{
-                            match: "..-..-..-..-..",
-                            size: 30,
-                          }}
-                          state={pinFieldState}
-                          id="pin-field"
-                        />
-                      ),
+                      jsxElement: <PinFieldCode />,
                       label: "Pin Field",
                     },
                     {
-                      jsxElement: <RecorderFeild id="recorder-field" state={recorderFieldState} />,
+                      jsxElement: <RecorderFieldCode />,
                       label: "Recorder Field",
                     },
                     {
-                      jsxElement: <ArrayFeild state={arrayFieldState} id="array-field" />,
+                      jsxElement: <ArrayFieldCode />,
                       label: "Array Field",
                     },
                     {
-                      jsxElement: <DateFeild state={dateFieldState} id="date-field" />,
+                      jsxElement: <DateFieldCode />,
                       label: "Date Field",
                     },
                     {
-                      jsxElement: (
-                        <ImageFeild
-                          state={imageFieldState}
-                          config={{
-                            rounded: true,
-                          }}
-                          id="image-field"
-                        />
-                      ),
+                      jsxElement: <ImageFieldCode />,
                       label: "Image Field",
                     },
                   ],
@@ -476,7 +323,12 @@ export function Test() {
                   label: "UI",
                   elements: [
                     {
-                      jsxElement: <Starts length={10} starts={2} />,
+                      jsxElement: (
+                        <div className="flex flex-col">
+                          <Starts length={10} starts={2} />
+                          <Starts color="primary" choisedIcon={allIcons.solid.faHeart} length={5} starts={2} unchoisedIcon={allIcons.regular.faHeart} />
+                        </div>
+                      ),
                       label: "Starts",
                     },
                     {
@@ -489,6 +341,15 @@ export function Test() {
                         </Card>
                       ),
                       label: "Card",
+                    },
+                    {
+                      jsxElement: (
+                        <ClickedView>
+                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam ratione, quidem adipisci, impedit nemo beatae similique ducimus error obcaecati voluptas labore cum facere
+                          neque voluptates quam eum illum odit earum.
+                        </ClickedView>
+                      ),
+                      label: "Clicked View",
                     },
                     {
                       jsxElement: <Line />,
@@ -629,12 +490,13 @@ export function Test() {
                             openMenu({
                               x: clientX,
                               y: clientY,
-                              menu: range(15).map((item, index) => {
+                              menu: range(5).map((item, index) => {
                                 return {
                                   label: `Item ${index}`,
                                   click() {
                                     showToast(`Menu Item ${index} Clicked`, "info");
                                   },
+                                  icon: "solid:faCheck",
                                 };
                               }),
                             });
@@ -678,6 +540,18 @@ export function Test() {
                       ),
                       label: "Authicate",
                     },
+                    {
+                      jsxElement: (
+                        <Button
+                          onClick={() => {
+                            viewTemps.setTemp("bottomSheet", true);
+                          }}
+                        >
+                          <Translate content="show bottom sheet" />
+                        </Button>
+                      ),
+                      label: "Bottom Sheet",
+                    },
                   ],
                 },
                 {
@@ -696,7 +570,7 @@ export function Test() {
                       label: "Line Loading",
                     },
                     {
-                      jsxElement: <BallLoading />,
+                      jsxElement: <BallLoading balls={6} />,
                       label: "Ball Loading",
                     },
                     {
@@ -721,109 +595,32 @@ export function Test() {
                   label: "Performence",
                   elements: [
                     {
-                      jsxElement: (
-                        <div className="w-[300px] h-[200px] overflow-hidden">
-                          <FastList
-                            data={range(400).map((index) => ({ index }))}
-                            focusId="list"
-                            slotId="list"
-                            itemSize={30}
-                            component={({ data, style }) => {
-                              return (
-                                <div
-                                  style={{
-                                    ...style,
-                                  }}
-                                  className="flex items-center px-3"
-                                >
-                                  {data.index}
-                                </div>
-                              );
-                            }}
-                          />
-                        </div>
-                      ),
+                      jsxElement: <FastListCode />,
                       label: "Fast List",
                     },
                     {
-                      label: "Somthing Buty",
+                      label: "Full Field",
                       jsxElement: (
                         <EmptyComponent>
-                          <FullField
-                            id="somthing"
-                            list={{
-                              name: {
-                                label: "your name",
-                                config: {
-                                  proposition: ["Ilyes", "Ahmed"],
-                                  authChange: true,
-                                },
-                                type: "string",
-                                icon: allIcons.solid.faUser,
-                              },
-                              age: {
-                                label: "your age",
-                                config: {
-                                  authChange: true,
-                                },
-                                type: "number",
-                                onNext({ state, stop }) {
-                                  const num = state["age"];
-                                  if (typeof num == "number" && num < 50) {
-                                    showToast("your small");
-                                    stop();
-                                  }
-                                },
-                                icon: allIcons.solid.faListNumeric,
-                              },
-                              "phone-number": {
-                                label: "Your Phone Number",
-                                config: {},
-                                type: "number",
-                                onNext({ stop, currentValue }) {
-                                  if (currentValue?.toString().match(/[0-9]/gi)) {
-                                  } else {
-                                    showToast("Number Is Not Correct!", "warning");
-                                    stop();
-                                  }
-                                },
-                                icon: allIcons.solid.faPhone,
-                              },
-                              photo: {
-                                config: {
-                                  alt: "Upload Your Picture",
-                                  rounded: true,
-                                },
-                                label: "Your Picture",
-                                icon: allIcons.solid.faImage,
-                                type: "image",
-                                onNext({ stop, currentValue }) {
-                                  if (typeof currentValue != "string") {
-                                    stop();
-                                    showToast("Upload Your Picture First", "error");
-                                  }
-                                },
-                              },
-                              "my-code": {
-                                label: "Your Pin Sm",
-                                config: {
-                                  match: "..-..",
-                                },
-                                type: "pin",
-                                icon: allIcons.solid.faAmbulance,
-                              },
-                            }}
-                            state={fullObjectState}
-                          />
+                          <FullFieldCode />
                         </EmptyComponent>
                       ),
+                    },
+                    {
+                      label: "Infinity Scroll",
+                      jsxElement: <InfinityScrollCode />,
                     },
                   ],
                 },
               ].map(({ label, elements }, i) => {
                 return (
                   <EmptyComponent key={i}>
-                    <div className="p-3 max-md:w-full">
+                    <div
+                      className="p-3 max-md:w-full"
+                      style={{
+                        ...colorMerge("secondary.background"),
+                      }}
+                    >
                       <h1 className="font-bold text-4xl max-md:text-center">
                         <Translate content={label} />
                       </h1>
@@ -881,6 +678,15 @@ export function Test() {
       <IframeLayout />
       <ApplicationsLayout />
       <EnumLayout />
+      <BottomSheetLayout min={"80vh"}>
+        <div className="p-5">
+          <Scroll>
+            <MarkDown value={markDownArrayContent.join("\n")} />
+          </Scroll>
+        </div>
+      </BottomSheetLayout>
+      <DateLayout />
+      <ColorLayout />
     </EmptyComponent>
   );
 }

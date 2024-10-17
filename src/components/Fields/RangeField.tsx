@@ -1,18 +1,18 @@
-import React, { useRef, useEffect, useCallback, useMemo, useState } from "react";
+import React from "react";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { useColorMerge } from "@/hooks";
+import { useColorMerge, useCopyState } from "@/hooks";
 import { Shortcut } from "@/utils";
 export type RangeFeildProps = FeildGeneralProps<number, SettingConfig["range"]>;
 export const RangeFeild: React.FC<RangeFeildProps> = ({ state, config = {}, id }) => {
-  const rangeRef = useRef<HTMLDivElement>(null);
-  const [dragging, setDragging] = useState(false); // Dragging state
+  const rangeRef = React.useRef<HTMLDivElement>(null);
+  const dragging = useCopyState(false); // Dragging state
   const min = config.min || 0;
   const max = config.max || 100;
   const isFloat = config.isFloat || false;
   // Memoize rect to avoid recalculating it multiple times during dragging
-  const rect = useMemo(() => rangeRef.current?.getBoundingClientRect(), [dragging]);
-  const updateValue = useCallback(
+  const rect = React.useMemo(() => rangeRef.current?.getBoundingClientRect(), [dragging.get]);
+  const updateValue = React.useCallback(
     (offsetX: number) => {
       if (rect) {
         const percent = Math.max(0, Math.min(1, offsetX / rect.width));
@@ -23,40 +23,40 @@ export const RangeFeild: React.FC<RangeFeildProps> = ({ state, config = {}, id }
     },
     [min, max, isFloat, rect, state],
   );
-  const handleTouchMove = useCallback(
+  const handleTouchMove = React.useCallback(
     (e: TouchEvent) => {
-      if (!dragging) return;
+      if (!dragging.get) return;
       const offsetX = e.touches[0].clientX - (rect?.left || 0);
       updateValue(offsetX);
     },
-    [dragging, updateValue, rect],
+    [dragging.get, updateValue, rect],
   );
-  const handleMouseMove = useCallback(
+  const handleMouseMove = React.useCallback(
     (e: MouseEvent) => {
-      if (!dragging) return;
+      if (!dragging.get) return;
       const offsetX = e.clientX - (rect?.left || 0);
       updateValue(offsetX);
     },
-    [dragging, updateValue, rect],
+    [dragging.get, updateValue, rect],
   );
-  const handleTouchStart = useCallback(
+  const handleTouchStart = React.useCallback(
     (e: React.TouchEvent<HTMLDivElement>) => {
-      setDragging(true);
+      dragging.set(true);
       handleTouchMove(e.nativeEvent); // Call once to set the initial value
     },
     [handleTouchMove],
   );
-  const handleMouseDown = useCallback(
+  const handleMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      setDragging(true);
+      dragging.set(true);
       handleMouseMove(e.nativeEvent); // Call once to set the initial value
     },
     [handleMouseMove],
   );
-  const handleTouchEnd = useCallback(() => setDragging(false), []);
-  const handleMouseUp = useCallback(() => setDragging(false), []);
-  useEffect(() => {
-    if (dragging) {
+  const handleTouchEnd = React.useCallback(() => dragging.set(false), []);
+  const handleMouseUp = React.useCallback(() => dragging.set(false), []);
+  React.useEffect(() => {
+    if (dragging.get) {
       window.addEventListener("touchmove", handleTouchMove);
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("touchend", handleTouchEnd);
@@ -76,11 +76,11 @@ export const RangeFeild: React.FC<RangeFeildProps> = ({ state, config = {}, id }
       window.removeEventListener("mouseup", handleMouseUp);
       document.body.style.cursor = "auto"; // Clean up cursor style
     };
-  }, [dragging, handleTouchMove, handleMouseMove, handleTouchEnd, handleMouseUp]);
+  }, [dragging.get, handleTouchMove, handleMouseMove, handleTouchEnd, handleMouseUp]);
   const colorMerge = useColorMerge();
-  const stringed = useMemo(() => state.get.toString(), [state.get]);
-  const result = useMemo(() => ((state.get - min) / (max - min)) * 100, [state.get, min, max]);
-  const markedListPrepared = useMemo(() => {
+  const stringed = React.useMemo(() => state.get.toString(), [state.get]);
+  const result = React.useMemo(() => ((state.get - min) / (max - min)) * 100, [state.get, min, max]);
+  const markedListPrepared = React.useMemo(() => {
     const markedList = config.marked || {};
     const keys = Object.keys(markedList)
       .map(Number)
@@ -116,7 +116,7 @@ export const RangeFeild: React.FC<RangeFeildProps> = ({ state, config = {}, id }
         ref={rangeRef}
         id={id}
         style={{ ...colorMerge("gray.opacity") }}
-        className={`relative rounded-lg w-full h-[2px] cursor-${dragging ? "grabbing" : "grab"}`}
+        className={`relative rounded-lg w-full h-[2px] cursor-${dragging.get ? "grabbing" : "grab"}`}
         onTouchStart={handleTouchStart}
         onMouseDown={handleMouseDown}
       >

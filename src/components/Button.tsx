@@ -3,8 +3,26 @@ import { handelShadowColor, useColorMerge } from "@/hooks";
 import { useCopyState } from "@/hooks";
 import { Icon, IconProps } from "./Icon";
 import { mergeObject, range, tw } from "@/utils";
-export type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps;
-export function Button({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ButtonProps) {
+export type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> &
+  IconProps &
+  Partial<Record<`${"left" | "top" | "right" | "bottom"}Icon`, IconProps["icon"]>>;
+export function Button({
+  children,
+  leftIcon,
+  rightIcon,
+  topIcon,
+  bottomIcon,
+  className,
+  icon,
+  style,
+  iconClassName,
+  onPointerDown,
+  onPointerLeave,
+  onPointerUp,
+  onMouseEnter,
+  onMouseLeave,
+  ...props
+}: ButtonProps) {
   const colorMerge = useColorMerge();
   const focused = useCopyState(false);
   const active = useCopyState(false);
@@ -24,12 +42,14 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
         !props["aria-disabled"] && {
           color: "primary.content",
         },
-        focused.get && {
+        (active.get || focused.get) && {
           boxShadow: handelShadowColor([
             {
               colorId: "shadow.color",
-              isInset: true,
-              blur: 1,
+              blur: 4,
+              size: 1,
+              x: 0,
+              y: 2,
             },
           ]),
         },
@@ -70,24 +90,29 @@ export function Button({ children, className, icon, style, iconClassName, onPoin
         ...colorMerge("primary"),
         ...mergeObject(fullStyle),
       }}
-      className={tw("btn rounded-md cursor-pointer w-full px-3 py-2 relative capitalize overflow-hidden transition-[transform] active:scale-95", className)}
+      className={tw("btn rounded-md cursor-pointer w-full px-3 py-2 relative capitalize overflow-hidden transition-[transform,box-shadow] active:scale-95", className)}
       {...props}
     >
-      <div className="flex justify-center items-center gap-2 btn-content">
-        <Icon iconClassName={iconClassName} icon={icon} />
-        {children}
-      </div>
       {range(1, 3).map((index) => {
         return (
           <i
             key={index}
-            className="btn__bg"
+            className="btn_bg"
             style={{
               ...colorMerge("opacity"),
             }}
           />
         );
       })}
+      <div className="flex flex-col flex-none justify-center items-center gap-2 btn-content">
+        <Icon iconClassName={iconClassName} icon={topIcon} />
+        <div className="flex justify-center items-center gap-2">
+          <Icon iconClassName={iconClassName} icon={leftIcon || icon} />
+          {children}
+          <Icon iconClassName={iconClassName} icon={rightIcon} />
+        </div>
+        <Icon iconClassName={iconClassName} icon={bottomIcon} />
+      </div>
     </button>
   );
 }

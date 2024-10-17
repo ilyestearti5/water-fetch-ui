@@ -5,7 +5,7 @@ import { execAction, useAction } from "@/data/system/actions.model";
 import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Feild as FeildProps, fieldHooks } from "@/data/system/field.model";
 import { useColorMerge } from "@/hooks";
-import { Feild } from "./Feild";
+import { Feild } from "./Fields/Field";
 import { CircleTip } from "@/components/CircleTip";
 export interface UpdateDataProps {
   inputName: string;

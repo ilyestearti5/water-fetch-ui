@@ -3,7 +3,7 @@ import React from "react";
 import { isSorted } from "@/utils/index";
 import { tw } from "@/utils";
 // Component
-import { getModifier } from "@/reducers/Global/keyboard.slice";
+import { useModifier } from "@/reducers/Global/keyboard.slice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { settingHooks, useSettingValue } from "@/hooks";
@@ -17,7 +17,7 @@ export interface HeaderProps {
 export function Header({ children }: HeaderProps) {
   const visibility = useSettingValue(headerVisibility);
   const showIcon = useCopyState(false);
-  const shift = getModifier("Shift");
+  const shift = useModifier("Shift");
   React.useEffect(() => {
     const handelMouse = (e: MouseEvent) => {
       const X = (e.x * 100) / innerWidth;

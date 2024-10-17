@@ -3,13 +3,13 @@ import { Line } from "@/components/Line";
 import { TitleView } from "@/components/TitleView";
 import { useSettingValue, handelShadowColor, useColorMerge } from "@/hooks";
 import { mergeObject, tw } from "@/utils";
-import { getModifier } from "@/reducers/Global/keyboard.slice";
+import { useModifier } from "@/reducers/Global/keyboard.slice";
 import { settingHooks } from "@/reducers/Settings/settings.model";
 import { ReactElement, position } from "@/types/global";
 import { faGripVertical, faXmark } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { fieldHooks, initNewFeilds, useCopyState, useEffectDelay } from "@/hooks";
-import { CircleTip } from "@/components";
+import { CircleTip, Translate } from "@/components";
 export interface KeyboardButtonProps extends ReactElement<HTMLSpanElement> {
   isActive?: boolean;
 }
@@ -97,10 +97,10 @@ export const KeyboardView = () => {
   const shiftKey = useCopyState(false);
   const controlKey = useCopyState(false);
   const altKey = useCopyState(false);
-  const shiftGlobalState = getModifier("Shift");
+  const shiftGlobalState = useModifier("Shift");
   const forceShiftGlobalState = useCopyState(false);
-  const controlGlobalState = getModifier("Control");
-  const altGlobalState = getModifier("AltGraph");
+  const controlGlobalState = useModifier("Control");
+  const altGlobalState = useModifier("AltGraph");
   React.useEffect(() => {
     controlKey.set(controlGlobalState);
   }, [controlGlobalState]);
@@ -179,8 +179,10 @@ export const KeyboardView = () => {
               {value.get}
             </pre>
           ) : (
-            <div className="px-2 py-1">
-              <span>Empty Value</span>
+            <div className="px-2 py-1 capitalize">
+              <span>
+                <Translate content="empty value" />
+              </span>
             </div>
           )}
         </div>

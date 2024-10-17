@@ -3,7 +3,7 @@ import { onceState } from "@/hooks";
 import { dialogTemps, menuTemp, progressTemp } from "@/reducers/Object/allTemps";
 import { nanoid } from "@reduxjs/toolkit";
 import { mapAsync } from "@/utils";
-import { setTemp } from "@/reducers/Object/object.slice";
+import { getTempFromStore, setTemp } from "@/reducers/Object/object.slice";
 import { store } from "@/store";
 // desc
 export const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "svg", "webp", "tiff", "ico", "jfif"];
@@ -105,6 +105,10 @@ export const setProgress = async ({ options, value }: SetProgressProps) => {
 };
 export const openMenu = (config: OpenMenuProps) => {
   menuTemp.setTemp("position", [config.x, config.y]);
+  const previousMenuId = getTempFromStore<string>("menu.id");
+  if (typeof previousMenuId == "string") {
+    throw "menu defined before";
+  }
   const menuId = nanoid();
   menuTemp.setTemp("id", menuId);
   menuTemp.setTemp(
@@ -163,7 +167,6 @@ export const openPath = (config: Electron.OpenDialogOptions) => {
     fileElement.onerror = rej;
   });
 };
-
 export const confirmation = async (config: Omit<DialogProps, "buttons">) => {
   const res = await openDialog({
     ...config,

@@ -1,11 +1,12 @@
 import { handelGradientColor, useColorMerge } from "@/hooks";
-import { tw, range } from "@/utils";
+import { tw, range, mergeObject } from "@/utils";
 import { ReactElement } from "@/types/global";
+import { Icon, IconProps } from "./Icon";
 export function LineLoading() {
   const colorMerge = useColorMerge();
   return (
     <div
-      className="relative bg-opacity-10 h-[2px] w-full pointer-events-none"
+      className="relative bg-opacity-10 w-full h-[2px] pointer-events-none"
       style={{
         ...colorMerge("gray.opacity"),
       }}
@@ -52,12 +53,15 @@ export const CircleLoading = ({ className, circleClassName, ...props }: CircleLo
   );
 };
 
-interface BallLoadingProps extends ReactElement {
+export interface BallLoadingProps extends ReactElement {
   balls?: number;
   ballClassName?: string;
+  ballStyle?: React.CSSProperties;
+  icon?: IconProps["icon"];
+  iconClassName?: string;
 }
 
-export const BallLoading = ({ balls = 3, ballClassName = "" }: BallLoadingProps) => {
+export const BallLoading = ({ balls = 3, ballClassName = "", ballStyle, icon, iconClassName }: BallLoadingProps) => {
   const colorMerge = useColorMerge();
   return (
     <div className="flex">
@@ -65,12 +69,17 @@ export const BallLoading = ({ balls = 3, ballClassName = "" }: BallLoadingProps)
         return (
           <span
             key={index}
-            className="inline-block animate-ty w-[40px] h-[40px] rounded-full"
+            className={tw("inline-flex items-center justify-center animate-ty w-[30px] h-[30px] rounded-full", ballClassName)}
             style={{
-              ...colorMerge("primary"),
+              ...colorMerge("primary", {
+                color: "primary.content",
+              }),
               animationDelay: `${(index / balls) * 1}s`,
+              ...mergeObject(ballStyle),
             }}
-          />
+          >
+            <Icon icon={icon} iconClassName={tw("w-1/2 h-1/2", iconClassName)} />
+          </span>
         );
       })}
     </div>

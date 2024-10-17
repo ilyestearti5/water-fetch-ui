@@ -1,24 +1,25 @@
-import { useColorMerge, handelShadowColor, useSettingValue } from "@/hooks";
+import { useColorMerge, handelShadowColor } from "@/hooks";
 import { Button } from "./Button";
 import { IconProps } from "./Icon";
 import { JoinComponentBy } from "./JoinComponentBy";
-import { State } from "@/types/global";
+import { ReactElement, State } from "@/types/global";
 import { EmptyComponent } from "./EmptyComponent";
-import React from "react";
-import { tw } from "@/utils";
-export interface TabsProps {
+import { mergeObject, tw } from "@/utils";
+export interface TabsProps extends ReactElement {
+  buttonClassName?: string;
   state: State<string>;
-  tabs: { label: string; value: string; icon?: IconProps["icon"] }[];
+  tabs?: { label: string; value: string; icon?: IconProps["icon"] }[];
+  hideLabelWhereSmalled?: boolean;
 }
-export const Tabs = ({ state, tabs }: TabsProps) => {
+export const Tabs = ({ state, tabs = [], hideLabelWhereSmalled = true, buttonClassName, className, style, ...props }: TabsProps) => {
   const colorMerge = useColorMerge();
-  const index = React.useMemo(() => {
-    return tabs.map(({ value }) => value).indexOf(state.get);
-  }, [state.get, tabs]);
-  const animation = useSettingValue("preferences/animation.boolean");
+  // const index = React.useMemo(() => {
+  //   return tabs.map(({ value }) => value).indexOf(state.get);
+  // }, [state.get, tabs]);
+  // const animation = useSettingValue("preferences/animation.boolean");
   return (
     <div
-      className="flex items-stretch gap-2 p-2 border border-transparent border-solid rounded-2xl w-full overflow-hidden"
+      className={tw("flex items-stretch gap-2 p-2 border border-transparent border-solid rounded-full overflow-hidden", className)}
       style={{
         ...colorMerge("secondary.background", {
           borderColor: "borders",
@@ -32,14 +33,16 @@ export const Tabs = ({ state, tabs }: TabsProps) => {
             },
           ]),
         }),
+        ...mergeObject(style),
       }}
+      {...props}
     >
       <JoinComponentBy
         list={tabs.map(({ label, icon, value }) => {
           const isActive = state.get == value;
           return (
             <Button
-              className={tw("rounded-xl px-7 py-4", isActive && "font-bold", animation && "transition-all duration-300")}
+              className={tw("rounded-full w-fit px-7 py-4", isActive && "font-bold", buttonClassName)}
               style={{
                 ...colorMerge(
                   !isActive && "transparent",
@@ -54,7 +57,7 @@ export const Tabs = ({ state, tabs }: TabsProps) => {
                 state.set(value);
               }}
             >
-              {label}
+              <span className={tw(hideLabelWhereSmalled && "max-sm:hidden")}>{label}</span>
             </Button>
           );
         })}

@@ -24,7 +24,7 @@ export const initialState: KeyState = {
   Symbol: false,
   Key: undefined,
 };
-export const select = (state: { [name: string]: KeyState }) => state[name];
+export const selectKeyboard = (state: { [name: string]: KeyState }) => state[name];
 export const keyboardSlice = createSlice({
   name,
   initialState,
@@ -37,8 +37,8 @@ export const keyboardSlice = createSlice({
     },
   },
 });
-export function getModifier<T extends keyof KeyState>(name: T): KeyState[T] {
-  const keyPanding = useSelector(select, (a, b) => isLike(a[name], b[name]));
+export function useModifier<T extends keyof KeyState>(name: T): KeyState[T] {
+  const keyPanding = useSelector(selectKeyboard, (a, b) => isLike(a[name], b[name]));
   return keyPanding[name];
 }
 export function setModifier<T extends keyof KeyState>(modifierName: T, value: KeyState[T]) {

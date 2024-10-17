@@ -5,6 +5,11 @@ import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { OpenDialogOptions } from 'electron';
 import { QueryStatus } from 'react-query';
 
+export declare interface A<T, L> {
+    state: L;
+    data: T[];
+}
+
 export declare function Anchor({ className, style, ...props }: AnchorProps): JSX_2.Element;
 
 export declare type AnchorProps = React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
@@ -22,11 +27,14 @@ export declare interface AsyncComponentProps {
     deps?: any[];
 }
 
-export declare const BallLoading: ({ balls, ballClassName }: BallLoadingProps) => JSX_2.Element;
+export declare const BallLoading: ({ balls, ballClassName, ballStyle, icon, iconClassName }: BallLoadingProps) => JSX_2.Element;
 
-declare interface BallLoadingProps extends ReactElement {
+export declare interface BallLoadingProps extends ReactElement {
     balls?: number;
     ballClassName?: string;
+    ballStyle?: React.CSSProperties;
+    icon?: IconProps["icon"];
+    iconClassName?: string;
 }
 
 export declare function BlurOverlay({ className, animted, style, hidden, onLoadContent, children, onTransitionEnd, ...props }: OverlaysProps): JSX_2.Element;
@@ -35,9 +43,9 @@ export declare function BooleanFeild({ state, config, id }: BooleanFeildProps): 
 
 export declare type BooleanFeildProps = FeildGeneralProps<boolean | null, SettingConfig["boolean"]>;
 
-export declare function Button({ children, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ButtonProps): JSX_2.Element;
+export declare function Button({ children, leftIcon, rightIcon, topIcon, bottomIcon, className, icon, style, iconClassName, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ButtonProps): JSX_2.Element;
 
-export declare type ButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps;
+export declare type ButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & IconProps & Partial<Record<`${"left" | "top" | "right" | "bottom"}Icon`, IconProps["icon"]>>;
 
 export declare const Card: ({ className, style, ...props }: CardProps) => JSX_2.Element;
 
@@ -70,9 +78,16 @@ export declare function CircleTip({ children, className, icon, style, iconClassN
 export declare interface CircleTipProps extends ClickProps<HTMLButtonElement> {
 }
 
+export declare const ClickedView: ({ children, className, style, onPointerDown, onPointerLeave, onPointerUp, onMouseEnter, onMouseLeave, ...props }: ClickedViewProps) => JSX_2.Element;
+
+export declare interface ClickedViewProps extends ReactElement {
+}
+
 declare type ClickProps<T> = ReactElement<T> & IconProps;
 
 export declare const CloseActionIcon: ({ color }: SVGIconProps) => JSX_2.Element;
+
+declare type ColorIds = keyof typeof data_2;
 
 export declare function ColorsList(): JSX_2.Element;
 
@@ -88,8 +103,6 @@ export declare interface CommandLine {
     sub?: string;
 }
 
-export declare const ContentOfImageView: () => JSX_2.Element;
-
 export declare const DarkLightIcon: () => JSX_2.Element;
 
 declare const data: {
@@ -100,6 +113,192 @@ declare const data: {
     profile: {};
     title: {};
     userSettings: {};
+};
+
+declare const data_2: {
+    autoCompleteInput: {
+        default: string;
+    };
+    "bg.selection": {
+        dark: string;
+        light: string;
+    };
+    "bottom-sheeet.background": {};
+    "black.opacity": {
+        dark: string;
+        light: string;
+    };
+    borders: {
+        dark: string;
+        light: string;
+    };
+    "checkbox.background": {
+        default: string;
+    };
+    "checkbox.false": {
+        default: string;
+    };
+    "checkbox.true": {
+        default: string;
+    };
+    error: {
+        default: string;
+    };
+    "error.border": {
+        default: string;
+    };
+    "error.content": {
+        default: string;
+    };
+    "error.text": {
+        default: string;
+    };
+    "field.background": {
+        default: string;
+    };
+    "focus.text": {
+        default: string;
+    };
+    "gray.opacity": {
+        default: string;
+    };
+    "gray.opacity.2": {
+        default: string;
+    };
+    "gray.opacity.toLight": {
+        default: string;
+    };
+    htmlContentHover: {
+        default: string;
+    };
+    "info.text": {
+        default: string;
+    };
+    locationIconSetup: {
+        default: string;
+    };
+    "log.error.color": {
+        default: string;
+    };
+    "log.info.color": {
+        default: string;
+    };
+    "log.secuess.color": {
+        default: string;
+    };
+    "log.warning.color": {
+        default: string;
+    };
+    "notifay.error": {
+        default: string;
+    };
+    "notifay.error.text": {
+        default: string;
+    };
+    "notifay.info": {
+        default: string;
+    };
+    "notifay.info.text": {
+        default: string;
+    };
+    "notifay.success": {
+        default: string;
+    };
+    "notifay.success.text": {
+        default: string;
+    };
+    "notifay.warning": {
+        default: string;
+    };
+    "notifay.warning.text": {
+        default: string;
+    };
+    primary: {
+        dark: string;
+        light: string;
+    };
+    "primary.background": {
+        dark: string;
+        light: string;
+    };
+    "primary.content": {
+        dark: string;
+        light: string;
+    };
+    "primary.hover.background": {
+        dark: string;
+        light: string;
+    };
+    secondary: {
+        dark: string;
+        light: string;
+    };
+    "secondary.background": {
+        dark: string;
+        light: string;
+    };
+    "secondary.content": {
+        default: string;
+    };
+    selectedTextBackgroundBlured: {
+        default: string;
+    };
+    selectedTextBackgroundFocused: {
+        default: string;
+    };
+    selectedTextColorBlur: {
+        default: string;
+    };
+    selectedTextColorFocused: {
+        default: string;
+    };
+    "shadow.background.from": {
+        default: string;
+    };
+    "shadow.background.to": {
+        dark: string;
+        light: string;
+    };
+    "shadow.color": {
+        dark: string;
+        light: string;
+    };
+    "starts.color": {
+        dark: string;
+        light: string;
+    };
+    "status.content": {
+        default: string;
+    };
+    "submit.background": {
+        default: string;
+    };
+    "submit.color": {};
+    "success.text": {
+        default: string;
+    };
+    "text.color": {
+        dark: string;
+        light: string;
+    };
+    "text.selection": {
+        dark: string;
+        light: string;
+    };
+    "toast.background": {
+        dark: string;
+        light: string;
+    };
+    transparent: {
+        default: string;
+    };
+    "warning.text": {
+        default: string;
+    };
+    opacity: {
+        dark: string;
+        light: string;
+    };
 };
 
 export declare function DataBaseManagmentList({ data }: DataBaseManagmentListProps): JSX_2.Element;
@@ -129,7 +328,7 @@ export declare function EnumFeild({ config, id, state }: EnumFeildProps): JSX_2.
 
 export declare type EnumFeildProps = FeildGeneralProps<string | undefined, SettingConfig["enum"]>;
 
-export declare function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, data, countLastItems, overflow: { top, bottom } }: FastListProps<T>): JSX_2.Element;
+export declare function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, data, countLastItems, overflow: { top, bottom }, ...props }: FastListProps<T>): JSX_2.Element;
 
 export declare interface FastListItemProps<T> extends ReactElement {
     status: {
@@ -279,6 +478,24 @@ declare interface ImageProps extends Omit<default_2.DetailedHTMLProps<default_2.
     alt?: any;
 }
 
+export declare function InfinityScroll<T, L>({ onUpdate, onScroll, onLoading, updateWhere, onDone, onError, className, onDataChange, initData, initState, ...props }: InfinityScrollProps<T, L>): JSX_2.Element;
+
+export declare interface InfinityScrollProps<T, L> extends ReactElement {
+    render: (data: T, index: number) => JSX.Element;
+    onUpdate: (options: {
+        data: T[];
+        state?: L;
+        setState: (info: L) => void;
+    }) => A<T, L> | Promise<A<T, L>>;
+    onDone?: () => void;
+    onLoading?: () => JSX.Element | undefined;
+    onError?: () => JSX.Element | undefined;
+    onDataChange?: (data: T[]) => void;
+    initState?: L;
+    initData?: T[];
+    updateWhere?: number | Function;
+}
+
 export declare interface InnerTextProps extends TranslateProps {
     component: (props: {
         result: string;
@@ -339,9 +556,11 @@ export declare interface ListProps<T> {
     skipFn?: (item: T, index: number) => boolean;
 }
 
-export declare function MarkDown({ value }: {
-    value: string;
-}): JSX_2.Element;
+export declare function MarkDown({ value }: MarkDownProps): JSX_2.Element;
+
+export declare interface MarkDownProps {
+    value?: string;
+}
 
 export declare const MaximizeActionIcon: ({ color }: SVGIconProps) => JSX_2.Element;
 
@@ -370,7 +589,7 @@ export declare type ObjectFeildProps = FeildGeneralProps<Record<string, string> 
 
 export declare const objectIfPrefix: (id: string) => string;
 
-declare interface OverlaysProps extends ReactElement {
+export declare interface OverlaysProps extends ReactElement {
     onLoadContent?: () => void;
     animted?: boolean;
 }
@@ -581,12 +800,16 @@ export declare interface SlotProps<T> extends FocusProps {
     type?: "horizontal" | "vertical";
 }
 
-export declare function Starts({ length, starts, onSubmit }: StartsProps): JSX_2.Element;
+export declare function Starts({ length, direction, color, choisedIcon, unchoisedIcon, starts, onSubmit }: StartsProps): JSX_2.Element;
 
-declare interface StartsProps {
+export declare interface StartsProps {
     length?: number;
     starts?: number;
     onSubmit?: (e: number) => any;
+    color?: ColorIds;
+    choisedIcon?: IconProps["icon"];
+    unchoisedIcon?: IconProps["icon"];
+    direction?: "vertical" | "horizontal";
 }
 
 declare type State<T = undefined> = {
@@ -610,15 +833,17 @@ export declare interface TabProps extends ClickProps<HTMLSpanElement> {
     isActive?: boolean;
 }
 
-export declare const Tabs: ({ state, tabs }: TabsProps) => JSX_2.Element;
+export declare const Tabs: ({ state, tabs, hideLabelWhereSmalled, buttonClassName, className, style, ...props }: TabsProps) => JSX_2.Element;
 
-export declare interface TabsProps {
+export declare interface TabsProps extends ReactElement {
+    buttonClassName?: string;
     state: State<string>;
-    tabs: {
+    tabs?: {
         label: string;
         value: string;
         icon?: IconProps["icon"];
     }[];
+    hideLabelWhereSmalled?: boolean;
 }
 
 export declare const TextAnimation: ({ content, time }: TextAnimationProps) => JSX_2.Element;

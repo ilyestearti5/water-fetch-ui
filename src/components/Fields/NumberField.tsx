@@ -4,9 +4,9 @@ import { execAction, useAction } from "@/data/system/actions.model";
 import { setFocused, tw } from "@/utils";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { Translate } from "./Translate";
+import { Translate } from "../Translate";
 import { useColorMerge, useCopyState } from "@/hooks";
-import { Input } from "./Input";
+import { Input } from "../Input";
 export type NumberFeildProps = FeildGeneralProps<number | undefined | null, SettingConfig["number"]>;
 export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
   React.useEffect(() => {
@@ -44,7 +44,7 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
         }
       }
     },
-    [value.get, id],
+    [value.get, id, elementRef.current],
   );
   useAction(
     "number.cancelChangeState",
@@ -66,6 +66,12 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
     }
   }, [value.get, config.autoChange]);
   const focused = useCopyState(false);
+  React.useEffect(() => {
+    focused.set(false);
+    return () => {
+      focused.set(false);
+    };
+  }, []);
   const showButton = React.useMemo(() => {
     return !config.autoChange && state.get != +value.get;
   }, [config.autoChange, state.get, value.get]);
@@ -94,7 +100,8 @@ export function NumberFeild({ state, config = {}, id }: NumberFeildProps) {
             focused.set(false);
           }}
           className={tw(config.size == "small" ? "p-1" : "p-2", config.center && "text-center")}
-          type="number"
+          type="text"
+          inputMode="numeric"
           id={id}
           min={config.min}
           max={config.max}

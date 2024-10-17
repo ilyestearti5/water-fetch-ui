@@ -29,9 +29,6 @@ export const EnumLayout = () => {
     setTemp("enumIsLoading", isLoading);
   }, [isLoading]);
   const elementRef = React.createRef<HTMLDivElement>();
-  React.useEffect(() => {
-    setFocused("find-item-from-enum");
-  }, [id]);
   return (
     <BlurOverlay
       hidden={!id}
@@ -101,7 +98,7 @@ export const EnumLayout = () => {
               />
             )}
             {isLoading && (
-              <div className="flex justify-center items-center p-6">
+              <div className="flex justify-center items-center p-6 h-full">
                 <CircleLoading />
               </div>
             )}

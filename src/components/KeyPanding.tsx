@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { JoinComponentBy } from "./JoinComponentBy";
 import { faApple } from "@fortawesome/free-brands-svg-icons";
 import { ReactElement } from "@/types/global";
+import { Translate } from "./Translate";
 export interface KeyPandingProps extends ReactElement<HTMLSpanElement> {
   shortcut: string | string[];
 }
@@ -70,7 +71,11 @@ export function KeyPanding({ shortcut = [], className, ...props }: KeyPandingPro
             </span>
           );
         })}
-        joinComponent={<span className="mx-1">Or</span>}
+        joinComponent={
+          <span className="mx-1">
+            <Translate content="or" />
+          </span>
+        }
       />
     </span>
   );

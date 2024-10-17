@@ -1,14 +1,14 @@
-import { useSettingValue, useColorMerge, useCopyState, useAction, useIdleStatus, useAsyncEffect } from "@/hooks";
-import { faFileUpload, faXmark, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
+import { useSettingValue, useColorMerge, useCopyState, useIdleStatus, useAsyncEffect } from "@/hooks";
+import { faXmark, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
-import { Anchor } from "./Anchor";
-import { Tip } from "./Tip";
+import { Anchor } from "../Anchor";
+import { Tip } from "../Tip";
 import { openPath } from "@/functions/app/web/web-utils";
-import { Translate } from "./Translate";
+import { Translate } from "../Translate";
 import { tw, delay } from "@/utils";
 import { QueryStatus } from "react-query";
-import { IconProps } from "./Icon";
+import { IconProps } from "../Icon";
 import { allIcons } from "@/apis";
 export type FileFeildProps = FeildGeneralProps<SettingValueType["file"], SettingConfig["file"]>;
 export const iconsFileFeild: Record<QueryStatus | "ready", IconProps["icon"]> = {
@@ -62,7 +62,7 @@ export function FileFeild({ state, config = {}, id }: FileFeildProps) {
               key={index}
             >
               <Anchor href={href} className="max-w-[50px] truncate">
-                {href}
+                <Translate content="file" /> - ({index + 1})
               </Anchor>
               <Tip
                 onClick={() => {
@@ -79,7 +79,7 @@ export function FileFeild({ state, config = {}, id }: FileFeildProps) {
           </span>
         )}
       </div>
-      <div className="flex items-center gap-x-1 tools">
+      <div className="flex items-center gap-x-1">
         {config.nullable && (
           <Tip
             onClick={() => {

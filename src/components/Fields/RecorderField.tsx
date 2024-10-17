@@ -5,7 +5,7 @@ import { useCopyState } from "@/hooks";
 import { useColorMerge } from "@/hooks";
 import { FeildGeneralProps } from "@/types/global";
 import { openDuringNotifay } from "@/data/system/notifications.model";
-import { EmptyComponent } from "./EmptyComponent";
+import { EmptyComponent } from "../EmptyComponent";
 import { openDialog } from "@/functions/app/web/web-utils";
 export type RecorderFeildProps = FeildGeneralProps<string | null, {}>;
 export function RecorderFeild({ id, state }: RecorderFeildProps) {

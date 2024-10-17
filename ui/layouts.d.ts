@@ -3,6 +3,19 @@ import { JSX as JSX_2 } from 'react/jsx-runtime';
 
 export declare const ApplicationsLayout: () => JSX_2.Element;
 
+export declare const BottomSheetLayout: ({ children, min, max }: BottomSheetLayoutProps) => JSX_2.Element;
+
+export declare interface BottomSheetLayoutProps {
+    children?: default_2.ReactNode;
+    min?: number | `${number}${size}`;
+    max?: number | `${number}${size}`;
+}
+
+export declare interface CameraDeviceInfo {
+    label: string;
+    id: string;
+}
+
 export declare function CameraView(): JSX_2.Element;
 
 export declare function Commands(): JSX_2.Element;
@@ -138,6 +151,8 @@ export declare interface SettingUpdatingProps {
 }
 
 export declare const SignupPage: () => JSX_2.Element;
+
+export declare type size = "px" | "rem" | "em" | "vh" | "vw" | "vmin" | "vmax";
 
 export declare const ToastItem: ({ item, index }: ToastItemProps) => JSX_2.Element;
 

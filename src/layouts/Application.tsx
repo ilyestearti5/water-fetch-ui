@@ -1,7 +1,7 @@
 import React from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { closeApplications, useColorMerge, useTemp, viewTemps } from "@/hooks";
-import { Card, CircleTip, DownOverlay, Line, Scroll } from "@/components";
+import { Card, CircleTip, DownOverlay, Line, Scroll, Translate } from "@/components";
 import { allIcons, Server } from "@/apis";
 // Example usage
 export const ApplicationsLayout = () => {
@@ -43,6 +43,7 @@ export const ApplicationsLayout = () => {
         <Line />
         <Scroll>
           <div className="flex flex-wrap justify-center gap-2 p-2">
+            {apps.get && !apps.get.length && <Translate content="no project's detected" />}
             {apps.get?.map(({ label, imageUrl, site }, index) => {
               return (
                 <a href={site} target="_blank" key={index}>

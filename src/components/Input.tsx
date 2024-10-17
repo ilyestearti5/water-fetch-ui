@@ -1,4 +1,4 @@
-import { useSettingValue, useColorMerge } from "@/hooks";
+import { useSettingValue, useColorMerge, useCopyState } from "@/hooks";
 import { tw } from "@/utils";
 import React from "react";
 export interface InputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -8,21 +8,21 @@ export interface InputProps extends React.DetailedHTMLProps<React.InputHTMLAttri
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, selectOnFocus, onFocus, onBlur, onValueChange, onChange, style, ...props }: InputProps, ref: React.Ref<HTMLInputElement>) => {
     const colorMerge = useColorMerge();
-    const [focused, setFocused] = React.useState(false);
+    const focused = useCopyState(false);
     const isAnimation = useSettingValue("preferences/animation.boolean");
     return (
       <input
         {...props}
         ref={ref}
         onFocus={(e) => {
-          !focused && setFocused(true);
+          focused.set(true);
           if (selectOnFocus) {
             e.currentTarget.select();
           }
           onFocus?.(e);
         }}
         onBlur={(e) => {
-          focused && setFocused(false);
+          focused.set(false);
           onBlur?.(e);
         }}
         className={tw(
@@ -46,7 +46,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               borderColor: "borders",
               backgroundColor: "field.background",
             },
-            focused && {
+            focused.get && {
               borderColor: "primary",
             },
           ),

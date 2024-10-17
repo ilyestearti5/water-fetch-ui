@@ -1,4 +1,4 @@
-import { Feild } from "@/components/Feild";
+import { Feild } from "@/components/Fields/Field";
 import { useTranslate } from "@/components/Translate";
 export function FindCommandInput() {
   const [hint] = useTranslate("press ? for help");

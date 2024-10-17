@@ -5,8 +5,12 @@ import { EntityId, PayloadAction, Update, createEntityAdapter, createSlice } fro
 import { useSelector } from "react-redux";
 import { GetOptinal, InitState, TableDefConfig } from "@/types/global";
 import { useAsyncEffect, useCopyState, useDref } from "@/hooks";
+export type InsertRowParams<T> = PayloadAction<readonly T[] | Record<EntityId, T>>;
 export function defineTable<T extends object, I extends keyof T, N extends string, A extends object, O extends GetOptinal<T> = any>(config: TableDefConfig<T, I, N, A>) {
-  const { name, default: def, id, actions, uniques = [], onSave, onRead } = config;
+  let { name, default: def, id, actions, uniques = [], onSave, onRead, reduxStore } = config;
+
+  const getNeededStore = () => reduxStore?.() || store;
+
   const entity = createEntityAdapter<T, EntityId>({
     selectId: (d) => d[id] as EntityId,
   });
@@ -22,10 +26,9 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
   });
   type Init = typeof initialState;
   type FullDataType = T & O;
-  type InsertRowParams = PayloadAction<readonly T[] | Record<EntityId, T>>;
   type FullState = { [name in N]: InitState<FullDataType, I> };
   //
-  function getDefault(data: InsertRowParams["payload"], state: InitState<T, I>) {
+  function getDefault(data: InsertRowParams<T>["payload"], state: InitState<T, I>) {
     const allState = Object.values(state);
     const array: T[] = Object.values(data).map((item) => {
       const d = typeof def == "function" ? def(state, item) : def;
@@ -53,10 +56,10 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
     name,
     initialState,
     reducers: {
-      set(state, { payload = [] }: InsertRowParams) {
+      set(state, { payload = [] }: InsertRowParams<T>) {
         entity.setAll(state as Init, getDefault(payload, state as InitState<T, I>));
       },
-      add(state, { payload = [] }: InsertRowParams) {
+      add(state, { payload = [] }: InsertRowParams<T>) {
         const d = getDefault(payload, state as InitState<T, I>);
         entity.addMany(state as Init, d);
         if (d.length) {
@@ -84,7 +87,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
         }
         entity.removeAll(state as Init);
       },
-      upsert(state, { payload = [] }: InsertRowParams) {
+      upsert(state, { payload = [] }: InsertRowParams<T>) {
         entity.upsertMany(state as Init, payload);
         state.changed = true;
       },
@@ -117,13 +120,13 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       return state;
     },
     remove(ids: EntityId[]) {
-      store.dispatch(slice.actions.remove(ids));
+      getNeededStore().dispatch(slice.actions.remove(ids));
     },
     add(data: T[]) {
-      store.dispatch(slice.actions.add(data));
+      getNeededStore().dispatch(slice.actions.add(data));
     },
     upsert(data: T[]) {
-      store.dispatch(slice.actions.upsert(data));
+      getNeededStore().dispatch(slice.actions.upsert(data));
     },
     getOne(id: EntityId) {
       return useSelector((state: FullState) => {
@@ -132,7 +135,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       });
     },
     setOne(id: EntityId, changes: Update<T, EntityId>["changes"]) {
-      store.dispatch(
+      getNeededStore().dispatch(
         slice.actions.update([
           {
             id,
@@ -142,7 +145,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       );
     },
     setWriteStatus(status: InitState<T, I>["writeStatus"] = "ready") {
-      store.dispatch(slice.actions.changeWriteStatus(status));
+      getNeededStore().dispatch(slice.actions.changeWriteStatus(status));
     },
     useOne(id: EntityId) {
       const data = hooks.getOne(id);
@@ -162,7 +165,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       return row;
     },
     setOneFeild<F extends keyof T>(id: EntityId, field: F, value: T[F]) {
-      store.dispatch(
+      getNeededStore().dispatch(
         slice.actions.update([
           {
             id,
@@ -204,8 +207,8 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       const all = useSelector((state: FullState) => entitySelect.selectAll(state[name]))!;
       return all;
     },
-    setAll(data: InsertRowParams["payload"]) {
-      store.dispatch(slice.actions.set(data));
+    setAll(data: InsertRowParams<T>["payload"]) {
+      getNeededStore().dispatch(slice.actions.set(data));
     },
     useAll() {
       const data = hooks.getAll();
@@ -238,7 +241,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       return status;
     },
     setStatus(value: ReturnType<typeof this.getStatus>) {
-      store.dispatch(slice.actions.changeStatus(value));
+      getNeededStore().dispatch(slice.actions.changeStatus(value));
     },
     useStatus() {
       const data = hooks.getStatus();
@@ -260,7 +263,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       return time;
     },
     setLoadingTime(time: number) {
-      store.dispatch(slice.actions.setLoadingTime(time));
+      getNeededStore().dispatch(slice.actions.setLoadingTime(time));
     },
     useLoadingTime() {
       const data = hooks.getLoadingTime();
@@ -277,7 +280,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
       return changed;
     },
     setChanged(value: boolean) {
-      store.dispatch(slice.actions.setChanged(value));
+      getNeededStore().dispatch(slice.actions.setChanged(value));
     },
     useChanged() {
       const data = hooks.getChanged();
@@ -324,7 +327,7 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
         const o: any = {};
         // desc: get all data from store
         try {
-          const state = store.getState();
+          const state = getNeededStore().getState();
           const { [name]: data } = state;
           Object.values((data as Init).entities).forEach((item) => {
             if (!item) {

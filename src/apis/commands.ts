@@ -179,15 +179,6 @@ export default {
       ],
       label: "Dialog : Previous Button",
     },
-    "feedback/add": {
-      commands: [
-        {
-          payload: ["feedback/add"],
-          type: "actions/exec",
-        },
-      ],
-      label: "help : add new feedback",
-    },
     "header.toggle": {
       commands: [
         {
@@ -793,6 +784,19 @@ export default {
         },
       ],
       label: "enum : escape",
+    },
+    "bottomSheet/escape": {
+      commands: [
+        {
+          payload: {
+            direction: "view.bottomSheet",
+            force: true,
+            value: false,
+          },
+          type: "object/setValue",
+        },
+      ],
+      label: "bottom sheet : escape",
     },
   },
 };

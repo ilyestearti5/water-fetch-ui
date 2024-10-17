@@ -6,7 +6,7 @@ import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { slotHooks } from "@/data/system/slot.slice";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { Icon } from "./Icon";
+import { Icon } from "../Icon";
 
 export interface FilterListItemProps {
   isSelected: boolean;

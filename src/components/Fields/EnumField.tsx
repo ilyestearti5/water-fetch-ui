@@ -1,18 +1,10 @@
 import React from "react";
-import { isLike, range } from "@/utils/index";
-import { Shortcut, tw } from "@/utils";
-import { enumTemp, onceState, onState, useColorMerge } from "@/hooks";
-import { execAction, useAction } from "@/data/system/actions.model";
-import { back, getSlotData, next, slotHooks } from "@/data/system/slot.slice";
-import { FastList } from "./FastList";
+import { tw } from "@/utils";
+import { enumTemp, onState, useColorMerge } from "@/hooks";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { setTemp } from "@/reducers/Object/object.slice";
-import { EmptyComponent } from "./EmptyComponent";
-import { MarkDown } from "./MarkDown";
-import { Scroll } from "./Scroll";
 import { useCopyState } from "@/hooks";
 import { nanoid } from "@reduxjs/toolkit";
 export type EnumFeildProps = FeildGeneralProps<string | undefined, SettingConfig["enum"]>;
@@ -42,13 +34,10 @@ export function EnumFeild({ config = {}, id, state }: EnumFeildProps) {
   const choised = React.useMemo(() => {
     return config.list?.find(({ value }) => value == state.get);
   }, [config, state.get]);
-
   const complexeId = React.useMemo(() => {
     return id + "-" + nanoid() + "-" + crypto.randomUUID();
   }, [id]);
-
   const selectedId = enumTemp.getTemp<string>("id");
-
   return (
     <div className="relative w-full">
       <div

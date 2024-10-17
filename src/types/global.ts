@@ -1,4 +1,4 @@
-import { EntityId } from "@reduxjs/toolkit";
+import { EntityId, Store } from "@reduxjs/toolkit";
 import { store } from "@/store";
 export type FullStateManagment = ReturnType<typeof store.getState>;
 export type ReactElement<T = HTMLDivElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
@@ -45,6 +45,7 @@ export interface TableDefConfig<T extends object = any, I extends keyof T = any,
   data?: Record<EntityId, any>;
   onSave?: (state: Record<EntityId, T>, config: TableDefConfig<T, I, N, A>, fullState: FullStateManagment) => Promise<void> | void;
   onRead?: () => Promise<T[]> | T[];
+  reduxStore?: () => Nothing | Store;
 }
 export type ClickProps<T> = ReactElement<T> & IconProps;
 export interface SetSmallStateProps {

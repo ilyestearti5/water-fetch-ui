@@ -45,13 +45,18 @@ export function TitleProvider() {
         ),
       }}
     >
+      <span
+        style={{
+          ...colorMerge({}),
+        }}
+        className={tw("inline-block absolute border-8 border-transparent border-solid w-[0px] h-[0px] transform")}
+      />
       <div
         className={tw(`
             border
             border-solid
             border-transparent
             rounded-lg
-            m-3
             py-1
             px-2
           `)}

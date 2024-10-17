@@ -34,7 +34,7 @@ export interface FastListProps<T> {
     right: number;
   }>;
 }
-export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, data, countLastItems = 3, overflow: { top = 0, bottom = 0 } = { top: 0, bottom: 0 } }: FastListProps<T>) {
+export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, data, countLastItems = 3, overflow: { top = 0, bottom = 0 } = { top: 0, bottom: 0 }, ...props }: FastListProps<T>) {
   // all config of slot list (length , submited , focused , selected , ...)
   const slotConfig = slotHooks.getOne(slotId);
   const scroll = useCopyState(0);
@@ -125,13 +125,15 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
       scroll.set(scrollValue);
     }
   };
+
   const scrollBarRefElement = React.createRef<HTMLDivElement>();
   const scrollVisibility = React.useMemo(() => {
     return heightPercantage <= 100;
   }, [heightPercantage]);
   const elementRef = React.createRef<HTMLDivElement>();
+
   return (
-    <Focus focusId={focusId} className="relative w-full h-full select-none" ignoreOutline={typeof focused == "number"} id={slotId}>
+    <Focus {...props} focusId={focusId} className="relative w-full h-full select-none" ignoreOutline={typeof focused == "number"} id={slotId}>
       <ChangableComponent
         onContentChange={(props) => {
           height.set(props.height);
@@ -233,10 +235,7 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
             scrollingUsingBar.set(true);
             changePositionCallback(e.clientY);
           }}
-          style={{
-            ...colorMerge(scrollBarHoverd.get && "gray.opacity"),
-          }}
-          className={tw(`absolute right-0 w-[5px] h-full inset-y-0 transition-[width] duration-300 backdrop-blur-md`, scrollBarHoverd.get && "w-[20px]")}
+          className={tw(`absolute right-0 w-[20px] h-full inset-y-0 transition-[width] duration-300`)}
         >
           <div
             aria-label="scroll-bar-thumb"
@@ -260,6 +259,11 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
                 document.removeEventListener("mouseup", onMouseUpCallback);
               };
               document.addEventListener("mouseup", onMouseUpCallback);
+            }}
+            onTouchMove={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              changePositionCallback(e.touches[0].clientY);
             }}
           />
         </div>

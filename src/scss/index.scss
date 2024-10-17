@@ -1,6 +1,7 @@
+// google font's
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@800&display=swap");
-@import "./markdown.scss";
+// tailwind configuration
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -140,79 +141,79 @@ a:focus {
 }
 .styled-btn {
   @apply relative w-[250px] h-[50px] flex items-center justify-center cursor-pointer;
-}
-.styled-btn:active {
-  @apply scale-95;
-}
-.styled-btn .styled-btn-content {
-  @apply absolute
-  top-0
-  left-0
-  w-full
-  h-full
-  flex
-  items-center
-  justify-center
-  bg-[#ffffff0d]
-  shadow-lg
-  border-y
-  border-solid
-  border-[#ffffff1a]
-  rounded-[30px]
-  p-[10px]
-  tracking-[1px]
-  overflow-hidden
-  z-[1]
-  backdrop-blur-lg;
-}
-.styled-btn:hover .styled-btn-content {
-  @apply tracking-[3px] text-white;
-}
-.styled-btn .styled-btn-content .before {
-  @apply absolute
-  left-0
-  top-0
-  w-1/2
-  h-1/2
-  bg-gradient-to-l
-  from-[#ffffff26]
-  to-transparent
-  transform
-  skew-x-[45deg]
-  translate-x-0
-  translate-y-0
-  blur-[0px];
-}
-.styled-btn:hover .styled-btn-content .before {
-  @apply skew-x-[45deg] translate-x-[200px] translate-y-[200px];
-}
-.styled-btn-before {
-  @apply absolute
-    left-1/2
-    -translate-x-1/2
-    bottom-[-5px]
-    w-[30px]
-    h-[10px]
-    rounded-[10px];
-}
-.styled-btn:hover .styled-btn-before /*lightup button*/ {
-  @apply bottom-0 h-1/2 w-[80%] rounded-[30px];
-}
-.styled-btn-after {
-  @apply absolute left-1/2 -translate-x-1/2 top-[-5px] w-[30px] h-[1px] rounded-[10px];
-}
-.styled-btn:hover .styled-btn-after /*lightup button*/ {
-  @apply top-0 h-1/2 w-[80%] rounded-[30px];
+  &:active {
+    @apply scale-95;
+  }
+  .styled-btn-content {
+    @apply absolute
+      top-0
+      left-0
+      w-full
+      h-full
+      flex
+      items-center
+      justify-center
+      bg-[#ffffff0d]
+      shadow-lg
+      border-y
+      border-solid
+      border-[#ffffff1a]
+      rounded-[30px]
+      p-[10px]
+      tracking-[1px]
+      overflow-hidden
+      z-[1]
+      backdrop-blur-lg;
+    .before {
+      @apply absolute
+        left-0
+        top-0
+        w-1/2
+        h-1/2
+        bg-gradient-to-l
+        from-[#ffffff26]
+        to-transparent
+        transform
+        skew-x-[45deg]
+        translate-x-0
+        translate-y-0
+        blur-[0px];
+    }
+  }
+  &:hover {
+    @apply tracking-[3px] text-white;
+    .styled-btn-content {
+      .before {
+        @apply skew-x-[45deg] translate-x-[200px] translate-y-[200px];
+      }
+    }
+    .styled-btn-before /*lightup button*/ {
+      @apply bottom-0 h-1/2 w-[80%] rounded-[30px];
+    }
+    .styled-btn-after /*lightup button*/ {
+      @apply top-0 h-1/2 w-[80%] rounded-[30px];
+    }
+  }
+  .styled-btn-before {
+    @apply absolute
+      left-1/2
+      -translate-x-1/2
+      bottom-[-5px]
+      w-[30px]
+      h-[10px]
+      rounded-[10px];
+  }
+  .styled-btn-after {
+    @apply absolute left-1/2 -translate-x-1/2 top-[-5px] w-[30px] h-[1px] rounded-[10px];
+  }
 }
 .btn {
   .btn-content {
-    position: relative;
-    z-index: 2;
+    @apply relative;
   }
-  &__bg {
-    @apply absolute left-1/2 top-1/2 w-full h-[0] block rounded-[50%] pt-[100%];
+  &_bg {
+    @apply absolute left-1/2 top-1/2 w-full h-[0] block rounded-[50%] pt-[100%] scale-0;
     margin: -50% 0 0 -50%;
-    transform: scale(0);
     transform-origin: 50% 50%;
     transition: transform 0.21s cubic-bezier(0.5, 1, 0.89, 1);
     @for $i from 1 through 3 {
@@ -220,9 +221,18 @@ a:focus {
         transition-delay: 0.21s * (4 - $i);
       }
     }
+    .btn:active & {
+      @apply scale-100;
+      transition: transform 0.4s ease-in-out;
+      @for $i from 1 through 3 {
+        &:nth-of-type(#{$i}) {
+          transition-delay: 0.1s * $i;
+        }
+      }
+    }
     .btn:focus & {
-      transform: scale(1.5);
-      transition: transform 0.4s cubic-bezier(0.11, 0, 0.5, 0);
+      @apply scale-100;
+      transition: transform 0.4s ease-in-out;
       @for $i from 1 through 3 {
         &:nth-of-type(#{$i}) {
           transition-delay: 0.1s * $i;
@@ -235,7 +245,7 @@ a:focus {
   animation-name: animate-ty;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  animation-duration: 1s;
+  animation-duration: 0.7s;
 }
 @keyframes animate-ty {
   from {
@@ -349,4 +359,25 @@ a:focus {
 }
 a {
   @apply cursor-pointer;
+}
+canvas {
+  @apply bg-zinc-500;
+}
+.markdown {
+  code {
+    @apply px-2 rounded-md inline-block text-sm;
+  }
+  table {
+    @apply border border-solid border-transparent my-2;
+    th {
+      @apply text-left;
+    }
+    td,
+    th {
+      @apply border border-solid border-transparent p-3;
+    }
+    tr {
+      @apply even:bg-opacity-10;
+    }
+  }
 }

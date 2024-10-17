@@ -5,7 +5,7 @@ import React from "react";
 import { delay } from "@/utils/index";
 import { useSettingValue } from "@/hooks";
 import { useAsyncEffect, useCopyState } from "@/hooks";
-interface OverlaysProps extends ReactElement {
+export interface OverlaysProps extends ReactElement {
   onLoadContent?: () => void;
   animted?: boolean;
 }

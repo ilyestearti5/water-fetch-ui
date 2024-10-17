@@ -5,7 +5,7 @@ import { useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { Input } from "./Input";
+import { Input } from "../Input";
 export type RegexpFeildProps = FeildGeneralProps<string | undefined, SettingConfig["regexp"]>;
 // render RegExp Feild Prop
 function RegexpFeild({ state, id }: RegexpFeildProps) {

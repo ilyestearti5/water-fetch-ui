@@ -24,6 +24,8 @@ import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateMa
 import { langHooks } from "@/data/system/lang.model";
 import { StartApplicationProps } from "@/app/application";
 import { getDownloadURL, ref } from "firebase/storage";
+export * from "@/reducers/Global/keyboard.slice";
+export * from "@/reducers/Global/title.slice";
 export * from "@/reducers/Object/object.slice";
 export * from "@/reducers/Global/title.slice";
 export * from "@/functions/app/web/web-utils";
@@ -328,7 +330,7 @@ export function usePublicCommandsFilter() {
 //
 // -------------------
 export function useManyFeilds<S extends string | number, T extends FeildRecord<S>>(fields: T, deps: any = []): Record<keyof T, string | undefined> {
-  const e = Object.entries<FeildIds>(fields);
+  const e = Object.entries<string>(fields);
   const allFeilds = e.map(([, fieldId]) => fieldHooks.getOneFeild(fieldId, "value"));
   return React.useMemo(() => {
     const result: any = {};
@@ -339,7 +341,7 @@ export function useManyFeilds<S extends string | number, T extends FeildRecord<S
     return result as T;
   }, [...allFeilds, ...deps]);
 }
-export function resetManyFeilds<T extends FeildIds>(fields: T[]) {
+export function resetManyFeilds<T extends string>(fields: T[]) {
   fields.forEach((fieldId) => {
     fieldHooks.setOneFeild(fieldId, "value", "");
   });

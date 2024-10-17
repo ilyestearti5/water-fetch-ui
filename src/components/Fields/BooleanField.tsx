@@ -6,7 +6,8 @@ import React from "react";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { useCopyState } from "@/hooks";
-import { Icon } from "./Icon";
+import { Icon } from "../Icon";
+import { allIcons } from "@/apis";
 export type BooleanFeildProps = FeildGeneralProps<boolean | null, SettingConfig["boolean"]>;
 export function BooleanFeild({ state, config = {}, id }: BooleanFeildProps) {
   const isActive = React.useMemo(() => {
@@ -107,7 +108,7 @@ export function BooleanFeild({ state, config = {}, id }: BooleanFeildProps) {
               ...colorMerge(isActive && "checkbox.true", !isActive && "checkbox.false"),
             }}
           >
-            <FontAwesomeIcon icon={isActive ? faCheck : faXmark} />
+            <FontAwesomeIcon icon={isActive ? allIcons.solid.faCheck : allIcons.solid.faXmark} />
           </span>
         </button>
       )}

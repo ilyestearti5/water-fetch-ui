@@ -8,18 +8,5 @@ startApplication({
       <Test />
     </BrowserRouter>
   ),
-  async onPrepare() {
-    return {
-      colors: [
-        {
-          colorId: "primary",
-          dark: undefined,
-          light: undefined,
-          default: "#F44",
-        },
-      ],
-      settings: [],
-    };
-  },
   isDev: import.meta.env.DEV,
 });

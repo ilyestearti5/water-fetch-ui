@@ -2,6 +2,7 @@ import React from "react";
 import { colorHooks } from "@/data/system/colors.model";
 import { setTemp } from "@/reducers/Object/object.slice";
 import { getColor, useSettingValue } from "@/hooks";
+import { initHandelKeyboard } from "@/reducers/Global/keyboard.slice";
 export function initDarkSystem() {
   const isDark = useSettingValue("window/dark.boolean");
   const mainBackground = colorHooks.getOne("primary.background");
@@ -22,12 +23,20 @@ export function initDarkSystem() {
     if (isDark == undefined) {
       return;
     }
+    const metaThemeColor = document.createElement("meta");
+    metaThemeColor.name = "theme-color";
+    document.head.appendChild(metaThemeColor);
     if (mainBackground) {
-      document.body.style.backgroundColor = getColor(isDark, mainBackground)!;
+      const color = getColor(isDark, mainBackground)!;
+      metaThemeColor.content = color;
+      document.body.style.backgroundColor = color;
     }
     if (mainColor) {
       document.body.style.color = getColor(isDark, mainColor)!;
     }
+    return () => {
+      metaThemeColor.remove();
+    };
   }, [mainBackground, mainColor, isDark]);
   const font = useSettingValue("preferences/font.enum");
   React.useEffect(() => {
@@ -72,5 +81,6 @@ export function initAdress() {
 export function initConfigurations(more?: () => void) {
   initDarkSystem();
   initAdress();
+  initHandelKeyboard();
   more?.();
 }

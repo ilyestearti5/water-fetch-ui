@@ -105,7 +105,7 @@ export default {
         ],
       },
       def: "name",
-      desc: "the method of how to find \\`setting\\` using one of this:\n${state.settings.entities['settings/findBy.enum']?.config?.list?.map((item)=> '**' + item + '**' ).join(' or ')}",
+      desc: "the method of how to find \\`setting\\` using one of this:\n${state.settings.entities['settings/findBy.enum']?.config?.list?.map(({ content , value })=> '**' + (content || value)  + '**' ).join(' or ')}",
       name: "find settings using ?",
     },
     "toast/position.enum": {

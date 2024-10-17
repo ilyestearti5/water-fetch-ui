@@ -1,8 +1,8 @@
 import React, { useMemo, useCallback } from "react";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { FeildGeneralProps } from "@/types/global";
-import { JoinComponentBy } from "./JoinComponentBy";
-import { EmptyComponent } from "./EmptyComponent";
+import { JoinComponentBy } from "../JoinComponentBy";
+import { EmptyComponent } from "../EmptyComponent";
 import { setFocused, tw } from "@/utils";
 import { handelShadowColor, useColorMerge, useCopyState } from "@/hooks";
 // Define the props for SquareComponent

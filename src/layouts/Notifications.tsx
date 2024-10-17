@@ -1,16 +1,16 @@
-import { notifayHooks } from "@/data/system/notifications.model";
-import { tw } from "@/utils";
-import { Tip } from "@/components/Tip";
-import { Focus } from "@/components/Focus";
-import { Scroll } from "@/components/Scroll";
-import { faChevronDown, faChevronRight, faChevronUp, faXmarksLines } from "@fortawesome/free-solid-svg-icons";
-import { Line } from "@/components/Line";
-import { NotifaysSlot } from "./NotifaysSlot";
-import { useAction } from "@/data/system/actions.model";
-import { slotHooks } from "@/data/system/slot.slice";
 import React from "react";
-import { Translate } from "@/components/Translate";
 import { useSettingValue, handelShadowColor, openDialog, setSettingValue, settingHooks, useColorMerge } from "@/hooks";
+import { useAction } from "@/data/system/actions.model";
+import { tw } from "@/utils";
+import { Translate } from "@/components/Translate";
+import { slotHooks } from "@/data/system/slot.slice";
+import { Scroll } from "@/components/Scroll";
+import { NotifaysSlot } from "./NotifaysSlot";
+import { notifayHooks } from "@/data/system/notifications.model";
+import { Line } from "@/components/Line";
+import { Focus } from "@/components/Focus";
+import { CircleTip } from "@/components";
+import { allIcons } from "@/apis";
 const notificationVisibility = "visibility/notifays.boolean";
 const notsVisibility = "visibility/notifays/nots.boolean";
 //
@@ -43,9 +43,8 @@ export function Notifications() {
     [focusedNotifay],
   );
   const isAnimation = useSettingValue("preferences/animation.boolean");
-
   const confirmationBefore = useSettingValue("notification/clearAllConfirmation.boolean");
-
+  const notificationsToolsElement = React.createRef<HTMLDivElement>();
   return (
     <div
       onClick={() => {
@@ -55,20 +54,20 @@ export function Notifications() {
       }}
       className={tw(
         `
-        z-[1000000000000]
-        transition-transform
-        shadow-xl
-        duration-300
-        fixed
-        bottom-[10px]
-        right-[10px]
-        rounded-xl
-        w-[400px]
-        max-md:w-[calc(100%-20px)]
-        border
-        border-solid
-        border-transparent
-        overflow-hidden;
+          z-[1000000000000]
+          transition-transform
+          shadow-xl
+          duration-300
+          fixed
+          bottom-[10px]
+          right-[10px]
+          rounded-xl
+          w-[400px]
+          max-md:w-[calc(100%-20px)]
+          border
+          border-solid
+          border-transparent
+          overflow-hidden
       `,
         !visibility && "translate-x-[calc(100%)]",
       )}
@@ -89,58 +88,63 @@ export function Notifications() {
       }}
     >
       <div
-        className="notifay-top-view flex justify-between items-center gap-2 p-3 cursor-pointer"
-        onClick={() => {
+        onClick={({ target }) => {
+          if (!visibility || notificationsToolsElement.current?.contains(target as HTMLElement)) {
+            return;
+          }
           settingHooks.setOneFeild(notsVisibility, "value", !notes);
         }}
       >
-        <h3 className="font-bold text-lg uppercase notifay-full-title">
-          <span
-            style={{
-              ...colorMerge(
-                {
-                  color: "gray.opacity.2",
-                },
-                notifaysIds.length && {
-                  color: "primary",
-                },
-              ),
-            }}
-            className="mr-2"
-          >
-            {!notes && `(${notifaysIds.length})`}
-          </span>
-          <Translate content="notifications" />
-        </h3>
-        <div className="flex gap-3 text-xl">
-          {!!notifaysIds.length && (
-            <Tip
-              onClick={async () => {
-                let response = 1;
-                if (confirmationBefore) {
-                  const props = await openDialog({
-                    message: "Do You Want To Clear All Notifications",
-                    checkboxLabel: "Don't Ask Me Again",
-                    buttons: ["No", "Yes"],
-                  });
-                  if (props.checkboxChecked) {
-                    setSettingValue("notification/clearAllConfirmation.boolean", false);
-                  }
-                  response = props.response;
-                }
-                if (response) {
-                  notifayHooks.remove(notifays.filter(({ removable = true }) => removable).map(({ id }) => id));
-                }
+        <div className="notifay-top-view flex justify-between items-center gap-2 p-3 cursor-pointer">
+          <h3 className="font-bold text-lg uppercase notifay-full-title">
+            <span
+              style={{
+                ...colorMerge(
+                  {
+                    color: "gray.opacity.2",
+                  },
+                  notifaysIds.length && {
+                    color: "primary",
+                  },
+                ),
               }}
-              icon={faXmarksLines}
+              className="mr-2"
+            >
+              {!notes && `(${notifaysIds.length})`}
+            </span>
+            <Translate content="notifications" />
+          </h3>
+          <div ref={notificationsToolsElement} className="inline-flex">
+            {!!notifaysIds.length && (
+              <CircleTip
+                onClick={async () => {
+                  let response = 1;
+                  if (confirmationBefore) {
+                    const props = await openDialog({
+                      message: "Do You Want To Clear All Notifications",
+                      checkboxLabel: "Don't Ask Me Again",
+                      buttons: ["Yes", "No"],
+                    });
+                    if (props.checkboxChecked) {
+                      setSettingValue("notification/clearAllConfirmation.boolean", false);
+                    }
+                    response = props.response;
+                  }
+                  if (response) {
+                    return;
+                  }
+                  notifayHooks.remove(notifays.filter(({ removable = true }) => removable).map(({ id }) => id));
+                }}
+                icon={allIcons.solid.faXmarksLines}
+              />
+            )}
+            <CircleTip
+              onClick={() => {
+                settingHooks.setOneFeild(notificationVisibility, "value", false);
+              }}
+              icon={allIcons.solid.faChevronRight}
             />
-          )}
-          <Tip
-            onClick={() => {
-              settingHooks.setOneFeild(notificationVisibility, "value", false);
-            }}
-            icon={faChevronRight}
-          />
+          </div>
         </div>
       </div>
       {Boolean(notifaysIds.length) && notes && <Line />}

@@ -5,7 +5,7 @@ import { Delay } from "@/utils/index";
 import { setFocused } from "@/utils";
 import { tw } from "@/utils";
 import { fieldHooks, useShortcutsOfCommand, useCopyState, usePublicCommandsFilter } from "@/hooks";
-import { getModifier } from "@/reducers/Global/keyboard.slice";
+import { useModifier } from "@/reducers/Global/keyboard.slice";
 import { FastList } from "@/components/FastList";
 import { Tip } from "@/components/Tip";
 import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -49,7 +49,7 @@ export function KeyboardShortcuts() {
         const keys = useShortcutsOfCommand(commandId);
         const ref = React.createRef<HTMLDivElement>();
         const colorMerge = useColorMerge();
-        const isControl = getModifier("Control");
+        const isControl = useModifier("Control");
         const hover = useCopyState(false);
         const onlyKeys = React.useMemo(() => {
           return keys.filter(({ value }) => value!).map(({ value }) => value!);

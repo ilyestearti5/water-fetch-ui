@@ -1,14 +1,14 @@
 import React from "react";
-import { useTranslate } from "./Translate";
 import { useCopyState } from "@/hooks";
 import { useColorMerge } from "@/hooks";
 import { Tip } from "@/components/Tip";
 import { Shortcut, tw } from "@/utils";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
-import { Input } from "./Input";
 import { format } from "date-fns";
 import { FeildGeneralProps } from "@/types/global";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { Input } from "../Input";
+import { useTranslate } from "../Translate";
 export const dateToStringForInput = (date: Date, to: SettingConfig["date"]["format"] = "datetime-local") => {
   if (to == "time") {
     return format(date, "HH:mm");

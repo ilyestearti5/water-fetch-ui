@@ -1,5 +1,5 @@
 import React from "react";
-import { getModifier } from "@/reducers/Global/keyboard.slice";
+import { useModifier } from "@/reducers/Global/keyboard.slice";
 import { settingHooks } from "@/reducers/Settings/settings.model";
 import { isLike } from "@/utils/index";
 import { tw } from "@/utils";
@@ -25,7 +25,7 @@ export function SettingsList() {
       }}
       countLastItems={-1}
       component={({ data: setting, index, style, status, handel, id }) => {
-        const isControl = getModifier("Control");
+        const isControl = useModifier("Control");
         const hover = useCopyState(false);
         const canReset = React.useMemo(() => {
           return !setting.settingId.match(/\.password$/gi) && !isLike(setting.def, setting.value);

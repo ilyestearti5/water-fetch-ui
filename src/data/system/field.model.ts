@@ -31,4 +31,4 @@ const initFeildModel: TableDefConfig<Feild, "fieldId", "fields"> = {
 // create field model
 export const { entity: fieldEntity, slice: fieldSlice, hooks: fieldHooks, entitySelect: fieldEntitySelect, init: initFeilds } = defineTable(initFeildModel);
 // init all fields
-export type FeildRecord<T extends string | number> = Record<T, FeildIds>;
+export type FeildRecord<T extends string | number> = Record<T, string>;

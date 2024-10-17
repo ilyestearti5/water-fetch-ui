@@ -1,22 +1,22 @@
 import React from "react";
 import { useColorMerge, useSettingValue, useCopyState, openCamera, showToast } from "@/hooks";
 import { mergeObject, tw } from "@/utils";
-import { Tip } from "./Tip";
+import { Tip } from "../Tip";
 import { SettingConfig, SettingValueType } from "@/reducers/Settings/SettingConfig";
 import { openDialog } from "@/functions/app/web/web-utils";
-import { Image } from "./Image";
+import { Image } from "../Image";
 import { FeildGeneralProps } from "@/types/global";
 import { faXmark, faFileUpload, faCamera } from "@fortawesome/free-solid-svg-icons";
-import { Icon } from "./Icon";
+import { Icon } from "../Icon";
 import { allIcons } from "@/apis";
-import { EmptyComponent } from "./EmptyComponent";
-import { BlurOverlay } from "./Overlays";
-import { Tab } from "./Tab";
-import { Card } from "./Card";
-import { Line } from "./Line";
-import { Button } from "./Button";
-import { Translate } from "./Translate";
-import { CircleTip } from "./CircleTip";
+import { EmptyComponent } from "../EmptyComponent";
+import { BlurOverlay } from "../Overlays";
+import { Tab } from "../Tab";
+import { Card } from "../Card";
+import { Line } from "../Line";
+import { Button } from "../Button";
+import { Translate } from "../Translate";
+import { CircleTip } from "../CircleTip";
 type ImageFeildProps = FeildGeneralProps<SettingValueType["image"], SettingConfig["image"]>;
 // term of use is when you have state contain array and you want to update the state from
 export function ImageFeild({ state, config }: ImageFeildProps) {

@@ -9,7 +9,7 @@ import { faExchange, faEye, faLowVision } from "@fortawesome/free-solid-svg-icon
 import { execAction, useAction } from "@/data/system/actions.model";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { Translate } from "./Translate";
+import { Translate } from "../Translate";
 export type PasswordFeildProps = FeildGeneralProps<string | undefined, SettingConfig["password"]>;
 export interface PasswordProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   state: State<string | undefined>;

@@ -7,6 +7,7 @@ export default {
       dark: "#fff",
       light: "#000",
     },
+    "bottom-sheeet.background": {},
     "black.opacity": {
       dark: "#0006",
       light: "#0003",
@@ -36,17 +37,11 @@ export default {
     "error.text": {
       default: "#F33",
     },
-    "facebook-icon": {
-      default: "#014DE4",
-    },
     "field.background": {
       default: "rgba(160 160 160 / 0.2)",
     },
     "focus.text": {
       default: "#F33",
-    },
-    "google-icon": {
-      default: "#E53",
     },
     "gray.opacity": {
       default: "#8884",
@@ -78,20 +73,29 @@ export default {
     "log.warning.color": {
       default: "rgb(227 138 32)",
     },
-    "microsoft-icon": {
-      default: "#F25022",
-    },
     "notifay.error": {
       default: "#e61a1a",
+    },
+    "notifay.error.text": {
+      default: "#fff",
     },
     "notifay.info": {
       default: "#2e7aec",
     },
+    "notifay.info.text": {
+      default: "#fff",
+    },
     "notifay.success": {
       default: "#2b8817",
     },
+    "notifay.success.text": {
+      default: "#fff",
+    },
     "notifay.warning": {
       default: "#e7a428",
+    },
+    "notifay.warning.text": {
+      default: "#fff",
     },
     primary: {
       dark: "#0078d4",
@@ -108,13 +112,6 @@ export default {
     "primary.hover.background": {
       dark: "#222",
       light: "#e1e1e1",
-    },
-    "qrCode.detection.secuess": {
-      dark: "#0F4",
-      light: "#0A3",
-    },
-    "qrCode.detection.secuess.content": {
-      default: "white",
     },
     secondary: {
       dark: "#043853",
@@ -160,6 +157,7 @@ export default {
     "submit.background": {
       default: "#9994",
     },
+    "submit.color": {},
     "success.text": {
       default: "#14B85B",
     },
@@ -178,17 +176,8 @@ export default {
     transparent: {
       default: "transparent",
     },
-    userIconSetup: {
-      default: "#27C",
-    },
     "warning.text": {
       default: "rgb(227 138 32)",
-    },
-    wifiIconSetup: {
-      default: "#2C6F",
-    },
-    "window.inWindows.close": {
-      default: "red",
     },
     opacity: {
       dark: "#fff2",

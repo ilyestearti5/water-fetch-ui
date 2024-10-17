@@ -97,12 +97,6 @@ export default {
       value: "escape",
     },
     {
-      when: "focused == 'feedback' && state.fields.entities['feedback']?.value",
-      command: "feedback/add",
-      value: "control+enter",
-      private: true,
-    },
-    {
       command: "commands.next",
       when: "focused == 'cmds/list' || focused == 'findCommand'",
       value: "arrowdown",
@@ -118,38 +112,6 @@ export default {
       value: "enter",
     },
     {
-      repeation: false,
-      command: "activity.focus",
-      value: "alt",
-      when: "focused != 'activity'",
-    },
-    {
-      command: "activity.views.back",
-      value: "arrowup",
-      when: "focused == 'activity'",
-    },
-    {
-      command: "activity.views.back",
-      value: "arrowleft",
-      when: "focused == 'activity'",
-    },
-    {
-      command: "activity.views.next",
-      value: "arrowdown",
-      when: "focused == 'activity'",
-    },
-    {
-      command: "activity.views.next",
-      value: "arrowright",
-      when: "focused == 'activity'",
-    },
-    {
-      repeation: false,
-      command: "activity.views.submit",
-      value: "enter",
-      when: "focused == 'activity'",
-    },
-    {
       command: "commands.open",
       when: "focused != 'findCommand' || !state.object.data.commandId",
       value: "control+shift+p",
@@ -159,10 +121,6 @@ export default {
       command: "notification.openAndExpandMoreAndFocus",
       when: "focused != 'notifications'",
       value: "shift+alt+n",
-    },
-    {
-      command: "view.activity.toggle",
-      value: "control+alt+a",
     },
     {
       command: "view.leftSide.toggle",
@@ -194,22 +152,6 @@ export default {
       command: "settings.icons.show",
       when: "state.settings.entities['visibility/configurations.boolean']?.value",
       value: "control+i",
-    },
-    {
-      command: "layout.zoom.in",
-      value: "control+=",
-    },
-    {
-      command: "layout.zoom.in",
-      value: "control+plus",
-    },
-    {
-      command: "layout.zoom.out",
-      value: "control+-",
-    },
-    {
-      command: "layout.zoom.reset",
-      value: "control+0",
     },
     {
       repeation: false,
@@ -248,36 +190,6 @@ export default {
       when: "['findConfigurations-local','color-list'].includes(focused) && state.views.entities.settings.focused == 'colors'",
     },
     {
-      command: "savePanel.open",
-      value: "control+s",
-      when: "focused != 'savePanelView'",
-    },
-    {
-      command: "savePanel.next",
-      value: "arrowdown",
-      when: "focused == 'savePanelView'",
-    },
-    {
-      command: "savePanel.back",
-      value: "arrowup",
-      when: "focused == 'savePanelView'",
-    },
-    {
-      command: "savePanel.close",
-      value: "backspace",
-      when: "state.settings.entities['visibility/savePanel.boolean']?.value",
-    },
-    {
-      command: "savePanel.toggleCheckedSubmit",
-      value: "space",
-      when: "focused == 'savePanelView'",
-    },
-    {
-      command: "savePanel.toggleCheckedSubmit",
-      value: "enter",
-      when: "focused == 'savePanelView'",
-    },
-    {
       command: "configurations.next",
       value: "arrowdown",
       when: "focused == 'findConfigurations-local' && state.views.entities.settings.focused == 'user'",
@@ -292,21 +204,6 @@ export default {
       command: "configurations.submit",
       value: "enter",
       when: "focused == 'findConfigurations-local' && state.views.entities.settings.focused == 'user'",
-    },
-    {
-      command: "setup.nextPage",
-      when: "!state.object.data.setup.user.inited && (!focused || ['setup-controller','setup.btn.previous','setup.btn.next'].includes(focused))",
-      value: "arrowright",
-    },
-    {
-      command: "setup.previousPage",
-      when: "!state.object.data.setup.user.inited && (!focused || ['setup-controller','setup.btn.previous','setup.btn.next'].includes(focused))",
-      value: "arrowleft",
-    },
-    {
-      command: "savePanel.save",
-      when: "state.settings.entities['visibility/savePanel.boolean']?.value",
-      value: "control+enter",
     },
     {
       command: "notification.submitCurrent",
@@ -382,24 +279,7 @@ export default {
       when: "state.object.data.commandId",
       value: "escape",
     },
-    {
-      repeation: false,
-      command: "activity.escape",
-      value: "escape",
-      when: "focused == 'activity'",
-    },
-    {
-      command: "savePanel.close",
-      value: "escape",
-      repeation: false,
-      when: "state.settings.entities['visibility/savePanel.boolean']?.value",
-    },
-    {
-      command: "userProfile.hide",
-      value: "escape",
-      repeation: false,
-      when: "state.settings.entities['visibility/profile.boolean']?.value",
-    },
+
     {
       command: "view.settings.update.hide",
       when: "state.object.data.view.settings",
@@ -408,12 +288,6 @@ export default {
     {
       command: "view.settings.hide",
       when: "state.settings.entities['visibility/configurations.boolean']?.value",
-      value: "escape",
-    },
-    {
-      repeation: false,
-      command: "creditBox.close",
-      when: "state.object.data.visibility.credit",
       value: "escape",
     },
     {
@@ -479,6 +353,12 @@ export default {
     {
       command: "window.toggleMode",
       value: "control+d",
+    },
+    {
+      command: "bottomSheet/escape",
+      value: "escape",
+      when: "state.object.data.view['bottomSheet']",
+      repeation: false,
     },
   ],
 };

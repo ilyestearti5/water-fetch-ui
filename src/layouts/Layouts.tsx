@@ -15,6 +15,7 @@ import {
   UpdateKeyboardShortcut,
   SettingsView,
   EnumLayout,
+  ApplicationsLayout,
 } from "@/layouts";
 export interface LayoutesProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export const Layoutes = ({ children }: LayoutesProps) => {
     <EmptyComponent>
       {children}
       <KeyboardView />
+      <ApplicationsLayout />
       <PDFView />
       <IframeLayout />
       <FixedProfileView />
@@ -32,11 +34,11 @@ export const Layoutes = ({ children }: LayoutesProps) => {
       <SettingUpdateView />
       <UpdateKeyboardShortcut />
       <CameraView />
-      <Notifications />
       <EnumLayout />
-      <MenuList />
-      <DialogBoxLayout />
+      <Notifications />
       <Toasts />
+      <DialogBoxLayout />
+      <MenuList />
       <TitleProvider />
       <DevReadingHTML />
     </EmptyComponent>

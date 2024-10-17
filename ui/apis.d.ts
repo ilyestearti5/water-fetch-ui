@@ -53,7 +53,7 @@ export declare const firebaseConfig: {
     messagingSenderId: string;
 };
 
-export declare const generateAuthUrl: (data: GenerateAuthUrlParams) => Promise<GenerateAuthUrlResult>;
+export declare const generateAuthUrl: (params: GenerateAuthUrlParams) => Promise<GenerateAuthUrlResult>;
 
 export declare interface GenerateAuthUrlParams {
     projectId: string;

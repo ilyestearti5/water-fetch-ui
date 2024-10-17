@@ -1,6 +1,6 @@
 import React from "react";
 import { viewHooks } from "@/data/system/views.model";
-import { Feild } from "../components/Feild";
+import { Feild } from "../components/Fields/Field";
 import { transformCase } from "@/utils/index";
 import { getTemp } from "@/reducers/Object/object.slice";
 import { Translate, useTranslate } from "@/components/Translate";

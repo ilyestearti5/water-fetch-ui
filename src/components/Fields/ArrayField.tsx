@@ -10,11 +10,11 @@ import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { useColorMerge } from "@/hooks";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { keyHooks } from "@/data/system/keys.model";
-import { Translate } from "./Translate";
+import { Translate } from "../Translate";
 import { useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
-import { Input } from "./Input";
+import { Input } from "../Input";
 export type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
 // term of use is when you have state contain array and you want to update the state from
 export function ArrayFeild({ state, id }: ArrayFeildProps) {

@@ -59,7 +59,7 @@ export const DateLayout = () => {
     };
   }, [afterState.get, dayState.get, selectedTime, totalItems, mode]);
   return (
-    <BlurOverlay>
+    <BlurOverlay hidden={true}>
       <Card className="flex flex-col max-md:rounded-none w-1/2 max-md:w-full max-md:h-full">
         <div className="flex justify-between items-center gap-2 p-2">
           <h1 className="text-3xl">

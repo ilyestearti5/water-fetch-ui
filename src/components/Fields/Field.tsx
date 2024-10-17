@@ -1,14 +1,14 @@
 import React from "react";
 import { Feild as FeildType, fieldHooks } from "@/data/system/field.model";
-import { TextArea, TextAreaProps } from "./TextArea";
+import { TextArea, TextAreaProps } from "../TextArea";
 import { tw } from "@/utils";
 import { useColorMerge } from "@/hooks";
 import { con } from "@/utils/index";
-import { JoinComponentBy } from "./JoinComponentBy";
+import { JoinComponentBy } from "../JoinComponentBy";
 import { Line } from "@/components/Line";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faWarning } from "@fortawesome/free-solid-svg-icons";
-import { MarkDown } from "./MarkDown";
+import { MarkDown } from "../MarkDown";
 import { initNewFeild, useCopyState, useMemoDelay } from "@/hooks";
 export interface FeildProps extends TextAreaProps {
   inputName: string;

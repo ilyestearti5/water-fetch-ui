@@ -5,7 +5,7 @@ import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { getFocus } from "@/utils";
 import { useColorMerge } from "@/hooks";
-import { Input } from "./Input";
+import { Input } from "../Input";
 import React from "react";
 export type StringFeildProps = FeildGeneralProps<string | undefined, SettingConfig["string"]>;
 // String Feild Rendering
@@ -35,32 +35,20 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
     },
     [state.get, id, config],
   );
-  /*
-   ******************************************************************************************************************************************************
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   *                                                                                                                                                    *
-   ******************************************************************************************************************************************************
-   */
   const colorMerge = useColorMerge();
   const currentValue = React.useMemo(() => {
     return value.get || "";
   }, [value.get]);
   const diffValue = React.useDeferredValue(currentValue);
-  React.useEffect(() => {
-    if (config.autoChange) {
-      state.set(diffValue);
-    }
-  }, [config.autoChange, diffValue]);
+  useEffectDelay(
+    () => {
+      if (config.autoChange) {
+        state.set(diffValue);
+      }
+    },
+    [config.autoChange, diffValue],
+    200,
+  );
   return (
     <div className="flex justify-between items-center gap-3">
       <Input
@@ -70,7 +58,7 @@ export function StringFeild({ state, config = {}, id }: StringFeildProps) {
         id={id}
         className="text-xs"
         value={currentValue}
-        placeholder={config.hint || `provide value for ${id}`}
+        placeholder={config.hint}
         onValueChange={value.set}
       />
       {!config?.autoChange && (state.get || "") != (value.get || "") && (

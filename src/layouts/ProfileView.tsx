@@ -2,7 +2,7 @@ import { viewTemps } from "@/reducers/Object/allTemps";
 import { signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
 import { Server } from "@/apis/firebase";
-import { Password } from "@/components/PasswordFeild";
+import { Password } from "@/components/Fields/PasswordField";
 import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -65,7 +65,9 @@ export const SignupPage = () => {
           }}
         >
           <div className="mb-4">
-            <label className="block mb-2">email</label>
+            <label className="block mb-2 capitalize">
+              <Translate content="email" /> :{" "}
+            </label>
             <Feild
               controls={{
                 [emailRegExp]: {
@@ -79,18 +81,22 @@ export const SignupPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-2">Password</label>
+            <label className="block mb-2 capitalize">
+              <Translate content="password" />
+            </label>
             <Password placeholder="********" id="user-password" state={passwordState} />
           </div>
           <div className="mb-4">
-            <label className="block mb-2">Confirm Password</label>
+            <label className="block mb-2 capitalize">
+              <Translate content="confirm password" />
+            </label>
             <Password placeholder="********" id="user-password-confirm" state={passwordConfirmState} />
           </div>
-          <Button icon={signupAction?.status == "loading" ? faRotate : undefined} iconClassName={tw("animate-spin")} type="submit" className="py-2 rounded-md w-full">
-            Sign Up
+          <Button icon={signupAction?.status == "loading" ? faRotate : undefined} iconClassName={tw("animate-spin")} type="submit" className="py-2 rounded-md">
+            <Translate content="signup" />
           </Button>
         </form>
-        <p className="mt-8 text-center text-sm">
+        <p className="mt-8 text-center text-sm capitalize">
           <span
             style={{
               ...colorMerge({
@@ -98,15 +104,16 @@ export const SignupPage = () => {
               }),
             }}
           >
-            Already have an account?
+            <Translate content="already have an account?" />
           </span>{" "}
           <Anchor
             onClick={(e) => {
               e.preventDefault();
               setTemp("focusedLoginView", 0);
             }}
+            className="capitalize"
           >
-            Login
+            <Translate content="login" />
           </Anchor>
         </p>
       </div>
@@ -130,16 +137,18 @@ export const SignupPage = () => {
               <span className="text-xl">📦</span>
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-lg">History</h3>
+              <h3 className="font-medium text-lg capitalize">
+                <Translate content="history" />
+              </h3>
               <p
-                className="text-sm"
                 style={{
                   ...colorMerge({
                     color: "gray.opacity.2",
                   }),
                 }}
+                className="text-sm capitalize"
               >
-                See All Historys
+                <Translate content="see all historys" />
               </p>
             </div>
           </div>
@@ -148,16 +157,18 @@ export const SignupPage = () => {
               <span className="text-xl">💵</span>
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-lg">Payouts</h3>
+              <h3 className="font-medium text-lg capitalize">
+                <Translate content="payouts" />
+              </h3>
               <p
-                className="text-sm"
+                className="text-sm capitalize"
                 style={{
                   ...colorMerge({
                     color: "gray.opacity.2",
                   }),
                 }}
               >
-                Power Save Pays
+                <Translate content="power save pays" />
               </p>
             </div>
           </div>
@@ -231,7 +242,9 @@ export const LoginPage = () => {
           }}
         >
           <div className="mb-4">
-            <label className="block mb-2">email : </label>
+            <label className="block mb-2 capitalize">
+              <Translate content="email" /> :{" "}
+            </label>
             <Feild
               controls={{
                 [emailRegExp]: {
@@ -245,11 +258,13 @@ export const LoginPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-2">Password</label>
+            <label className="block mb-2 capitalize">
+              <Translate content="password" />
+            </label>
             <Password placeholder="********" state={passwordState} />
           </div>
-          <Button type="submit" className="py-2 rounded-md w-full">
-            Login
+          <Button type="submit" className="py-2">
+            <Translate content="login" />
           </Button>
         </form>
         <div className="flex justify-evenly items-center my-3">
@@ -277,30 +292,32 @@ export const LoginPage = () => {
                 color: "gray.opacity.2",
               }),
             }}
+            className="capitalize"
           >
-            Don't have an account?
+            <Translate content="don't have an account?" />
           </span>{" "}
           <Anchor
             onClick={(e) => {
               e.preventDefault();
               setTemp("focusedLoginView", 1);
             }}
+            className="capitalize"
           >
-            Sign up
+            <Translate content="sign up" />
           </Anchor>
         </p>
       </div>
       <div className="flex justify-center items-center p-8 w-1/2 max-sm:w-full">
         <div className="flex flex-col gap-1">
           <h2
-            className="mb-4 font-semibold text-2xl"
+            className="mb-4 font-semibold text-2xl capitalize"
             style={{
               ...colorMerge({
                 color: "primary",
               }),
             }}
           >
-            Login Into Water Fetch
+            <Translate content="login into water fetch" />
           </h2>
           <p className="mb-4 capitalize">
             <Translate content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />
@@ -310,7 +327,9 @@ export const LoginPage = () => {
               <span className="text-xl">📦</span>
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-lg">History</h3>
+              <h3 className="font-medium text-lg capitalize">
+                <Translate content="history" />
+              </h3>
               <p
                 className="text-sm"
                 style={{
@@ -319,7 +338,7 @@ export const LoginPage = () => {
                   }),
                 }}
               >
-                See All Historys
+                <Translate content="see all historys" />
               </p>
             </div>
           </div>
@@ -328,16 +347,18 @@ export const LoginPage = () => {
               <span className="text-xl">💵</span>
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-lg">Payouts</h3>
+              <h3 className="font-medium text-lg capitalize">
+                <Translate content="payouts" />
+              </h3>
               <p
-                className="text-sm"
+                className="text-sm capitalize"
                 style={{
                   ...colorMerge({
                     color: "gray.opacity.2",
                   }),
                 }}
               >
-                Power Save Pays
+                <Translate content="power save pays" />
               </p>
             </div>
           </div>
@@ -354,9 +375,7 @@ export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
   const colorMerge = useColorMerge();
   const user = useUser();
   const userFromDb = useUserFromDB();
-
   const isDev = getTemp<boolean>("env.isDev");
-
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="p-2">
@@ -469,7 +488,7 @@ export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
   );
 };
 export const ProfileView = ({ children }: ProfileViewProps) => {
-  const user = useUser();
+  const user = useUserFromDB();
   return (
     <div className="relative flex flex-col w-full h-full overflow-hidden">
       <AsyncComponent

@@ -14,6 +14,7 @@ import { SetStateAction } from 'react';
 import { Slice } from '@reduxjs/toolkit';
 import { SliceSelectors } from '@reduxjs/toolkit';
 import { StorageReference } from '@firebase/storage';
+import { Store } from '@reduxjs/toolkit';
 import { StoreEnhancer } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Tuple } from '@reduxjs/toolkit';
@@ -371,7 +372,7 @@ export declare const colorHooks: {
     useChanged(): void;
 };
 
-export declare type ColorIds = keyof typeof data_3;
+export declare type ColorIds = keyof typeof data_2;
 
 export declare const colorSelectors: EntitySelectors<Color, EntityState<Color, EntityId>, EntityId>;
 
@@ -858,13 +859,6 @@ declare const data: {
         }[];
         label: string;
     };
-    "feedback/add": {
-        commands: {
-            payload: string[];
-            type: string;
-        }[];
-        label: string;
-    };
     "header.toggle": {
         commands: {
             payload: string;
@@ -1325,24 +1319,20 @@ declare const data: {
         }[];
         label: string;
     };
+    "bottomSheet/escape": {
+        commands: {
+            payload: {
+                direction: string;
+                force: boolean;
+                value: boolean;
+            };
+            type: string;
+        }[];
+        label: string;
+    };
 };
 
 declare const data_2: {
-    appPassword: {};
-    colorDarkValue: {};
-    colorDefaultValue: {};
-    colorLightValue: {};
-    colorName: {};
-    findCommand: {};
-    "findConfigurations-local": {};
-    number: {};
-    "password/def": {};
-    "setting/number": {};
-    updateConfigSetting: {};
-    "window/password": {};
-};
-
-declare const data_3: {
     autoCompleteInput: {
         default: string;
     };
@@ -1350,6 +1340,7 @@ declare const data_3: {
         dark: string;
         light: string;
     };
+    "bottom-sheeet.background": {};
     "black.opacity": {
         dark: string;
         light: string;
@@ -1379,16 +1370,10 @@ declare const data_3: {
     "error.text": {
         default: string;
     };
-    "facebook-icon": {
-        default: string;
-    };
     "field.background": {
         default: string;
     };
     "focus.text": {
-        default: string;
-    };
-    "google-icon": {
         default: string;
     };
     "gray.opacity": {
@@ -1421,19 +1406,28 @@ declare const data_3: {
     "log.warning.color": {
         default: string;
     };
-    "microsoft-icon": {
+    "notifay.error": {
         default: string;
     };
-    "notifay.error": {
+    "notifay.error.text": {
         default: string;
     };
     "notifay.info": {
         default: string;
     };
+    "notifay.info.text": {
+        default: string;
+    };
     "notifay.success": {
         default: string;
     };
+    "notifay.success.text": {
+        default: string;
+    };
     "notifay.warning": {
+        default: string;
+    };
+    "notifay.warning.text": {
         default: string;
     };
     primary: {
@@ -1451,13 +1445,6 @@ declare const data_3: {
     "primary.hover.background": {
         dark: string;
         light: string;
-    };
-    "qrCode.detection.secuess": {
-        dark: string;
-        light: string;
-    };
-    "qrCode.detection.secuess.content": {
-        default: string;
     };
     secondary: {
         dark: string;
@@ -1503,6 +1490,7 @@ declare const data_3: {
     "submit.background": {
         default: string;
     };
+    "submit.color": {};
     "success.text": {
         default: string;
     };
@@ -1521,16 +1509,7 @@ declare const data_3: {
     transparent: {
         default: string;
     };
-    userIconSetup: {
-        default: string;
-    };
     "warning.text": {
-        default: string;
-    };
-    wifiIconSetup: {
-        default: string;
-    };
-    "window.inWindows.close": {
         default: string;
     };
     opacity: {
@@ -1539,7 +1518,7 @@ declare const data_3: {
     };
 };
 
-declare const data_4: {
+declare const data_3: {
     "preferences/animation.boolean": {
         def: boolean;
         desc: string;
@@ -1675,7 +1654,7 @@ declare const data_4: {
     };
 };
 
-declare const data_5: {
+declare const data_4: {
     settings: {
         focused: string;
         label: string;
@@ -1716,7 +1695,7 @@ declare const data_5: {
     };
 };
 
-declare const data_6: {
+declare const data_5: {
     activity: {};
     keyboardShortcuts: {};
     menuBar: {};
@@ -1726,7 +1705,22 @@ declare const data_6: {
     userSettings: {};
 };
 
-declare const data_7: {};
+declare const data_6: {};
+
+declare const data_7: {
+    appPassword: {};
+    colorDarkValue: {};
+    colorDefaultValue: {};
+    colorLightValue: {};
+    colorName: {};
+    findCommand: {};
+    "findConfigurations-local": {};
+    number: {};
+    "password/def": {};
+    "setting/number": {};
+    updateConfigSetting: {};
+    "window/password": {};
+};
 
 declare const _default: {
     data: {};
@@ -1767,9 +1761,9 @@ export declare interface Feild {
     history?: string[];
 }
 
-export declare type FeildIds = keyof typeof data_2;
+export declare type FeildIds = keyof typeof data_7;
 
-export declare type FeildRecord<T extends string | number> = Record<T, FeildIds>;
+export declare type FeildRecord<T extends string | number> = Record<T, string>;
 
 export declare const fieldEntity: EntityAdapter<Feild, EntityId>;
 
@@ -2103,6 +2097,10 @@ export declare const initFeilds: () => {
     timeLoading: number;
 };
 
+export declare function initHandelKeyboard(): void;
+
+export declare const initialState: KeyState;
+
 export declare function initKeys(): void;
 
 export declare const initLangs: () => {
@@ -2205,6 +2203,13 @@ export declare interface Key {
     private?: boolean;
     action?: Action["actionId"];
 }
+
+export declare const keyboardSlice: Slice<KeyState, {
+setModifier<T extends keyof KeyState>(state: KeyState, { payload }: PayloadAction<{
+modifierName: T;
+value: KeyState[T];
+}>): void;
+}, "keyboard", "keyboard", SliceSelectors<KeyState>>;
 
 export declare const keyHooks: {
     getFull(): InitState<any, "keyId">;
@@ -2440,7 +2445,7 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
-declare interface KeyState extends Record<Parameters<default_2.KeyboardEvent<HTMLElement>["getModifierState"]>[0], boolean> {
+export declare interface KeyState extends Record<Parameters<default_2.KeyboardEvent<HTMLElement>["getModifierState"]>[0], boolean> {
     Key?: string;
 }
 
@@ -3139,7 +3144,7 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
-export declare type NotificationIds = keyof typeof data_7;
+export declare type NotificationIds = keyof typeof data_6;
 
 export declare interface NotificationType {
     id: string;
@@ -3344,7 +3349,7 @@ export declare const positionsHooks: {
     useChanged(): void;
 };
 
-export declare type PositionsIds = keyof typeof data_6;
+export declare type PositionsIds = keyof typeof data_5;
 
 export declare const positionsSlice: Slice<EntityState<Positions, EntityId> & {
 saved: boolean;
@@ -3471,7 +3476,7 @@ export declare const progressTemp: Temp;
 
 export declare const recaptchaTemp: Temp;
 
-export declare function resetManyFeilds<T extends FeildIds>(fields: T[]): void;
+export declare function resetManyFeilds<T extends string>(fields: T[]): void;
 
 export declare type ReturnColorHandelFunction = (allColors: Record<EntityId, Color>, isDark: boolean) => string;
 
@@ -3484,6 +3489,10 @@ export declare const select: (state: {
 export declare const selectColors: (state: {
     [x: string]: InitState<Color, "colorId">;
 }) => InitState<Color, "colorId">;
+
+export declare const selectKeyboard: (state: {
+    [name: string]: KeyState;
+}) => KeyState;
 
 export declare const selectNotifays: (state: {
     [x: string]: InitState<NotificationType, "id">;
@@ -3521,6 +3530,8 @@ export declare const setDarkColor: (colorId: ColorIds | string, value: string) =
 export declare const setDefaultColor: (colorId: ColorIds | string, value: string) => void;
 
 export declare const setLightColor: (colorId: ColorIds | string, value: string) => void;
+
+export declare function setModifier<T extends keyof KeyState>(modifierName: T, value: KeyState[T]): void;
 
 export declare function setPosition(position: TitleInitState["position"]): void;
 
@@ -4075,7 +4086,7 @@ export declare const settingHooks: {
     useChanged(): void;
 };
 
-export declare type SettingIds = keyof typeof data_4;
+export declare type SettingIds = keyof typeof data_3;
 
 export declare const settingSlice: Slice<EntityState<Setting<keyof SettingConfig>, EntityId> & {
 saved: boolean;
@@ -4817,6 +4828,7 @@ declare interface TableDefConfig<T extends object = any, I extends keyof T = any
     data?: Record<EntityId, any>;
     onSave?: (state: Record<EntityId, T>, config: TableDefConfig<T, I, N, A>, fullState: FullStateManagment) => Promise<void> | void;
     onRead?: () => Promise<T[]> | T[];
+    reduxStore?: () => Nothing | Store;
 }
 
 export declare const taostsSlice: Slice<EntityState<ToastType, EntityId> & {
@@ -5389,6 +5401,8 @@ export declare function useManyFeilds<S extends string | number, T extends Feild
 
 export declare function useMemoDelay<G>(fn: () => G, deps?: any[], time?: number): [boolean, G | null];
 
+export declare function useModifier<T extends keyof KeyState>(name: T): KeyState[T];
+
 export declare function useNext(value: string | undefined, selection: TextAreaProps["selection"]): string;
 
 export declare function usePrevious(value: string | undefined, selection: TextAreaProps["selection"]): string;
@@ -5602,7 +5616,7 @@ export declare const viewHooks: {
     useChanged(): void;
 };
 
-export declare type ViewIds = keyof typeof data_5;
+export declare type ViewIds = keyof typeof data_4;
 
 export declare const viewSlice: Slice<EntityState<View, EntityId> & {
 saved: boolean;
