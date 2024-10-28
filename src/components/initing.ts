@@ -1,9 +1,8 @@
 import React from "react";
 import { colorHooks } from "@/data/system/colors.model";
-import { setTemp } from "@/reducers/Object/object.slice";
-import { getColor, useSettingValue } from "@/hooks";
-import { initHandelKeyboard } from "@/reducers/Global/keyboard.slice";
-export function initDarkSystem() {
+import { getColor, setTemp, useSettingValue } from "@/hooks";
+import { setModifier } from "@/reducers/Global/keyboard.slice";
+export function initConfigurations(more?: () => void) {
   const isDark = useSettingValue("window/dark.boolean");
   const mainBackground = colorHooks.getOne("primary.background");
   const mainColor = colorHooks.getOne("text.color");
@@ -58,8 +57,6 @@ export function initDarkSystem() {
       element?.remove();
     };
   }, [isDark, bgSelectedColor, textSelectedColor, font]);
-}
-export function initAdress() {
   // desc: for check connection
   React.useEffect(() => {
     function callback() {
@@ -77,10 +74,32 @@ export function initAdress() {
     };
   }, []);
   // desc: for get local ip adress
-}
-export function initConfigurations(more?: () => void) {
-  initDarkSystem();
-  initAdress();
-  initHandelKeyboard();
+  React.useEffect(() => {
+    const handel = (e: KeyboardEvent) => {
+      if (!e.repeat) {
+        setModifier("Shift", e.getModifierState("Shift"));
+        setModifier("Alt", e.getModifierState("Alt"));
+        setModifier("Control", e.getModifierState("Control"));
+        setModifier("SymbolLock", e.getModifierState("SymbolLock"));
+        setModifier("AltGraph", e.getModifierState("AltGraph"));
+        setModifier("CapsLock", e.getModifierState("CapsLock"));
+        setModifier("Fn", e.getModifierState("Fn"));
+        setModifier("FnLock", e.getModifierState("FnLock"));
+        setModifier("Hyper", e.getModifierState("Hyper"));
+        setModifier("Meta", e.getModifierState("Meta"));
+        setModifier("NumLock", e.getModifierState("NumLock"));
+        setModifier("Super", e.getModifierState("Super"));
+        setModifier("ScrollLock", e.getModifierState("ScrollLock"));
+        setModifier("Symbol", e.getModifierState("Symbol"));
+        setModifier("Key", e.key);
+      }
+    };
+    addEventListener("keydown", handel);
+    addEventListener("keyup", handel);
+    return () => {
+      removeEventListener("keydown", handel);
+      removeEventListener("keyup", handel);
+    };
+  }, []);
   more?.();
 }

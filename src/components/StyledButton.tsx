@@ -1,6 +1,6 @@
 import { useSettingValue, handelShadowColor, useColorMerge } from "@/hooks";
-import { ClickProps } from "@/types/global";
 import { tw } from "@/utils";
+import { ClickProps } from "@/types/global";
 export const StyledButton = ({ className, children, ...props }: ClickProps<HTMLButtonElement>) => {
   const colorMerge = useColorMerge();
   const isAnimated = useSettingValue("preferences/animation.boolean");
@@ -8,9 +8,7 @@ export const StyledButton = ({ className, children, ...props }: ClickProps<HTMLB
     <button
       {...props}
       style={{
-        ...colorMerge({
-          color: "primary",
-        }),
+        ...colorMerge({}),
       }}
       className={tw("styled-btn", isAnimated && "transition-transform", className)}
     >

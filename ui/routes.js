@@ -1,9 +1,9 @@
-import { a as c, j as o, C as n, E as f } from "./SeparatedComponents-DfUPj3TY.mjs";
-import { a0 as l, j as m, U as i, aR as x, a as w } from "./index-8xvo7Uwy.mjs";
-import { Z as p } from "./index-Cep-AhVL.mjs";
+import { a as c, j as o, C as n, E as f } from "./SeparatedComponents-BcE_KymC.mjs";
+import { $ as l, a5 as m, T as i, aS as x, a as w } from "./index-BxYKyuvy.mjs";
+import { Z as p } from "./index-DdFCMvT_.mjs";
 import u from "react";
 import { getUserFunction as j } from "./apis.js";
-const U = ({ onAuthSuccess: t, successComponent: s = /* @__PURE__ */ o(f, {}) }) => {
+const k = ({ onAuthSuccess: t, successComponent: s = /* @__PURE__ */ o(f, {}) }) => {
   const r = new URLSearchParams(location.search).get("token"), e = l(), a = m(async () => {
     await p(1200), r && i.server && await x(i.server.auth, r);
   }, [r]);
@@ -13,7 +13,7 @@ const U = ({ onAuthSuccess: t, successComponent: s = /* @__PURE__ */ o(f, {}) })
     a && /* @__PURE__ */ o(n, { circleClassName: "border-4 w-[50px] h-[50px]" }),
     e && (typeof s == "function" ? /* @__PURE__ */ o(s, { user: e }) : s)
   ] });
-}, k = ({ onPayoutSuccess: t, successComponent: s = /* @__PURE__ */ o(f, {}) }) => {
+}, N = ({ onPayoutSuccess: t, successComponent: s = /* @__PURE__ */ o(f, {}) }) => {
   const r = new URLSearchParams(location.search).get("payout_id"), e = l(), a = w(null), y = m(async () => {
     if (await p(1200), r && e) {
       const { callback: d } = j("payout-get"), h = await d({
@@ -30,6 +30,6 @@ const U = ({ onAuthSuccess: t, successComponent: s = /* @__PURE__ */ o(f, {}) })
   ] });
 };
 export {
-  U as AuthRoute,
-  k as PayoutRoute
+  k as AuthRoute,
+  N as PayoutRoute
 };

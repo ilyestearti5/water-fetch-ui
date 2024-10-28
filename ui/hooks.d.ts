@@ -233,6 +233,8 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
+export declare const addCommand: (command: Command, keys: Omit<Key, "command">[]) => void;
+
 export declare const addNewWord: (text: string, langs: Record<string, string>) => void;
 
 export declare type AllLangs = "ar" | "fr" | "en" | "es" | "de" | "it" | "ja" | "ko" | "pt" | "ru" | "zh";
@@ -269,15 +271,13 @@ export declare function checkFormByFeilds(fields: string[], state?: FullStateMan
 
 export declare const closeApplications: () => void;
 
+export declare const closeBottomSheet: () => void;
+
 export declare const closeFrame: () => void;
 
 export declare function closeNotifays(): void;
 
 export declare const closeProfile: () => void;
-
-declare interface Cmd extends Command {
-    keys: Omit<Key, "command">[];
-}
 
 export declare interface Color {
     colorId: string;
@@ -1722,9 +1722,22 @@ declare const data_7: {
     "window/password": {};
 };
 
+export declare interface DatePickerTimeOptions {
+    properties: ["year", "month", "minutes", "hours", "seconds", "milliseconds"];
+    init: number | Date;
+}
+
+export declare interface DatePickerTimeResult {
+    time: number;
+    canceled: boolean;
+    id: string;
+}
+
 declare const _default: {
     data: {};
 };
+
+export declare const defineKeys: (command: CommandIds | string, keys: Omit<Key, "command">[]) => void;
 
 declare interface DialogProps extends Electron.MessageBoxOptions {
     force?: boolean;
@@ -2096,8 +2109,6 @@ export declare const initFeilds: () => {
     status: QueryStatus;
     timeLoading: number;
 };
-
-export declare function initHandelKeyboard(): void;
 
 export declare const initialState: KeyState;
 
@@ -2871,8 +2882,6 @@ loadingTime: number;
 changed: boolean;
 }>>;
 
-declare type MebePromise<T> = T | Promise<T>;
-
 export declare const menuTemp: Temp;
 
 declare const name_2 = "commands";
@@ -3204,6 +3213,8 @@ export declare const onState: <T extends object | string | number | boolean | nu
 
 export declare function openCamera<T extends keyof FullCameraResult>(type: T): Promise<CameraResult<T>>;
 
+export declare const openDatePicker: (config: Partial<DatePickerTimeOptions>) => Promise<DatePickerTimeResult>;
+
 export declare function openDialog(props: DialogProps): Promise<Electron.MessageBoxReturnValue>;
 
 export declare function openDuringNotifay(notifay: Partial<NotificationType>, options?: Partial<{
@@ -3474,6 +3485,8 @@ changed: boolean;
 
 export declare const progressTemp: Temp;
 
+declare type ReactElement<T = HTMLDivElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
+
 export declare const recaptchaTemp: Temp;
 
 export declare function resetManyFeilds<T extends string>(fields: T[]): void;
@@ -3594,6 +3607,7 @@ export declare interface SettingConfig {
         locked: boolean;
         hint: string;
         autoChange: boolean;
+        mode: ReactElement["inputMode"];
     }>;
     boolean: Partial<{
         onActive: string;
@@ -3611,7 +3625,13 @@ export declare interface SettingConfig {
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps>;
-    array: Partial<{}>;
+    array: Partial<{
+        controls: Record<string, {
+            succ?: string;
+            err?: string;
+        }> | undefined;
+        addText: string;
+    }>;
     filter: Partial<{
         list: {
             content: string;
@@ -3638,6 +3658,7 @@ export declare interface SettingConfig {
         isFloat: boolean;
         showValue: boolean;
         marked: Record<number, string>;
+        steps: number;
     }>;
 }
 
@@ -3663,6 +3684,7 @@ export declare const settingHooks: {
             locked: boolean;
             hint: string;
             autoChange: boolean;
+            mode: ReactElement["inputMode"];
         }> | Partial<{
             max: number;
             min: number;
@@ -3705,6 +3727,12 @@ export declare const settingHooks: {
             nullable: boolean;
             expandIcon: boolean;
         }> | Partial<{}> | Partial<{
+            controls: Record<string, {
+                succ?: string;
+                err?: string;
+            }> | undefined;
+            addText: string;
+        }> | Partial<{
             canEmpty: string;
         }> | Partial<{
             min: number;
@@ -3712,6 +3740,7 @@ export declare const settingHooks: {
             isFloat: boolean;
             showValue: boolean;
             marked: Record<number, string>;
+            steps: number;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -3733,6 +3762,7 @@ export declare const settingHooks: {
                 locked: boolean;
                 hint: string;
                 autoChange: boolean;
+                mode: ReactElement["inputMode"];
             }> | Partial<{
                 max: number;
                 min: number;
@@ -3775,6 +3805,12 @@ export declare const settingHooks: {
                 nullable: boolean;
                 expandIcon: boolean;
             }> | Partial<{}> | Partial<{
+                controls: Record<string, {
+                    succ?: string;
+                    err?: string;
+                }> | undefined;
+                addText: string;
+            }> | Partial<{
                 canEmpty: string;
             }> | Partial<{
                 min: number;
@@ -3782,6 +3818,7 @@ export declare const settingHooks: {
                 isFloat: boolean;
                 showValue: boolean;
                 marked: Record<number, string>;
+                steps: number;
             }> | undefined;
             deperacted?: boolean;
             def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -3800,6 +3837,7 @@ export declare const settingHooks: {
         locked: boolean;
         hint: string;
         autoChange: boolean;
+        mode: ReactElement["inputMode"];
         }> | Partial<{
         max: number;
         min: number;
@@ -3842,6 +3880,12 @@ export declare const settingHooks: {
         nullable: boolean;
         expandIcon: boolean;
         }> | Partial<{}> | Partial<{
+        controls: Record<string, {
+        succ?: string;
+        err?: string;
+        }> | undefined;
+        addText: string;
+        }> | Partial<{
         canEmpty: string;
         }> | Partial<{
         min: number;
@@ -3849,6 +3893,7 @@ export declare const settingHooks: {
         isFloat: boolean;
         showValue: boolean;
         marked: Record<number, string>;
+        steps: number;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -3868,6 +3913,7 @@ export declare const settingHooks: {
             locked: boolean;
             hint: string;
             autoChange: boolean;
+            mode: ReactElement["inputMode"];
         }> | Partial<{
             max: number;
             min: number;
@@ -3910,6 +3956,12 @@ export declare const settingHooks: {
             nullable: boolean;
             expandIcon: boolean;
         }> | Partial<{}> | Partial<{
+            controls: Record<string, {
+                succ?: string;
+                err?: string;
+            }> | undefined;
+            addText: string;
+        }> | Partial<{
             canEmpty: string;
         }> | Partial<{
             min: number;
@@ -3917,6 +3969,7 @@ export declare const settingHooks: {
             isFloat: boolean;
             showValue: boolean;
             marked: Record<number, string>;
+            steps: number;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -3937,6 +3990,7 @@ export declare const settingHooks: {
                 locked: boolean;
                 hint: string;
                 autoChange: boolean;
+                mode: ReactElement["inputMode"];
             }> | Partial<{
                 max: number;
                 min: number;
@@ -3979,6 +4033,12 @@ export declare const settingHooks: {
                 nullable: boolean;
                 expandIcon: boolean;
             }> | Partial<{}> | Partial<{
+                controls: Record<string, {
+                    succ?: string;
+                    err?: string;
+                }> | undefined;
+                addText: string;
+            }> | Partial<{
                 canEmpty: string;
             }> | Partial<{
                 min: number;
@@ -3986,6 +4046,7 @@ export declare const settingHooks: {
                 isFloat: boolean;
                 showValue: boolean;
                 marked: Record<number, string>;
+                steps: number;
             }> | undefined;
             deperacted?: boolean;
             def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4004,6 +4065,7 @@ export declare const settingHooks: {
         locked: boolean;
         hint: string;
         autoChange: boolean;
+        mode: ReactElement["inputMode"];
         }> | Partial<{
         max: number;
         min: number;
@@ -4046,6 +4108,12 @@ export declare const settingHooks: {
         nullable: boolean;
         expandIcon: boolean;
         }> | Partial<{}> | Partial<{
+        controls: Record<string, {
+        succ?: string;
+        err?: string;
+        }> | undefined;
+        addText: string;
+        }> | Partial<{
         canEmpty: string;
         }> | Partial<{
         min: number;
@@ -4053,6 +4121,7 @@ export declare const settingHooks: {
         isFloat: boolean;
         showValue: boolean;
         marked: Record<number, string>;
+        steps: number;
         }> | undefined;
         deperacted?: boolean;
         def?: string | number | boolean | Record<string, string> | string[] | null | undefined;
@@ -4234,6 +4303,8 @@ export declare function setX(origin?: TitleInitState["x"]): void;
 export declare function setY(origin?: TitleInitState["y"]): void;
 
 export declare const showApplications: () => void;
+
+export declare const showBottomSheet: () => void;
 
 export declare const showFrame: (src: string | URL, id?: string) => string;
 
@@ -4510,19 +4581,6 @@ export declare interface SlotType {
     length?: number;
     direction?: "forward" | "backward" | null;
     redirect?: boolean;
-}
-
-declare interface StartApplicationProps {
-    app: JSX.Element | (() => JSX.Element);
-    loading?: JSX.Element | (() => JSX.Element);
-    onPrepare?: () => MebePromise<undefined | void | {
-        colors?: Color[];
-        settings?: Setting<keyof SettingValueType>[];
-        commands?: Cmd[];
-        translations?: Lang[];
-    }>;
-    timeLoading?: number;
-    isDev?: boolean;
 }
 
 export declare const startReloadTemps: () => void;
@@ -5450,8 +5508,6 @@ export declare function useTemp<T>(direction: string): {
     get: T | null;
     set: default_2.Dispatch<default_2.SetStateAction<T | null>>;
 };
-
-export declare const useTemplateInfo: () => StartApplicationProps | null;
 
 export declare const useUser: () => User | null;
 

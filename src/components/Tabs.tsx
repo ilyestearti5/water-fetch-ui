@@ -10,16 +10,17 @@ export interface TabsProps extends ReactElement {
   state: State<string>;
   tabs?: { label: string; value: string; icon?: IconProps["icon"] }[];
   hideLabelWhereSmalled?: boolean;
+  direction?: "vertical" | "horizontal";
 }
-export const Tabs = ({ state, tabs = [], hideLabelWhereSmalled = true, buttonClassName, className, style, ...props }: TabsProps) => {
+export const Tabs = ({ state, tabs = [], direction = "horizontal", hideLabelWhereSmalled = true, buttonClassName, className, style, ...props }: TabsProps) => {
   const colorMerge = useColorMerge();
-  // const index = React.useMemo(() => {
-  //   return tabs.map(({ value }) => value).indexOf(state.get);
-  // }, [state.get, tabs]);
-  // const animation = useSettingValue("preferences/animation.boolean");
   return (
     <div
-      className={tw("flex items-stretch gap-2 p-2 border border-transparent border-solid rounded-full overflow-hidden", className)}
+      className={tw(
+        "flex p-2 border border-transparent border-solid overflow-hidden",
+        direction == "horizontal" ? "rounded-full gap-x-2 flex-row items-stretch" : "flex-col gap-y-2 rounded-3xl",
+        className,
+      )}
       style={{
         ...colorMerge("secondary.background", {
           borderColor: "borders",
@@ -42,7 +43,7 @@ export const Tabs = ({ state, tabs = [], hideLabelWhereSmalled = true, buttonCla
           const isActive = state.get == value;
           return (
             <Button
-              className={tw("rounded-full w-fit px-7 py-4", isActive && "font-bold", buttonClassName)}
+              className={tw("rounded-full w-fit px-7 py-4", direction == "vertical" && "w-full", buttonClassName)}
               style={{
                 ...colorMerge(
                   !isActive && "transparent",

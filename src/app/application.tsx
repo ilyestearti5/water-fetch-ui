@@ -1,24 +1,27 @@
 import settings from "@/apis/settings";
+import "@/scss/index.scss";
 import React from "react";
 import { store } from "@/store";
 import { Setting, settingHooks } from "@/reducers/Settings/settings.model";
 import { Provider } from "react-redux";
 import { initSystem } from "@/components/initSystem";
 import { initConfigurations } from "@/components/initing";
+import { Command, execCommand } from "@/data/system/command.model";
 import { execAction } from "@/data/system/actions.model";
 import { EmptyComponent } from "@/components/EmptyComponent";
 import { defaultObject, delay, mapAsync } from "@/utils";
 import { createRoot } from "react-dom/client";
-import { commandsHooks, execCommand } from "@/data/system/command.model";
-import { Color, colorHooks, getTemp, initUser, keyHooks, Lang, langHooks, setTemp, SettingValueType, useIdleStatus } from "@/hooks";
-import { Cmd, getLocalDB, Server } from "@/apis";
+import { getLocalDB, Server } from "@/apis";
 import { Button, Card, CircleLoading, Translate } from "@/components";
-import "@/scss/index.scss";
+import { addCommand, Color, colorHooks, getTemp, initUser, Key, Lang, langHooks, setTemp, SettingValueType, useIdleStatus } from "@/hooks";
 const { data } = settings;
 export const defineGlobal = (name: string, config: any) => {
   window[name] = config;
 };
 export type MebePromise<T> = T | Promise<T>;
+export declare interface Cmd extends Command {
+  keys: Omit<Key, "command">[];
+}
 export interface StartApplicationProps {
   app: JSX.Element | (() => JSX.Element);
   loading?: JSX.Element | (() => JSX.Element);
@@ -93,24 +96,13 @@ export const Application = ({ props }: ApplicationProps) => {
       });
     }
     if (config.translations) {
-      await mapAsync(config.translations, async (lang) => {
-        await delay(20);
+      config.translations.map((lang) => {
         langHooks.upsert([lang]);
       });
     }
     if (config.commands) {
-      await mapAsync(config.commands, async ({ commandId, keys, ...command }) => {
-        await delay(30);
-        commandsHooks.upsert([
-          {
-            ...command,
-            commandId,
-          },
-        ]);
-        await mapAsync(keys, async (key) => {
-          await delay(10);
-          keyHooks.upsert([key]);
-        });
+      config.commands.map(({ keys, ...command }) => {
+        addCommand(command, keys);
       });
     }
     setTemp("project", config);

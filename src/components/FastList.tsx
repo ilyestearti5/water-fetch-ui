@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Focus } from "@/components/Focus";
 import { mergeObject, tw, isSorted } from "@/utils";
 import { ReactElement } from "@/types/global";
@@ -132,6 +132,8 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
   }, [heightPercantage]);
   const elementRef = React.createRef<HTMLDivElement>();
 
+  const firstTouch = useCopyState<number | null>(null);
+
   return (
     <Focus {...props} focusId={focusId} className="relative w-full h-full select-none" ignoreOutline={typeof focused == "number"} id={slotId}>
       <ChangableComponent
@@ -140,6 +142,23 @@ export function FastList<T>({ focusId, itemSize, slotId, component, handelSkip, 
           changableComponentViewConfig.set(props);
         }}
         className="relative h-full overflow-hidden"
+        onTouchStart={(e) => {
+          firstTouch.set(e.touches.item(0).clientY);
+        }}
+        // onTouchMove={(e) => {
+        //   if (firstTouch.get === null) {
+        //     return;
+        //   }
+        //   const y = changableComponentViewConfig.get?.y;
+        //   if (y === undefined) {
+        //     return;
+        //   }
+        //   const clientY = e.touches.item(0).clientY;
+
+        // }}
+        onTouchEnd={() => {
+          firstTouch.set(null);
+        }}
         onWheel={(e) => {
           if (heightPercantage < 100) {
             let speed = false;

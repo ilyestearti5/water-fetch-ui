@@ -37,8 +37,8 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
             boxShadow: handelShadowColor([
               {
                 colorId: "shadow.color",
-                blur: 20,
-                size: 3,
+                blur: 10,
+                size: 1,
                 x: 0,
                 y: 4,
               },
@@ -47,7 +47,7 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
         ),
         ...style,
       }}
-      className={tw(`flex items-center justify-center p-2 rounded-[15%] cursor-pointer border border-solid active:scale-95`, isAnimation && "transition-[background,color,transform]", className)}
+      className={tw(`flex items-center justify-center p-2 rounded-[15%] cursor-pointer active:scale-95`, isAnimation && "transition-[background,color,transform]", className)}
       {...props}
     >
       <Icon iconClassName={iconClassName} icon={icon} />

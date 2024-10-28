@@ -21,23 +21,36 @@ export const BottomSheetLayout = ({ children, min, max }: BottomSheetLayoutProps
   }, [isOpen.get]);
   const height = useCopyState<null | number>(null);
   const start = useCopyState(false);
+  const isMove = useCopyState(false);
   const touchMove = useCopyState(false);
   React.useEffect(() => {
     if (!start.get) {
       return;
     }
     const move = (e: MouseEvent) => {
+      e.preventDefault();
       const { clientY } = e;
       const h = innerHeight - (height.get ?? 0);
       const value = -h + clientY - 28 / 2;
       transformState.set(value);
+      isMove.set(true);
     };
-    const up = () => {
+    const up = (e: MouseEvent) => {
       start.set(false);
+      if (e.clientY) {
+        if (e.clientY >= (height.get ?? 0) / 3) {
+          isOpen.set(false);
+          transformState.set(10000);
+          isMove.set(false);
+        } else {
+          transformState.set(0);
+        }
+      }
     };
     document.addEventListener("mousemove", move);
     document.addEventListener("mouseup", up);
     return () => {
+      isMove.set(false);
       document.removeEventListener("mousemove", move);
       document.removeEventListener("mouseup", up);
     };
@@ -80,15 +93,17 @@ export const BottomSheetLayout = ({ children, min, max }: BottomSheetLayoutProps
         className={tw(
           `fixed overflow-hidden z-[1000] flex-none min-h-[100px] flex flex-col max-h-[60vh] inset-x-0 bottom-0 border-x border-t border-solid border-transparent shadow-lg transform translate-y-full rounded-ss-3xl rounded-se-3xl`,
           isOpen.get && "translate-y-0",
-          !touchMove.get && "transition-transform duration-300",
+          !isMove.get && "transition-transform duration-300",
         )}
       >
         <div
+          className="cursor-row-resize"
           onTouchStart={() => {
-            touchMove.set(false);
+            isMove.set(true);
           }}
           // for mobile
           onTouchMove={(e) => {
+            e.preventDefault();
             touchMove.set(true);
             const { clientY } = e.touches[0];
             const h = innerHeight - (height.get ?? 0);
@@ -97,6 +112,7 @@ export const BottomSheetLayout = ({ children, min, max }: BottomSheetLayoutProps
           }}
           onTouchEnd={() => {
             touchMove.set(false);
+            isMove.set(false);
             const value = transformState.get;
             if (value) {
               if (value >= (height.get ?? 0) / 3) {
@@ -120,15 +136,15 @@ export const BottomSheetLayout = ({ children, min, max }: BottomSheetLayoutProps
             className="z-[1000] flex justify-center items-center h-[28px]"
           >
             <div
-              className="rounded-full w-[70px] h-1.5 cursor-row-resize"
+              className="rounded-full w-[70px] h-1.5"
               style={{
-                ...colorMerge("gray.opacity"),
+                ...colorMerge("gray.opacity.2"),
               }}
             />
           </div>
         </div>
         <Line />
-        <div className="h-full overflow-hidden">{children}</div>
+        <div className="overflow-hidden">{children}</div>
       </ChangableComponent>
     </EmptyComponent>
   );

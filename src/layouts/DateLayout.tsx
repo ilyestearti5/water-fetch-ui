@@ -1,31 +1,52 @@
 import { allIcons } from "@/apis";
-import { BlurOverlay, Card, CircleTip, Line, Button, Translate, Tabs, MultiScreenPage, EmptyComponent } from "@/components";
-import { useCopyState, useColorMerge, ColorIds } from "@/hooks";
+import { BlurOverlay, Card, CircleTip, Line, Button, Translate, Tabs, MultiScreenPage, EmptyComponent, Input } from "@/components";
+import { useCopyState, useColorMerge, ColorIds, useTemp, getTemp, setTemp } from "@/hooks";
 import { isSorted, range, tw } from "@/utils";
-import React, { useState } from "react";
+import React from "react";
 export const DateLayout = () => {
-  const [selectedTime, setSelectedTime] = useState<{ hour: number | null; minute: number | null }>({ hour: null, minute: null });
-  const [mode, setMode] = useState<"hours" | "minutes">("hours"); // State to switch between hour and minute modes
+  const timeId = useTemp<string>("date-layout-time.id");
+  const initTime = getTemp<number>("date-layout-time.init");
+  const selectedTime = useCopyState<{ hour: number | null; minute: number | null }>({ hour: null, minute: null });
+  React.useEffect(() => {
+    if (timeId.get) {
+      if (initTime) {
+        let dateTime = new Date(initTime);
+        selectedTime.set({
+          hour: dateTime.getHours(),
+          minute: dateTime.getMinutes(),
+        });
+      } else {
+        selectedTime.set({
+          hour: null,
+          minute: null,
+        });
+      }
+    }
+  }, [timeId.get, initTime]);
+  const mode = useCopyState<"hours" | "minutes">("hours"); // State to switch between hour and minute modes
   // Arrays for hours (0-23) and minutes (0-59)
-  const hours = [12, ...range(1, 11)];
-  const minutes = [...range(0, 19)];
+  const hours = React.useMemo(() => [12, ...range(1, 11)], []);
+  const minutes = React.useMemo(() => [...range(0, 19)], []);
   // Function to calculate the position of each hour/minute
-  const getPosition = (index: number, total: number, radius: number) => {
+  const getPosition = React.useCallback((index: number, total: number, radius: number) => {
     const angle = (index / total) * 2 * Math.PI;
     const x = radius + radius * Math.cos(angle - Math.PI / 2); // Offset by 90 degrees
     const y = radius + radius * Math.sin(angle - Math.PI / 2);
     return { x, y };
-  };
-  const handleSelectTime = (value: number) => {
-    if (mode === "hours") {
-      setSelectedTime({ ...selectedTime, hour: value });
-    } else {
-      setSelectedTime({ ...selectedTime, minute: value });
-    }
-  };
-  const timeArray = mode === "hours" ? hours : minutes; // Determine which array to display (hours or minutes)
-  const totalItems = mode === "hours" ? 12 : 20; // Total items to display (24 hours or 60 minutes)
-  const radius = mode === "hours" ? 120 : 120; // Outer circle radius for hours/minutes
+  }, []);
+  const handleSelectTime = React.useCallback(
+    (value: number) => {
+      if (mode.get === "hours") {
+        selectedTime.set({ ...selectedTime.get, hour: value });
+      } else {
+        selectedTime.set({ ...selectedTime.get, minute: value });
+      }
+    },
+    [mode.get],
+  );
+  const timeArray = mode.get === "hours" ? hours : minutes; // Determine which array to display (hours or minutes)
+  const totalItems = mode.get === "hours" ? 12 : 20; // Total items to display (24 hours or 60 minutes)
+  const radius = mode.get === "hours" ? 120 : 120; // Outer circle radius for hours/minutes
   // Calculate the position of the hand pointing to the selected hour or minute
   const colorMerge = useColorMerge();
   const dayState = useCopyState("am");
@@ -35,13 +56,13 @@ export const DateLayout = () => {
     y: number;
     colorId: ColorIds;
   } | null>(() => {
-    const selectedValue = mode === "hours" ? selectedTime.hour : selectedTime.minute;
+    const selectedValue = mode.get === "hours" ? selectedTime.get.hour : selectedTime.get.minute;
     if (selectedValue === null) return null;
     const angle = (selectedValue / totalItems) * 2 * Math.PI;
     const x = radius + radius * Math.cos(angle - Math.PI / 2);
     const y = radius + radius * Math.sin(angle - Math.PI / 2);
     let props: Record<string, [number, number]> =
-      mode == "minutes"
+      mode.get == "minutes"
         ? {
             "0": [0, 19],
             "20": [20, 39],
@@ -51,15 +72,15 @@ export const DateLayout = () => {
             "0": [0, 12],
             "12": [12, 24],
           };
-    const [a, b] = props[mode == "minutes" ? afterState.get : dayState.get];
+    const [a, b] = props[mode.get == "minutes" ? afterState.get : dayState.get];
     return {
       x,
       y,
       colorId: isSorted(a, selectedValue, b) ? "primary" : "gray.opacity",
     };
-  }, [afterState.get, dayState.get, selectedTime, totalItems, mode]);
+  }, [afterState.get, dayState.get, selectedTime.get, totalItems, mode.get]);
   return (
-    <BlurOverlay hidden={true}>
+    <BlurOverlay hidden={!timeId.get}>
       <Card className="flex flex-col max-md:rounded-none w-1/2 max-md:w-full max-md:h-full">
         <div className="flex justify-between items-center gap-2 p-2">
           <h1 className="text-3xl">
@@ -69,7 +90,10 @@ export const DateLayout = () => {
             <CircleTip
               icon={allIcons.solid.faXmark}
               onClick={() => {
-                // close clouck picker action
+                if (initTime && timeId.get) {
+                  setTemp("date-layout-time.canceled", true);
+                  setTemp("date-layout-time.result", initTime);
+                }
               }}
             />
           </div>
@@ -107,12 +131,12 @@ export const DateLayout = () => {
             {/* Display hours/minutes in a circular layout */}
             {timeArray.map((value, index) => {
               const { x, y } = getPosition(index, totalItems, 120); // Adjust outer radius
-              let isSomthing = (mode === "hours" && selectedTime.hour === +dayState.get + value) || (mode === "minutes" && selectedTime.minute === +afterState.get + value);
+              let isSomthing = (mode.get === "hours" && selectedTime.get.hour === +dayState.get + value) || (mode.get === "minutes" && selectedTime.get.minute === +afterState.get + value);
               return (
                 <g
                   key={value}
                   onClick={() => {
-                    if (mode == "minutes") {
+                    if (mode.get == "minutes") {
                       handleSelectTime(+afterState.get + value);
                     } else {
                       handleSelectTime(+dayState.get + value);
@@ -123,7 +147,7 @@ export const DateLayout = () => {
                   <circle
                     cx={x + 30}
                     cy={y + 30}
-                    r={mode == "hours" ? "20" : "15"}
+                    r={mode.get == "hours" ? "20" : "15"}
                     style={{
                       ...colorMerge(
                         {
@@ -140,7 +164,7 @@ export const DateLayout = () => {
                     y={y + 30}
                     dy="0.3em"
                     textAnchor="middle"
-                    fontSize={mode == "minutes" ? "13" : "16"}
+                    fontSize={mode.get == "minutes" ? "13" : "16"}
                     style={{
                       ...colorMerge(
                         {
@@ -153,8 +177,8 @@ export const DateLayout = () => {
                     }}
                     className="select-none"
                   >
-                    {mode == "minutes" && value + +afterState.get}
-                    {mode == "hours" && value + +dayState.get}
+                    {mode.get == "minutes" && value + +afterState.get}
+                    {mode.get == "hours" && value + +dayState.get}
                   </text>
                 </g>
               );
@@ -164,37 +188,37 @@ export const DateLayout = () => {
         </div>
         <Line />
         <div className="p-3 text-5xl text-center select-none">
-          <span className="cursor-pointer">
+          <span tabIndex={1} className="cursor-pointer">
             <span
               style={{
                 ...colorMerge(
-                  mode == "hours" && {
+                  mode.get == "hours" && {
                     color: "primary",
                   },
                 ),
               }}
               onClick={() => {
-                setMode("hours");
+                mode.set("hours");
               }}
-              className={tw(mode == "hours" && "font-bold")}
+              className={tw(mode.get == "hours" && "font-bold")}
             >
-              {selectedTime.hour == null ? "--" : selectedTime.hour >= 10 ? selectedTime.hour : `0${selectedTime.hour}`}
+              {selectedTime.get.hour == null ? "--" : selectedTime.get.hour >= 10 ? selectedTime.get.hour : `0${selectedTime.get.hour}`}
             </span>
             :
             <span
               style={{
                 ...colorMerge(
-                  mode == "minutes" && {
+                  mode.get == "minutes" && {
                     color: "primary",
                   },
                 ),
               }}
               onClick={() => {
-                setMode("minutes");
+                mode.set("minutes");
               }}
-              className={tw(mode == "minutes" && "font-bold")}
+              className={tw(mode.get == "minutes" && "font-bold")}
             >
-              {selectedTime.minute == null ? "--" : selectedTime.minute >= 10 ? selectedTime.minute : `0${selectedTime.minute}`}
+              {selectedTime.get.minute == null ? "--" : selectedTime.get.minute >= 10 ? selectedTime.get.minute : `0${selectedTime.get.minute}`}
             </span>
           </span>
         </div>
@@ -238,21 +262,21 @@ export const DateLayout = () => {
                   />
                 </div>,
               ]}
-              focused={mode == "hours" ? 0 : 1}
+              focused={mode.get == "hours" ? 0 : 1}
             />
           </div>
         </div>
         <Line />
         <div className="flex gap-1 p-2">
           <Button
-            className="p-4 capitalize"
+            className="capitalize"
             style={{
               ...colorMerge("gray.opacity", {
                 color: "text.color",
               }),
             }}
             onClick={() => {
-              setSelectedTime({
+              selectedTime.set({
                 hour: null,
                 minute: null,
               });
@@ -260,7 +284,16 @@ export const DateLayout = () => {
           >
             <Translate content="clear" />
           </Button>
-          <Button className="p-4 capitalize" onClick={() => {}}>
+          <Button
+            className="capitalize"
+            onClick={() => {
+              let time = new Date();
+              typeof selectedTime.get?.hour == "number" && time.setHours(selectedTime.get.hour);
+              typeof selectedTime.get?.minute == "number" && time.setMinutes(selectedTime.get.minute);
+              setTemp("date-layout-time.canceled", false);
+              setTemp("date-layout-time.result", time.getTime());
+            }}
+          >
             <Translate content="set" />
           </Button>
         </div>

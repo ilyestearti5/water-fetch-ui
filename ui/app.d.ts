@@ -950,7 +950,7 @@ export declare type InsertRowParams<T> = PayloadAction<readonly T[] | Record<Ent
 declare interface Key {
     value?: string;
     keyId?: string;
-    command?: Command["commandId"];
+    command?: Command_2["commandId"];
     only?: boolean;
     when?: string;
     preventDefault?: boolean;
@@ -963,7 +963,7 @@ declare interface Key {
 declare interface Key_2 {
     value?: string;
     keyId?: string;
-    command?: Command_2["commandId"];
+    command?: Command["commandId"];
     only?: boolean;
     when?: string;
     preventDefault?: boolean;
@@ -1064,6 +1064,8 @@ declare interface Positions extends Partial<Omit<DOMRect, "toJSON">> {
 
 export declare type ReactElement<T = HTMLDivElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
 
+declare type ReactElement_2<T = HTMLDivElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
+
 export declare interface SendEmailProps {
     to: string;
     subject?: string;
@@ -1129,6 +1131,7 @@ declare interface SettingConfig {
         locked: boolean;
         hint: string;
         autoChange: boolean;
+        mode: ReactElement["inputMode"];
     }>;
     boolean: Partial<{
         onActive: string;
@@ -1146,7 +1149,13 @@ declare interface SettingConfig {
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps>;
-    array: Partial<{}>;
+    array: Partial<{
+        controls: Record<string, {
+            succ?: string;
+            err?: string;
+        }> | undefined;
+        addText: string;
+    }>;
     filter: Partial<{
         list: {
             content: string;
@@ -1173,6 +1182,7 @@ declare interface SettingConfig {
         isFloat: boolean;
         showValue: boolean;
         marked: Record<number, string>;
+        steps: number;
     }>;
 }
 
@@ -1203,6 +1213,7 @@ declare interface SettingConfig_2 {
         locked: boolean;
         hint: string;
         autoChange: boolean;
+        mode: ReactElement_2["inputMode"];
     }>;
     boolean: Partial<{
         onActive: string;
@@ -1220,7 +1231,13 @@ declare interface SettingConfig_2 {
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps_2>;
-    array: Partial<{}>;
+    array: Partial<{
+        controls: Record<string, {
+            succ?: string;
+            err?: string;
+        }> | undefined;
+        addText: string;
+    }>;
     filter: Partial<{
         list: {
             content: string;
@@ -1247,6 +1264,7 @@ declare interface SettingConfig_2 {
         isFloat: boolean;
         showValue: boolean;
         marked: Record<number, string>;
+        steps: number;
     }>;
 }
 
@@ -1325,7 +1343,7 @@ declare const store: EnhancedStore<    {
 keyboard: KeyState;
 object: ObjectTemp;
 title: TitleInitState;
-commands: EntityState<Command_2, EntityId> & {
+commands: EntityState<Command, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;
@@ -1465,7 +1483,7 @@ dispatch: ThunkDispatch<    {
 keyboard: KeyState;
 object: ObjectTemp;
 title: TitleInitState;
-commands: EntityState<Command_2, EntityId> & {
+commands: EntityState<Command, EntityId> & {
 saved: boolean;
 status: string;
 writeStatus: string;

@@ -52,7 +52,6 @@ export const CircleLoading = ({ className, circleClassName, ...props }: CircleLo
     </span>
   );
 };
-
 export interface BallLoadingProps extends ReactElement {
   balls?: number;
   ballClassName?: string;
@@ -60,7 +59,6 @@ export interface BallLoadingProps extends ReactElement {
   icon?: IconProps["icon"];
   iconClassName?: string;
 }
-
 export const BallLoading = ({ balls = 3, ballClassName = "", ballStyle, icon, iconClassName }: BallLoadingProps) => {
   const colorMerge = useColorMerge();
   return (
@@ -82,6 +80,21 @@ export const BallLoading = ({ balls = 3, ballClassName = "", ballStyle, icon, ic
           </span>
         );
       })}
+    </div>
+  );
+};
+export interface CardWaitProps extends ReactElement {}
+export const CardWait = ({ className, children, ...props }: CardWaitProps) => {
+  const colorMerge = useColorMerge();
+  return (
+    <div className={tw("relative h-full w-full overflow-hidden", className)} {...props}>
+      <div
+        style={{
+          ...colorMerge("gray.opacity"),
+        }}
+        className="absolute inset-[10px] rounded-xl animate-pulse"
+      />
+      {children}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from "react";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { FeildGeneralProps } from "@/types/global";
+import { FeildGeneralProps, Nothing } from "@/types/global";
 import { JoinComponentBy } from "../JoinComponentBy";
 import { EmptyComponent } from "../EmptyComponent";
 import { setFocused, tw } from "@/utils";
@@ -27,7 +27,13 @@ export const PinField = React.memo(
     const handlePaste = useCallback(async () => {
       const text = (await navigator.clipboard.readText()).replace(/[^0-9]/g, "");
       state.set(text || undefined);
-    }, [state]);
+    }, [state.set]);
+    const maxLength = React.useMemo(() => {
+      return config?.match
+        ?.split("-")
+        .map((s) => s.length)
+        .reduce((prv, curr) => prv + curr, 0);
+    }, [config?.match]);
     return (
       <div tabIndex={1} onFocus={handleFocus}>
         <input
@@ -39,6 +45,7 @@ export const PinField = React.memo(
           onPaste={handlePaste}
           id={id}
           value={stateInString}
+          maxLength={maxLength}
           className="absolute opacity-0 w-0 h-0" // Invisible but accessible for events
         />
         <div className="flex flex-wrap items-center gap-1 rounded-lg w-fit">
@@ -52,6 +59,8 @@ export const PinField = React.memo(
                     const squareNumber = length + j;
                     // Compute styles once per render
                     const width = config?.size || 50;
+                    const isCursor = stateInString.length == squareNumber;
+                    const stringDone = maxLength == stateInString.length;
                     return (
                       <div
                         key={j}
@@ -59,16 +68,17 @@ export const PinField = React.memo(
                           "border-solid border-transparent text-lg border-y border-r flex items-center justify-center",
                           j === 0 && "rounded-ss-lg rounded-es-lg border-l",
                           j + 1 === segments.length && "rounded-se-lg rounded-ee-lg",
+                          isCursor && "border-l",
                         )}
                         style={{
-                          ...colorMerge({ borderColor: "borders" }, focused.get && { borderColor: "primary" }, {
+                          ...colorMerge({ borderColor: "borders" }, focused.get && isCursor && { borderColor: "primary" }, focused.get && stringDone && { borderColor: "primary" }, {
                             boxShadow: handelShadowColor([{ colorId: "shadow.color", blur: 4, size: 0, x: 0, y: 5 }]),
                           }),
                           width,
                           height: width,
                         }}
                       >
-                        {stateInString?.[squareNumber] || "."}
+                        {stateInString?.[squareNumber] || (isCursor ? "|" : "")}
                       </div>
                     );
                   })}

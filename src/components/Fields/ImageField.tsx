@@ -93,7 +93,7 @@ export function ImageFeild({ state, config }: ImageFeildProps) {
             </span>
           </div>
           <Line />
-          <div className="flex gap-3 p-3">
+          <div className="flex gap-3 p-3 overflow-hidden">
             {src && (
               <Tab
                 className="w-[80px] h-[80px]"

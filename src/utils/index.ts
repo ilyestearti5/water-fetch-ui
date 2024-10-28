@@ -60,7 +60,7 @@ export const include = (string?: IncludeParam, find?: IncludeParam) => {
  */
 export const range = (from = 0, to = 1, steps = 1) => {
   if (!steps) {
-    throw Error("cannot be give steps value 0 (infinite loop hapens)");
+    throw "cannot be give steps value 0 (infinite loop hapens)";
   }
   if ((from > to && steps > 0) || (from <= to && steps < 0)) {
     [to, from] = [from, to];

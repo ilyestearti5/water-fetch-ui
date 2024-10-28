@@ -1,3 +1,4 @@
+import { ReactElement } from "@/app";
 import { OpenDialogOptions } from "electron";
 export interface FileProps extends OpenDialogOptions {
   nullable: boolean;
@@ -26,6 +27,7 @@ export interface SettingConfig {
     locked: boolean;
     hint: string;
     autoChange: boolean;
+    mode: ReactElement["inputMode"];
   }>;
   boolean: Partial<{
     onActive: string;
@@ -43,7 +45,18 @@ export interface SettingConfig {
   }>;
   regexp: Partial<{}>;
   file: Partial<FileProps>;
-  array: Partial<{}>;
+  array: Partial<{
+    controls:
+      | Record<
+          string,
+          {
+            succ?: string;
+            err?: string;
+          }
+        >
+      | undefined;
+    addText: string;
+  }>;
   filter: Partial<{
     list: { content: string; value: string }[];
     extra: string[][];
@@ -67,6 +80,7 @@ export interface SettingConfig {
     isFloat: boolean;
     showValue: boolean;
     marked: Record<number, string>;
+    steps: number;
   }>;
 }
 // nesisary values

@@ -44,32 +44,3 @@ export function useModifier<T extends keyof KeyState>(name: T): KeyState[T] {
 export function setModifier<T extends keyof KeyState>(modifierName: T, value: KeyState[T]) {
   store.dispatch(keyboardSlice.actions.setModifier({ modifierName, value }));
 }
-export function initHandelKeyboard() {
-  React.useEffect(() => {
-    const handel = (e: KeyboardEvent) => {
-      if (!e.repeat) {
-        setModifier("Shift", e.getModifierState("Shift"));
-        setModifier("Alt", e.getModifierState("Alt"));
-        setModifier("Control", e.getModifierState("Control"));
-        setModifier("SymbolLock", e.getModifierState("SymbolLock"));
-        setModifier("AltGraph", e.getModifierState("AltGraph"));
-        setModifier("CapsLock", e.getModifierState("CapsLock"));
-        setModifier("Fn", e.getModifierState("Fn"));
-        setModifier("FnLock", e.getModifierState("FnLock"));
-        setModifier("Hyper", e.getModifierState("Hyper"));
-        setModifier("Meta", e.getModifierState("Meta"));
-        setModifier("NumLock", e.getModifierState("NumLock"));
-        setModifier("Super", e.getModifierState("Super"));
-        setModifier("ScrollLock", e.getModifierState("ScrollLock"));
-        setModifier("Symbol", e.getModifierState("Symbol"));
-        setModifier("Key", e.key);
-      }
-    };
-    addEventListener("keydown", handel);
-    addEventListener("keyup", handel);
-    return () => {
-      removeEventListener("keydown", handel);
-      removeEventListener("keyup", handel);
-    };
-  }, []);
-}

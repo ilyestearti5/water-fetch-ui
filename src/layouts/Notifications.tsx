@@ -118,12 +118,14 @@ export function Notifications() {
             {!!notifaysIds.length && (
               <CircleTip
                 onClick={async () => {
-                  let response = 1;
+                  let response = 0;
                   if (confirmationBefore) {
                     const props = await openDialog({
+                      title: "Clear All Notifications",
                       message: "Do You Want To Clear All Notifications",
                       checkboxLabel: "Don't Ask Me Again",
                       buttons: ["Yes", "No"],
+                      defaultId: 0,
                     });
                     if (props.checkboxChecked) {
                       setSettingValue("notification/clearAllConfirmation.boolean", false);

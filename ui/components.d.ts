@@ -14,7 +14,7 @@ export declare function Anchor({ className, style, ...props }: AnchorProps): JSX
 
 export declare type AnchorProps = React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
-export declare function ArrayFeild({ state, id }: ArrayFeildProps): JSX_2.Element;
+export declare function ArrayFeild({ state, id, config }: ArrayFeildProps): JSX_2.Element;
 
 export declare type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
 
@@ -50,6 +50,11 @@ export declare type ButtonProps = default_2.DetailedHTMLProps<default_2.ButtonHT
 export declare const Card: ({ className, style, ...props }: CardProps) => JSX_2.Element;
 
 export declare type CardProps = ReactElement;
+
+export declare const CardWait: ({ className, children, ...props }: CardWaitProps) => JSX_2.Element;
+
+export declare interface CardWaitProps extends ReactElement {
+}
 
 export declare function CenterWindowDrag({ children }: CenterWindowDragProps): JSX_2.Element;
 
@@ -716,6 +721,7 @@ declare interface SettingConfig {
         locked: boolean;
         hint: string;
         autoChange: boolean;
+        mode: ReactElement["inputMode"];
     }>;
     boolean: Partial<{
         onActive: string;
@@ -733,7 +739,13 @@ declare interface SettingConfig {
     }>;
     regexp: Partial<{}>;
     file: Partial<FileProps>;
-    array: Partial<{}>;
+    array: Partial<{
+        controls: Record<string, {
+            succ?: string;
+            err?: string;
+        }> | undefined;
+        addText: string;
+    }>;
     filter: Partial<{
         list: {
             content: string;
@@ -760,6 +772,7 @@ declare interface SettingConfig {
         isFloat: boolean;
         showValue: boolean;
         marked: Record<number, string>;
+        steps: number;
     }>;
 }
 
@@ -833,7 +846,7 @@ export declare interface TabProps extends ClickProps<HTMLSpanElement> {
     isActive?: boolean;
 }
 
-export declare const Tabs: ({ state, tabs, hideLabelWhereSmalled, buttonClassName, className, style, ...props }: TabsProps) => JSX_2.Element;
+export declare const Tabs: ({ state, tabs, direction, hideLabelWhereSmalled, buttonClassName, className, style, ...props }: TabsProps) => JSX_2.Element;
 
 export declare interface TabsProps extends ReactElement {
     buttonClassName?: string;
@@ -844,6 +857,7 @@ export declare interface TabsProps extends ReactElement {
         icon?: IconProps["icon"];
     }[];
     hideLabelWhereSmalled?: boolean;
+    direction?: "vertical" | "horizontal";
 }
 
 export declare const TextAnimation: ({ content, time }: TextAnimationProps) => JSX_2.Element;

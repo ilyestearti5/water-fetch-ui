@@ -57,7 +57,7 @@ export const ApplicationsLayout = () => {
                           }),
                         }}
                       >
-                        <img src={imageUrl ?? undefined} className="w-full h-full object-cover" />
+                        <img loading="lazy" src={imageUrl ?? undefined} className="w-full h-full object-cover" />
                       </div>
                     </div>
                     <Line />

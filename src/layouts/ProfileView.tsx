@@ -1,7 +1,7 @@
 import { viewTemps } from "@/reducers/Object/allTemps";
 import { signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
-import { Server } from "@/apis/firebase";
+import { Server } from "@/apis/server.config";
 import { Password } from "@/components/Fields/PasswordField";
 import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -120,14 +120,14 @@ export const SignupPage = () => {
       <div className="flex justify-center items-center p-8 w-1/2 max-sm:w-full">
         <div className="flex flex-col gap-1">
           <h2
-            className="mb-4 font-semibold text-2xl"
+            className="mb-4 font-semibold text-2xl capitalize"
             style={{
               ...colorMerge({
                 color: "primary",
               }),
             }}
           >
-            Sigin Into Water Fetch
+            <Translate content="sigin into water fetch" />
           </h2>
           <p className="mb-4 capitalize">
             <Translate content="water fetch is a platform give's the possiblity for doing more thing by dahbia card" />

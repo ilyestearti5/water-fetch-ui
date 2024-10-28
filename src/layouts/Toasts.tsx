@@ -64,7 +64,11 @@ export const ToastItem = ({ item, index }: ToastItemProps) => {
   }
   return (
     <div
-      className={tw("flex z-[100000] items-center justify-between p-2 opacity-100 scale-100", startDeleting.get && "opacity-0 scale-0", isAnimated && "transition-[transform,opacity] duration-300")}
+      className={tw(
+        "flex z-[100000] items-center w-full justify-between p-2 opacity-100 scale-100",
+        startDeleting.get && "opacity-0 scale-0",
+        isAnimated && "transition-[transform,opacity] duration-300",
+      )}
       onMouseEnter={() => hover.set(true)}
       onMouseLeave={() => hover.set(false)}
       style={{
@@ -80,7 +84,9 @@ export const ToastItem = ({ item, index }: ToastItemProps) => {
             }),
           }}
         />
-        <MarkDown value={message.toString()} />
+        <div className="w-full overflow-hidden">
+          <MarkDown value={message.toString()} />
+        </div>
       </div>
       <div className="flex items-center">
         <span
@@ -119,7 +125,7 @@ export const Toasts = () => {
   return (
     <div
       className={tw(
-        `fixed z-[100000000000000000000000000000] min-w-[300px] border overflow-hidden border-transparent rounded-md border-solid left-1/2 transform -translate-x-1/2 scale-0`,
+        `fixed z-[100000000000000000000000000000] max-w-[90vw] min-w-[300px] border overflow-hidden border-transparent rounded-md border-solid left-1/2 transform -translate-x-1/2 scale-0`,
         Boolean(list?.length) && "scale-100",
         isAnimated && "transition-transform duration-300",
         position == "top" && "top-[50px]",

@@ -56,7 +56,8 @@ export function InfinityScroll<T, L>({ onUpdate, onScroll, onLoading, updateWher
       {...props}
     >
       {data.get.map((record, index) => {
-        return <div key={index}>{props.render(record, index)}</div>;
+        const element = props.render(record, index);
+        return <div key={index}>{element}</div>;
       })}
       {status.get == "loading" && onLoading?.()}
       {status.get == "error" && onError?.()}

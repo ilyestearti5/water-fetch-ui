@@ -29,15 +29,17 @@ import { EnumLayout } from "./EnumLayout";
 import { Confettiful } from "./CongratulationsAnimation";
 import { AuthRoute } from "@/routes/AuthRoute";
 import { ApplicationsLayout } from "./Application";
-import { allIcons, getFunction, signInAccount } from "@/apis";
-import { BottomSheetLayout } from "@/layouts/BottomSheetLayout";
+import { allIcons, signInAccount } from "@/apis";
 import { DateLayout } from "./DateLayout";
 import { ColorLayout } from "./ColorLayout";
 import { ClickedView } from "@/components/ClickedView";
 import {
   ArrayFieldCode,
   BooleanFieldCode,
+  BottomSheetLayoutCode,
+  CardWaitCode,
   DateFieldCode,
+  DatePickerCode,
   EnumFieldCode,
   FastListCode,
   FieldCode,
@@ -56,22 +58,6 @@ import {
   TabsCode,
 } from "@/test-components/Components";
 import React from "react";
-const markDownArrayContent = [
-  "# First Section",
-  "## Second Section",
-  "```js",
-  "console.log('Hello World')",
-  "```",
-  "```ts",
-  "const a : number = 3",
-  "```",
-  "```html",
-  "<div>",
-  "  <h1>Hello World</h1>",
-  "</div>",
-  "```",
-  "End",
-];
 const notificationsExmples: Omit<NotificationType, "id">[] = [
   {
     title: "Product Posted",
@@ -361,6 +347,10 @@ export function Test() {
                   label: "Layouts",
                   elements: [
                     {
+                      jsxElement: <DatePickerCode />,
+                      label: "Date Picker",
+                    },
+                    {
                       jsxElement: (
                         <Button
                           onClick={() => {
@@ -463,7 +453,9 @@ export function Test() {
                       jsxElement: (
                         <Button
                           onClick={() => {
-                            showToast("This is a toast", "info");
+                            showToast(
+                              '```json\n{ "name": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, itaque accusamus. Vero explicabo cumque quia eos, ipsum velit natus voluptates dolorem, laborum quas esse. Sed corporis ipsam sunt iure porro autem optio corrupti. Necessitatibus, aspernatur error. Dicta illum velit eaque assumenda eius, sint explicabo deserunt? Blanditiis quibusdam voluptatum iusto id repellat animi, neque, maxime error quo quaerat velit dolores perferendis totam commodi mollitia itaque numquam qui fugit voluptas dolorem optio nihil suscipit. Autem aliquid quaerat deserunt dolor magnam culpa, cupiditate nulla quia quisquam numquam adipisci. Ratione quas quidem nesciunt ullam id laborum explicabo a animi deleniti necessitatibus? Dolorem impedit odit soluta, quibusdam quisquam, doloribus rem, voluptate labore magnam tempora distinctio. Veritatis suscipit expedita ratione veniam aliquid iure quas sunt repudiandae! Temporibus perspiciatis veniam expedita repellendus inventore placeat sint laborum. Eos cumque molestias deserunt. Quia beatae iusto tempora magnam vel sapiente porro fugiat neque suscipit, assumenda repudiandae voluptatem placeat tempore sequi libero necessitatibus aspernatur! Numquam tempore architecto rem, eum velit rerum sit ex suscipit ipsum id quas maiores laboriosam, saepe, perferendis quod quo repellat in a at aliquam consectetur laborum dignissimos consequatur? Dolore, alias officiis! Explicabo, sint labore odit perferendis sapiente obcaecati id quis omnis fugit officiis tempora asperiores et voluptatibus quidem in quo assumenda ad architecto nesciunt laboriosam quibusdam eum, odio ipsa! Omnis vel eum tempora maxime a aperiam consequatur dolores unde? Beatae eum commodi tenetur expedita, debitis culpa exercitationem eveniet ab laboriosam mollitia quas sed perferendis natus labore doloribus, necessitatibus quia voluptate. Quidem fuga numquam, voluptate iste laborum saepe maiores impedit! Quibusdam, natus nisi aspernatur fugiat, quasi nihil eos molestias ullam earum reiciendis maxime nemo recusandae similique quos qui dolor eveniet. Aliquid assumenda culpa itaque corrupti ex officiis at laborum, porro molestiae amet reprehenderit similique. Totam consequuntur sint qui obcaecati earum ratione culpa. Aut vero veritatis, facere at ipsa dolorum eligendi nihil optio adipisci? Asperiores assumenda, suscipit labore pariatur tenetur fuga voluptas, nulla aliquam iste ad, quisquam dolores debitis nam alias voluptatibus sapiente. Dignissimos nihil, nostrum quaerat ipsum animi nam praesentium dolorem, omnis beatae, amet debitis corrupti commodi atque maiores. Dolorem, minima eum reprehenderit harum inventore voluptatibus iusto cum quisquam sit odio ipsum commodi similique necessitatibus suscipit ab molestiae possimus dignissimos, laborum officiis temporibus veniam nemo, laudantium labore quo! Fugit cumque quam architecto dignissimos similique consequatur distinctio perferendis doloribus eos, animi eum autem atque. At ipsam ipsa repellendus ab doloremque voluptates porro eligendi itaque mollitia commodi soluta hic consequuntur sunt sequi quod quasi saepe ratione ad animi quisquam reiciendis magnam, expedita est doloribus. Repudiandae voluptatum blanditiis perferendis distinctio alias dolorum voluptas beatae, esse tempore sequi non earum nulla aut accusamus suscipit obcaecati quae unde, magnam expedita itaque? Necessitatibus veritatis quas suscipit quaerat obcaecati laboriosam tempora quos temporibus fugiat explicabo sapiente nisi quidem, nam eligendi accusamus cum soluta doloribus tempore veniam amet atque harum cupiditate, odit enim? Tempore nobis ea voluptate. A quibusdam commodi, delectus cumque dicta consequatur molestiae laboriosam possimus repellendus, ipsam doloribus deserunt inventore consectetur quaerat libero ab tenetur cum. Doloremque, pariatur nam laborum neque debitis voluptate dicta?" }```',
+                            );
                           }}
                         >
                           Show Toast
@@ -530,8 +522,7 @@ export function Test() {
                             await signInAccount({
                               place: "window",
                               projectId: import.meta.env.VITE_PROJECT_ID,
-                              platform: import.meta.env.DEV ? "test" : "web",
-                              isDev: import.meta.env.DEV,
+                              key: import.meta.env.DEV ? "test" : "web",
                             });
                           }}
                         >
@@ -574,19 +565,11 @@ export function Test() {
                       label: "Ball Loading",
                     },
                     {
-                      label: "Somthing",
+                      label: "Card Wait Code",
                       jsxElement: (
-                        <Button
-                          onClick={async () => {
-                            const { callback } = getFunction<any, Record<string, string>>("hello", import.meta.env.DEV);
-                            const result = await callback({});
-                            console.log({
-                              result,
-                            });
-                          }}
-                        >
-                          Somthing
-                        </Button>
+                        <div className="flex flex-col w-full h-full">
+                          <CardWaitCode />
+                        </div>
                       ),
                     },
                   ],
@@ -678,13 +661,7 @@ export function Test() {
       <IframeLayout />
       <ApplicationsLayout />
       <EnumLayout />
-      <BottomSheetLayout min={"80vh"}>
-        <div className="p-5">
-          <Scroll>
-            <MarkDown value={markDownArrayContent.join("\n")} />
-          </Scroll>
-        </div>
-      </BottomSheetLayout>
+      <BottomSheetLayoutCode />
       <DateLayout />
       <ColorLayout />
     </EmptyComponent>

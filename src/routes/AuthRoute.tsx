@@ -1,4 +1,4 @@
-import { Server } from "@/apis/firebase";
+import { Server } from "@/apis/server.config";
 import { CircleLoading, EmptyComponent } from "@/components";
 import { useUser, useAsyncEffect, useCopyState } from "@/hooks";
 import { delay } from "@/utils";

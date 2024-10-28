@@ -7,23 +7,24 @@ import { setFocused, Shortcut, tw } from "@/utils";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FeildGeneralProps } from "@/types/global";
 import { SettingConfig } from "@/reducers/Settings/SettingConfig";
-import { useColorMerge } from "@/hooks";
+import { checkFormByFeilds, fieldHooks, useColorMerge } from "@/hooks";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import { keyHooks } from "@/data/system/keys.model";
 import { Translate } from "../Translate";
-import { useCopyState } from "@/hooks";
 import { Button } from "@/components/Button";
 import { Tip } from "@/components/Tip";
-import { Input } from "../Input";
+import { Feild } from "./Field";
 export type ArrayFeildProps = FeildGeneralProps<string[] | undefined, SettingConfig["array"]>;
 // term of use is when you have state contain array and you want to update the state from
-export function ArrayFeild({ state, id }: ArrayFeildProps) {
+export function ArrayFeild({ state, id, config }: ArrayFeildProps) {
   // full input element for append new items in array field
-  const inputValue = useCopyState("");
+  const inputValue = fieldHooks.useOneFeild(`array-${id}`, "value");
   // transform the array to unqiue data (ilyes,ilyes,aymen,akrem) => (ilyes,aymen,akrem)
   const uniqueData = React.useMemo(() => Array.from(new Set(state.get)), [state.get]);
   const colorMerge = useColorMerge();
   const add = React.useCallback(() => {
+    if (inputValue.get === undefined) {
+      return;
+    }
     if (uniqueData.includes(inputValue.get) || inputValue.get === "") {
       return;
     }
@@ -80,24 +81,29 @@ export function ArrayFeild({ state, id }: ArrayFeildProps) {
       </div>
       <div className="flex items-center gap-2">
         <div className="w-full">
-          <Input
-            value={inputValue.get}
+          <Feild
+            inputName={`array-${id}`}
             placeholder="write item..."
             id={id}
             onKeyDown={(e) => {
-              const shortcut = new Shortcut("enter");
+              const shortcut = new Shortcut("control?+enter");
               if (!shortcut.test(e)) {
                 return;
               }
-              add();
+              const { isValide } = checkFormByFeilds([`array-${id}`]);
+              if (isValide) {
+                add();
+                inputValue.set("");
+              } else {
+                setFocused("array-" + id);
+              }
             }}
-            spellCheck={false}
-            onValueChange={inputValue.set}
+            controls={config?.controls}
           />
         </div>
         {inputValue.get && (
-          <Button onClick={add} className="w-fit">
-            <Translate content="add" />
+          <Button onClick={add} className="py-1 w-fit">
+            <Translate content={config?.addText || "add"} />
           </Button>
         )}
       </div>

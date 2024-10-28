@@ -1,5 +1,5 @@
 import { DialogProps, SendEmailProps, SendTelProps, SendSmsProps, SetProgressProps, OpenMenuProps } from "@/types/global";
-import { onceState } from "@/hooks";
+import { onceState, onState } from "@/hooks";
 import { dialogTemps, menuTemp, progressTemp } from "@/reducers/Object/allTemps";
 import { nanoid } from "@reduxjs/toolkit";
 import { mapAsync } from "@/utils";
@@ -173,4 +173,36 @@ export const confirmation = async (config: Omit<DialogProps, "buttons">) => {
     buttons: ["Yes", "No"],
   });
   return res.response === 0;
+};
+export interface DatePickerTimeOptions {
+  properties: ["year", "month", "minutes", "hours", "seconds", "milliseconds"];
+  init: number | Date;
+}
+export interface DatePickerTimeResult {
+  time: number;
+  canceled: boolean;
+  id: string;
+}
+export const openDatePicker = async (config: Partial<DatePickerTimeOptions>): Promise<DatePickerTimeResult> => {
+  let id = nanoid();
+  setTemp("date-layout-time.init", config.init instanceof Date ? config.init.getTime() : config.init);
+  setTemp("date-layout-time.id", id);
+  return new Promise((res) => {
+    let un = onState(
+      "date-layout-time.id",
+      (layoutId) => layoutId == id,
+      (state) => {
+        const datePickerTimeState = getTempFromStore<{ result?: number; id: string; canceled?: boolean }>("date-layout-time", state);
+        if (typeof datePickerTimeState?.result == "number") {
+          res({
+            id,
+            time: datePickerTimeState.result,
+            canceled: datePickerTimeState.canceled || false,
+          });
+          setTemp("date-layout-time", null);
+          un();
+        }
+      },
+    );
+  });
 };

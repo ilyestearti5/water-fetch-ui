@@ -22,7 +22,7 @@ export function BooleanFeild({ state, config = {}, id }: BooleanFeildProps) {
   const focused = useCopyState(false);
   // desc: This is a boolean field component that can be used to toggle between true and false values.
   return (
-    <span className="inline-flex items-center gap-1">
+    <span className="inline-flex items-center gap-1 overflow-hidden">
       {config.style == "checkbox" ? (
         <button
           onClick={() => {

@@ -14,7 +14,7 @@ export interface PayoutResult {
   createdAt: number;
   payedAt?: number;
   payer: string;
-  platform: "test" | "web" | "desktop" | "mobile";
+  key: string;
   projectId: string;
   status: ChargeStatus;
   type: "subscription" | "transaction" | "payment";

@@ -40,6 +40,7 @@ export * from "./LargeButton";
 export * from "./Line";
 export * from "./List";
 export * from "./Loading";
+export * from "./Loading";
 export * from "./MarkDown";
 export * from "./MultiScreenPage";
 export * from "./Note";

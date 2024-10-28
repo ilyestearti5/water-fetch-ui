@@ -98,16 +98,19 @@ export const RangeFeild: React.FC<RangeFeildProps> = ({ state, config = {}, id }
       state.set(max);
     }
   }, [min, max, state.get]);
+  const focused = useCopyState(false);
   return (
     <div
       tabIndex={1}
+      onFocus={() => focused.set(true)}
+      onBlur={() => focused.set(false)}
       onKeyDown={(e) => {
         const a = new Shortcut("arrowright");
         const b = new Shortcut("arrowleft");
         if (a.test(e) && state.get < max) {
-          state.set(state.get + 1);
+          state.set(state.get + (config.steps || 1));
         } else if (b.test(e) && state.get > min) {
-          state.set(state.get - 1);
+          state.set(state.get - (config.steps || 1));
         }
       }}
       className="flex flex-col items-center w-full min-w-[150px] select-none"
@@ -115,8 +118,15 @@ export const RangeFeild: React.FC<RangeFeildProps> = ({ state, config = {}, id }
       <div
         ref={rangeRef}
         id={id}
-        style={{ ...colorMerge("gray.opacity") }}
-        className={`relative rounded-lg w-full h-[2px] cursor-${dragging.get ? "grabbing" : "grab"}`}
+        style={{
+          ...colorMerge(
+            "gray.opacity",
+            focused.get && {
+              outlineColor: "primary",
+            },
+          ),
+        }}
+        className={`relative outline-1 outline-offset-1 outline-solid rounded-lg w-full h-[2px] cursor-${dragging.get ? "grabbing" : "grab"}`}
         onTouchStart={handleTouchStart}
         onMouseDown={handleMouseDown}
       >

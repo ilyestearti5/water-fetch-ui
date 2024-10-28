@@ -9,20 +9,19 @@ import { TextAreaProps } from "@/components/TextArea";
 import { SettingValueType, SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { Setting, settingHooks, SettingIds } from "@/reducers/Settings/settings.model";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
-import { Server } from "@/apis/firebase";
+import { Server } from "@/apis/server.config";
 import { QueryStatus } from "react-query";
 import { onAuthStateChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
 import { NotificationType, notifayHooks } from "@/data/system/notifications.model";
-import { keyHooks } from "@/data/system/keys.model";
-import { fieldHooks, FeildRecord, FeildIds } from "@/data/system/field.model";
+import { Key, keyHooks } from "@/data/system/keys.model";
+import { fieldHooks, FeildRecord } from "@/data/system/field.model";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
 import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, transformCase, valueFromString } from "@/utils/index";
-import { CommandIds, commandsHooks } from "@/data/system/command.model";
+import { Command, CommandIds, commandsHooks } from "@/data/system/command.model";
 import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
 import { langHooks } from "@/data/system/lang.model";
-import { StartApplicationProps } from "@/app/application";
 import { getDownloadURL, ref } from "firebase/storage";
 export * from "@/reducers/Global/keyboard.slice";
 export * from "@/reducers/Global/title.slice";
@@ -674,13 +673,13 @@ export const useUser = () => {
 };
 export const verifieCapatcha = async () => {
   if (!Server.server) {
-    throw Error("Server is not initialized");
+    throw "Server is not initialized";
   }
   recaptchaTemp.setTemp("open", true);
   await delay(1000);
   const element = document.getElementById("capatcha-view");
   if (!element) {
-    throw Error("capatcha view element is not exists");
+    throw "capatcha view element is not exists";
   }
   const capatcha = new RecaptchaVerifier(Server.server.auth, element);
   return capatcha;
@@ -750,11 +749,9 @@ export const addNewWord = (text: string, langs: Record<string, string>) => {
     },
   ]);
 };
-export const useTemplateInfo = () => getTemp<StartApplicationProps>("project");
-
 export const getTheme = async (themeId: string) => {
   if (!Server.server) {
-    throw Error("Server Need To Be Inited");
+    throw "Server Need To Be Inited";
   }
   const store = Server.server.storage;
   const storeRef = ref(store, ["global", "themes", themeId.concat(".json")].join("/"));
@@ -764,7 +761,23 @@ export const getTheme = async (themeId: string) => {
     storeRef,
   };
 };
-
+export const addCommand = (command: Command, keys: Omit<Key, "command">[]) => {
+  commandsHooks.add([command]);
+  defineKeys(command.commandId, keys);
+};
+export const defineKeys = (command: CommandIds | string, keys: Omit<Key, "command">[]) => {
+  const state = store.getState();
+  const length = state.keys.ids.length;
+  keyHooks.add(
+    keys.map((props, index) => {
+      return {
+        keyId: (length + index).toString(),
+        command,
+        ...props,
+      };
+    }),
+  );
+};
 export const setTheme = async (themeId: string) => {
   const { storeRef, url } = await getTheme(themeId);
   const response = await fetch(url);
@@ -776,4 +789,10 @@ export const setTheme = async (themeId: string) => {
     url,
     storeRef,
   };
+};
+export const showBottomSheet = () => {
+  viewTemps.setTemp("bottomSheet", true);
+};
+export const closeBottomSheet = () => {
+  viewTemps.setTemp("bottomSheet", false);
 };

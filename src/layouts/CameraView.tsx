@@ -1,73 +1,92 @@
+import React from "react";
+import { SeparatedViewsLine, SeparatedViewsLineTitle, CircleTip, TitleView } from "@/components";
+import { openMenu, useColorMerge, useCopyState } from "@/hooks";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { cameraTemp } from "@/reducers/Object/allTemps";
-import { BlurOverlay } from "../components/Overlays";
 import { CameraOptions, Nothing } from "@/types/global";
-import { openMenu, useAsyncEffect, useAsyncMemo, useColorMerge } from "@/hooks";
-import { SeparatedViewsLine, SeparatedViewsLineTitle, CircleTip, TitleView } from "@/components";
-import { tw } from "@/utils";
-import QrCodeReader from "react-qrcode-reader";
+import { BlurOverlay } from "../components/Overlays";
 import { allIcons } from "@/apis";
-import React from "react";
-// Scan And Dispatch A Event
 export interface CameraDeviceInfo {
   label: string;
   id: string;
 }
 export function CameraView() {
   const cameraType = cameraTemp.getTemp<CameraOptions["type"]>("type");
-  // time for loading camera qr code scanner view
   const cameraId = cameraTemp.getTemp<string | Nothing>("id");
+  const videoElementRef = React.useRef<HTMLVideoElement>(null);
+  const cameraTracks = useCopyState<Omit<MediaDeviceInfo, "toJSON">[]>([]);
+  const currentStream = useCopyState<MediaStream | null>(null);
+  const stopTracking = React.useCallback((media: MediaStream) => {
+    media.getTracks().forEach((track) => track.stop());
+  }, []);
+  const switchCameraDevice = React.useCallback(
+    async (deviceId: string) => {
+      try {
+        if (currentStream.get) {
+          stopTracking(currentStream.get);
+        }
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { deviceId: { exact: deviceId } },
+        });
+        if (videoElementRef.current) {
+          videoElementRef.current.srcObject = stream;
+          currentStream.set(stream);
+        }
+      } catch (error) {
+        console.error("Error switching camera: ", error);
+      }
+    },
+    [currentStream.get, stopTracking],
+  );
+  const colorMerge = useColorMerge();
+  // Capture an image from the video feed
   useAction(
     "camera-take",
-    () => {
-      if (cameraId && cameraType == "take") {
-        const element = document.querySelector<HTMLVideoElement>("#camera-view video");
-        if (!element) {
-          return;
-        }
+    async () => {
+      if (cameraId && currentStream.get && cameraType === "take" && videoElementRef.current) {
         const canvas = document.createElement("canvas");
-        canvas.width = element.videoWidth;
-        canvas.height = element.videoHeight;
+        canvas.width = videoElementRef.current.videoWidth;
+        canvas.height = videoElementRef.current.videoHeight;
         const ctx = canvas.getContext("2d");
-        ctx?.drawImage(element, 0, 0, canvas.width, canvas.height);
+        ctx?.drawImage(videoElementRef.current, 0, 0, canvas.width, canvas.height);
         const base64String = canvas.toDataURL("image/jpeg");
+        stopTracking(currentStream.get);
         cameraTemp.setTemp("result", base64String);
       }
     },
-    [cameraType, cameraId],
+    [cameraType, cameraId, videoElementRef, currentStream.get, stopTracking],
   );
-  const cameraTracks = cameraTemp.getTemp<Omit<MediaDeviceInfo, "toJSON">[]>("tracks");
-  const isLoading = useAsyncEffect(async () => {
-    if (cameraId) {
-      /// get list of camera devices
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter((device) => device.kind === "videoinput");
-      cameraTemp.setTemp(
-        "tracks",
-        videoDevices.map(({ deviceId, groupId, kind, label }) => ({
-          deviceId,
-          groupId,
-          kind,
-          label,
-        })),
-      );
-    }
-  }, [cameraId]);
-  const stopTracking = React.useCallback((media: MediaStream) => {
-    media.getTracks().forEach((track) => {
-      track.stop();
-    });
-  }, []);
+  // Initialize the camera and get available devices
   React.useEffect(() => {
-    if (!cameraId) {
-      const element = document.querySelector<HTMLVideoElement>("#camera-view video");
-      if (element) {
-        element.srcObject = null;
+    const initializeCamera = async () => {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter((device) => device.kind === "videoinput");
+        cameraTracks.set(videoDevices);
+        if (videoDevices.length > 0) {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { deviceId: { exact: videoDevices[0].deviceId } },
+          });
+          if (videoElementRef.current) {
+            videoElementRef.current.srcObject = stream;
+            currentStream.set(stream);
+          }
+        }
+      } catch (error) {
+        // error
       }
+    };
+    if (cameraId) {
+      initializeCamera();
     }
+    return () => {
+      // Clean up when component unmounts or camera closes
+      if (currentStream.get) {
+        currentStream.get.getTracks().forEach((track) => track.stop());
+      }
+    };
   }, [cameraId]);
-  // render element for image
-  const colorMerge = useColorMerge();
+
   return (
     <BlurOverlay hidden={!cameraId}>
       <SeparatedViewsLine
@@ -79,8 +98,8 @@ export function CameraView() {
               <CircleTip
                 icon={allIcons.solid.faXmark}
                 onClick={() => {
-                  // stoping camera
                   cameraTemp.setTemp("error", "Escape Take Image");
+                  if (currentStream.get) stopTracking(currentStream.get);
                 }}
               />
             }
@@ -94,45 +113,31 @@ export function CameraView() {
                 }),
               }}
             >
-              {cameraType && cameraId && <QrCodeReader onRead={() => {}} delay={200} width={400} height={400} videoConstraints />}
+              {cameraType && cameraId && <video autoPlay ref={videoElementRef} id="video-streaming" className="w-full h-full" />}
             </div>
           </div>,
-          cameraType == "take" && (
+          cameraType === "take" && (
             <div className="flex justify-evenly p-4 w-full h-[70px] text-2xl">
-              <TitleView title="change camera device">
-                <CircleTip
-                  icon={allIcons.solid.faCameraRotate}
-                  onClick={({ clientX, clientY }) => {
-                    if (cameraTracks && !isLoading) {
+              {cameraTracks.get.length > 1 && (
+                <TitleView title="Change Camera Device">
+                  <CircleTip
+                    icon={allIcons.solid.faCameraRotate}
+                    onClick={({ clientX, clientY }) => {
                       openMenu({
                         x: clientX,
                         y: clientY,
-                        menu: cameraTracks.map(({ label, deviceId }) => {
-                          return {
-                            label,
-                            async click() {
-                              // switch camera device
-                              const videoElement = document.querySelector<HTMLVideoElement>("#camera-view video");
-                              if (videoElement) {
-                                if (videoElement.srcObject instanceof MediaStream) {
-                                  stopTracking(videoElement.srcObject);
-                                }
-                                const stream = await navigator.mediaDevices.getUserMedia({
-                                  video: {
-                                    deviceId: { exact: deviceId },
-                                  },
-                                });
-                                videoElement.srcObject = stream;
-                              }
-                            },
-                          };
-                        }),
+                        menu: cameraTracks.get.map(({ label, deviceId }) => ({
+                          label,
+                          async click() {
+                            await switchCameraDevice(deviceId);
+                          },
+                        })),
                       });
-                    }
-                  }}
-                />
-              </TitleView>
-              <TitleView title="take image">
+                    }}
+                  />
+                </TitleView>
+              )}
+              <TitleView title="Take Image">
                 <CircleTip
                   onClick={() => {
                     execAction("camera-take");
