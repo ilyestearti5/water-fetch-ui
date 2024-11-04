@@ -20,30 +20,42 @@ export declare const allIcons: {
 export declare class Cloud<M> {
     metaData: M;
     constructor(metaData: M);
-    get app(): {
-        readonly database: {
-            createDoc<T extends object>(path: string[] | string, content: T): Promise<void>;
-            upsertDoc<T extends object>(path: string[] | string, content: T): Promise<void>;
-            updateDoc<T extends object>(path: string[] | string, content: T): Promise<void>;
-            deleteDoc(path: string[] | string): Promise<void>;
-            getDoc(path: string[] | string): Promise<void>;
-            getDocs(path: string[] | string): Promise<void>;
+    define<T extends keyof Cloud<M>["app"], S extends keyof Cloud<M>["app"][T]>(a: T, b: S, callback: Cloud<M>["app"][T][S]): void;
+    private app;
+    call<T extends keyof Cloud<M>["app"], S extends keyof Cloud<M>["app"][T]>(a: T, b: S): {
+        database: {
+            createDoc: <T_1 extends object>(path: string[] | string, content: T_1) => Promise<void>;
+            upsertDoc: <T_1 extends object>(path: string[] | string, content: T_1) => Promise<void>;
+            updateDoc: <T_1 extends object>(path: string[] | string, content: T_1) => Promise<void>;
+            deleteDoc: (path: string[] | string) => Promise<void>;
+            getDoc: <T_1 extends object>(path: string[] | string) => Promise<T_1 | null>;
+            getDocs: <T_1 extends object>(path: string[] | string) => Promise<T_1[] | null>;
         };
-        readonly storage: {
+        storage: {
             createFile(path: string[] | string, content: string | Blob | Uint8Array | ArrayBuffer): Promise<void>;
             upsertFile(path: string[] | string, content: string | Blob | Uint8Array | ArrayBuffer): Promise<void>;
             updateFile(path: string[] | string, content: string | Blob | Uint8Array | ArrayBuffer): Promise<void>;
             deleteFile(path: string[] | string): Promise<void>;
-            getFile(path: string[] | string): Promise<void>;
-            getFiles(path: string[] | string): Promise<void>;
+            getFileContent(path: string[] | string): Promise<Blob | null>;
+            getFiles(path: string[] | string): Promise<string[] | null>;
         };
-        readonly auth: {
-            getCurrentAuth(): void;
+        auth: {
+            changeUser(token: string): Promise<void>;
+            signIn(provider: "phone" | "google" | "facebook" | "github" | "tiktok" | "linkdin"): Promise<void>;
+            update(userInfo: UserDB, extraInfo: Partial<{
+                pinCode: string;
+                smsCode: string;
+            }>): Promise<void>;
+            getCurrentAuth(): Promise<UserDB | null>;
+            signOut(): Promise<void>;
+            deleteUser(): Promise<void>;
+            getUserToken(): Promise<string | null>;
+            resetPassword(): Promise<void>;
         };
-        readonly functions: {
-            getFunction<T extends string>(name: T, metaData: any): Promise<void>;
+        functions: {
+            getFunction<T_1 extends string, S_1 extends object>(name: T_1, metaData: S_1): Promise<Function | null>;
         };
-    };
+    }[T][S];
 }
 
 export declare const firebaseConfig: {
@@ -115,5 +127,17 @@ export declare function signInAccount({ place, ...props }: SignInAccountProps): 
 declare interface SignInAccountProps extends GenerateAuthUrlParams {
     place: "window" | "frame" | "redirect";
 }
+
+declare type UserDB = Partial<{
+    nickname: string | null;
+    firstname: string | null;
+    lastname: string | null;
+    email: string | null;
+    phone: string | null;
+    photo: string | null;
+    uid: string;
+    birthDay: number | null;
+    extraData: Record<string, any>;
+}>;
 
 export { }
