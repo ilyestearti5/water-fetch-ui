@@ -47,7 +47,7 @@ export function Tab({ children, icon, className, iconClassName, isActive, style,
         ),
         ...style,
       }}
-      className={tw(`flex items-center justify-center p-2 rounded-[15%] cursor-pointer active:scale-95`, isAnimation && "transition-[background,color,transform]", className)}
+      className={tw(`select-none flex items-center justify-center p-2 rounded-[15%] cursor-pointer active:scale-95`, isAnimation && "transition-[background,color,transform]", className)}
       {...props}
     >
       <Icon iconClassName={iconClassName} icon={icon} />
