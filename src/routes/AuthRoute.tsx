@@ -1,12 +1,11 @@
-import { Server } from "@/apis/server.config";
+import { getMainCloud } from "@/apis/server.config";
 import { CircleLoading, EmptyComponent } from "@/components";
-import { useUser, useAsyncEffect, useCopyState } from "@/hooks";
+import { useUser, useAsyncEffect, UserDB } from "@/hooks";
 import { delay } from "@/utils";
-import { signInWithCustomToken, User } from "firebase/auth";
 import React from "react";
 export interface AuthRouteProps {
-  onAuthSuccess?: (user: User) => void;
-  successComponent?: JSX.Element | ((props: { user: User }) => JSX.Element);
+  onAuthSuccess?: (user: UserDB) => void;
+  successComponent?: JSX.Element | ((props: { user: UserDB }) => JSX.Element);
 }
 export const AuthRoute = ({ onAuthSuccess, successComponent: Component = <EmptyComponent /> }: AuthRouteProps) => {
   const searchParams = new URLSearchParams(location.search);
@@ -14,8 +13,8 @@ export const AuthRoute = ({ onAuthSuccess, successComponent: Component = <EmptyC
   const user = useUser();
   const isLoading = useAsyncEffect(async () => {
     await delay(1200);
-    if (token && Server.server) {
-      await signInWithCustomToken(Server.server.auth, token);
+    if (token) {
+      await getMainCloud().app.auth.signInWithCustomToken(token);
     }
   }, [token]);
   React.useEffect(() => {

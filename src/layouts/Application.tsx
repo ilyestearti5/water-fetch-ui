@@ -1,25 +1,20 @@
 import React from "react";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { closeApplications, useColorMerge, useTemp, viewTemps } from "@/hooks";
 import { Card, CircleTip, DownOverlay, Line, Scroll, Translate } from "@/components";
-import { allIcons, Server } from "@/apis";
+import { allIcons, getMainCloud, ProjectConfig } from "@/apis";
 // Example usage
 export const ApplicationsLayout = () => {
   const visibility = viewTemps.getTemp("applications");
-  const apps = useTemp<{ label: string; imageUrl: string; site?: string }[]>("list.applications");
+  const apps = useTemp<ProjectConfig[]>("list.applications");
   React.useEffect(() => {
-    if (!Server.server?.db) {
-      return;
-    }
-    const q = query(collection(Server.server.db, "projects"), where("label", "!=", null));
-    return onSnapshot(q, ({ docs }) => {
+    return getMainCloud().app.database.onCollectionSnapshot<ProjectConfig>("projects", (props) => {
       apps.set(
-        docs.map((props) => {
-          const data = props.data();
+        props.map(({ id, data }) => {
           return {
             label: data.label,
             imageUrl: data.imageUrl,
             site: data.site,
+            id: id,
           };
         }),
       );

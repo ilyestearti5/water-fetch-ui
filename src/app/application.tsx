@@ -11,7 +11,7 @@ import { execAction } from "@/data/system/actions.model";
 import { EmptyComponent } from "@/components/EmptyComponent";
 import { defaultObject, delay, mapAsync } from "@/utils";
 import { createRoot } from "react-dom/client";
-import { getLocalDB, Server } from "@/apis";
+import { ClientCloud, getLocalDB, getMainCloud } from "@/apis";
 import { Button, Card, CircleLoading, Translate } from "@/components";
 import { addCommand, Color, colorHooks, getTemp, initUser, Key, Lang, langHooks, setTemp, SettingValueType, useIdleStatus } from "@/hooks";
 const { data } = settings;
@@ -65,23 +65,25 @@ export const Application = ({ props }: ApplicationProps) => {
   const isDev = getTemp<boolean>("env.isDev");
   React.useEffect(() => {
     if (isDev) {
-      window.store = store;
+      window.auth = getMainCloud().app.auth;
+      window.cloud = ClientCloud;
       window.execAction = execAction;
-      window.localDB = getLocalDB();
       window.execCommand = execCommand;
-      window.auth = Server.server?.auth;
+      window.localDB = getLocalDB();
+      window.store = store;
       return () => {
-        delete window.store;
+        delete window.auth;
+        delete window.cloud;
         delete window.execAction;
         delete window.execCommand;
         delete window.localDB;
-        delete window.auth;
+        delete window.store;
       };
     }
   }, [isDev]);
   const { status } = useIdleStatus(async () => {
     await delay(props.timeLoading);
-    setTemp("env.isDev", props.isDev);
+    setTemp("env.mode", props.isDev ? "sandbox" : "live");
     let config = props.onPrepare?.();
     if (config instanceof Promise) {
       config = await config;

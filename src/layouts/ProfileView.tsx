@@ -1,18 +1,15 @@
 import { viewTemps } from "@/reducers/Object/allTemps";
-import { signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
-import { Server } from "@/apis/server.config";
 import { Password } from "@/components/Fields/PasswordField";
 import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { FacebookAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { faRotate, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { execAction, useAction } from "@/data/system/actions.model";
 import { delay, mergeArray, setFocused, tw } from "@/utils";
-import { checkFormByFeilds, fieldHooks, useUser, useUserFromDB, showToast, useColorMerge, useCopyState } from "@/hooks";
+import { checkFormByFeilds, fieldHooks, useUser, showToast, useColorMerge, useCopyState } from "@/hooks";
 import { Anchor, AsyncComponent, BlurOverlay, Button, Card, CircleLoading, CircleTip, EmptyComponent, Feild, Icon, Line, MultiScreenPage, Scroll, Translate } from "@/components";
-import { allIcons } from "@/apis";
+import { allIcons, getMainCloud } from "@/apis";
 export const emailRegExp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,} *$";
 export interface ProfileContentProps {
   children?: any;
@@ -27,10 +24,6 @@ export const SignupPage = () => {
   const signupAction = useAction(
     "signup",
     async () => {
-      if (!Server.server?.auth) {
-        showToast("Error When Loading The Auth", "error");
-        return;
-      }
       if (!email) {
         showToast("Email is required", "error");
         setFocused("signupUseremail");
@@ -51,7 +44,7 @@ export const SignupPage = () => {
         setFocused("user-password-confirm");
         return;
       }
-      await createUserWithEmailAndPassword(Server.server.auth, email, passwordState.get);
+      await getMainCloud().app.auth.createUserWithEmailAndPassword(email, passwordState.get);
     },
     [email, passwordState.get, passwordConfirmState.get],
   );
@@ -184,10 +177,6 @@ export const LoginPage = () => {
   useAction(
     "login",
     async () => {
-      if (!Server.server?.auth) {
-        showToast("Error When Loading The Auth", "error");
-        return;
-      }
       if (!email) {
         showToast("Email is required", "error");
         return;
@@ -196,25 +185,21 @@ export const LoginPage = () => {
         showToast("Password must be at least 6 characters", "error");
         return;
       }
-      await signInWithEmailAndPassword(Server.server.auth, email, passwordState.get);
+      await getMainCloud().app.auth.signInWithEmailAndPassword(email, passwordState.get);
     },
     [email, passwordState.get],
   );
   const signInWithPopupFacebookAction = useAction(
     "sign-in-facebook",
     async () => {
-      if (Server.server?.auth) {
-        await signInWithPopup(Server.server.auth, new FacebookAuthProvider());
-      }
+      await getMainCloud().app.auth.signIn("facebook");
     },
     [],
   );
   const signInWithPopupGoogleAction = useAction(
     "sign-in-google",
     async () => {
-      if (Server.server?.auth) {
-        await signInWithPopup(Server.server.auth, new GoogleAuthProvider());
-      }
+      await getMainCloud().app.auth.signIn("google");
     },
     [],
   );
@@ -224,13 +209,9 @@ export const LoginPage = () => {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            if (!Server.server?.auth) {
-              showToast("Error When Loading The Auth", "error");
-              return;
-            }
             if (email && passwordState.get) {
               try {
-                await signInWithEmailAndPassword(Server.server.auth, email, passwordState.get);
+                await getMainCloud().app.auth.signInWithEmailAndPassword(email, passwordState.get);
               } catch {
                 showToast("Password Or Email Is Incorrect 😴", "error");
               }
@@ -374,31 +355,24 @@ export const LoginContent = () => {
 export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
   const colorMerge = useColorMerge();
   const user = useUser();
-  const userFromDb = useUserFromDB();
   const isDev = getTemp<boolean>("env.isDev");
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="p-2">
         <div className="flex max-sm:flex-col items-center gap-3">
-          <div
-            style={{
-              ...colorMerge(
-                user?.emailVerified && {
-                  outlineColor: "success.text",
-                },
-              ),
-            }}
-            className={tw("relative rounded-full w-[100px] h-[100px] max-sm:w-[60px] max-sm:h-[60px] overflow-hidden", user?.emailVerified && "outline-1 outline-offset-1")}
-          >
-            {user?.photoURL && <img src={user?.photoURL?.toString()} className="w-full h-full object-cover" />}
-            {!user?.photoURL && <Icon icon={faUser} />}
+          <div className={tw("relative rounded-full w-[100px] h-[100px] max-sm:w-[60px] max-sm:h-[60px] overflow-hidden")}>
+            {user?.photo && <img src={user?.photo?.toString()} className="w-full h-full object-cover" />}
+            {!user?.photo && <Icon icon={faUser} />}
           </div>
           <div className="max-sm:flex max-sm:flex-col max-sm:justify-cente">
-            <h1 className="text-2xl">{userFromDb?.nickname || "No Name"}</h1>
-            <p>{userFromDb?.email}</p>
-            {userFromDb && (
+            <h1 className="text-2xl">{user?.nickname || "No Name"}</h1>
+            <p>{user?.email}</p>
+            {user && (
               <div className="flex items-center">
-                <span>Phone Number</span> : {user?.phoneNumber || " - "}
+                <span className="capitalize">
+                  <Translate content="phone number" />
+                </span>{" "}
+                : {user?.phone || " - "}
               </div>
             )}
             <Button
@@ -465,9 +439,6 @@ export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
             ...colorMerge("error"),
           }}
           onClick={async () => {
-            if (!Server.server) {
-              return;
-            }
             const { response } = await openDialog({
               title: "Logout",
               message: "Are you sure you want to logout?",
@@ -475,7 +446,7 @@ export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
               defaultId: 1,
             });
             if (response) {
-              await signOut(Server.server.auth);
+              await getMainCloud().app.auth.signOut();
             } else {
               showToast("Ignore Logout", "error");
             }
@@ -488,7 +459,7 @@ export const ProfileContent = ({ children = "" }: ProfileContentProps) => {
   );
 };
 export const ProfileView = ({ children }: ProfileViewProps) => {
-  const user = useUserFromDB();
+  const user = useUser();
   return (
     <div className="relative flex flex-col w-full h-full overflow-hidden">
       <AsyncComponent

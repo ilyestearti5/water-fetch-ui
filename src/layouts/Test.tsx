@@ -20,7 +20,7 @@ import { openDialog, openMenu } from "@/functions/app/web/web-utils";
 import { NotificationType } from "@/data/system/notifications.model";
 import { KeyboardView } from "./KeyboardView";
 import { IframeLayout } from "./IframeLayout";
-import { useUserFromDB, openCamera, setSettingValue, settingHooks, showApplications, showNotification, showProfile, showSetting, showToast, useColorMerge, viewTemps } from "@/hooks";
+import { openCamera, setSettingValue, settingHooks, showApplications, showNotification, showProfile, showSetting, showToast, useColorMerge, useUser, viewTemps } from "@/hooks";
 import { Route, Switch } from "react-router-dom";
 import { PayoutResult, PayoutRoute } from "@/routes";
 import { FixedProfileView } from "./ProfileView";
@@ -86,7 +86,7 @@ const notificationsExmples: Omit<NotificationType, "id">[] = [
   },
 ];
 export function Test() {
-  const userFromDb = useUserFromDB();
+  const user = useUser();
   const allSettings = settingHooks.getAll();
   const colorMerge = useColorMerge();
   const chargeIcons = React.useMemo(() => {
@@ -176,7 +176,7 @@ export function Test() {
         <Route path="/">
           <Header>
             <h1 className="w-full text-center capitalize">
-              <Translate content="click in the link to see your account" /> {userFromDb && "(" + userFromDb.nickname + ")"}
+              <Translate content="click in the link to see your account" /> {user && "(" + user.nickname + ")"}
               <Anchor
                 onClick={(e) => {
                   e.preventDefault();

@@ -34,8 +34,11 @@ export const PayoutRoute = ({ onPayoutSuccess, successComponent: Component = <Em
   const isLoading = useAsyncEffect(async () => {
     await delay(1200);
     if (payoutId && user) {
-      const { callback: getPayout } = getUserFunction<PayoutResult, { payoutId: string }>("payout-get");
-      const payout = await getPayout({
+      const fn = await getUserFunction<{ payoutId: string }, PayoutResult>("payout-get");
+      if (!fn) {
+        return;
+      }
+      const payout = await fn.callback({
         payoutId,
       });
       payoutState.set(payout);

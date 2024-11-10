@@ -2,27 +2,24 @@ import pouchdbUpsert from "pouchdb-upsert";
 import PouchDB from "pouchdb";
 import React from "react";
 import { store } from "@/store";
-import { viewTemps, cameraTemp, recaptchaTemp, iframeTemp } from "@/reducers/Object/allTemps";
+import { viewTemps, cameraTemp, iframeTemp } from "@/reducers/Object/allTemps";
 import { viewHooks } from "@/data/system/views.model";
 import { ToastType, toastHooks } from "@/data/system/toasts.model";
 import { TextAreaProps } from "@/components/TextArea";
 import { SettingValueType, SettingConfig } from "@/reducers/Settings/SettingConfig";
 import { Setting, settingHooks, SettingIds } from "@/reducers/Settings/settings.model";
 import { setTemp, getTemp } from "@/reducers/Object/object.slice";
-import { Server } from "@/apis/server.config";
+import { getMainCloud } from "@/apis/server.config";
 import { QueryStatus } from "react-query";
-import { onAuthStateChanged, RecaptchaVerifier, updateProfile, User } from "firebase/auth";
 import { NotificationType, notifayHooks } from "@/data/system/notifications.model";
 import { Key, keyHooks } from "@/data/system/keys.model";
 import { fieldHooks, FeildRecord } from "@/data/system/field.model";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
-import { con, Db, delay, Delay, getSeparateSearchInput, include, isLike, mergeArray, transformCase, valueFromString } from "@/utils/index";
+import { con, Db, Delay, getSeparateSearchInput, include, isLike, mergeArray, transformCase, valueFromString } from "@/utils/index";
 import { Command, CommandIds, commandsHooks } from "@/data/system/command.model";
 import { ColorIds, colorHooks, Color } from "@/data/system/colors.model";
-import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { CameraConfig, CameraResult, CssColorKeys, FullCameraResult, FullStateManagment, Nothing } from "@/types/global";
 import { langHooks } from "@/data/system/lang.model";
-import { getDownloadURL, ref } from "firebase/storage";
 export * from "@/reducers/Global/keyboard.slice";
 export * from "@/reducers/Global/title.slice";
 export * from "@/reducers/Object/object.slice";
@@ -246,6 +243,12 @@ export function setSettingConfig<ID extends keyof SettingValueType>(settingId: `
 }
 export function setSettingValue<ID extends keyof SettingValueType>(settingId: `${string}.${ID}`, value: SettingValueType[ID]) {
   settingHooks.setOneFeild(settingId, "value", value);
+}
+export function setFieldValue(fieldId: string, value: string) {
+  fieldHooks.setOneFeild(fieldId, "value", value);
+}
+export function removeField(fieldId: string) {
+  fieldHooks.remove([fieldId]);
 }
 export function useSettingValue<ID extends keyof SettingConfig>(settingId: Setting<ID>["settingId"]) {
   const setting = useSettingById(settingId);
@@ -611,78 +614,23 @@ export const onState = <T extends object | string | number | boolean | null>(sta
   return store.subscribe(callback);
 };
 export { store };
-export const useUserFromDB = () => getTemp<UserDB>("userInfo");
 export const initUser = () => {
-  const user = useUser();
-  const userDb = useUserFromDB();
-  useAsyncEffect(async () => {
-    if (user?.uid && Server.server) {
-      const col = collection(Server.server.db, "users");
-      const userDoc = doc(col, user.uid);
-      const userInfo: Partial<UserDB> = {
-        photo: user.photoURL,
-        phone: user.phoneNumber,
-        nickname: user.displayName,
-        email: user.email,
-      };
-      const userControlledInfo = { ...userInfo, uid: user.uid };
-      setTemp("userInfo", userControlledInfo);
-      await setDoc(userDoc, userInfo, { merge: true });
-    } else {
-      setTemp("userInfo", null);
-    }
-  }, [user]);
-  useAsyncEffect(async () => {
-    if (user && userDb) {
-      let updatedData: Partial<{ displayName: string | null; photoURL: string | null }> = {};
-      if (user.displayName != userDb.nickname) {
-        updatedData.displayName = userDb.nickname;
-      }
-      if (user.photoURL != userDb.photo) {
-        updatedData.photoURL = userDb.photo;
-      }
-      await updateProfile(user, updatedData);
-    }
-  }, [userDb, user]);
+  const inited = useCopyState(false);
   React.useEffect(() => {
-    const server = Server.server;
-    if (user?.uid && server?.db) {
-      return onSnapshot(doc(server.db, "users", user.uid), (doc) => {
-        if (doc.exists()) {
-          setTemp("userInfo", {
-            uid: doc.id,
-            ...doc.data(),
-          });
-        } else {
-          setTemp("userInfo", null);
-        }
-      });
-    }
-  }, [user]);
+    return getMainCloud().app.auth.onAuthStateChanged((data) => {
+      inited.set(true);
+      setTemp("userInfo", data);
+    });
+  }, []);
+};
+export const useUserLoading = () => {
+  const userIsLoading = getTemp<boolean>("user-is-loading");
+  return React.useMemo(() => {
+    return userIsLoading ?? true;
+  }, [userIsLoading]);
 };
 export const useUser = () => {
-  const user = useCopyState<User | null>(null);
-  // on user change
-  React.useEffect(() => {
-    if (Server.server?.auth) {
-      user.set(Server.server.auth.currentUser);
-      return onAuthStateChanged(Server.server.auth, user.set);
-    }
-  }, []);
-  return user.get;
-};
-export const verifieCapatcha = async () => {
-  if (!Server.server) {
-    throw "Server is not initialized";
-  }
-  recaptchaTemp.setTemp("open", true);
-  await delay(1000);
-  const element = document.getElementById("capatcha-view");
-  if (!element) {
-    throw "capatcha view element is not exists";
-  }
-  const capatcha = new RecaptchaVerifier(Server.server.auth, element);
-  return capatcha;
+  return getTemp<UserDB>("userInfo");
 };
 export const showProfile = () => {
   viewTemps.setTemp("profile-view", true);
@@ -750,16 +698,13 @@ export const addNewWord = (text: string, langs: Record<string, string>) => {
   ]);
 };
 export const getTheme = async (themeId: string) => {
-  if (!Server.server) {
-    throw "Server Need To Be Inited";
+  const blob = await getMainCloud().app.storage.getFileContent(["global", "themes", themeId.concat(".json")]);
+  const fileContent = await blob?.text();
+  if (fileContent) {
+    const result: Record<string, Color> = JSON.parse(fileContent);
+    return result;
   }
-  const store = Server.server.storage;
-  const storeRef = ref(store, ["global", "themes", themeId.concat(".json")].join("/"));
-  const url = await getDownloadURL(storeRef);
-  return {
-    url,
-    storeRef,
-  };
+  return null;
 };
 export const addCommand = (command: Command, keys: Omit<Key, "command">[]) => {
   commandsHooks.add([command]);
@@ -779,16 +724,10 @@ export const defineKeys = (command: CommandIds | string, keys: Omit<Key, "comman
   );
 };
 export const setTheme = async (themeId: string) => {
-  const { storeRef, url } = await getTheme(themeId);
-  const response = await fetch(url);
-  const json: Color[] = await response.json();
-  colorHooks.upsert(json);
-  return {
-    json,
-    response,
-    url,
-    storeRef,
-  };
+  const jsonContent = await getTheme(themeId);
+  if (jsonContent) {
+    colorHooks.upsert(jsonContent);
+  }
 };
 export const showBottomSheet = () => {
   viewTemps.setTemp("bottomSheet", true);

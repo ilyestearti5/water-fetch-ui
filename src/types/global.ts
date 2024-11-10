@@ -149,3 +149,8 @@ export type CssColorKeys =
   | "caretColor"
   | "fill"
   | "stroke";
+export interface CloudFunction<P, R> {
+  callback: (data: P) => Promise<R>;
+  signal: AbortSignal;
+  controller: AbortController;
+}

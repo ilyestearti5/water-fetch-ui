@@ -122,10 +122,10 @@ export function defineTable<T extends object, I extends keyof T, N extends strin
     remove(ids: EntityId[]) {
       getNeededStore().dispatch(slice.actions.remove(ids));
     },
-    add(data: T[]) {
+    add(data: T[] | Record<EntityId, T>) {
       getNeededStore().dispatch(slice.actions.add(data));
     },
-    upsert(data: T[]) {
+    upsert(data: Record<EntityId, T> | T[]) {
       getNeededStore().dispatch(slice.actions.upsert(data));
     },
     getOne(id: EntityId) {
